@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IC3 SPARK LEVEL 2 - KIẾN THỨC NỀN TẢNG 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Giữ nguyên bảng màu của Level 2 (Màu cam/vàng chủ đạo để phân biệt với Level 1 xanh) hoặc dùng màu chuẩn xanh */
+            --primary-gradient: linear-gradient(135deg, #e65c00 0%, #F9D423 100%); /* Level 2 tone cam */
+            --accent-color: #ff9800;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
+
+        /* HEADER */
+        header {
+            background: var(--primary-gradient); color: white; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-bottom: 6px solid #d35400;
+        }
+        
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2); color: white; text-decoration: none;
+            padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.5); transition: all 0.3s;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .back-btn:hover { background: #fff; color: #e65c00; border-color: #fff; }
+
+        .logo-ic3 {
+            font-family: 'Kanit', sans-serif; font-size: 2.2rem; font-style: italic; font-weight: 800;
+            display: flex; align-items: center; letter-spacing: -1px;
+        }
+        .logo-ic3 span:nth-child(1) { color: #fff; -webkit-text-stroke: 0px; } /* I */
+        .logo-ic3 span:nth-child(2) { color: #fff; -webkit-text-stroke: 0px; margin-right: 3px; } /* C */
+        .logo-ic3 span:nth-child(3) { color: #333; font-size: 2.5rem; margin-right: 8px; } /* 3 */
+        .logo-ic3 span:nth-child(4) { color: #fff; font-size: 2rem; letter-spacing: 0; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); } /* spark */
+
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        
+        .question-card {
+            background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px;
+            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .question-card.incomplete { border: 2px solid var(--error-color); background-color: #fff6f6; }
+        
+        .topic-label {
+            position: absolute; top: -12px; left: 20px; background: #e67e22; /* Màu cam */
+            color: white; padding: 4px 15px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
+        }
+        
+        .question-text { font-weight: 700; font-size: 1.15rem; margin-bottom: 20px; color: #2c3e50; }
+
+        /* MCQ Styles */
+        .options label {
+            display: block; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #eee;
+            border-radius: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .options label:hover { background: #fff3e0; } /* Hover màu cam nhạt */
+        .options input { margin-right: 12px; transform: scale(1.2); }
+
+        /* Grid Table Styles (Yes/No) */
+        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .grid-table th, .grid-table td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        .grid-table th { background: #fdf2e9; color: #d35400; } /* Header màu cam nhạt */
+        .grid-table td:first-child { text-align: left; font-weight: 500; width: 60%; }
+
+        /* Sync Table Styles (Matching) - CHUẨN ĐỐI XỨNG */
+        .sync-table { width: 100%; border-collapse: collapse; margin-top: 15px; border: 2px solid #ccc; }
+        .sync-table td { border: 1px solid #ccc; padding: 0; vertical-align: middle; height: 70px; }
+        
+        .content-cell { 
+            padding: 15px; background: #fff; height: 100%; 
+            display: flex; align-items: center; font-weight: 500;
+            min-height: 70px;
+        }
+        
+        .menu-cell { 
+            padding: 10px; background: #fdfdfd; text-align: center; vertical-align: middle;
+        }
+        
+        select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; font-size: 0.95rem; }
+
+        /* Feedback Styles */
+        .explanation {
+            display: none; margin-top: 20px; padding: 15px;
+            background: #e8f5e9; border-left: 5px solid #28a745; border-radius: 4px; font-size: 0.9rem;
+        }
+        .correct-ans-label {
+            display: block; margin-top: 8px; color: #28a745; font-size: 0.9rem; font-weight: bold; text-align: left;
+        }
+
+        .btn-submit {
+            display: block; width: 100%; padding: 20px; background: var(--primary-gradient);
+            color: white; border: none; border-radius: 10px; font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4); }
+        
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            display: none; padding: 30px; border-radius: 12px;
+        }
+
+        footer { background: var(--primary-gradient); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; border-top: 6px solid #d35400; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>I</span><span>C</span><span>3</span><span>spark</span></div>
+    </div>
+    <div style="text-align: right; line-height: 1.4;">
+        <div>GV. Nguyễn Đình Bạch Long</div>
+        <div style="font-size: 0.8rem; opacity: 0.9;">Hệ thống ôn luyện Level 2</div>
+    </div>
+</header>
+
+<div class="container">
+    <div style="text-align:center; margin-bottom:40px;">
+        <h1 style="color:#d35400; font-size: 2.2rem; margin-bottom: 10px;">KIẾN THỨC NỀN TẢNG 2 (Level 2)</h1>
+        <p style="color:#666;">Vui lòng hoàn thành tất cả câu hỏi để nộp bài.</p>
+    </div>
+
+    <form id="quiz-form">
+        
+        <div class="question-card"><span class="topic-label">Chủ đề 01</span><div class="question-text">Câu hỏi trắc nghiệm số 1?</div><div class="options"><label><input type="radio" name="q1" value="a"> Đáp án A</label><label><input type="radio" name="q1" value="b"> Đáp án B</label><label><input type="radio" name="q1" value="c"> Đáp án C</label><label><input type="radio" name="q1" value="d"> Đáp án D</label></div><div class="explanation">Diễn giải: Giải thích tại sao đáp án này đúng...</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 02</span><div class="question-text">Chọn Có hoặc Không cho các phát biểu sau:</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Có (Yes)</th><th>Không (No)</th></tr>
+                <tr><td>Nội dung phát biểu 1...</td><td><input type="radio" name="q2_1" value="yes"></td><td><input type="radio" name="q2_1" value="no"></td></tr>
+                <tr><td>Nội dung phát biểu 2...</td><td><input type="radio" name="q2_2" value="yes"></td><td><input type="radio" name="q2_2" value="no"></td></tr>
+                <tr><td>Nội dung phát biểu 3...</td><td><input type="radio" name="q2_3" value="yes"></td><td><input type="radio" name="q2_3" value="no"></td></tr>
+            </table>
+            <div class="explanation">Diễn giải: Giải thích ngắn gọn...</div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 03</span><div class="question-text">Nối nội dung ở cột trái với thuật ngữ đúng ở cột phải:</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Nội dung định nghĩa dài hoặc ví dụ nằm ở đây...</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q3_1" class="req"><option value="">-- Chọn --</option><option value="opt1">Thuật ngữ 1</option><option value="opt2">Thuật ngữ 2</option><option value="opt3">Thuật ngữ 3</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Nội dung định nghĩa thứ 2...</div></td>
+                    <td><div class="menu-cell"><select name="q3_2" class="req"><option value="">-- Chọn --</option><option value="opt1">Thuật ngữ 1</option><option value="opt2">Thuật ngữ 2</option><option value="opt3">Thuật ngữ 3</option></select></div></td></tr>
+            </table>
+            <div class="explanation">Diễn giải: Giải thích...</div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+        <div id="result-area"></div>
+    </form>
+</div>
+
+<footer><p>&copy; 2026 - Website hỗ trợ học tập IC3 Spark | GV Nguyễn Đình Bạch Long</p></footer>
+
+<script>
+    // BẠN CẦN CẬP NHẬT ĐÁP ÁN ĐÚNG TẠI ĐÂY
+    const correctAnswers = {
+        q1: "a", // Đáp án câu 1
+        q2_1: "yes", q2_2: "no", q2_3: "yes", // Đáp án câu 2
+        q3_1: "opt1", q3_2: "opt2" // Đáp án câu 3
+        // Thêm các câu khác vào đây: q4: "c", q5_1: "yes"...
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        let total = Object.keys(correctAnswers).length;
+        let isComplete = true;
+        let firstIncomplete = null;
+
+        document.querySelectorAll('.question-card').forEach(card => card.classList.remove('incomplete'));
+        document.querySelectorAll('.correct-ans-label').forEach(el => el.remove());
+
+        // Validate
+        for (let key in correctAnswers) {
+            let input = document.getElementsByName(key);
+            let answered = false;
+            if (input.length > 0 && input[0].type === "radio") {
+                if ([...input].some(r => r.checked)) answered = true;
+            } else if (input.length > 0 && input[0].tagName === "SELECT") {
+                if (input[0].value !== "") answered = true;
+            }
+            
+            if (!answered) {
+                let card = document.getElementsByName(key)[0].closest('.question-card');
+                card.classList.add('incomplete');
+                if (!firstIncomplete) firstIncomplete = card;
+                isComplete = false;
+            }
+        }
+
+        if (!isComplete) {
+            alert("Bạn chưa hoàn thành tất cả các câu hỏi (Các câu chưa làm được tô màu đỏ).");
+            firstIncomplete.scrollIntoView({behavior: "smooth", block: "center"});
+            return;
+        }
+
+        // Grading
+        for (let key in correctAnswers) {
+            let input = document.getElementsByName(key);
+            let userVal = "";
+            let isCorrect = false;
+
+            if (input[0].tagName === "SELECT") {
+                userVal = input[0].value;
+                input[0].disabled = true;
+            } else {
+                [...input].forEach(r => {
+                    r.disabled = true;
+                    if(r.checked) userVal = r.value;
+                    if(r.value === correctAnswers[key]) r.parentElement.style.border = "2px solid #28a745";
+                });
+            }
+
+            if (userVal === correctAnswers[key]) {
+                score++;
+                isCorrect = true;
+            }
+
+            if (input[0].tagName === "SELECT") {
+                if(isCorrect) {
+                    input[0].style.border = "2px solid #28a745";
+                    input[0].style.background = "#d4edda";
+                } else {
+                    input[0].style.border = "2px solid #dc3545";
+                    input[0].style.background = "#f8d7da";
+                    
+                    let correctText = [...input[0].options].find(o => o.value === correctAnswers[key]).text;
+                    let label = document.createElement("div");
+                    label.className = "correct-ans-label";
+                    label.innerText = `Đáp án đúng: ${correctText}`;
+                    input[0].parentNode.appendChild(label);
+                }
+            } else {
+                let selected = [...input].find(r => r.checked);
+                if (selected) {
+                    selected.parentElement.style.backgroundColor = isCorrect ? "#d4edda" : "#f8d7da";
+                }
+            }
+        }
+
+        const res = document.getElementById('result-area');
+        res.style.display = "block";
+        const percent = Math.round((score / total) * 100);
+        res.innerHTML = `Kết quả: ${score}/${total} câu đúng (${percent}%)`;
+        res.style.color = percent >= 80 ? "#155724" : "#d35400";
+        res.style.backgroundColor = percent >= 80 ? "#d4edda" : "#fce4ec";
+
+        document.querySelectorAll('.explanation').forEach(el => el.style.display = "block");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
