@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IC3 SPARK LEVEL 1 - KIẾN THỨC NỀN TẢNG 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --accent-color: #00d2ff;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
+
+        /* HEADER */
+        header {
+            background: var(--primary-gradient); color: white; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-bottom: 6px solid #ffcc00;
+        }
+        
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2); color: white; text-decoration: none;
+            padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.5); transition: all 0.3s;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .back-btn:hover { background: #ffcc00; color: #333; border-color: #ffcc00; }
+
+        .logo-ic3 {
+            font-family: 'Kanit', sans-serif; font-size: 2.2rem; font-style: italic; font-weight: 800;
+            display: flex; align-items: center; letter-spacing: -1px;
+        }
+        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 0.5px #fff; }
+        .logo-ic3 span:nth-child(2) { color: #4CAF50; -webkit-text-stroke: 0.5px #fff; margin-right: 3px; }
+        .logo-ic3 span:nth-child(3) { color: #fff; font-size: 2.5rem; margin-right: 8px; }
+        .logo-ic3 span:nth-child(4) { color: #333; font-size: 2rem; letter-spacing: 0; }
+
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        
+        .question-card {
+            background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px;
+            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .question-card.incomplete { border: 2px solid var(--error-color); background-color: #fff6f6; }
+        
+        .topic-label {
+            position: absolute; top: -12px; left: 20px; background: #2a5298;
+            color: white; padding: 4px 15px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
+        }
+        
+        .question-text { font-weight: 700; font-size: 1.15rem; margin-bottom: 20px; color: #2c3e50; }
+
+        /* MCQ Styles */
+        .options label {
+            display: block; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #eee;
+            border-radius: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .options label:hover { background: #f0f7ff; }
+        .options input { margin-right: 12px; transform: scale(1.2); }
+
+        /* Grid Table Styles */
+        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .grid-table th, .grid-table td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        .grid-table th { background: #f8f9fa; }
+        .grid-table td:first-child { text-align: left; font-weight: 500; width: 60%; }
+
+        /* Sync Table Styles (Matching) */
+        .sync-table { width: 100%; border-collapse: collapse; margin-top: 15px; border: 2px solid #aaa; }
+        .sync-table td { border: 1px solid #ccc; padding: 0; vertical-align: middle; height: auto; }
+        
+        .content-cell { 
+            padding: 15px; background: #fff; height: 100%; 
+            display: flex; align-items: center; font-weight: 500;
+            min-height: 60px;
+        }
+        
+        .menu-cell { 
+            padding: 10px; background: #fdfdfd; text-align: center; vertical-align: middle;
+        }
+        
+        select { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; font-size: 0.95rem; }
+
+        /* Matching Row */
+        .matching-row {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #f9f9f9; padding: 12px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #eee;
+        }
+        .matching-row p { margin: 0; width: 45%; font-weight: bold; }
+        .matching-row select { width: 50%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+
+        /* Feedback Styles */
+        .explanation {
+            display: none; margin-top: 20px; padding: 15px;
+            background: #eef2f7; border-left: 5px solid #27ae60; border-radius: 4px; font-size: 0.9rem;
+        }
+        .correct-ans-label {
+            display: block; margin-top: 8px; color: #28a745; font-size: 0.9rem; font-weight: bold; text-align: left;
+        }
+
+        .btn-submit {
+            display: block; width: 100%; padding: 20px; background: var(--primary-gradient);
+            color: white; border: none; border-radius: 10px; font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-2px); }
+        
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            display: none; padding: 30px; border-radius: 12px;
+        }
+
+        footer { background: var(--primary-gradient); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; border-top: 6px solid #ffcc00; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="back-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>I</span><span>C</span><span>3</span><span>spark</span></div>
+    </div>
+    <div style="text-align: right; line-height: 1.4;">
+        <div>GV. Nguyễn Đình Bạch Long</div>
+        <div style="font-size: 0.8rem; opacity: 0.9;">Hệ thống ôn luyện Level 1</div>
+    </div>
+</header>
+
+<div class="container">
+    <div style="text-align:center; margin-bottom:40px;">
+        <h1 style="color:#1e3c72; font-size: 2.2rem; margin-bottom: 10px;">KIẾN THỨC NỀN TẢNG 1 (Level 1)</h1>
+        <p style="color:#666;">Vui lòng hoàn thành tất cả 30 câu hỏi để nộp bài.</p>
+    </div>
+
+    <form id="quiz-form">
+        
+        <div class="question-card"><span class="topic-label">Chủ đề 01</span><div class="question-text">Kéo từng thuật ngữ vào định nghĩa phù hợp:</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Tài nguyên để lưu trữ thông tin có sẵn cho một chương trình máy tính</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q1_1" class="req"><option value="">-- Chọn --</option><option value="file">Tập tin (Files)</option><option value="qr">Mã QR</option><option value="folder">Thư mục (Folders)</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Mã có thể đọc được bằng máy. Mã này bao gồm các ô vuông đen và trắng thường dùng để lưu trữ các URL hoặc các thông tin khác</div></td>
+                    <td><div class="menu-cell"><select name="q1_2" class="req"><option value="">-- Chọn --</option><option value="file">Tập tin (Files)</option><option value="qr">Mã QR</option><option value="folder">Thư mục (Folders)</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Vị trí ảo để lưu trữ và sắp xếp các ứng dụng, tài liệu, dữ liệu</div></td>
+                    <td><div class="menu-cell"><select name="q1_3" class="req"><option value="">-- Chọn --</option><option value="file">Tập tin (Files)</option><option value="qr">Mã QR</option><option value="folder">Thư mục (Folders)</option></select></div></td></tr>
+            </table><div class="explanation">Diễn giải: Tập tin chứa thông tin; Thư mục chứa tập tin; Mã QR là mã hình vuông.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 02</span><div class="question-text">Đối với mỗi phát biểu sau, hãy chọn Có (Yes) nếu phát biểu đó đúng và Không (No) nếu sai:</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Yes</th><th>No</th></tr>
+                <tr><td>Máy tính để bàn có thể di chuyển được</td><td><input type="radio" name="q2_1" value="yes"></td><td><input type="radio" name="q2_1" value="no"></td></tr>
+                <tr><td>Điện thoại thông minh, máy tính bảng và máy tính xách tay có thể di chuyển được</td><td><input type="radio" name="q2_2" value="yes"></td><td><input type="radio" name="q2_2" value="no"></td></tr>
+                <tr><td>Tai nghe (Headsets, headphones), loa đều là thiết bị ngoại vi cho âm thanh (Sound/Audio)</td><td><input type="radio" name="q2_3" value="yes"></td><td><input type="radio" name="q2_3" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 03</span><div class="question-text">Điện thoại thông minh có thể kết nối với internet bằng những cách nào?</div>
+            <table class="grid-table">
+                <tr><th>Phương thức</th><th>Yes</th><th>No</th></tr>
+                <tr><td>USB</td><td><input type="radio" name="q3_1" value="yes"></td><td><input type="radio" name="q3_1" value="no"></td></tr>
+                <tr><td>Ethernet</td><td><input type="radio" name="q3_2" value="yes"></td><td><input type="radio" name="q3_2" value="no"></td></tr>
+                <tr><td>Wi-Fi</td><td><input type="radio" name="q3_3" value="yes"></td><td><input type="radio" name="q3_3" value="no"></td></tr>
+                <tr><td>Gói dữ liệu từ nhà cung cấp dịch vụ di động</td><td><input type="radio" name="q3_4" value="yes"></td><td><input type="radio" name="q3_4" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 04</span><div class="question-text">Điều nào sau đây là một phần của dấu chân kỹ thuật số (Digital footprint) của bạn?</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="a"> Nhận xét của bạn về bài đăng trên mạng xã hội của một người bạn</label>
+                <label><input type="radio" name="q4" value="b"> Họ và tên của bạn</label>
+                <label><input type="radio" name="q4" value="c"> Email bạn đã gửi</label>
+                <label><input type="radio" name="q4" value="d"> Ảnh bạn đã đăng lên mạng xã hội</label>
+            </div><div class="explanation">Diễn giải: Ảnh đăng lên mạng xã hội là dữ liệu công khai lưu lại dấu vết số của bạn.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 05</span><div class="question-text">Là một công dân kỹ thuật số tích cực, hành động nào sau đây là phù hợp khi thấy bắt nạt trực tuyến?</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="a"> Chia sẻ tên, địa chỉ của mọi người hoặc dữ liệu cá nhân khác</label>
+                <label><input type="radio" name="q5" value="b"> Viết bình luận trực tuyến tiêu cực</label>
+                <label><input type="radio" name="q5" value="c"> Báo cáo bắt nạt trực tuyến (Cyberbullying)</label>
+            </div><div class="explanation">Diễn giải: Báo cáo hành vi xấu giúp bảo vệ cộng đồng.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 06</span><div class="question-text">Ghép mỗi thuật ngữ với định nghĩa đúng.</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Một chương trình phần mềm được sử dụng để xem thông tin trên World Wide Web</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q6_1" class="req"><option value="">-- Chọn --</option><option value="browser">Trình duyệt web</option><option value="site">Trang web</option><option value="engine">Công cụ tìm kiếm</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Tập hợp các trang web có thể truy cập công khai và chia sẻ một tên miền duy nhất</div></td>
+                    <td><div class="menu-cell"><select name="q6_2" class="req"><option value="">-- Chọn --</option><option value="browser">Trình duyệt web</option><option value="site">Trang web</option><option value="engine">Công cụ tìm kiếm</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Một chương trình phần mềm được sử dụng để tìm kiếm thông tin trên World Wide Web</div></td>
+                    <td><div class="menu-cell"><select name="q6_3" class="req"><option value="">-- Chọn --</option><option value="browser">Trình duyệt web</option><option value="site">Trang web</option><option value="engine">Công cụ tìm kiếm</option></select></div></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 07</span><div class="question-text">Những thành phần nào sau đây thuộc giao diện của trình duyệt web?</div>
+            <table class="grid-table">
+                <tr><th>Thành phần</th><th>Yes</th><th>No</th></tr>
+                <tr><td>Thẻ (Tab)</td><td><input type="radio" name="q7_1" value="yes"></td><td><input type="radio" name="q7_1" value="no"></td></tr>
+                <tr><td>Cửa sổ (Window)</td><td><input type="radio" name="q7_2" value="yes"></td><td><input type="radio" name="q7_2" value="no"></td></tr>
+                <tr><td>Thanh địa chỉ (Address Bar)</td><td><input type="radio" name="q7_3" value="yes"></td><td><input type="radio" name="q7_3" value="no"></td></tr>
+                <tr><td>Công cụ tìm kiếm (Search Engine)</td><td><input type="radio" name="q7_4" value="yes"></td><td><input type="radio" name="q7_4" value="no"></td></tr>
+                <tr><td>Tác giả trang Web (Site Author)</td><td><input type="radio" name="q7_5" value="yes"></td><td><input type="radio" name="q7_5" value="no"></td></tr>
+                <tr><td>Các ứng dụng (Applications)</td><td><input type="radio" name="q7_6" value="yes"></td><td><input type="radio" name="q7_6" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 08</span><div class="question-text">URL là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="a"> Một hình thức nhắn tin giữa người này với người khác</label>
+                <label><input type="radio" name="q8" value="b"> Một trang web hoặc email giả được thiết kế trông có vẻ đáng tin cậy</label>
+                <label><input type="radio" name="q8" value="c"> Tập hợp các trang web được liên kết với nhau sử dụng chung một tên miền mà mọi người có thể truy cập được</label>
+                <label><input type="radio" name="q8" value="d"> Là địa chỉ của một tài nguyên duy nhất trên Web</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 09</span><div class="question-text">Cách nhanh nhất để lưu một trang web mà sau này bạn có thể dễ dàng quay lại trang web đó?</div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="a"> Viết URL vào một cuốn sổ</label>
+                <label><input type="radio" name="q9" value="b"> Tạo dấu trang (Bookmark)</label>
+                <label><input type="radio" name="q9" value="c"> Chụp ảnh màn hình của trang web</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 10</span><div class="question-text">Tùy chọn nào sau đây là ví dụ về một trang web (Web page)?</div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="a"> Một email giữa các học sinh ở các trường khác nhau</label>
+                <label><input type="radio" name="q10" value="b"> Trang chủ trên trang web của trường</label>
+                <label><input type="radio" name="q10" value="c"> Một ứng dụng được tải xuống trên điện thoại thông minh</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 11</span><div class="question-text">Những thao tác nào sau đây bạn có thể thực hiện với tài liệu văn bản (Text document)?</div>
+            <table class="grid-table">
+                <tr><th>Thao tác</th><th>Yes</th><th>No</th></tr>
+                <tr><td>Tăng kích thước phông chữ (Font size)</td><td><input type="radio" name="q11_1" value="yes"></td><td><input type="radio" name="q11_1" value="no"></td></tr>
+                <tr><td>Làm nổi bật (Highlight) văn bản</td><td><input type="radio" name="q11_2" value="yes"></td><td><input type="radio" name="q11_2" value="no"></td></tr>
+                <tr><td>Thay đổi mật khẩu (Password) email của bạn</td><td><input type="radio" name="q11_3" value="yes"></td><td><input type="radio" name="q11_3" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 12</span><div class="question-text">Trong tình huống nào sau đây là phù hợp nhất để sử dụng bài trình chiếu kỹ thuật số (Digital presentation)?</div>
+            <div class="options">
+                <label><input type="radio" name="q12" value="a"> Phát biểu trước khán giả</label>
+                <label><input type="radio" name="q12" value="b"> Viết một bài luận cho trường học</label>
+                <label><input type="radio" name="q12" value="c"> Gửi tin nhắn văn bản cho một nhóm người</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 13</span><div class="question-text">Bạn nên nhấn phím đặc biệt nào trên bàn phím tiêu chuẩn để bắt đầu một đoạn mới trong tài liệu văn bản?</div>
+            <div class="options">
+                <label><input type="radio" name="q13" value="a"> Enter/Return</label>
+                <label><input type="radio" name="q13" value="b"> Tab</label>
+                <label><input type="radio" name="q13" value="c"> Caps Lock</label>
+                <label><input type="radio" name="q13" value="d"> Backspace/Delete</label>
+                <label><input type="radio" name="q13" value="e"> Esc</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 14</span><div class="question-text">Lời chào nào sau đây sẽ thích hợp nhất khi học sinh gửi email cho giáo viên/giảng viên?</div>
+            <div class="options">
+                <label><input type="radio" name="q14" value="a"> Chào! Thế nào rồi? (Hey! How's it going?)</label>
+                <label><input type="radio" name="q14" value="b"> Thưa giáo sư, (Dear Professor)</label>
+                <label><input type="radio" name="q14" value="c"> Khi nào nhiệm vụ đến hạn?</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 15</span><div class="question-text">Nối mỗi từ với định nghĩa thích hợp.</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Tin nhắn được gửi đến mọi người khi họ đang trực tiếp hoạt động trong một ứng dụng</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q15_1" class="req"><option value="">-- Chọn --</option><option value="app">Tin nhắn trong ứng dụng</option><option value="email">Thư điện tử</option><option value="video">Trò chuyện video</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Một tin nhắn điện tử được gửi qua internet có thể chứa văn bản, tập tin, hình ảnh và tập tin đính kèm</div></td>
+                    <td><div class="menu-cell"><select name="q15_2" class="req"><option value="">-- Chọn --</option><option value="app">Tin nhắn trong ứng dụng</option><option value="email">Thư điện tử</option><option value="video">Trò chuyện video</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Giao tiếp trực diện, trực quan với những người dùng internet khác bằng webcam</div></td>
+                    <td><div class="menu-cell"><select name="q15_3" class="req"><option value="">-- Chọn --</option><option value="app">Tin nhắn trong ứng dụng</option><option value="email">Thư điện tử</option><option value="video">Trò chuyện video</option></select></div></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 16</span><div class="question-text">Ghép từng phương pháp giao tiếp kỹ thuật số với tình huống thích hợp nhất.</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Liên hệ với bộ phận hỗ trợ trực tuyến cho một sản phẩm</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q16_1" class="req"><option value="">-- Chọn --</option><option value="app">Tin nhắn trong ứng dụng</option><option value="email">Thư điện tử (Email)</option><option value="sms">Tin nhắn văn bản</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Gửi lịch đã sửa đổi cho tất cả mọi người trong đội điền kinh</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q16_2" class="req"><option value="">-- Chọn --</option><option value="app">Tin nhắn trong ứng dụng</option><option value="email">Thư điện tử (Email)</option><option value="sms">Tin nhắn văn bản</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Thông báo cho bạn bè rằng bạn đang đến muộn</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q16_3" class="req"><option value="">-- Chọn --</option><option value="app">Tin nhắn trong ứng dụng</option><option value="email">Thư điện tử (Email)</option><option value="sms">Tin nhắn văn bản</option></select></div></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 17</span><div class="question-text">Tùy chọn nào sau đây là những thành phần cơ bản của thư điện tử?</div>
+            <table class="grid-table">
+                <tr><th>Thành phần</th><th>Yes</th><th>No</th></tr>
+                <tr><td>Chủ đề (Subject)</td><td><input type="radio" name="q17_1" value="yes"></td><td><input type="radio" name="q17_1" value="no"></td></tr>
+                <tr><td>Nội dung thư (Message Body)</td><td><input type="radio" name="q17_2" value="yes"></td><td><input type="radio" name="q17_2" value="no"></td></tr>
+                <tr><td>Chữ ký (Signature)</td><td><input type="radio" name="q17_3" value="yes"></td><td><input type="radio" name="q17_3" value="no"></td></tr>
+                <tr><td>Mật khẩu (Passwords)</td><td><input type="radio" name="q17_4" value="yes"></td><td><input type="radio" name="q17_4" value="no"></td></tr>
+                <tr><td>Mã QR (QR Codes)</td><td><input type="radio" name="q17_5" value="yes"></td><td><input type="radio" name="q17_5" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 18</span><div class="question-text">Đâu là những ví dụ về sự thật (Facts)?</div>
+            <table class="grid-table">
+                <tr><th>Câu</th><th>Yes</th><th>No</th></tr>
+                <tr><td>Có 24 giờ trong một ngày</td><td><input type="radio" name="q18_1" value="yes"></td><td><input type="radio" name="q18_1" value="no"></td></tr>
+                <tr><td>Nhảy dù rất nguy hiểm</td><td><input type="radio" name="q18_2" value="yes"></td><td><input type="radio" name="q18_2" value="no"></td></tr>
+                <tr><td>Thật là một ngày tuyệt vời</td><td><input type="radio" name="q18_3" value="yes"></td><td><input type="radio" name="q18_3" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 19</span><div class="question-text">Cộng tác (Collaboration) là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q19" value="a"> Cạnh tranh cho điểm tốt nhất trong lớp</label>
+                <label><input type="radio" name="q19" value="b"> Làm việc trên máy tính hàng tuần</label>
+                <label><input type="radio" name="q19" value="c"> Khi mọi người làm việc cùng nhau để hoàn thành một nhiệm vụ</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 20</span><div class="question-text">Mục tiêu của sự cộng tác (Collaboration) là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q20" value="a"> Làm việc cùng nhau để đạt được một kết quả chung</label>
+                <label><input type="radio" name="q20" value="b"> Giữ kín ý tưởng và kiến thức của bạn</label>
+                <label><input type="radio" name="q20" value="c"> Thuyết phục mọi người đồng ý với ý kiến của bạn</label>
+                <label><input type="radio" name="q20" value="d"> Chia sẻ ý tưởng và kiến thức</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 21</span><div class="question-text">Cân bằng phương tiện truyền thông (Media balance) là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q21" value="a"> Dành tất cả thời gian rảnh trên điện thoại thông minh của bạn</label>
+                <label><input type="radio" name="q21" value="b"> Bản trình chiếu sử dụng kết hợp hình ảnh, văn bản và âm thanh</label>
+                <label><input type="radio" name="q21" value="c"> Sử dụng phương tiện để cảm thấy khỏe mạnh và cân bằng với các hoạt động sống khác</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 22</span><div class="question-text">Mật khẩu an toàn là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q22" value="a"> Mật khẩu bao gồm tất cả các số và chữ cái</label>
+                <label><input type="radio" name="q22" value="b"> Mật khẩu khó đoán bởi con người hoặc máy tính</label>
+                <label><input type="radio" name="q22" value="c"> Mật khẩu mà một người bạn đã cung cấp cho bạn</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 23</span><div class="question-text">Những yếu tố nào sau đây làm cho thiết bị có thể bị hỏng?</div>
+            <div class="options">
+                <label><input type="radio" name="q23" value="a"> Ngón tay (Fingers)</label>
+                <label><input type="radio" name="q23" value="b"> Mưa (Rain)</label>
+                <label><input type="radio" name="q23" value="c"> Thực phẩm (Food)</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 24</span><div class="question-text">Tùy chọn nào sau đây là phù hợp với công thái học? (Chọn Yes nếu đáp án đúng và No nếu đáp án sai).</div>
+            <table class="grid-table">
+                <tr><th>Hành động</th><th>Yes</th><th>No</th></tr>
+                <tr><td>Giữ chân trên sàn</td><td><input type="radio" name="q24_1" value="yes"></td><td><input type="radio" name="q24_1" value="no"></td></tr>
+                <tr><td>Cúi người về phía trước để xem màn hình</td><td><input type="radio" name="q24_2" value="yes"></td><td><input type="radio" name="q24_2" value="no"></td></tr>
+                <tr><td>Bắt chéo chân dưới bàn làm việc</td><td><input type="radio" name="q24_3" value="yes"></td><td><input type="radio" name="q24_3" value="no"></td></tr>
+                <tr><td>Thư giãn vai của bạn</td><td><input type="radio" name="q24_4" value="yes"></td><td><input type="radio" name="q24_4" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 25</span><div class="question-text">Bắt nạt trực tuyến (Cyberbullying) là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q25" value="a"> Sử dụng công nghệ để quấy rối, đe dọa hoặc khiến người khác xấu hổ</label>
+                <label><input type="radio" name="q25" value="b"> Gửi tin nhắn cho những người bạn vừa gặp</label>
+                <label><input type="radio" name="q25" value="c"> Cung cấp thông tin cá nhân của bạn cho một người lạ trực tuyến</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 26</span><div class="question-text">Thông tin nào KHÔNG nên được chia sẻ trực tuyến?</div>
+            <div class="options">
+                <label><input type="radio" name="q26" value="a"> Ngày sinh (Birthdate)</label>
+                <label><input type="radio" name="q26" value="b"> Địa chỉ nhà (Home address)</label>
+                <label><input type="radio" name="q26" value="c"> Tuổi (Age)</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 27</span><div class="question-text">Một số cách để thoát khỏi ứng dụng trên máy tính để bàn đã được cài đặt là gì?</div>
+            <table class="grid-table">
+                <tr><th>Cách thức</th><th>Yes</th><th>No</th></tr>
+                <tr><td>Nhấp vào nút có dấu "X" ở góc phải trên cùng của cửa sổ</td><td><input type="radio" name="q27_1" value="yes"></td><td><input type="radio" name="q27_1" value="no"></td></tr>
+                <tr><td>Rút phích cắm màn hình</td><td><input type="radio" name="q27_2" value="yes"></td><td><input type="radio" name="q27_2" value="no"></td></tr>
+                <tr><td>Nhấp chuột phải vào biểu tượng của chương trình trên thanh tác vụ (Taskbar) và chọn Close, Exit hoặc Disable</td><td><input type="radio" name="q27_3" value="yes"></td><td><input type="radio" name="q27_3" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 28</span><div class="question-text">Cách nào sau đây là an toàn nhất để sạc thiết bị di động?</div>
+            <div class="options">
+                <label><input type="radio" name="q28" value="a"> Đặt thiết bị di động ngoài trời và sạc nó dưới ánh nắng trực tiếp</label>
+                <label><input type="radio" name="q28" value="b"> Đặt thiết bị trên sàn và cắm cáp sạc của một thiết bị khác</label>
+                <label><input type="radio" name="q28" value="c"> Đặt ở nơi an toàn gần ổ cắm và cắm cáp sạc đi kèm với thiết bị</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 29</span><div class="question-text">Những người nào sau đây là an toàn nhất để kết bạn trực tuyến?</div>
+            <div class="options">
+                <label><input type="radio" name="q29" value="a"> Một người lạ gửi tin nhắn trực tiếp yêu cầu số điện thoại của bạn</label>
+                <label><input type="radio" name="q29" value="b"> Ai đó gửi email cho bạn nói rằng bạn đã giành được giải thưởng và cần gửi lại thông tin cá nhân</label>
+                <label><input type="radio" name="q29" value="c"> Một người mà bạn đi học với người đó và chơi trò chơi trực tuyến vào cuối tuần</label>
+            </div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 30</span><div class="question-text">Bạn gửi ảnh của mình và gia đình cho một người bạn cùng lớp. Bạn đó đăng những hình ảnh này lên mạng xã hội. Bạn có thể làm gì để xóa những hình ảnh đó vĩnh viễn khỏi internet?</div>
+            <div class="options">
+                <label><input type="radio" name="q30" value="a"> Truy cập trái phép vào tài khoản của bạn cùng lớp và cố gắng xóa những bức ảnh đó</label>
+                <label><input type="radio" name="q30" value="b"> Gửi yêu cầu hỗ trợ đến dịch vụ khách hàng của ứng dụng truyền thông xã hội</label>
+                <label><input type="radio" name="q30" value="c"> Bạn không thể xóa ảnh hoàn toàn khỏi internet, vì internet là mạng công cộng và trực tuyến là mãi mãi</label>
+                <label><input type="radio" name="q30" value="d"> Bảo bạn cùng lớp của bạn gỡ ảnh xuống nếu không bạn sẽ không còn là bạn của họ nữa</label>
+            </div><div class="explanation">Diễn giải: Khi nội dung nào đó được đăng trực tuyến, nó có thể ở đó mãi mãi ngay cả khi bạn xóa nội dung. Sau khi được chia sẻ, nó nằm ngoài tầm kiểm soát của bạn, nó ảnh hưởng đến dấu chân kỹ thuật số và danh tiếng của bạn.</div></div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+        <div id="result-area"></div>
+    </form>
+</div>
+
+<footer><p>&copy; 2026 - Website hỗ trợ học tập IC3 Spark | GV Nguyễn Đình Bạch Long</p></footer>
+
+<script>
+    const correctAnswers = {
+        q1_1: "file", q1_2: "qr", q1_3: "folder",
+        q2_1: "no", q2_2: "yes", q2_3: "yes",
+        q3_1: "no", q3_2: "yes", q3_3: "yes", q3_4: "yes",
+        q4: "d",
+        q5: "c",
+        q6_1: "browser", q6_2: "site", q6_3: "engine",
+        q7_1: "yes", q7_2: "yes", q7_3: "yes", q7_4: "no", q7_5: "no", q7_6: "no",
+        q8: "d",
+        q9: "b",
+        q10: "b",
+        q11_1: "yes", q11_2: "yes", q11_3: "no",
+        q12: "a",
+        q13: "a",
+        q14: "b",
+        q15_1: "app", q15_2: "email", q15_3: "video",
+        q16_1: "app", q16_2: "email", q16_3: "sms", // Theo hình ảnh: Liên hệ hỗ trợ -> App; Gửi lịch -> Email; Thông báo muộn -> SMS
+        q17_1: "yes", q17_2: "yes", q17_3: "yes", q17_4: "no", q17_5: "no",
+        q18_1: "yes", q18_2: "no", q18_3: "no",
+        q19: "c",
+        q20: "a",
+        q21: "c",
+        q22: "b",
+        q23: "b",
+        q24_1: "yes", q24_2: "no", q24_3: "no", q24_4: "yes",
+        q25: "a",
+        q26: "b",
+        q27_1: "yes", q27_2: "no", q27_3: "yes",
+        q28: "c",
+        q29: "c",
+        q30: "c"
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        let total = Object.keys(correctAnswers).length;
+        let isComplete = true;
+        let firstIncomplete = null;
+
+        document.querySelectorAll('.question-card').forEach(card => card.classList.remove('incomplete'));
+        document.querySelectorAll('.correct-ans-label').forEach(el => el.remove());
+
+        // Validate
+        for (let key in correctAnswers) {
+            let input = document.getElementsByName(key);
+            let answered = false;
+            if (input.length > 0 && input[0].type === "radio") {
+                if ([...input].some(r => r.checked)) answered = true;
+            } else if (input.length > 0 && input[0].tagName === "SELECT") {
+                if (input[0].value !== "") answered = true;
+            }
+            
+            if (!answered) {
+                let card = document.getElementsByName(key)[0].closest('.question-card');
+                card.classList.add('incomplete');
+                if (!firstIncomplete) firstIncomplete = card;
+                isComplete = false;
+            }
+        }
+
+        if (!isComplete) {
+            alert("Bạn chưa hoàn thành tất cả các câu hỏi (Các câu chưa làm được tô màu đỏ).");
+            firstIncomplete.scrollIntoView({behavior: "smooth", block: "center"});
+            return;
+        }
+
+        // Grading
+        for (let key in correctAnswers) {
+            let input = document.getElementsByName(key);
+            let userVal = "";
+            let isCorrect = false;
+
+            if (input[0].tagName === "SELECT") {
+                userVal = input[0].value;
+                input[0].disabled = true;
+            } else {
+                [...input].forEach(r => {
+                    r.disabled = true;
+                    if(r.checked) userVal = r.value;
+                    if(r.value === correctAnswers[key]) r.parentElement.style.border = "2px solid #28a745";
+                });
+            }
+
+            if (userVal === correctAnswers[key]) {
+                score++;
+                isCorrect = true;
+            }
+
+            if (input[0].tagName === "SELECT") {
+                if(isCorrect) {
+                    input[0].style.border = "2px solid #28a745";
+                    input[0].style.background = "#d4edda";
+                } else {
+                    input[0].style.border = "2px solid #dc3545";
+                    input[0].style.background = "#f8d7da";
+                    
+                    let correctText = [...input[0].options].find(o => o.value === correctAnswers[key]).text;
+                    let label = document.createElement("div");
+                    label.className = "correct-ans-label";
+                    label.innerText = `Đáp án đúng: ${correctText}`;
+                    input[0].parentNode.appendChild(label);
+                }
+            } else {
+                let selected = [...input].find(r => r.checked);
+                if (selected) {
+                    selected.parentElement.style.backgroundColor = isCorrect ? "#d4edda" : "#f8d7da";
+                }
+            }
+        }
+
+        const res = document.getElementById('result-area');
+        res.style.display = "block";
+        const percent = Math.round((score / total) * 100);
+        res.innerHTML = `Kết quả: ${score}/${total} câu đúng (${percent}%)`;
+        res.style.color = percent >= 80 ? "#155724" : "#721c24";
+        res.style.backgroundColor = percent >= 80 ? "#d4edda" : "#f8d7da";
+
+        document.querySelectorAll('.explanation').forEach(el => el.style.display = "block");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
