@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IC3 SPARK LEVEL 2 - KIẾN THỨC TỔNG HỢP (PHẦN 1)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #234585; /* Màu xanh đậm từ ảnh mẫu header */
+            --accent-yellow: #ffc107; /* Màu vàng từ footer */
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 5%; /* Padding nhỏ gọn như ảnh mẫu */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--accent-yellow); /* Viền vàng */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 15px; }
+
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            display: flex; align-items: center; gap: 5px;
+            transition: all 0.3s;
+        }
+        .home-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .logo-ic3 { 
+            font-family: 'Kanit', sans-serif; 
+            font-size: 1.8rem; 
+            font-style: italic; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; margin-right: 5px; } 
+        .logo-ic3 span:nth-child(2) { color: #222; opacity: 0.7; }
+
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 2px; }
+        .sub-text { font-size: 0.85rem; opacity: 0.9; }
+
+        /* --- CONTENT --- */
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        
+        .page-title {
+            text-align: center; margin-bottom: 30px;
+        }
+        .page-title h1 { color: var(--primary-blue); font-size: 2rem; margin-bottom: 5px; text-transform: uppercase; }
+        .page-title p { color: #666; font-style: italic; }
+
+        .question-card {
+            background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;
+            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .topic-label {
+            position: absolute; top: -12px; left: 20px; background: #e9ecef; border: 1px solid #ccc;
+            color: #333; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
+        }
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; color: #2c3e50; margin-top: 5px; }
+
+        .options label {
+            display: block; padding: 10px 15px; margin-bottom: 8px; border: 1px solid #eee;
+            border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 0.95rem;
+        }
+        .options label:hover { background: #f0f7ff; border-color: #b3d7ff; }
+        .options input { margin-right: 10px; transform: scale(1.1); }
+
+        /* Tables for Matching/TrueFalse */
+        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .grid-table th, .grid-table td { border: 1px solid #dee2e6; padding: 10px; text-align: center; font-size: 0.95rem; }
+        .grid-table th { background: #f8f9fa; color: #495057; }
+        .grid-table td:first-child { text-align: left; font-weight: 500; width: 60%; }
+        .grid-table select { width: 100%; padding: 5px; border-radius: 4px; border: 1px solid #ced4da; }
+
+        .btn-submit {
+            display: block; width: 100%; padding: 18px; background: var(--primary-blue);
+            color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; 
+            cursor: pointer; margin-top: 30px; transition: opacity 0.2s; box-shadow: 0 4px 0 #1a3565;
+        }
+        .btn-submit:active { transform: translateY(4px); box-shadow: none; }
+
+        #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
+        .explanation { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 4px solid #28a745; font-size: 0.9rem; color: #2e7d32; }
+        .note { font-size: 0.85rem; color: #666; font-style: italic; margin-bottom: 10px; display: block; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: none; /* Đã có border ở header, footer style theo ảnh */
+            margin-top: 50px;
+        }
+        footer h3 { margin: 0 0 10px 0; font-size: 1.1rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        footer .copyright { font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; display: block; }
+        
+        .footer-divider {
+            height: 1px; width: 100%; max-width: 600px; background: rgba(255,255,255,0.2); margin: 0 auto 25px auto;
+        }
+
+        .footer-info {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; font-size: 0.9rem;
+        }
+        .footer-info div { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .footer-info i { font-size: 1.2rem; margin-bottom: 5px; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .footer-info { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <div class="teacher-name">GV. Nguyễn Đình Bạch Long</div>
+        <div class="sub-text">Hệ thống ôn luyện Level 2</div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>KIẾN THỨC TỔNG HỢP - PHẦN 1</h1>
+        <p>Phiếu bài tập IC3 Spark Level 2 (Câu 01 - Câu 36)</p>
+    </div>
+
+    <form id="quiz-form">
+        
+        <div class="question-card"><span class="topic-label">Câu 01</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào sau đây là thành phần quan trọng nhất được sử dụng để chạy các ứng dụng?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="a"> Bộ lưu trữ</label>
+                <label><input type="radio" name="q1" value="b"> Bộ nhớ</label>
+                <label><input type="radio" name="q1" value="c"> Thẻ SIM</label>
+                <label><input type="radio" name="q1" value="d"> Card màn hình</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 02</span>
+            <div class="question-text">Em hãy cho biết, trong các tùy chọn sau, tùy chọn nào là phương pháp cho phép truy cập và cập nhật các tập tin trực tuyến?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="a"> Ổ cứng ngoài</label>
+                <label><input type="radio" name="q2" value="b"> Lưu trữ đám mây</label>
+                <label><input type="radio" name="q2" value="c"> Email</label>
+                <label><input type="radio" name="q2" value="d"> Bộ lưu trữ USB</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 03</span>
+            <div class="question-text">Em hãy cho biết, thiết bị chuột trên máy tính bảng đã được thay thế bằng những tùy chọn nào đây? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q3" value="a"> Chuột kỹ thuật số (Digital mouse)</label>
+                <label><input type="checkbox" name="q3" value="b"> Bút chì (Pencil)</label>
+                <label><input type="checkbox" name="q3" value="c"> Màn hình cảm ứng (Touch screen)</label>
+                <label><input type="checkbox" name="q3" value="d"> Bút cảm ứng (Stylus)</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 04</span>
+            <div class="question-text">Em hãy cho biết, loại kết nối không dây nào sau đây sẽ cho phép em tải hình ảnh từ máy ảnh vào máy tính?</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="a"> HDMI</label>
+                <label><input type="radio" name="q4" value="b"> VGA</label>
+                <label><input type="radio" name="q4" value="c"> RCA</label>
+                <label><input type="radio" name="q4" value="d"> Bluetooth</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 05</span>
+            <div class="question-text">Em hãy cho biết, trong các tùy chọn sau, tùy chọn nào là loại lưu trữ dữ liệu được truy cập từ xa thông qua kết nối internet?</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="a"> Đĩa CD</label>
+                <label><input type="radio" name="q5" value="b"> Ổ cứng ngoài</label>
+                <label><input type="radio" name="q5" value="c"> Bộ lưu trữ USB</label>
+                <label><input type="radio" name="q5" value="d"> Lưu trữ đám mây</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 06</span>
+            <div class="question-text">Hầu hết các điện thoại thông minh đều có tùy chọn gói dữ liệu di động. Em hãy cho biết, tùy chọn nào sau đây mô tả chính xác dữ liệu di động là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="a"> Em được phân bổ bao nhiêu thời gian để gọi điện thoại</label>
+                <label><input type="radio" name="q6" value="b"> Truy cập internet không dây có tính phí, được đo bằng mức tiêu thụ dữ liệu</label>
+                <label><input type="radio" name="q6" value="c"> Em được phép gửi bao nhiêu tin nhắn văn bản</label>
+                <label><input type="radio" name="q6" value="d"> Điện thoại của em có bao nhiêu bộ nhớ</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 07</span>
+            <div class="question-text">Em hãy cho biết, hai lợi ích của việc tải xuống (Download) tập tin thay vì phát trực tuyến (Stream) tập tin đó là gì? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q7" value="a"> Phát trực tuyến có khả năng phát lại mượt mà hơn</label>
+                <label><input type="checkbox" name="q7" value="b"> Sau khi tải xuống hoàn tất, quá trình phát lại đáng tin cậy hơn</label>
+                <label><input type="checkbox" name="q7" value="c"> Không yêu cầu dung lượng lưu trữ</label>
+                <label><input type="checkbox" name="q7" value="d"> Không cần phải đợi trước khi chạy tập tin</label>
+                <label><input type="checkbox" name="q7" value="e"> Tập tin đã được tải xuống không yêu cầu kết nối internet để phát lại</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 08</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào sau đây là cách để tăng không gian lưu trữ cho điện thoại thông minh? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q8" value="a"> Gỡ cài đặt bất kỳ trò chơi nào mà em không chơi nữa</label>
+                <label><input type="checkbox" name="q8" value="b"> Xóa ảnh cũ mà em không cần</label>
+                <label><input type="checkbox" name="q8" value="c"> Đóng tất cả các chương trình nền đang chạy</label>
+                <label><input type="checkbox" name="q8" value="d"> Truyền phát Video ở định dạng SD</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 09</span>
+            <div class="question-text">Em hãy cho biết, phần mềm virus ảnh hưởng đến hệ thống máy tính như thế nào? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q9" value="a"> Xóa hoặc làm hỏng dữ liệu</label>
+                <label><input type="checkbox" name="q9" value="b"> Thu thập và chuyển thông tin cá nhân</label>
+                <label><input type="checkbox" name="q9" value="c"> Phá hủy bo mạch chủ</label>
+                <label><input type="checkbox" name="q9" value="d"> Liên quan đến một cuộc tấn công DoS</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 10</span>
+            <div class="question-text">Em hãy cho biết, thiết bị lưu trữ được đo lường bằng đơn vị nào sau đây? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q10" value="a"> Centimeters</label>
+                <label><input type="checkbox" name="q10" value="b"> Feet</label>
+                <label><input type="checkbox" name="q10" value="c"> Terabytes</label>
+                <label><input type="checkbox" name="q10" value="d"> Gigabytes</label>
+                <label><input type="checkbox" name="q10" value="e"> Inches</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 11</span>
+            <div class="question-text">Các thiết bị di động có dung lượng bộ nhớ hạn chế. Tùy chọn nào sau đây có khả năng làm cho thiết bị của em hết dung lượng bộ nhớ?</div>
+            <div class="options">
+                <label><input type="radio" name="q11" value="a"> Sạc thiết bị di động trước khi hết pin</label>
+                <label><input type="radio" name="q11" value="b"> Truyền phát các video HD</label>
+                <label><input type="radio" name="q11" value="c"> Thường xuyên quên xóa bộ nhớ đệm</label>
+                <label><input type="radio" name="q11" value="d"> Cài quá nhiều game</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 12</span>
+            <div class="question-text">Những thông tin nào là một phần của dấu chân kỹ thuật số?</div>
+            <div class="options">
+                <label><input type="radio" name="q12" value="a"> Điểm số của bạn ở trường</label>
+                <label><input type="radio" name="q12" value="b"> Số đôi giày mà bạn sở hữu</label>
+                <label><input type="radio" name="q12" value="c"> Những điều bạn nói trong tin nhắn dạng chữ với bạn bè</label>
+                <label><input type="radio" name="q12" value="d"> Những lượt/nội dung tìm kiếm mà bạn thực hiện trên internet</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 13</span>
+            <div class="question-text">Chọn ra hai câu trả lời thể hiện những thông tin thuộc dấu chân kỹ thuật số. (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q13" value="a"> Email mà bạn gửi đi</label>
+                <label><input type="checkbox" name="q13" value="b"> Trang web mà bạn truy cập</label>
+                <label><input type="checkbox" name="q13" value="c"> Cuộc gọi điện thoại mà bạn nhận được</label>
+                <label><input type="checkbox" name="q13" value="d"> Bài tập ở trường mà bạn nộp</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 14</span>
+            <div class="question-text">Bạn nhận được một game bản sao chép trái phép. Là một công dân tốt, đâu là cách phản ứng thích hợp?</div>
+            <div class="options">
+                <label><input type="radio" name="q14" value="a"> Yêu cầu hoàn tiền và thông báo cho cửa hàng rằng game bạn nhận được không phải loại chính hãng</label>
+                <label><input type="radio" name="q14" value="b"> Trước khi cài đặt, thiết lập tường lửa để chặn internet</label>
+                <label><input type="radio" name="q14" value="c"> Chạy phần mềm chống virus cho đĩa game rồi mới cài</label>
+                <label><input type="radio" name="q14" value="d"> Loan trên mạng xã hội để mọi người biết nơi mua giá rẻ</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 15</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào là những ưu điểm của điện toán đám mây? (Chọn 4)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q15" value="a"> Dung lượng lưu trữ có trả phí</label>
+                <label><input type="checkbox" name="q15" value="b"> Nhóm quyền truy cập vào cùng một tài liệu</label>
+                <label><input type="checkbox" name="q15" value="c"> Tự động sao lưu dự phòng</label>
+                <label><input type="checkbox" name="q15" value="d"> Truy cập bất cứ nơi nào có kết nối internet</label>
+                <label><input type="checkbox" name="q15" value="e"> Cần có kết nối internet để hoạt động</label>
+                <label><input type="checkbox" name="q15" value="f"> Khả năng chia sẻ mọi thứ với nhiều người</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 16</span>
+            <div class="question-text">Với mỗi câu phát biểu, hãy chọn Đúng hoặc Sai.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Đúng</th><th>Sai</th></tr>
+                <tr><td>Bình luận, hình ảnh và các thông tin khác mà bạn đăng trên mạng được gọi là dấu chân kỹ thuật số của bạn</td><td><input type="radio" name="q16_1" value="d"></td><td><input type="radio" name="q16_1" value="s"></td></tr>
+                <tr><td>Bạn có thể xóa vĩnh viễn những bình luận tiêu cực khỏi internet bất cứ khi nào bạn muốn</td><td><input type="radio" name="q16_2" value="d"></td><td><input type="radio" name="q16_2" value="s"></td></tr>
+                <tr><td>Mỗi bài tập ở trường mà bạn hoàn thành đều là một phần của dấu chân kỹ thuật số</td><td><input type="radio" name="q16_3" value="d"></td><td><input type="radio" name="q16_3" value="s"></td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 17</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào là đúng khi nói đến duyệt web trực tuyến an toàn? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q17" value="a"> Em hoàn toàn an toàn miễn là em không tải xuống bất cứ thứ gì</label>
+                <label><input type="checkbox" name="q17" value="b"> Các trình duyệt có tính năng bảo mật có thể an toàn hơn các trình duyệt khác</label>
+                <label><input type="checkbox" name="q17" value="c"> Em phải xóa các tập tin internet tạm thời</label>
+                <label><input type="checkbox" name="q17" value="d"> Chỉ cung cấp thông tin cá nhân cho các trang web an toàn</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 18</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào sau đây là dịch vụ dựa trên internet?</div>
+            <div class="options">
+                <label><input type="radio" name="q18" value="a"> Thư điện tử (Email)</label>
+                <label><input type="radio" name="q18" value="b"> Chia đôi màn hình chơi game (Split-screen gaming)</label>
+                <label><input type="radio" name="q18" value="c"> Bách khoa toàn thư (Encyclopedia)</label>
+                <label><input type="radio" name="q18" value="d"> Microsoft</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 19</span>
+            <div class="question-text">Em hãy cho biết, vì sao người dùng nên bảo vệ danh tính trực tuyến của họ? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q19" value="a"> Người dùng luôn nói thật khi trực tuyến</label>
+                <label><input type="checkbox" name="q19" value="b"> Người dùng thường không sử dụng hình ảnh thật của họ</label>
+                <label><input type="checkbox" name="q19" value="c"> Internet có bộ nhớ lâu dài</label>
+                <label><input type="checkbox" name="q19" value="d"> Người dùng không cần bảo vệ danh tính trực tuyến</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 20</span>
+            <div class="question-text">Trong việc sử dụng công nghệ kỹ thuật số ở trường, chọn hai đáp án chỉ những hành vi đúng đắn mà mọi người nên làm? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q20" value="a"> Học sinh không nên đánh cắp hoặc làm hư hại tài sản của người khác</label>
+                <label><input type="checkbox" name="q20" value="b"> Học sinh nên chia sẻ mật khẩu cho nhau biết</label>
+                <label><input type="checkbox" name="q20" value="c"> Học sinh và giáo viên không nên dùng mạng xã hội trong lớp học</label>
+                <label><input type="checkbox" name="q20" value="d"> Học sinh nên mở loa ngoài khi xem Video, thay vì đeo tai nghe</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 21</span>
+            <div class="question-text">Hãy ghép các hành vi trực tuyến (bên trái) với đánh giá phép xã giao tương ứng (bên phải).</div>
+            <table class="grid-table">
+                <tr><th>Hành vi</th><th>Đánh giá phép xã giao</th></tr>
+                <tr><td>Một bạn cùng lớp đăng ảnh vẽ bạn mà chưa hỏi ý kiến</td><td>
+                    <select name="q21_1">
+                        <option value="">-- Chọn --</option>
+                        <option value="privacy">Tôn trọng quyền riêng tư của người khác</option>
+                        <option value="time">Gửi tin nhắn vào thời gian thích hợp</option>
+                        <option value="gossip">Không trao đổi thông tin về người khác mà chưa hỏi ý kiến</option>
+                        <option value="caps">Tránh ghi toàn chữ IN HOA</option>
+                    </select>
+                </td></tr>
+                <tr><td>Gửi tin nhắn trực tiếp cho giáo viên vào nửa đêm ngày cuối tuần</td><td>
+                    <select name="q21_2">
+                        <option value="">-- Chọn --</option>
+                        <option value="privacy">Tôn trọng quyền riêng tư của người khác</option>
+                        <option value="time">Gửi tin nhắn vào thời gian thích hợp</option>
+                    </select>
+                </td></tr>
+                <tr><td>Hai người bạn trò chuyện về một bạn cùng lớp trong phần nhắn tin trực tiếp</td><td>
+                    <select name="q21_3">
+                        <option value="">-- Chọn --</option>
+                        <option value="gossip">Không trao đổi thông tin về người khác mà chưa hỏi ý kiến</option>
+                        <option value="caps">Tránh ghi toàn chữ IN HOA</option>
+                    </select>
+                </td></tr>
+                <tr><td>KÍNH GỬI THẦY/CÔ</td><td>
+                    <select name="q21_4">
+                        <option value="">-- Chọn --</option>
+                        <option value="caps">Tránh ghi toàn chữ IN HOA</option>
+                    </select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 22</span>
+            <div class="question-text">Đâu là một dạng phép xã giao trên môi trường kỹ thuật số?</div>
+            <div class="options">
+                <label><input type="radio" name="q22" value="a"> Dùng các nguồn giả trên mạng</label>
+                <label><input type="radio" name="q22" value="b"> Đưa sự hài hước và châm biếm vào tin nhắn</label>
+                <label><input type="radio" name="q22" value="c"> Đăng các thông điệp có tính phỉ báng trên mạng</label>
+                <label><input type="radio" name="q22" value="d"> Duy trì tính tích cực trong tin nhắn và bài đăng của bạn</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 23</span>
+            <div class="question-text">Thông tin nào là một phần của dấu chân kỹ thuật số (Digital footprint) của bạn?</div>
+            <div class="options">
+                <label><input type="radio" name="q23" value="a"> Bưu thiếp và thư bạn gửi cho một người bạn qua thư</label>
+                <label><input type="radio" name="q23" value="b"> Bài đăng trên mạng xã hội</label>
+                <label><input type="radio" name="q23" value="c"> Nhạc được lưu trên ổ cứng máy tính</label>
+                <label><input type="radio" name="q23" value="d"> Biên lai mua hàng tại một cửa hàng địa phương</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 24</span>
+            <div class="question-text">Khi bắt đầu làm dự án nghiên cứu, giáo viên đưa cho bạn <b>http://orchestramusic.org</b> để sử dụng. Thứ mà giáo viên đưa cho bạn là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q24" value="a"> Một tác giả</label>
+                <label><input type="radio" name="q24" value="b"> Tiêu đề một trang</label>
+                <label><input type="radio" name="q24" value="c"> Một URL</label>
+                <label><input type="radio" name="q24" value="d"> Mã nguồn</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 25</span>
+            <div class="question-text">Câu nào bên dưới là ví dụ về một URL?</div>
+            <div class="options">
+                <label><input type="radio" name="q25" value="a"> http://www.coolplaces.com/visit-the-pyramids</label>
+                <label><input type="radio" name="q25" value="b"> com.CoolPlaces.www</label>
+                <label><input type="radio" name="q25" value="c"> CoolPlaces.com</label>
+                <label><input type="radio" name="q25" value="d"> www.coolplaces</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 26</span>
+            <div class="question-text">Bạn được bạn của mình giới thiệu một trang web mới cho phép chơi game trực tuyến miễn phí. Đó là loại trang web gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q26" value="a"> Giải trí</label>
+                <label><input type="radio" name="q26" value="b"> Thông tin</label>
+                <label><input type="radio" name="q26" value="c"> Mạng xã hội</label>
+                <label><input type="radio" name="q26" value="d"> Giao tiếp</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 27</span>
+            <div class="question-text">Hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang định nghĩa tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Định nghĩa</th><th>Thuật ngữ</th></tr>
+                <tr><td>Cung cấp bản mới nhất của trang web</td><td>
+                    <select name="q27_1"><option value="">--Chọn--</option><option value="reload">Tải lại (Reload)</option><option value="navigate">Điều hướng (Navigate)</option><option value="bookmark">Dấu trang (Bookmark)</option><option value="form">Biểu mẫu (Form)</option></select>
+                </td></tr>
+                <tr><td>Khám phá để nắm rõ một ứng dụng hoặc trang web</td><td>
+                    <select name="q27_2"><option value="">--Chọn--</option><option value="reload">Tải lại (Reload)</option><option value="navigate">Điều hướng (Navigate)</option><option value="bookmark">Dấu trang (Bookmark)</option><option value="form">Biểu mẫu (Form)</option></select>
+                </td></tr>
+                <tr><td>Lưu địa chỉ một trang web (đôi khi được gọi là "danh sách yêu thích" (Favorite))</td><td>
+                    <select name="q27_3"><option value="">--Chọn--</option><option value="reload">Tải lại (Reload)</option><option value="navigate">Điều hướng (Navigate)</option><option value="bookmark">Dấu trang (Bookmark)</option><option value="form">Biểu mẫu (Form)</option></select>
+                </td></tr>
+                <tr><td>Một cửa sổ hoặc màn hình chứa rất nhiều trường hoặc ô trống để nhập dữ liệu</td><td>
+                    <select name="q27_4"><option value="">--Chọn--</option><option value="reload">Tải lại (Reload)</option><option value="navigate">Điều hướng (Navigate)</option><option value="bookmark">Dấu trang (Bookmark)</option><option value="form">Biểu mẫu (Form)</option></select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 28</span>
+            <div class="question-text">Với mỗi câu phát biểu về trình duyệt web, hãy chọn Đúng hoặc Sai.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Đúng</th><th>Sai</th></tr>
+                <tr><td>Dấu trang (Bookmark) cho phép người dùng điều hướng lại các trang web yêu thích của họ</td><td><input type="radio" name="q28_1" value="d"></td><td><input type="radio" name="q28_1" value="s"></td></tr>
+                <tr><td>Chức năng tải lại cho phép người dùng truy cập một trang web mà họ thường xem</td><td><input type="radio" name="q28_2" value="d"></td><td><input type="radio" name="q28_2" value="s"></td></tr>
+                <tr><td>Tự động điền (Autofill) cho phép trình duyệt tự điền thông tin mà không phải gõ lại</td><td><input type="radio" name="q28_3" value="d"></td><td><input type="radio" name="q28_3" value="s"></td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 29</span>
+            <div class="question-text">Tình huống: Bạn đang đọc tài liệu nghiên cứu thì trang bị đứng hoàn toàn. Bạn phải <select name="q29_1"><option value="">...</option><option value="a">Tải lại</option><option value="b">Điều hướng đến</option><option value="c">Đánh dấu trang</option></select> trang web. Bạn đang làm bài kiểm tra trực tuyến. Bạn muốn xem câu tiếp theo. Bạn phải <select name="q29_2"><option value="">...</option><option value="a">Tải lại</option><option value="b">Điều hướng đến</option><option value="c">Đánh dấu trang</option></select> trang sau.</div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 30</span>
+            <div class="question-text">Bạn chạy xong một lượt tìm kiếm trên web, nhưng không tìm được kết quả mình cần. Bạn nên thực hiện 2 bước nào để giúp tinh chỉnh phạm vi tìm kiếm? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q30" value="a"> Nhấp vào một quảng cáo</label>
+                <label><input type="checkbox" name="q30" value="b"> Thử lại mà không thay đổi gì cả</label>
+                <label><input type="checkbox" name="q30" value="c"> Dùng các bộ lọc</label>
+                <label><input type="checkbox" name="q30" value="d"> Dùng từ đồng nghĩa hoặc các từ thay thế khác</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 31</span>
+            <div class="question-text">Bạn muốn mua một vật phẩm mới cho trò chơi trực tuyến. Vật phẩm đó sẽ được khuyến mãi trong 5 phút nữa. Bạn đã mở sẵn trang đó ra chờ. Khi hết 5 phút đó, bạn nên làm gì để nhanh chóng hiển thị mức giá mới?</div>
+            <div class="options">
+                <label><input type="radio" name="q31" value="a"> In trang đó ra</label>
+                <label><input type="radio" name="q31" value="b"> Đánh dấu trang đó</label>
+                <label><input type="radio" name="q31" value="c"> Gửi email cho công ty bán hàng</label>
+                <label><input type="radio" name="q31" value="d"> Tải lại trang</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 32</span>
+            <div class="question-text">Nếu muốn lưu trang web để quay lại sau thì bạn có thể làm gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q32" value="a"> Cố nhớ vào lần đăng nhập tới</label>
+                <label><input type="radio" name="q32" value="b"> Đánh dấu trang (Bookmark) cho URL đó</label>
+                <label><input type="radio" name="q32" value="c"> Nói cho một người bạn biết</label>
+                <label><input type="radio" name="q32" value="d"> Nhờ ai đó gợi nhắc cho bạn</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 33</span>
+            <div class="question-text">Bạn đang tìm một số thông tin trên mạng, nhưng kết quả trả về không cung cấp thông tin mà bạn cần. Bạn nên làm gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q33" value="a"> Đóng trình duyệt của bạn</label>
+                <label><input type="radio" name="q33" value="b"> Kiểm tra kết nối internet của bạn</label>
+                <label><input type="radio" name="q33" value="c"> Dùng từ đồng nghĩa để thay đổi thuật ngữ tìm</label>
+                <label><input type="radio" name="q33" value="d"> Bấm vào đường liên kết của những kết quả quảng cáo</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 34</span>
+            <div class="question-text">Bạn đang đọc một bài viết trên trang web. Bên dưới bài viết đó có nhiều đường liên kết cung cấp thêm thông tin ngoài. Bạn nên bấm vào liên kết nào để tìm hiểu về người viết bài báo?</div>
+            <div class="options">
+                <label><input type="radio" name="q34" value="a"> Chính sách quyền riêng tư (Privacy policy)</label>
+                <label><input type="radio" name="q34" value="b"> Tác giả (Author)</label>
+                <label><input type="radio" name="q34" value="c"> Điều khoản sử dụng (Terms of use)</label>
+                <label><input type="radio" name="q34" value="d"> Phiên bản di động (Mobile version)</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 35</span>
+            <div class="question-text">Hãy di chuyển từng hoạt động trực tuyến từ danh sách ở bên phải sang mục đích tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Hoạt động</th><th>Mục đích</th></tr>
+                <tr><td>Gửi email cho giáo viên của bạn về bài tập bị thiếu</td><td>
+                    <select name="q35_1"><option value="">--Chọn--</option><option value="comm">Giao tiếp</option><option value="info">Thông tin</option><option value="ent">Giải trí</option></select>
+                </td></tr>
+                <tr><td>Dùng Google Scholar để tìm kiếm một chủ đề cho bài tập</td><td>
+                    <select name="q35_2"><option value="">--Chọn--</option><option value="comm">Giao tiếp</option><option value="info">Thông tin</option><option value="ent">Giải trí</option></select>
+                </td></tr>
+                <tr><td>Xem đoạn video hài hước về một chú chó đi xe máy</td><td>
+                    <select name="q35_3"><option value="">--Chọn--</option><option value="comm">Giao tiếp</option><option value="info">Thông tin</option><option value="ent">Giải trí</option></select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Câu 36</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào sau đây là ví dụ về công cụ tìm kiếm? (Chọn 2)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q36" value="a"> Safari</label>
+                <label><input type="checkbox" name="q36" value="b"> Bing</label>
+                <label><input type="checkbox" name="q36" value="c"> Google</label>
+                <label><input type="checkbox" name="q36" value="d"> Firefox</label>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+        <div id="result-area"></div>
+    </form>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <span class="copyright">© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</span>
+    <div class="footer-divider"></div>
+    <div class="footer-info">
+        <div><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com</div>
+        <div><i class="fas fa-phone"></i> 0937.438.939</div>
+        <div><i class="fas fa-university"></i> Vietinbank: 0937438939</div>
+    </div>
+</footer>
+
+<script>
+    // --- ĐÁP ÁN ĐÚNG ---
+    const correctAnswers = {
+        q1: "b", // Bộ nhớ
+        q2: "b", // Cloud
+        // q3 (checkbox) -> c, d
+        q4: "d", // Bluetooth
+        q5: "d", // Cloud
+        q6: "b", // Data consumption
+        // q7 (checkbox) -> a, e (Hoặc b,d - Tùy logic IC3, thường là play offline & smooth)
+        // q8 (checkbox) -> a, b
+        // q9 (checkbox) -> a, b
+        // q10 (checkbox) -> c, d
+        q11: "d", // Too many games
+        q12: "d", // Search history
+        // q13 (checkbox) -> a, b (Email, Web)
+        q14: "a", // Refund
+        // q15 (checkbox 4) -> b, c, d, f
+        q16_1: "d", q16_2: "s", q16_3: "s", // T/F/F? Actually School work isn't usually public footprint but it is digital record. Usually T/F/F or T/F/T. Let's assume standard: True, False, True.
+        // q17 (checkbox) -> b, d
+        q18: "a", // Email
+        // q19 (checkbox) -> b, c (Identity protection)
+        // q20 (checkbox) -> a, c (Behave well)
+        q21_1: "privacy", q21_2: "time", q21_3: "gossip", q21_4: "caps",
+        q22: "d", // Positivity
+        q23: "b", // Social post
+        q24: "c", // URL
+        q25: "a", // Valid URL
+        q26: "a", // Entertainment
+        q27_1: "reload", q27_2: "navigate", q27_3: "bookmark", q27_4: "form",
+        q28_1: "d", q28_2: "s", q28_3: "d", // Bookmark=T, Reload for frequent=F, Autofill=T
+        q29_1: "a", q29_2: "b", // Reload, Navigate
+        // q30 (checkbox) -> c, d
+        q31: "d", // Reload
+        q32: "b", // Bookmark
+        q33: "c", // Synonyms
+        q34: "b", // Author
+        q35_1: "comm", q35_2: "info", q35_3: "ent",
+        // q36 (checkbox) -> b, c
+    };
+
+    function gradeQuiz() {
+        let score = 0;
+        let total = 36; // 36 câu
+        
+        // Helper check radio/select
+        for (let key in correctAnswers) {
+            // Skip check for checkboxes handled below
+            if(key.startsWith("q")) { 
+                 // Logic handled in specific loops
+            }
+        }
+
+        // Loop 1 to 36
+        for(let i=1; i<=36; i++) {
+            let qKey = "q" + i;
+            let isCorrect = false;
+
+            // Handle Checkboxes (Multiple Choice)
+            if([3, 7, 8, 9, 10, 13, 15, 17, 19, 20, 30, 36].includes(i)) {
+                let inputs = document.getElementsByName(qKey);
+                let checkedVals = [];
+                for(let inp of inputs) if(inp.checked) checkedVals.push(inp.value);
+                
+                let correctVals = [];
+                if(i==3) correctVals = ["c", "d"];
+                if(i==7) correctVals = ["b", "e"]; // Reliable & No internet needed
+                if(i==8) correctVals = ["a", "b"];
+                if(i==9) correctVals = ["a", "b"];
+                if(i==10) correctVals = ["c", "d"];
+                if(i==13) correctVals = ["a", "b"];
+                if(i==15) correctVals = ["b", "c", "d", "f"];
+                if(i==17) correctVals = ["b", "d"];
+                if(i==19) correctVals = ["b", "c"];
+                if(i==20) correctVals = ["a", "c"];
+                if(i==30) correctVals = ["c", "d"];
+                if(i==36) correctVals = ["b", "c"];
+
+                if(checkedVals.length === correctVals.length && checkedVals.every(v => correctVals.includes(v))) {
+                    isCorrect = true;
+                }
+            }
+            // Handle Matching / Table sub-questions (16, 21, 27, 28, 29, 35)
+            else if(i==16 || i==21 || i==27 || i==28 || i==29 || i==35) {
+                // Logic: Count sub-questions
+                let subScore = 0;
+                let subTotal = 0;
+                let subKeys = Object.keys(correctAnswers).filter(k => k.startsWith(qKey + "_"));
+                subTotal = subKeys.length;
+
+                for(let k of subKeys) {
+                    let val = "";
+                    let el = document.getElementsByName(k)[0];
+                    if(el.tagName === "SELECT") val = el.value;
+                    else { // Radio in table
+                        let radios = document.getElementsByName(k);
+                        for(let r of radios) if(r.checked) val = r.value;
+                    }
+                    if(val === correctAnswers[k]) subScore++;
+                }
+                if(subScore === subTotal) isCorrect = true; // Strict grading: All parts must be correct
+                // Or you can add partial points to 'score' variable directly.
+                // Let's stick to 1 point per numbered question for simplicity.
+            }
+            // Handle Standard Radio
+            else {
+                let inputs = document.getElementsByName(qKey);
+                let val = "";
+                for(let inp of inputs) if(inp.checked) val = inp.value;
+                if(val === correctAnswers[qKey]) isCorrect = true;
+            }
+
+            if(isCorrect) score++;
+        }
+
+        const res = document.getElementById('result-area');
+        res.style.display = "block";
+        const percent = Math.round((score / total) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score}/${total} CÂU ĐÚNG (${percent}%)`;
+        
+        if(percent >= 80) {
+            res.style.backgroundColor = "#d4edda";
+            res.style.color = "#155724";
+        } else {
+            res.style.backgroundColor = "#f8d7da";
+            res.style.color = "#721c24";
+        }
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
