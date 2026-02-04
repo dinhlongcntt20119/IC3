@@ -9,10 +9,10 @@
     
     <style>
         :root {
-            /* Giữ nguyên bảng màu của Level 2 (Màu cam/vàng chủ đạo để phân biệt với Level 1 xanh) hoặc dùng màu chuẩn xanh */
-            --primary-gradient: linear-gradient(135deg, #e65c00 0%, #F9D423 100%); /* Level 2 tone cam */
-            --accent-color: #ff9800;
-            --bg-color: #f0f4f8;
+            /* Tông màu Cam cho Level 2 */
+            --primary-gradient: linear-gradient(135deg, #e65100 0%, #f9a825 100%);
+            --accent-color: #ef6c00;
+            --bg-color: #fff8e1;
             --card-bg: #ffffff;
             --success-color: #28a745;
             --error-color: #dc3545;
@@ -25,7 +25,7 @@
         header {
             background: var(--primary-gradient); color: white; padding: 15px 5%;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-bottom: 6px solid #d35400;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-bottom: 6px solid #e65100;
         }
         
         .header-left { display: flex; align-items: center; gap: 20px; }
@@ -36,16 +36,16 @@
             border: 1px solid rgba(255,255,255,0.5); transition: all 0.3s;
             display: flex; align-items: center; gap: 5px;
         }
-        .back-btn:hover { background: #fff; color: #e65c00; border-color: #fff; }
+        .back-btn:hover { background: #fff; color: #e65100; border-color: #fff; }
 
         .logo-ic3 {
             font-family: 'Kanit', sans-serif; font-size: 2.2rem; font-style: italic; font-weight: 800;
             display: flex; align-items: center; letter-spacing: -1px;
         }
-        .logo-ic3 span:nth-child(1) { color: #fff; -webkit-text-stroke: 0px; } /* I */
-        .logo-ic3 span:nth-child(2) { color: #fff; -webkit-text-stroke: 0px; margin-right: 3px; } /* C */
-        .logo-ic3 span:nth-child(3) { color: #333; font-size: 2.5rem; margin-right: 8px; } /* 3 */
-        .logo-ic3 span:nth-child(4) { color: #fff; font-size: 2rem; letter-spacing: 0; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); } /* spark */
+        .logo-ic3 span:nth-child(1) { color: #fff; -webkit-text-stroke: 0px; }
+        .logo-ic3 span:nth-child(2) { color: #fff; -webkit-text-stroke: 0px; margin-right: 3px; }
+        .logo-ic3 span:nth-child(3) { color: #333; font-size: 2.5rem; margin-right: 8px; }
+        .logo-ic3 span:nth-child(4) { color: #fff; font-size: 2rem; letter-spacing: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
 
         .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         
@@ -56,29 +56,29 @@
         .question-card.incomplete { border: 2px solid var(--error-color); background-color: #fff6f6; }
         
         .topic-label {
-            position: absolute; top: -12px; left: 20px; background: #e67e22; /* Màu cam */
+            position: absolute; top: -12px; left: 20px; background: #ef6c00;
             color: white; padding: 4px 15px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
         }
         
-        .question-text { font-weight: 700; font-size: 1.15rem; margin-bottom: 20px; color: #2c3e50; }
+        .question-text { font-weight: 700; font-size: 1.15rem; margin-bottom: 20px; color: #d84315; }
 
         /* MCQ Styles */
         .options label {
             display: block; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #eee;
             border-radius: 8px; cursor: pointer; transition: 0.2s;
         }
-        .options label:hover { background: #fff3e0; } /* Hover màu cam nhạt */
+        .options label:hover { background: #fff3e0; }
         .options input { margin-right: 12px; transform: scale(1.2); }
 
-        /* Grid Table Styles (Yes/No) */
+        /* Grid Table Styles */
         .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .grid-table th, .grid-table td { border: 1px solid #ddd; padding: 12px; text-align: center; }
-        .grid-table th { background: #fdf2e9; color: #d35400; } /* Header màu cam nhạt */
+        .grid-table th { background: #ffe0b2; color: #e65100; }
         .grid-table td:first-child { text-align: left; font-weight: 500; width: 60%; }
 
-        /* Sync Table Styles (Matching) - CHUẨN ĐỐI XỨNG */
+        /* Sync Table Styles (Matching) */
         .sync-table { width: 100%; border-collapse: collapse; margin-top: 15px; border: 2px solid #ccc; }
-        .sync-table td { border: 1px solid #ccc; padding: 0; vertical-align: middle; height: 70px; }
+        .sync-table td { border: 1px solid #ccc; padding: 0; vertical-align: middle; height: auto; }
         
         .content-cell { 
             padding: 15px; background: #fff; height: 100%; 
@@ -87,15 +87,15 @@
         }
         
         .menu-cell { 
-            padding: 10px; background: #fdfdfd; text-align: center; vertical-align: middle;
+            padding: 10px; background: #fffde7; text-align: center; vertical-align: middle;
         }
         
-        select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; font-size: 0.95rem; }
+        select { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; font-size: 0.95rem; }
 
         /* Feedback Styles */
         .explanation {
             display: none; margin-top: 20px; padding: 15px;
-            background: #e8f5e9; border-left: 5px solid #28a745; border-radius: 4px; font-size: 0.9rem;
+            background: #fff3e0; border-left: 5px solid #ef6c00; border-radius: 4px; font-size: 0.9rem;
         }
         .correct-ans-label {
             display: block; margin-top: 8px; color: #28a745; font-size: 0.9rem; font-weight: bold; text-align: left;
@@ -106,21 +106,21 @@
             color: white; border: none; border-radius: 10px; font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-top: 40px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
         }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4); }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230, 81, 0, 0.4); }
         
         #result-area {
             text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
             display: none; padding: 30px; border-radius: 12px;
         }
 
-        footer { background: var(--primary-gradient); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; border-top: 6px solid #d35400; }
+        footer { background: var(--primary-gradient); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; border-top: 6px solid #e65100; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="header-left">
-        <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Trang chủ</a>
+        <a href="../index.html" class="back-btn"><i class="fas fa-home"></i> Trang chủ</a>
         <div class="logo-ic3"><span>I</span><span>C</span><span>3</span><span>spark</span></div>
     </div>
     <div style="text-align: right; line-height: 1.4;">
@@ -131,48 +131,195 @@
 
 <div class="container">
     <div style="text-align:center; margin-bottom:40px;">
-        <h1 style="color:#d35400; font-size: 2.2rem; margin-bottom: 10px;">KIẾN THỨC NỀN TẢNG 2 (Level 2)</h1>
-        <p style="color:#666;">Vui lòng hoàn thành tất cả câu hỏi để nộp bài.</p>
+        <h1 style="color:#e65100; font-size: 2.2rem; margin-bottom: 10px;">KIẾN THỨC NỀN TẢNG 2 (Level 2)</h1>
+        <p style="color:#666;">Vui lòng hoàn thành tất cả 33 câu hỏi để nộp bài.</p>
     </div>
 
     <form id="quiz-form">
         
-        <div class="question-card"><span class="topic-label">Chủ đề 01</span><div class="question-text">Câu hỏi trắc nghiệm số 1?</div><div class="options"><label><input type="radio" name="q1" value="a"> Đáp án A</label><label><input type="radio" name="q1" value="b"> Đáp án B</label><label><input type="radio" name="q1" value="c"> Đáp án C</label><label><input type="radio" name="q1" value="d"> Đáp án D</label></div><div class="explanation">Diễn giải: Giải thích tại sao đáp án này đúng...</div></div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 02</span><div class="question-text">Chọn Có hoặc Không cho các phát biểu sau:</div>
+        <div class="question-card"><span class="topic-label">Chủ đề 01</span><div class="question-text">Phần nào sau đây thường được tìm thấy trong một URL? (Chọn Có/Không)</div>
             <table class="grid-table">
-                <tr><th>Phát biểu</th><th>Có (Yes)</th><th>Không (No)</th></tr>
-                <tr><td>Nội dung phát biểu 1...</td><td><input type="radio" name="q2_1" value="yes"></td><td><input type="radio" name="q2_1" value="no"></td></tr>
-                <tr><td>Nội dung phát biểu 2...</td><td><input type="radio" name="q2_2" value="yes"></td><td><input type="radio" name="q2_2" value="no"></td></tr>
-                <tr><td>Nội dung phát biểu 3...</td><td><input type="radio" name="q2_3" value="yes"></td><td><input type="radio" name="q2_3" value="no"></td></tr>
-            </table>
-            <div class="explanation">Diễn giải: Giải thích ngắn gọn...</div>
-        </div>
+                <tr><th>Thành phần</th><th>Có</th><th>Không</th></tr>
+                <tr><td>Giao thức (Protocol)</td><td><input type="radio" name="q1_1" value="yes"></td><td><input type="radio" name="q1_1" value="no"></td></tr>
+                <tr><td>Tên miền (Domain name)</td><td><input type="radio" name="q1_2" value="yes"></td><td><input type="radio" name="q1_2" value="no"></td></tr>
+                <tr><td>Chuỗi truy vấn (Query string)</td><td><input type="radio" name="q1_3" value="yes"></td><td><input type="radio" name="q1_3" value="no"></td></tr>
+                <tr><td>Neo (Anchor)</td><td><input type="radio" name="q1_4" value="yes"></td><td><input type="radio" name="q1_4" value="no"></td></tr>
+            </table></div>
 
-        <div class="question-card"><span class="topic-label">Chủ đề 03</span><div class="question-text">Nối nội dung ở cột trái với thuật ngữ đúng ở cột phải:</div>
+        <div class="question-card"><span class="topic-label">Chủ đề 02</span><div class="question-text">Nối mỗi thuật ngữ với định nghĩa đúng.</div>
             <table class="sync-table">
-                <tr><td width="70%"><div class="content-cell">Nội dung định nghĩa dài hoặc ví dụ nằm ở đây...</div></td>
-                    <td width="30%"><div class="menu-cell"><select name="q3_1" class="req"><option value="">-- Chọn --</option><option value="opt1">Thuật ngữ 1</option><option value="opt2">Thuật ngữ 2</option><option value="opt3">Thuật ngữ 3</option></select></div></td></tr>
-                <tr><td><div class="content-cell">Nội dung định nghĩa thứ 2...</div></td>
-                    <td><div class="menu-cell"><select name="q3_2" class="req"><option value="">-- Chọn --</option><option value="opt1">Thuật ngữ 1</option><option value="opt2">Thuật ngữ 2</option><option value="opt3">Thuật ngữ 3</option></select></div></td></tr>
-            </table>
-            <div class="explanation">Diễn giải: Giải thích...</div>
-        </div>
+                <tr><td width="70%"><div class="content-cell">Người sử dụng các kỹ năng hack hợp pháp để xác định các lỗ hổng bảo mật trong công nghệ</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q2_1" class="req"><option value="">-- Chọn --</option><option value="white">White hat hacker</option><option value="gray">Gray hat hacker</option><option value="black">Black hat hacker</option><option value="hack">Hacking</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Người sử dụng các kỹ năng hack một cách bất hợp pháp và có mục đích xấu</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q2_2" class="req"><option value="">-- Chọn --</option><option value="white">White hat hacker</option><option value="gray">Gray hat hacker</option><option value="black">Black hat hacker</option><option value="hack">Hacking</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Đạt được quyền truy cập trái phép vào thông tin kỹ thuật số</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q2_3" class="req"><option value="">-- Chọn --</option><option value="white">White hat hacker</option><option value="gray">Gray hat hacker</option><option value="black">Black hat hacker</option><option value="hack">Hacking</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Ai đó sử dụng các kỹ năng hack để xác định các lỗ hổng... không có sự cho phép... sau đó chia sẻ có tính phí/không phá hoại</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q2_4" class="req"><option value="">-- Chọn --</option><option value="white">White hat hacker</option><option value="gray">Gray hat hacker</option><option value="black">Black hat hacker</option><option value="hack">Hacking</option></select></div></td></tr>
+            </table></div>
 
-        <button type="button" class="btn-submit" onclick="submitQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+        <div class="question-card"><span class="topic-label">Chủ đề 03</span><div class="question-text">Nối thuật ngữ với định nghĩa tương ứng.</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Một hình thức bảo vệ pháp lý mang lại cho người sáng tạo tác phẩm gốc quyền độc quyền...</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q3_1" class="req"><option value="">-- Chọn --</option><option value="copy">Copyright (Bản quyền)</option><option value="cred">Credibility (Sự uy tín)</option><option value="rel">Relevance (Mức độ liên quan)</option><option value="pers">Perspective (Quan điểm)</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Thông tin đáng tin cậy hay đáng tin cậy như thế nào</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q3_2" class="req"><option value="">-- Chọn --</option><option value="copy">Copyright</option><option value="cred">Credibility (Sự uy tín)</option><option value="rel">Relevance</option><option value="pers">Perspective</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Mức độ áp dụng hoặc hữu ích của thông tin, kết quả tìm kiếm hoặc nội dung</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q3_3" class="req"><option value="">-- Chọn --</option><option value="copy">Copyright</option><option value="cred">Credibility</option><option value="rel">Relevance (Mức độ liên quan)</option><option value="pers">Perspective</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Cách ai đó nhìn hoặc hiểu điều gì đó dựa trên kinh nghiệm, kiến thức và niềm tin của họ</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q3_4" class="req"><option value="">-- Chọn --</option><option value="copy">Copyright</option><option value="cred">Credibility</option><option value="rel">Relevance</option><option value="pers">Perspective (Quan điểm)</option></select></div></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 04</span><div class="question-text">Lợi ích của quá trình hợp tác là gì? (Chọn Có/Không)</div>
+            <table class="grid-table">
+                <tr><th>Lợi ích</th><th>Có</th><th>Không</th></tr>
+                <tr><td>Dữ liệu có giá trị hơn khi có nhiều người xem nó</td><td><input type="radio" name="q4_1" value="yes"></td><td><input type="radio" name="q4_1" value="no"></td></tr>
+                <tr><td>Chia sẻ khối lượng công việc giúp tiết kiệm thời gian</td><td><input type="radio" name="q4_2" value="yes"></td><td><input type="radio" name="q4_2" value="no"></td></tr>
+                <tr><td>Những quan điểm đa dạng được chia sẻ</td><td><input type="radio" name="q4_3" value="yes"></td><td><input type="radio" name="q4_3" value="no"></td></tr>
+                <tr><td>Nhiệm vụ có thể phù hợp với bộ kỹ năng của mỗi người</td><td><input type="radio" name="q4_4" value="yes"></td><td><input type="radio" name="q4_4" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 05</span><div class="question-text">Một số tùy chọn khắc phục sự cố cơ bản với công nghệ là gì? (Chọn Có/Không)</div>
+            <table class="grid-table">
+                <tr><th>Hành động</th><th>Có</th><th>Không</th></tr>
+                <tr><td>Khởi động lại thiết bị</td><td><input type="radio" name="q5_1" value="yes"></td><td><input type="radio" name="q5_1" value="no"></td></tr>
+                <tr><td>Ngắt kết nối nguồn điện khỏi tòa nhà chính</td><td><input type="radio" name="q5_2" value="yes"></td><td><input type="radio" name="q5_2" value="no"></td></tr>
+                <tr><td>Làm mới trình duyệt web của bạn</td><td><input type="radio" name="q5_3" value="yes"></td><td><input type="radio" name="q5_3" value="no"></td></tr>
+                <tr><td>Kiểm tra xem tất cả các cáp đã được kết nối đúng cách chưa</td><td><input type="radio" name="q5_4" value="yes"></td><td><input type="radio" name="q5_4" value="no"></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 06</span><div class="question-text">Internet là gì?</div>
+            <div class="options"><label><input type="radio" name="q6" value="a"> Một trình duyệt Web</label><label><input type="radio" name="q6" value="b"> Một vị trí vật lý nơi dữ liệu được lưu trữ</label><label><input type="radio" name="q6" value="c"> Một thiết bị để thực hiện cuộc gọi điện thoại</label><label><input type="radio" name="q6" value="d"> Một mạng lưới toàn cầu gồm các máy tính và thiết bị được kết nối</label></div><div class="explanation">Diễn giải: Internet là mạng lưới toàn cầu kết nối hàng tỷ thiết bị.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 07</span><div class="question-text">Công nghệ hỗ trợ làm việc từ xa và linh hoạt tại nơi làm việc như thế nào?</div>
+            <div class="options"><label><input type="radio" name="q7" value="a"> Bằng cách yêu cầu nhân viên phải luôn có mặt tại văn phòng</label><label><input type="radio" name="q7" value="b"> Nó hạn chế quyền truy cập vào thông tin liên quan đến công việc</label><label><input type="radio" name="q7" value="c"> Bằng cách cung cấp các công cụ và phần mềm để cộng tác và liên lạc từ xa</label><label><input type="radio" name="q7" value="d"> Bằng cách không khuyến khích việc sử dụng thiết bị di động</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 08</span><div class="question-text">Ổ USB dùng để làm gì?</div>
+            <div class="options"><label><input type="radio" name="q8" value="a"> Chơi game</label><label><input type="radio" name="q8" value="b"> Gửi và nhận tin nhắn SMS</label><label><input type="radio" name="q8" value="c"> Lưu trữ và truyền dữ liệu</label><label><input type="radio" name="q8" value="d"> Chụp ảnh</label></div><div class="explanation">Diễn giải: USB (Universal Serial Bus) là thiết bị lưu trữ di động.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 09</span><div class="question-text">Mục đích của địa chỉ IP là gì?</div>
+            <div class="options"><label><input type="radio" name="q9" value="a"> Gửi và nhận email</label><label><input type="radio" name="q9" value="b"> Xác định vị trí địa chỉ vật lý của trang web</label><label><input type="radio" name="q9" value="c"> Xác định các thiết bị hỗ trợ internet trên mạng máy tính</label><label><input type="radio" name="q9" value="d"> Xác định thông tin cá nhân của người dùng</label></div><div class="explanation">Diễn giải: IP (Internet Protocol) là địa chỉ định danh thiết bị trên mạng.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 10</span><div class="question-text">Catfishing là gì?</div>
+            <div class="options"><label><input type="radio" name="q10" value="a"> Một loại nghiên cứu được thực hiện trực tuyến</label><label><input type="radio" name="q10" value="b"> Giả vờ là người khác trên mạng để đánh lừa hoặc lừa đảo người khác</label><label><input type="radio" name="q10" value="c"> Một cách an toàn để kết bạn trực tuyến</label><label><input type="radio" name="q10" value="d"> Một môn thể thao liên quan đến câu cá</label></div><div class="explanation">Diễn giải: Catfishing là hành vi mạo danh trực tuyến với mục đích xấu.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 11</span><div class="question-text">Một ví dụ về quyền công dân kỹ thuật số tiêu cực là gì?</div>
+            <div class="options"><label><input type="radio" name="q11" value="a"> Tham gia vào các dự án hợp tác trực tuyến</label><label><input type="radio" name="q11" value="b"> Khen ngợi tác phẩm nghệ thuật của một người bạn trực tuyến</label><label><input type="radio" name="q11" value="c"> Tải xuống tài liệu có bản quyền mà không được phép</label><label><input type="radio" name="q11" value="d"> Khuyến khích bạn bè tôn trọng và tử tế trên mạng</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 12</span><div class="question-text">Bạn nên làm gì nếu thấy nội dung trực tuyến không phù hợp với lứa tuổi của mình?</div>
+            <div class="options"><label><input type="radio" name="q12" value="a"> Để lại một bình luận rằng nội dung làm bạn khó chịu</label><label><input type="radio" name="q12" value="b"> Chia sẻ nó với bạn bè của bạn</label><label><input type="radio" name="q12" value="c"> Bỏ qua nó và tiếp tục duyệt</label><label><input type="radio" name="q12" value="d"> Báo cáo việc này cho người lớn đáng tin cậy hoặc người điều hành trang web</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 13</span><div class="question-text">Cài đặt thiết bị di động nào cho phép ứng dụng theo dõi vị trí của bạn?</div>
+            <div class="options"><label><input type="radio" name="q13" value="a"> Cài đặt thông báo</label><label><input type="radio" name="q13" value="b"> Cài đặt độ sáng màn hình</label><label><input type="radio" name="q13" value="c"> Cài đặt Wifi</label><label><input type="radio" name="q13" value="d"> Cài đặt vị trí (Location)</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 14</span><div class="question-text">Làm cách nào bạn có thể kiểm soát ai có thể xem, thích và nhận xét về bài đăng trực tuyến của bạn?</div>
+            <div class="options"><label><input type="radio" name="q14" value="a"> Cập nhật mật khẩu tài khoản của bạn</label><label><input type="radio" name="q14" value="b"> Thay đổi ảnh đại diện</label><label><input type="radio" name="q14" value="c"> Sửa đổi cài đặt kiểu phông chữ</label><label><input type="radio" name="q14" value="d"> Điều chỉnh cài đặt quyền riêng tư</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 15</span><div class="question-text">Bạn có thể làm gì với hình ảnh được tải xuống có giấy phép Creative Commons?</div>
+            <div class="options"><label><input type="radio" name="q15" value="a"> Đang lấy dữ liệu...</label><label><input type="radio" name="q15" value="b"> Chỉ sử dụng nó để xem cá nhân</label><label><input type="radio" name="q15" value="c"> Sửa đổi và điều chỉnh nó cho mục đích riêng của bạn</label><label><input type="radio" name="q15" value="d"> Bán nó để kiếm lợi nhuận mà không được phép</label></div><div class="explanation">Diễn giải: Giấy phép Creative Commons thường cho phép sử dụng, chia sẻ và chỉnh sửa lại tác phẩm.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 16</span><div class="question-text">Giao thức nào đảm bảo kết nối an toàn và được mã hóa giữa trình duyệt web và trang web?</div>
+            <div class="options"><label><input type="radio" name="q16" value="a"> HTTPS</label><label><input type="radio" name="q16" value="b"> HTTP</label><label><input type="radio" name="q16" value="c"> SMTP</label><label><input type="radio" name="q16" value="d"> FTP</label></div><div class="explanation">Diễn giải: HTTPS (S = Secure) là giao thức truyền tải siêu văn bản an toàn.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 17</span><div class="question-text">Tính năng tự động sửa lỗi chính tả khi gõ là gì?</div>
+            <div class="options"><label><input type="radio" name="q17" value="a"> Dữ liệu (Data)</label><label><input type="radio" name="q17" value="b"> Tự động hoàn thành (Autocomplete)</label><label><input type="radio" name="q17" value="c"> Tự động sửa (Autocorrect)</label><label><input type="radio" name="q17" value="d"> Chú thích cuối trang (Footnote)</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 18</span><div class="question-text">Bạn có thể sử dụng phím tắt nào để dán thông tin sau khi sao chép hoặc cắt?</div>
+            <div class="options"><label><input type="radio" name="q18" value="a"> Ctrl + V</label><label><input type="radio" name="q18" value="b"> Ctrl + C</label><label><input type="radio" name="q18" value="c"> Ctrl + X</label><label><input type="radio" name="q18" value="d"> Ctrl + Z</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 19</span><div class="question-text">Ai sở hữu quyền đối với hình ảnh mà bạn tìm thấy trên internet?</div>
+            <div class="options"><label><input type="radio" name="q19" value="a"> Người viết chú thích cho hình ảnh trực tuyến</label><label><input type="radio" name="q19" value="b"> Trang web nơi hình ảnh được hiển thị</label><label><input type="radio" name="q19" value="c"> Công cụ tìm kiếm bạn đã sử dụng để tìm hình ảnh</label><label><input type="radio" name="q19" value="d"> Người đã tạo và tải lên hình ảnh</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 20</span><div class="question-text">Thông tin gì nên được đưa vào trích dẫn cho một cuốn sách?</div>
+            <div class="options"><label><input type="radio" name="q20" value="a"> Tên của thư viện và ngày bạn kiểm tra nó</label><label><input type="radio" name="q20" value="b"> Tên của người đã giới thiệu cuốn sách cho bạn</label><label><input type="radio" name="q20" value="c"> Tên sách (và tác giả)</label><label><input type="radio" name="q20" value="d"> Bìa sách trông như thế nào và có bao nhiêu trang</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 21</span><div class="question-text">Loại trực quan hóa dữ liệu nào là tốt nhất để so sánh các danh mục hoặc nhóm dữ liệu khác nhau?</div>
+            <div class="options"><label><input type="radio" name="q21" value="a"> Bảng (Table)</label><label><input type="radio" name="q21" value="b"> Biểu đồ phân tán (Scatter Plot)</label><label><input type="radio" name="q21" value="c"> Biểu đồ đường (Line Graphs)</label><label><input type="radio" name="q21" value="d"> Histogram (hoặc Biểu đồ cột)</label></div><div class="explanation">Diễn giải: Biểu đồ cột/Histogram dùng để so sánh số lượng giữa các nhóm.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 22</span><div class="question-text">Thuật ngữ "thiên kiến (Bias)" có nghĩa là gì trong truyền thông kỹ thuật số?</div>
+            <div class="options"><label><input type="radio" name="q22" value="a"> Một tính năng cho phép bạn thay đổi cài đặt phông chữ</label><label><input type="radio" name="q22" value="b"> Xu hướng ủng hộ một bên hoặc một quan điểm cụ thể</label><label><input type="radio" name="q22" value="c"> Là loại trò chơi trực tuyến được chơi với ít nhất 3 người</label><label><input type="radio" name="q22" value="d"> Một cách để bày tỏ ý kiến của bạn trực tuyến</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 23</span><div class="question-text">Ví dụ về giao tiếp bằng lời nói phù hợp trong cuộc gọi điện video là gì?</div>
+            <div class="options"><label><input type="radio" name="q23" value="a"> Nói rõ ràng trong khi nhìn vào máy ảnh và micro của bạn</label><label><input type="radio" name="q23" value="b"> Dùng tay che micro khi bạn đang nói</label><label><input type="radio" name="q23" value="c"> Tắt máy ảnh và giữ im lặng trong suốt thời gian đó</label><label><input type="radio" name="q23" value="d"> Ngắt lời và nói chuyện với mọi người</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 24</span><div class="question-text">Bạn sẽ tìm tên và thông tin liên hệ của ai đó ở đâu trong email?</div>
+            <div class="options"><label><input type="radio" name="q24" value="a"> Chữ ký (Signature)</label><label><input type="radio" name="q24" value="b"> Chủ đề (Subject)</label><label><input type="radio" name="q24" value="c"> Nội dung (Body)</label><label><input type="radio" name="q24" value="d"> Địa chỉ (Address)</label></div><div class="explanation">Diễn giải: Chữ ký email thường nằm ở cuối thư, chứa tên và thông tin liên hệ.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 25</span><div class="question-text">Bạn sẽ sử dụng hội nghị truyền hình như thế nào để cộng tác kỹ thuật số trong một dự án nhóm?</div>
+            <div class="options"><label><input type="radio" name="q25" value="a"> Để thảo luận về nghiên cứu mỗi người đã thu thập</label><label><input type="radio" name="q25" value="b"> Để gửi các tập tin lớn cho các thành viên trong nhóm</label><label><input type="radio" name="q25" value="c"> Để bỏ phiếu ẩn danh về một chủ đề dự án</label><label><input type="radio" name="q25" value="d"> Để theo dõi bất kỳ liên kết hoặc trang web hữu ích nào</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 26</span><div class="question-text">Cách giúp quản lý dấu chân kỹ thuật số (Digital footprint) của riêng bạn là gì?</div>
+            <div class="options"><label><input type="radio" name="q26" value="a"> Hãy đăng bài về người khác trước khi họ đăng bài về bạn</label><label><input type="radio" name="q26" value="b"> Chỉ sử dụng internet trong giờ học</label><label><input type="radio" name="q26" value="c"> Xóa mọi nội dung bạn tìm thấy trực tuyến về bản thân</label><label><input type="radio" name="q26" value="d"> Yêu cầu mọi người không đăng bài về bạn</label></div><div class="explanation">Diễn giải: Chủ động yêu cầu người khác không tag hoặc đăng ảnh mình là một biện pháp quản lý dấu chân số.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 27</span><div class="question-text">Khi nào bạn cần được phép chụp ảnh ai đó?</div>
+            <div class="options"><label><input type="radio" name="q27" value="a"> Không bao giờ, việc chụp ảnh ai đó mà không được phép luôn là điều bình thường</label><label><input type="radio" name="q27" value="b"> Luôn luôn, bất kể người đó là ai</label><label><input type="radio" name="q27" value="c"> Chỉ khi đó là thành viên trong gia đình</label><label><input type="radio" name="q27" value="d"> Chỉ khi người đó là người nổi tiếng</label></div><div class="explanation">Diễn giải: Quyền riêng tư về hình ảnh là quan trọng, luôn cần xin phép.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 28</span><div class="question-text">Công nghệ thu thập dữ liệu là gì?</div>
+            <div class="options"><label><input type="radio" name="q28" value="a"> Một công cụ giúp người dùng cộng tác trong các dự án</label><label><input type="radio" name="q28" value="b"> Một phương pháp lưu trữ thông tin cá nhân trên ổ cứng</label><label><input type="radio" name="q28" value="c"> Một cách để theo dõi và thu thập dữ liệu từ nhiều nguồn khác nhau bằng công nghệ</label><label><input type="radio" name="q28" value="d"> Một loại trò chơi máy tính thu thập thông tin người chơi</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 29</span><div class="question-text">Bạn nên làm gì nếu nhận được tin nhắn không phù hợp hoặc không an toàn khi trực tuyến?</div>
+            <div class="options"><label><input type="radio" name="q29" value="a"> Đóng máy tính của bạn ngay lập tức</label><label><input type="radio" name="q29" value="b"> Gửi một tin nhắn trả lời có ý nghĩa</label><label><input type="radio" name="q29" value="c"> Không làm gì cả, xóa vấn đề</label><label><input type="radio" name="q29" value="d"> Chụp ảnh màn hình và cho người lớn đáng tin cậy xem càng sớm càng tốt</label></div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 30</span><div class="question-text">Tại sao điều quan trọng là phải có một môi trường làm việc tiện dụng (theo công thái học)?</div>
+            <div class="options"><label><input type="radio" name="q30" value="a"> Nó đảm bảo bạn trông thật phong cách khi sử dụng công nghệ</label><label><input type="radio" name="q30" value="b"> Nó cho phép bạn không cần nghỉ ngơi khi sử dụng máy tính</label><label><input type="radio" name="q30" value="c"> Nó làm giảm nguy cơ chấn thương và ngăn ngừa sự khó chịu về thể chất</label><label><input type="radio" name="q30" value="d"> Nó giúp thiết bị chạy nhanh hơn và hiệu quả hơn</label></div><div class="explanation">Diễn giải: Công thái học (Ergonomics) giúp bảo vệ sức khỏe khi sử dụng thiết bị lâu dài.</div></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 31</span><div class="question-text">Nối mỗi thuật ngữ ở bên trái với định nghĩa tương ứng ở bên phải.</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Một nhóm câu tập trung vào cùng một chủ đề</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q31_1" class="req"><option value="">-- Chọn --</option><option value="para">Paragraph (Đoạn văn bản)</option><option value="align">Alignment (Căn chỉnh)</option><option value="slide">Slide (Trang chiếu)</option><option value="list">List (Danh sách)</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Kiểm soát cách hiển thị nội dung</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q31_2" class="req"><option value="">-- Chọn --</option><option value="para">Paragraph</option><option value="align">Alignment (Căn chỉnh)</option><option value="slide">Slide</option><option value="list">List</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Một trang của bài trình chiếu Slide</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q31_3" class="req"><option value="">-- Chọn --</option><option value="para">Paragraph</option><option value="align">Alignment</option><option value="slide">Slide (Trang chiếu)</option><option value="list">List</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Các mục liên quan được viết liên tiếp, thường là mục này ở trên mục kia</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q31_4" class="req"><option value="">-- Chọn --</option><option value="para">Paragraph</option><option value="align">Alignment</option><option value="slide">Slide</option><option value="list">List (Danh sách)</option></select></div></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 32</span><div class="question-text">Nối mỗi thuật ngữ ở bên trái với định nghĩa tương ứng ở bên phải.</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Quá trình xem xét và thay đổi nội dung để chuẩn bị xuất bản</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q32_1" class="req"><option value="">-- Chọn --</option><option value="edit">Editing (Chỉnh sửa)</option><option value="resp">Responsibilities (Trách nhiệm)</option><option value="role">Roles (Vai trò)</option><option value="peer">Peer Review (Bình duyệt)</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Các nhiệm vụ cụ thể mà mỗi vai trò chịu trách nhiệm khi cộng tác</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q32_2" class="req"><option value="">-- Chọn --</option><option value="edit">Editing</option><option value="resp">Responsibilities (Trách nhiệm)</option><option value="role">Roles</option><option value="peer">Peer Review</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Phân công công việc cho các thành viên trong nhóm khi cộng tác</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q32_3" class="req"><option value="">-- Chọn --</option><option value="edit">Editing</option><option value="resp">Responsibilities</option><option value="role">Roles (Vai trò)</option><option value="peer">Peer Review</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Học sinh chia sẻ bài tập với nhau để có phản hồi mang tính xây dựng</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q32_4" class="req"><option value="">-- Chọn --</option><option value="edit">Editing</option><option value="resp">Responsibilities</option><option value="role">Roles</option><option value="peer">Peer Review (Bình duyệt)</option></select></div></td></tr>
+            </table></div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 33</span><div class="question-text">Nối mỗi thuật ngữ ở bên trái với định nghĩa tương ứng ở bên phải.</div>
+            <table class="sync-table">
+                <tr><td width="70%"><div class="content-cell">Phần mềm độc hại, như virút và phần mềm gián điệp</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q33_1" class="req"><option value="">-- Chọn --</option><option value="mal">Malware</option><option value="spam">Spam</option><option value="auth">Authentication</option><option value="groom">Grooming</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Tin nhắn không mong muốn nhận được qua email, tin nhắn văn bản...</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q33_2" class="req"><option value="">-- Chọn --</option><option value="mal">Malware</option><option value="spam">Spam</option><option value="auth">Authentication</option><option value="groom">Grooming</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Chứng minh ai đó đúng như họ nói</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q33_3" class="req"><option value="">-- Chọn --</option><option value="mal">Malware</option><option value="spam">Spam</option><option value="auth">Authentication (Xác thực)</option><option value="groom">Grooming</option></select></div></td></tr>
+                <tr><td><div class="content-cell">Khi ai đó hình thành một mối quan hệ và chiếm được lòng tin của một người để lợi dụng họ</div></td>
+                    <td width="30%"><div class="menu-cell"><select name="q33_4" class="req"><option value="">-- Chọn --</option><option value="mal">Malware</option><option value="spam">Spam</option><option value="auth">Authentication</option><option value="groom">Grooming</option></select></div></td></tr>
+            </table></div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Nộp bài</button>
         <div id="result-area"></div>
+
     </form>
 </div>
 
-<footer><p>&copy; 2026 - Website hỗ trợ học tập IC3 Spark | GV Nguyễn Đình Bạch Long</p></footer>
-
 <script>
-    // BẠN CẦN CẬP NHẬT ĐÁP ÁN ĐÚNG TẠI ĐÂY
     const correctAnswers = {
-        q1: "a", // Đáp án câu 1
-        q2_1: "yes", q2_2: "no", q2_3: "yes", // Đáp án câu 2
-        q3_1: "opt1", q3_2: "opt2" // Đáp án câu 3
-        // Thêm các câu khác vào đây: q4: "c", q5_1: "yes"...
+        q1_1: "yes", q1_2: "yes", q1_3: "yes", q1_4: "yes",
+        q2_1: "white", q2_2: "black", q2_3: "hack", q2_4: "gray",
+        q3_1: "copy", q3_2: "cred", q3_3: "rel", q3_4: "pers",
+        q4_1: "no", q4_2: "yes", q4_3: "yes", q4_4: "yes",
+        q5_1: "yes", q5_2: "no", q5_3: "yes", q5_4: "yes",
+        q6: "d", q7: "c", q8: "c", q9: "c", q10: "b",
+        q11: "c", q12: "d", q13: "d", q14: "d", q15: "c",
+        q16: "a", q17: "c", q18: "a", q19: "d", q20: "c",
+        q21: "d", q22: "b", q23: "a", q24: "a", q25: "a",
+        q26: "d", q27: "b", q28: "c", q29: "d", q30: "c",
+        q31_1: "para", q31_2: "align", q31_3: "slide", q31_4: "list",
+        q32_1: "edit", q32_2: "resp", q32_3: "role", q32_4: "peer",
+        q33_1: "mal", q33_2: "spam", q33_3: "auth", q33_4: "groom"
     };
 
     function submitQuiz() {
@@ -256,8 +403,8 @@
         res.style.display = "block";
         const percent = Math.round((score / total) * 100);
         res.innerHTML = `Kết quả: ${score}/${total} câu đúng (${percent}%)`;
-        res.style.color = percent >= 80 ? "#155724" : "#d35400";
-        res.style.backgroundColor = percent >= 80 ? "#d4edda" : "#fce4ec";
+        res.style.color = percent >= 80 ? "#155724" : "#e65100";
+        res.style.backgroundColor = percent >= 80 ? "#d4edda" : "#fff3e0";
 
         document.querySelectorAll('.explanation').forEach(el => el.style.display = "block");
         window.scrollTo({ top: 0, behavior: 'smooth' });
