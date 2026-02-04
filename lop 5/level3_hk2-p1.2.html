@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (PHẦN 1.2)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #234585; 
+            --accent-yellow: #ffc107; 
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--accent-yellow);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 15px; }
+
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            display: flex; align-items: center; gap: 5px;
+            transition: all 0.3s;
+        }
+        .home-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .logo-ic3 { 
+            font-family: 'Kanit', sans-serif; 
+            font-size: 1.8rem; 
+            font-style: italic; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; margin-right: 5px; } 
+        .logo-ic3 span:nth-child(2) { color: #222; opacity: 0.7; }
+
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 2px; }
+        .sub-text { font-size: 0.85rem; opacity: 0.9; }
+
+        /* --- CONTENT --- */
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        
+        .page-title { text-align: center; margin-bottom: 30px; }
+        .page-title h1 { color: var(--primary-blue); font-size: 2rem; margin-bottom: 5px; text-transform: uppercase; }
+        .page-title p { color: #666; font-style: italic; }
+
+        .question-card {
+            background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;
+            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .topic-label {
+            position: absolute; top: -12px; left: 20px; background: #e9ecef; border: 1px solid #ccc;
+            color: #333; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
+        }
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; color: #2c3e50; margin-top: 5px; }
+
+        .options label {
+            display: block; padding: 10px 15px; margin-bottom: 8px; border: 1px solid #eee;
+            border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 0.95rem;
+        }
+        .options label:hover { background: #f0f7ff; border-color: #b3d7ff; }
+        .options input { margin-right: 10px; transform: scale(1.1); }
+
+        /* Grid Table */
+        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .grid-table th, .grid-table td { border: 1px solid #dee2e6; padding: 10px; text-align: center; font-size: 0.95rem; }
+        .grid-table th { background: #f8f9fa; color: #495057; }
+        .grid-table td:first-child { text-align: left; font-weight: 500; width: 55%; }
+        .grid-table select { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+
+        /* Image handling */
+        .question-img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+
+        .btn-submit {
+            display: block; width: 100%; padding: 18px; background: var(--primary-blue);
+            color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; 
+            cursor: pointer; margin-top: 30px; transition: opacity 0.2s; box-shadow: 0 4px 0 #1a3565;
+        }
+        .btn-submit:active { transform: translateY(4px); box-shadow: none; }
+
+        #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
+        .explanation { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 4px solid #28a745; font-size: 0.9rem; color: #2e7d32; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        footer h3 { margin: 0 0 10px 0; font-size: 1.1rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        footer .copyright { font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; display: block; }
+        
+        .footer-divider {
+            height: 1px; width: 100%; max-width: 600px; background: rgba(255,255,255,0.2); margin: 0 auto 25px auto;
+        }
+
+        .footer-info {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; font-size: 0.9rem;
+        }
+        .footer-info div { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .footer-info i { font-size: 1.2rem; margin-bottom: 5px; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .footer-info { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <div class="teacher-name">GV. Nguyễn Đình Bạch Long</div>
+        <div class="sub-text">Hệ thống ôn luyện Level 3</div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>KIẾN THỨC TỔNG HỢP - PHẦN 1.2</h1>
+        <p>Phiếu bài tập IC3 Spark Level 3 (Chủ đề 21 - Chủ đề 42)</p>
+    </div>
+
+    <form id="quiz-form">
+        
+        <div class="question-card"><span class="topic-label">Chủ đề 21</span>
+            <div class="question-text">Máy in của em ngừng in, em nên làm gì trước tiên để giải quyết vấn đề này?</div>
+            <div class="options">
+                <label><input type="radio" name="q21" value="a"> Khởi động lại máy tính</label>
+                <label><input type="radio" name="q21" value="b"> Dọn sạch hàng chờ máy in</label>
+                <label><input type="radio" name="q21" value="c"> Thay đổi trình điều khiển máy in</label>
+                <label><input type="radio" name="q21" value="d"> Kiểm tra dây cáp hoặc kết nối của máy in</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 22</span>
+            <div class="question-text">Máy tính của em bị chậm. Em nên làm gì trước tiên?</div>
+            <div class="options">
+                <label><input type="radio" name="q22" value="a"> Đóng các ứng dụng hoặc cửa sổ không sử dụng</label>
+                <label><input type="radio" name="q22" value="b"> Rút phích cắm máy tính</label>
+                <label><input type="radio" name="q22" value="c"> Cập nhật hệ điều hành</label>
+                <label><input type="radio" name="q22" value="d"> Nhấp chuột liên tục</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 23</span>
+            <div class="question-text">Em hãy cho biết, URL (Uniform Resource Locator) là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q23" value="a"> Nhà phát hành của một trang web</label>
+                <label><input type="radio" name="q23" value="b"> Tên của một trang web</label>
+                <label><input type="radio" name="q23" value="c"> Địa chỉ của một trang web</label>
+                <label><input type="radio" name="q23" value="d"> Tác giả của một trang web</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 24</span>
+            <div class="question-text">Khi tìm một nhà hàng bán thức ăn nhanh trên mạng, hành động nào sẽ có thể giúp ẩn vị trí của em?</div>
+            <div class="options">
+                <label><input type="radio" name="q24" value="a"> Bật duyệt web ở chế độ riêng tư</label>
+                <label><input type="radio" name="q24" value="b"> Tải phần mềm chặn quảng cáo</label>
+                <label><input type="radio" name="q24" value="c"> Xóa cookies của em</label>
+                <label><input type="radio" name="q24" value="d"> Xóa cache (bộ đệm ẩn) sau khi ngừng duyệt web</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 25</span>
+            <div class="question-text">Orson là tài xế xe buýt của một trường học. Anh ấy đang chở một đoàn học sinh đi thực tế tới một nơi chưa từng đến. Anh ấy có thể sử dụng loại công nghệ nào để giúp mình định hướng được vị trí cần đến?</div>
+            <div class="options">
+                <label><input type="radio" name="q25" value="a"> Radio</label>
+                <label><input type="radio" name="q25" value="b"> GPS (Global Positioning System)</label>
+                <label><input type="radio" name="q25" value="c"> Máy phát MP3 (MP3 Player)</label>
+                <label><input type="radio" name="q25" value="d"> Quả địa cầu (Globe)</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 26</span>
+            <div class="question-text">Em hãy cho biết, địa chỉ URL nào có định dạng đúng?</div>
+            <div class="options">
+                <label><input type="radio" name="q26" value="a"> https://.companypro.net/test</label>
+                <label><input type="radio" name="q26" value="b"> https://www.companypro.net/test</label>
+                <label><input type="radio" name="q26" value="c"> http://www.companypro/test</label>
+                <label><input type="radio" name="q26" value="d"> https://www.companypro/net/test</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 27</span>
+            <div class="question-text">Em nên nhập www.companypro.net vào vị trí nào trên trình duyệt web để có thể truy cập trực tiếp đến trang web? (Quan sát hình ảnh để chọn vị trí phù hợp)</div>
+            <img src="cd27.jpg" alt="Trình duyệt Google" class="question-img">
+            <div class="options">
+                <label><input type="radio" name="q27" value="a"> Thanh địa chỉ (Address Bar) - Nơi hiện chữ "Tìm trên Google..." hoặc URL</label>
+                <label><input type="radio" name="q27" value="b"> Ô tìm kiếm Google ở giữa trang</label>
+                <label><input type="radio" name="q27" value="c"> Nút "Đăng nhập"</label>
+                <label><input type="radio" name="q27" value="d"> Nút "Gmail"</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 28</span>
+            <div class="question-text">Em định quyên góp cho một tổ chức gây quỹ và muốn đảm bảo rằng mình đang ở đúng trang web. Tùy chọn nào sau đây là phần đuôi đúng cho trang web chính thức của một tổ chức phi lợi nhuận?</div>
+            <div class="options">
+                <label><input type="radio" name="q28" value="a"> .net</label>
+                <label><input type="radio" name="q28" value="b"> .edu</label>
+                <label><input type="radio" name="q28" value="c"> .org</label>
+                <label><input type="radio" name="q28" value="d"> .com</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 29</span>
+            <div class="question-text">Em hãy di chuyển từng loại lưu trữ dữ liệu từ danh sách ở bên phải sang trường hợp sử dụng phù hợp ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Trường hợp sử dụng</th><th>Loại lưu trữ</th></tr>
+                <tr><td>Em chỉ muốn lưu trữ dữ liệu trên máy tính xách tay của mình</td><td>
+                    <select name="q29_1">
+                        <option value="">-- Chọn --</option>
+                        <option value="hdd">Ổ cứng (Hard Drive)</option>
+                        <option value="cloud">Lưu trữ đám mây (Cloud Storage)</option>
+                        <option value="usb">USB</option>
+                    </select>
+                </td></tr>
+                <tr><td>Em muốn dữ liệu của mình được sao lưu và lưu trữ một cách an toàn bởi một công ty khác</td><td>
+                    <select name="q29_2">
+                        <option value="">-- Chọn --</option>
+                        <option value="hdd">Ổ cứng (Hard Drive)</option>
+                        <option value="cloud">Lưu trữ đám mây (Cloud Storage)</option>
+                        <option value="usb">USB</option>
+                    </select>
+                </td></tr>
+                <tr><td>Em muốn sao chép hình ảnh giữa hai máy tính mà không cần kết nối mạng</td><td>
+                    <select name="q29_3">
+                        <option value="">-- Chọn --</option>
+                        <option value="hdd">Ổ cứng (Hard Drive)</option>
+                        <option value="cloud">Lưu trữ đám mây (Cloud Storage)</option>
+                        <option value="usb">USB</option>
+                    </select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 30</span>
+            <div class="question-text">Em cần mô tả các bước xảy ra khi dùng trình duyệt web của mình để truy cập www.companypro.net. Hoàn thành các câu dưới đây bằng cách chọn đúng tùy chọn từ danh sách thả xuống.</div>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; line-height: 2;">
+                1. Kết nối được thiết lập đến <select name="q30_1" style="display:inline-block; width:auto;"><option value="">...</option><option value="server">Máy chủ web (Web Server)</option><option value="browser">Trình duyệt web</option><option value="page">Trang (Webpage)</option></select>.<br>
+                2. <select name="q30_2" style="display:inline-block; width:auto;"><option value="">...</option><option value="page">Trang (Webpage)</option><option value="server">Máy chủ web</option><option value="browser">Trình duyệt web</option></select> được gửi đến máy tính của người dùng.<br>
+                3. <select name="q30_3" style="display:inline-block; width:auto;"><option value="">...</option><option value="browser">Trình duyệt web (Web Browser)</option><option value="server">Máy chủ web</option><option value="page">Trang</option></select> hiển thị trang web.
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 31</span>
+            <div class="question-text">Em hãy cho biết, Catfishing là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q31" value="a"> Một cách an toàn để kết bạn trực tuyến</label>
+                <label><input type="radio" name="q31" value="b"> Một môn thể thao liên quan đến câu cá</label>
+                <label><input type="radio" name="q31" value="c"> Một loại nghiên cứu được thực hiện trực tuyến</label>
+                <label><input type="radio" name="q31" value="d"> Giả vờ là người khác trên mạng để đánh lừa hoặc lừa đảo người khác</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 32</span>
+            <div class="question-text">Em hãy cho biết, một ví dụ về quyền công dân kỹ thuật số tích cực là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q32" value="a"> Sử dụng nền tảng trực tuyến để chia sẻ kiến thức và giúp đỡ người khác</label>
+                <label><input type="radio" name="q32" value="b"> Không báo cáo nội dung không phù hợp được tìm thấy trực tuyến</label>
+                <label><input type="radio" name="q32" value="c"> Tạo tài khoản giả để lừa gạt người khác</label>
+                <label><input type="radio" name="q32" value="d"> Chia sẻ thông tin cá nhân với người lạ trực tuyến</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 33</span>
+            <div class="question-text">Em hãy cho biết, một ví dụ về quyền công dân kỹ thuật số tiêu cực là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q33" value="a"> Khen ngợi tác phẩm nghệ thuật của một người bạn trực tuyến</label>
+                <label><input type="radio" name="q33" value="b"> Tham gia vào các dự án hợp tác trực tuyến</label>
+                <label><input type="radio" name="q33" value="c"> Khuyến khích bạn bè tôn trọng và tử tế trên mạng</label>
+                <label><input type="radio" name="q33" value="d"> Tải xuống tài liệu có bản quyền mà không được phép</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 34</span>
+            <div class="question-text">Em hãy di chuyển mỗi loại tin tặc (Hacker) từ danh sách ở bên phải sang ví dụ tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Ví dụ hành động</th><th>Loại tin tặc</th></tr>
+                <tr><td>Kiểm tra hệ thống mạng của một công ty để xem có dễ để tìm mật khẩu hay không, rồi cho công ty đó biết cách khắc phục</td><td>
+                    <select name="q34_1">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacktivist">Tin tặc kiêm nhà hoạt động (Hacktivist)</option>
+                        <option value="ethical">Tin tặc có đạo đức (Ethical Hacker)</option>
+                        <option value="unethical">Tin tặc vô đạo đức (Unethical Hacker)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Tấn công một công ty để lôi kéo sự chú ý về một vấn đề nào đó, ví dụ như trả lương không công bằng cho nhân viên</td><td>
+                    <select name="q34_2">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacktivist">Tin tặc kiêm nhà hoạt động (Hacktivist)</option>
+                        <option value="ethical">Tin tặc có đạo đức (Ethical Hacker)</option>
+                        <option value="unethical">Tin tặc vô đạo đức (Unethical Hacker)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Tấn công một hệ thống mạng để chặn không cho người dùng truy cập các tập tin của họ</td><td>
+                    <select name="q34_3">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacktivist">Tin tặc kiêm nhà hoạt động (Hacktivist)</option>
+                        <option value="ethical">Tin tặc có đạo đức (Ethical Hacker)</option>
+                        <option value="unethical">Tin tặc vô đạo đức (Unethical Hacker)</option>
+                    </select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 35</span>
+            <div class="question-text">Em hãy cho biết, Hacker mũ trắng là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q35" value="a"> Ai đó nhắm vào những người xấu trực tuyến</label>
+                <label><input type="radio" name="q35" value="b"> Ai đó đội mũ trắng để che giấu danh tính</label>
+                <label><input type="radio" name="q35" value="c"> Một người sử dụng các kỹ năng và kiến thức máy tính cho mục đích tốt</label>
+                <label><input type="radio" name="q35" value="d"> Người mặc đồ trắng khi sử dụng máy tính</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 36</span>
+            <div class="question-text">Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Thuật ngữ</th></tr>
+                <tr><td>Không xác định được danh tính hoặc che giấu thông tin cá nhân trực tuyến</td><td>
+                    <select name="q36_1">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacker">Hacker</option>
+                        <option value="anon">Anonymity (Ẩn danh)</option>
+                        <option value="ethical">Ethical (Đạo đức)</option>
+                        <option value="piracy">Piracy (Vi phạm bản quyền)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Người sử dụng các kỹ năng và kiến thức máy tính để thử nghiệm, khám phá và giải quyết các vấn đề về công nghệ</td><td>
+                    <select name="q36_2">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacker">Hacker</option>
+                        <option value="anon">Anonymity (Ẩn danh)</option>
+                        <option value="ethical">Ethical (Đạo đức)</option>
+                        <option value="piracy">Piracy (Vi phạm bản quyền)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Sao chép, phân phối hoặc sử dụng nội dung kỹ thuật số mà không có sự cho phép của chủ sở hữu</td><td>
+                    <select name="q36_3">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacker">Hacker</option>
+                        <option value="anon">Anonymity (Ẩn danh)</option>
+                        <option value="ethical">Ethical (Đạo đức)</option>
+                        <option value="piracy">Piracy (Vi phạm bản quyền)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Hành động có trách nhiệm, tôn trọng và hợp pháp khi sử dụng các công cụ kỹ thuật số và trực tuyến</td><td>
+                    <select name="q36_4">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacker">Hacker</option>
+                        <option value="anon">Anonymity (Ẩn danh)</option>
+                        <option value="ethical">Ethical (Đạo đức)</option>
+                        <option value="piracy">Piracy (Vi phạm bản quyền)</option>
+                    </select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 37</span>
+            <div class="question-text">Em nên làm gì khi thấy nội dung trực tuyến không phù hợp với lứa tuổi của mình?</div>
+            <div class="options">
+                <label><input type="radio" name="q37" value="a"> Báo cáo việc này cho người lớn đáng tin cậy hoặc người điều hành trang web</label>
+                <label><input type="radio" name="q37" value="b"> Bỏ qua và tiếp tục duyệt web</label>
+                <label><input type="radio" name="q37" value="c"> Để lại một bình luận rằng nội dung làm em khó chịu</label>
+                <label><input type="radio" name="q37" value="d"> Chia sẻ với bạn bè của em</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 38</span>
+            <div class="question-text">Em có thể bảo vệ quyền riêng tư của mình khi đăng bài trực tuyến bằng cách nào?</div>
+            <div class="options">
+                <label><input type="radio" name="q38" value="a"> Xóa bài viết của bạn vài ngày một lần để đảm bảo sự riêng tư</label>
+                <label><input type="radio" name="q38" value="b"> Làm cho tất cả các bài viết của bạn có thể xem được công khai</label>
+                <label><input type="radio" name="q38" value="c"> Sử dụng mật khẩu phức tạp cho tài khoản của bạn</label>
+                <label><input type="radio" name="q38" value="d"> Điều chỉnh cài đặt quyền riêng tư để giới hạn người có thể xem bài đăng của bạn</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 39</span>
+            <div class="question-text">Em hãy cho biết, làm cách nào có thể kiểm soát ai có thể xem, thích và nhận xét về bài đăng trực tuyến của em?</div>
+            <div class="options">
+                <label><input type="radio" name="q39" value="a"> Cập nhật mật khẩu tài khoản của em</label>
+                <label><input type="radio" name="q39" value="b"> Thay đổi cài đặt thông báo</label>
+                <label><input type="radio" name="q39" value="c"> Sửa đổi cài đặt kiểu phông chữ</label>
+                <label><input type="radio" name="q39" value="d"> Điều chỉnh cài đặt quyền riêng tư</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 40</span>
+            <div class="question-text">Em hãy cho biết, ví dụ về nội dung kỹ thuật số có thể bị giới hạn độ tuổi là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q40" value="a"> Nội dung giáo dục được đăng trên trang web của trường</label>
+                <label><input type="radio" name="q40" value="b"> Phim hoạt hình trẻ em</label>
+                <label><input type="radio" name="q40" value="c"> Trò chơi điện tử bạo lực</label>
+                <label><input type="radio" name="q40" value="d"> Công thức nấu ăn và hướng dẫn nấu ăn</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 41</span>
+            <div class="question-text">Em hãy cho biết, tầm quan trọng của cài đặt quyền riêng tư là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q41" value="a"> Để bảo vệ thông tin cá nhân và kiểm soát những người nhìn thấy thông tin đó</label>
+                <label><input type="radio" name="q41" value="b"> Để chia sẻ thông tin cá nhân với công chúng</label>
+                <label><input type="radio" name="q41" value="c"> Để tăng khả năng hiển thị của các bài viết hoặc tin nhắn trực tuyến</label>
+                <label><input type="radio" name="q41" value="d"> Để có được người theo dõi hoặc lượt thích</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 42</span>
+            <div class="question-text">Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Thuật ngữ</th></tr>
+                <tr><td>Người sử dụng các kỹ năng Hack một cách bất hợp pháp và có mục đích xấu</td><td>
+                    <select name="q42_1">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacking">Hacking</option>
+                        <option value="white">White Hat Hacker (Tin tặc mũ trắng)</option>
+                        <option value="black">Black Hat Hacker (Tin tặc mũ đen)</option>
+                        <option value="gray">Gray Hat Hacker (Tin tặc mũ xám)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Ai đó sử dụng các kỹ năng Hack để xác định các lỗ hổng bảo mật mà không có sự cho phép... (thường phải trả phí để chia sẻ)</td><td>
+                    <select name="q42_2">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacking">Hacking</option>
+                        <option value="white">White Hat Hacker (Tin tặc mũ trắng)</option>
+                        <option value="black">Black Hat Hacker (Tin tặc mũ đen)</option>
+                        <option value="gray">Gray Hat Hacker (Tin tặc mũ xám)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Hành động truy cập trái phép vào thông tin kỹ thuật số</td><td>
+                    <select name="q42_3">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacking">Hacking</option>
+                        <option value="white">White Hat Hacker (Tin tặc mũ trắng)</option>
+                        <option value="black">Black Hat Hacker (Tin tặc mũ đen)</option>
+                        <option value="gray">Gray Hat Hacker (Tin tặc mũ xám)</option>
+                    </select>
+                </td></tr>
+                <tr><td>Người sử dụng các kỹ năng Hack hợp pháp để xác định các lỗ hổng bảo mật trong công nghệ</td><td>
+                    <select name="q42_4">
+                        <option value="">-- Chọn --</option>
+                        <option value="hacking">Hacking</option>
+                        <option value="white">White Hat Hacker (Tin tặc mũ trắng)</option>
+                        <option value="black">Black Hat Hacker (Tin tặc mũ đen)</option>
+                        <option value="gray">Gray Hat Hacker (Tin tặc mũ xám)</option>
+                    </select>
+                </td></tr>
+            </table>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+        <div id="result-area"></div>
+    </form>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <span class="copyright">© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</span>
+    <div class="footer-divider"></div>
+    <div class="footer-info">
+        <div><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com</div>
+        <div><i class="fas fa-phone"></i> 0937.438.939</div>
+        <div><i class="fas fa-university"></i> Vietinbank: 0937438939</div>
+    </div>
+</footer>
+
+<script>
+    const correctAnswers = {
+        q21: "d", // Kiểm tra dây cáp
+        q22: "a", // Đóng các ứng dụng
+        q23: "c", // Địa chỉ trang web
+        q24: "a", // Duyệt web riêng tư (Best fit for privacy)
+        q25: "b", // GPS
+        q26: "b", // https://www.companypro.net/test
+        q27: "a", // Thanh địa chỉ
+        q28: "c", // .org
+        
+        q29_1: "hdd",   // Laptop only
+        q29_2: "cloud", // Sao lưu an toàn bởi cty khác
+        q29_3: "usb",   // Sao chép k cần mạng
+
+        q30_1: "server", // Kết nối đến Server
+        q30_2: "page",   // Trang được gửi về
+        q30_3: "browser",// Trình duyệt hiển thị
+
+        q31: "d", // Giả vờ là người khác
+        q32: "a", // Chia sẻ kiến thức (Tích cực)
+        q33: "d", // Tải tài liệu bản quyền (Tiêu cực)
+        
+        q34_1: "ethical",  // Kiểm tra & báo cáo
+        q34_2: "hacktivist", // Lôi kéo sự chú ý
+        q34_3: "unethical", // Chặn truy cập
+
+        q35: "c", // Hacker mũ trắng (mục đích tốt)
+        
+        q36_1: "anon",    // Ẩn danh
+        q36_2: "hacker",  // Thử nghiệm, khám phá
+        q36_3: "piracy",  // Vi phạm bản quyền
+        q36_4: "ethical", // Đạo đức
+
+        q37: "a", // Báo cáo
+        q38: "d", // Điều chỉnh quyền riêng tư
+        q39: "d", // Điều chỉnh quyền riêng tư
+        q40: "c", // Game bạo lực
+        q41: "a", // Bảo vệ thông tin
+        
+        q42_1: "black",   // Bất hợp pháp, xấu
+        q42_2: "gray",    // Không cho phép, chia sẻ phí
+        q42_3: "hacking", // Hành động truy cập trái phép
+        q42_4: "white"    // Hợp pháp
+    };
+
+    function gradeQuiz() {
+        let score = 0;
+        let total = 22; // 22 câu hỏi (21-42)
+        
+        for(let i=21; i<=42; i++) {
+            let qKey = "q" + i;
+            let isCorrect = false;
+
+            // Handle Tables / Sub-questions
+            if([29, 30, 34, 36, 42].includes(i)) {
+                let subScore = 0;
+                let subTotal = 0;
+                let subKeys = Object.keys(correctAnswers).filter(k => k.startsWith(qKey + "_"));
+                subTotal = subKeys.length;
+
+                for(let k of subKeys) {
+                    let el = document.getElementsByName(k)[0];
+                    if(el && el.value === correctAnswers[k]) subScore++;
+                }
+                if(subScore === subTotal) isCorrect = true; 
+            }
+            // Handle Standard Radio
+            else {
+                let inputs = document.getElementsByName(qKey);
+                let val = "";
+                for(let inp of inputs) if(inp.checked) val = inp.value;
+                if(val === correctAnswers[qKey]) isCorrect = true;
+            }
+
+            if(isCorrect) score++;
+        }
+
+        const res = document.getElementById('result-area');
+        res.style.display = "block";
+        const percent = Math.round((score / total) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score}/${total} CÂU ĐÚNG (${percent}%)`;
+        
+        if(percent >= 80) {
+            res.style.backgroundColor = "#d4edda";
+            res.style.color = "#155724";
+        } else {
+            res.style.backgroundColor = "#f8d7da";
+            res.style.color = "#721c24";
+        }
+        
+        document.querySelectorAll('.explanation').forEach(el => el.style.display = "block");
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
