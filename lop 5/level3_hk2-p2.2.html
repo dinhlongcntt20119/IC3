@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (PHẦN 2.2)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #234585; 
+            --accent-yellow: #ffc107; 
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--accent-yellow);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 15px; }
+
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            display: flex; align-items: center; gap: 5px;
+            transition: all 0.3s;
+        }
+        .home-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .logo-ic3 { 
+            font-family: 'Kanit', sans-serif; 
+            font-size: 1.8rem; 
+            font-style: italic; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; margin-right: 5px; } 
+        .logo-ic3 span:nth-child(2) { color: #222; opacity: 0.7; }
+
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 2px; }
+        .sub-text { font-size: 0.85rem; opacity: 0.9; }
+
+        /* --- CONTENT --- */
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        
+        .page-title { text-align: center; margin-bottom: 30px; }
+        .page-title h1 { color: var(--primary-blue); font-size: 2rem; margin-bottom: 5px; text-transform: uppercase; }
+        .page-title p { color: #666; font-style: italic; }
+
+        .question-card {
+            background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;
+            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .topic-label {
+            position: absolute; top: -12px; left: 20px; background: #e9ecef; border: 1px solid #ccc;
+            color: #333; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
+        }
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; color: #2c3e50; margin-top: 5px; }
+
+        .options label {
+            display: block; padding: 10px 15px; margin-bottom: 8px; border: 1px solid #eee;
+            border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 0.95rem;
+        }
+        .options label:hover { background: #f0f7ff; border-color: #b3d7ff; }
+        .options input { margin-right: 10px; transform: scale(1.1); }
+
+        /* Grid Table */
+        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .grid-table th, .grid-table td { border: 1px solid #dee2e6; padding: 10px; text-align: center; font-size: 0.95rem; }
+        .grid-table th { background: #f8f9fa; color: #495057; }
+        .grid-table td:first-child { text-align: left; font-weight: 500; width: 60%; }
+        .grid-table select { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+
+        .btn-submit {
+            display: block; width: 100%; padding: 18px; background: var(--primary-blue);
+            color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; 
+            cursor: pointer; margin-top: 30px; transition: opacity 0.2s; box-shadow: 0 4px 0 #1a3565;
+        }
+        .btn-submit:active { transform: translateY(4px); box-shadow: none; }
+
+        #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
+        .explanation { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 4px solid #28a745; font-size: 0.9rem; color: #2e7d32; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        footer h3 { margin: 0 0 10px 0; font-size: 1.1rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        footer .copyright { font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; display: block; }
+        
+        .footer-divider {
+            height: 1px; width: 100%; max-width: 600px; background: rgba(255,255,255,0.2); margin: 0 auto 25px auto;
+        }
+
+        .footer-info {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; font-size: 0.9rem;
+        }
+        .footer-info div { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .footer-info i { font-size: 1.2rem; margin-bottom: 5px; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .footer-info { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <div class="teacher-name">GV. Nguyễn Đình Bạch Long</div>
+        <div class="sub-text">Hệ thống ôn luyện Level 3</div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>KIẾN THỨC TỔNG HỢP - PHẦN 2.2</h1>
+        <p>Phiếu bài tập IC3 Spark Level 3 (Chủ đề 21 - Chủ đề 42)</p>
+    </div>
+
+    <form id="quiz-form">
+        
+        <div class="question-card"><span class="topic-label">Chủ đề 21</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào trả lời cho các câu hỏi vì sao và như thế nào?</div>
+            <div class="options">
+                <label><input type="radio" name="q21" value="a"> Thông tin (Information)</label>
+                <label><input type="radio" name="q21" value="b"> Kiến thức (Knowledge)</label>
+                <label><input type="radio" name="q21" value="c"> Cộng tác (Collaboration)</label>
+                <label><input type="radio" name="q21" value="d"> Dữ liệu (Data)</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 22</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào là mục tiêu chính của Creative Commons?</div>
+            <div class="options">
+                <label><input type="radio" name="q22" value="a"> Để phân phối thông tin một cách tự do</label>
+                <label><input type="radio" name="q22" value="b"> Để áp dụng luật bản quyền đến mức độ cao nhất</label>
+                <label><input type="radio" name="q22" value="c"> Để giới hạn việc sáng tác nghệ thuật</label>
+                <label><input type="radio" name="q22" value="d"> Để đảm bảo mọi phần mềm đều được sở hữu độc quyền</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 23</span>
+            <div class="question-text">Em hãy hoàn thành phát biểu dưới đây bằng cách chọn câu trả lời đúng từ danh sách thả xuống.<br>
+            <select name="q23" style="width:auto; display:inline-block;"><option value="">...</option><option value="protocol">Giao thức (Protocol)</option><option value="network">Mạng (Network)</option><option value="forum">Diễn đàn (Forum)</option></select> giao tiếp là một bộ quy tắc được các máy tính sử dụng giao tiếp với nhau.</div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 24</span>
+            <div class="question-text">Với mỗi câu phát biểu, em hãy chọn Có nếu là nguồn thông tin đáng tin cậy hoặc chọn Không nếu không phải.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Có</th><th>Không</th></tr>
+                <tr><td>Tác giả sử dụng trang web của National Geographic về cá voi xanh</td><td><input type="radio" name="q24_1" value="c"></td><td><input type="radio" name="q24_1" value="k"></td></tr>
+                <tr><td>Không có thông tin trích dẫn nào trong bài viết về cá voi xanh</td><td><input type="radio" name="q24_2" value="c"></td><td><input type="radio" name="q24_2" value="k"></td></tr>
+                <tr><td>Tác giả nghiên cứu nhiều nguồn để đánh giá nơi cá voi xanh di cư đến</td><td><input type="radio" name="q24_3" value="c"></td><td><input type="radio" name="q24_3" value="k"></td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 25</span>
+            <div class="question-text">Em hãy cho biết, tùy chọn nào sau đây sẽ cho em biết tác giả của một trang web?</div>
+            <div class="options">
+                <label><input type="radio" name="q25" value="a"> Trang hỗ trợ khách hàng</label>
+                <label><input type="radio" name="q25" value="b"> URL</label>
+                <label><input type="radio" name="q25" value="c"> Trang giới thiệu (About us / Team)</label>
+                <label><input type="radio" name="q25" value="d"> Số điện thoại ở mục liên hệ với chúng tôi</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 26</span>
+            <div class="question-text">Mục đích của Creative Commons là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q26" value="a"> Cho phép mọi người tự do sao chép mọi sản phẩm mà không cần ghi công người sáng tạo</label>
+                <label><input type="radio" name="q26" value="b"> Cho phép nhà sáng tạo trao quyền sử dụng sản phẩm của họ cho người khác</label>
+                <label><input type="radio" name="q26" value="c"> Cho phép mọi người chỉnh sửa và bán sản phẩm của người khác</label>
+                <label><input type="radio" name="q26" value="d"> Cho phép nhà sáng tạo từ bỏ mọi quyền đối với sản phẩm của họ</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 27</span>
+            <div class="question-text">Bạn cần tìm các nguồn thông tin đáng tin cậy. Em hãy chọn Có nếu là nguồn đáng tin cậy, chọn Không nếu không phải.</div>
+            <table class="grid-table">
+                <tr><th>Nguồn thông tin</th><th>Có</th><th>Không</th></tr>
+                <tr><td>Một bài viết được đăng bởi một trường đại học với URL có đuôi là .com</td><td><input type="radio" name="q27_1" value="c"></td><td><input type="radio" name="q27_1" value="k"></td></tr>
+                <tr><td>Trang web được phát hành vào tháng 01 năm 1989 (quá cũ)</td><td><input type="radio" name="q27_2" value="c"></td><td><input type="radio" name="q27_2" value="k"></td></tr>
+                <tr><td>Có hai nguồn tài nguyên khác đồng ý với trang web này</td><td><input type="radio" name="q27_3" value="c"></td><td><input type="radio" name="q27_3" value="k"></td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 28</span>
+            <div class="question-text">Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Thuật ngữ</th></tr>
+                <tr><td>Áo khoác màu trắng thường không hấp thụ nhiệt nhiều như các màu sậm hơn</td><td>
+                    <select name="q28_1"><option value="">--Chọn--</option><option value="data">Dữ liệu</option><option value="info">Thông tin</option><option value="know">Kiến thức</option></select>
+                </td></tr>
+                <tr><td>Màu trắng</td><td>
+                    <select name="q28_2"><option value="">--Chọn--</option><option value="data">Dữ liệu</option><option value="info">Thông tin</option><option value="know">Kiến thức</option></select>
+                </td></tr>
+                <tr><td>Áo khoác có màu trắng</td><td>
+                    <select name="q28_3"><option value="">--Chọn--</option><option value="data">Dữ liệu</option><option value="info">Thông tin</option><option value="know">Kiến thức</option></select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 29</span>
+            <div class="question-text">Em hãy cho biết, mục đích của việc đưa các trích dẫn vào một bài nghiên cứu ở trường là gì?</div>
+            <div class="options">
+                <label><input type="radio" name="q29" value="a"> Để thêm trang vào bài tập</label>
+                <label><input type="radio" name="q29" value="b"> Để ghi công cho các tác giả ban đầu và tránh đạo văn</label>
+                <label><input type="radio" name="q29" value="c"> Để thể hiện kiến thức của em về nhiều nguồn</label>
+                <label><input type="radio" name="q29" value="d"> Để làm cho nhiệm vụ của em trông đẹp hơn</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 30</span>
+            <div class="question-text">Em có các trích dẫn sau: "Orson, D: 2010. Sách mẫu. (Tái bản lần thứ 2). Companypro."<br>Em hãy cho biết, thông tin nào có trong trích dẫn? (Chọn 3)</div>
+            <div class="options">
+                <label><input type="checkbox" name="q30" value="a"> Số trang (Number of Pages)</label>
+                <label><input type="checkbox" name="q30" value="b"> Tập tin (File)</label>
+                <label><input type="checkbox" name="q30" value="c"> URL</label>
+                <label><input type="checkbox" name="q30" value="d"> Nhà xuất bản (Publisher)</label>
+                <label><input type="checkbox" name="q30" value="e"> Tiêu đề (Title)</label>
+                <label><input type="checkbox" name="q30" value="f"> Tác giả (Author)</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 31</span>
+            <div class="question-text">Em hãy cho biết, tổ chức nào cung cấp phương thức để người sáng tạo có thể cấp quyền sử dụng miễn phí sản phẩm sáng tạo của họ theo luật bản quyền?</div>
+            <div class="options">
+                <label><input type="radio" name="q31" value="a"> Wix</label>
+                <label><input type="radio" name="q31" value="b"> Shutterstock</label>
+                <label><input type="radio" name="q31" value="c"> Creative Commons</label>
+                <label><input type="radio" name="q31" value="d"> Canva</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 32</span>
+            <div class="question-text">Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Thuật ngữ</th></tr>
+                <tr><td>Một hình thức bảo vệ pháp lý mang lại cho người sáng tạo tác phẩm gốc quyền độc quyền kiểm soát...</td><td>
+                    <select name="q32_1"><option value="">--Chọn--</option><option value="relevance">Mức độ liên quan</option><option value="perspective">Quan điểm</option><option value="copyright">Bản quyền</option><option value="credibility">Sự uy tín</option></select>
+                </td></tr>
+                <tr><td>Cách ai đó nhìn hoặc hiểu điều gì đó dựa trên kinh nghiệm, kiến thức và niềm tin của chính họ</td><td>
+                    <select name="q32_2"><option value="">--Chọn--</option><option value="relevance">Mức độ liên quan</option><option value="perspective">Quan điểm</option><option value="copyright">Bản quyền</option><option value="credibility">Sự uy tín</option></select>
+                </td></tr>
+                <tr><td>Mức độ áp dụng hoặc hữu ích của thông tin, kết quả tìm kiếm hoặc nội dung</td><td>
+                    <select name="q32_3"><option value="">--Chọn--</option><option value="relevance">Mức độ liên quan</option><option value="perspective">Quan điểm</option><option value="copyright">Bản quyền</option><option value="credibility">Sự uy tín</option></select>
+                </td></tr>
+                <tr><td>Thông tin có thể tin được hay đáng tin cậy như thế nào</td><td>
+                    <select name="q32_4"><option value="">--Chọn--</option><option value="relevance">Mức độ liên quan</option><option value="perspective">Quan điểm</option><option value="copyright">Bản quyền</option><option value="credibility">Sự uy tín</option></select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 33</span>
+            <div class="question-text">Ứng dụng nào cho phép hiển thị dữ liệu theo hàng, cột và tạo biểu đồ từ các giá trị?</div>
+            <div class="options">
+                <label><input type="radio" name="q33" value="a"> Microsoft Teams</label>
+                <label><input type="radio" name="q33" value="b"> Google Sheets</label>
+                <label><input type="radio" name="q33" value="c"> Apple TextEdit</label>
+                <label><input type="radio" name="q33" value="d"> Adobe Photoshop</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 34</span>
+            <div class="question-text">Em hãy cho biết, tình huống mà em nên dùng trích dẫn?</div>
+            <div class="options">
+                <label><input type="radio" name="q34" value="a"> Khi em tạo ra một tác phẩm hội họa mới trên lớp</label>
+                <label><input type="radio" name="q34" value="b"> Khi em đăng nội dung gốc của người khác trên mạng xã hội</label>
+                <label><input type="radio" name="q34" value="c"> Khi em được phỏng vấn cho một bài báo</label>
+                <label><input type="radio" name="q34" value="d"> Khi em tạo ra bản thiết kế trang phục mới cho trường học</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 35</span>
+            <div class="question-text">Em đang tạo một biểu đồ thể hiện tỷ lệ phần trăm số điểm mỗi người chơi ghi được so với tổng số điểm đã ghi được trong mùa. Em nên sử dụng loại biểu đồ nào cho dạng so sánh này?</div>
+            <div class="options">
+                <label><input type="radio" name="q35" value="a"> Biểu đồ tròn (Pie Chart)</label>
+                <label><input type="radio" name="q35" value="b"> Biểu đồ đường (Line Chart)</label>
+                <label><input type="radio" name="q35" value="c"> Biểu đồ thanh (Bar Chart)</label>
+                <label><input type="radio" name="q35" value="d"> Biểu đồ cột (Column Chart)</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 36</span>
+            <div class="question-text">Em hãy cho biết, ai có quyền sở hữu đối với hình ảnh mà em tìm thấy trên internet?</div>
+            <div class="options">
+                <label><input type="radio" name="q36" value="a"> Công cụ tìm kiếm em đã sử dụng để tìm hình ảnh</label>
+                <label><input type="radio" name="q36" value="b"> Người đã tạo và tải lên hình ảnh</label>
+                <label><input type="radio" name="q36" value="c"> Người viết chú thích cho hình ảnh trực tuyến</label>
+                <label><input type="radio" name="q36" value="d"> Trang web nơi hình ảnh được hiển thị</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 37</span>
+            <div class="question-text">Em đang chuẩn bị một bài trình chiếu để trình bày trước lớp. Với mỗi phát biểu, em hãy chọn Có nếu cần trích dẫn nguồn hoặc Không nếu không cần.</div>
+            <table class="grid-table">
+                <tr><th>Phát biểu</th><th>Có</th><th>Không</th></tr>
+                <tr><td>Em dùng chữ chúc mừng sinh nhật trong bài trình chiếu của mình</td><td><input type="radio" name="q37_1" value="c"></td><td><input type="radio" name="q37_1" value="k"></td></tr>
+                <tr><td>Em dùng hình ảnh về một siêu anh hùng do một tác giả nổi tiếng tạo ra</td><td><input type="radio" name="q37_2" value="c"></td><td><input type="radio" name="q37_2" value="k"></td></tr>
+                <tr><td>Em trích dẫn một đoạn về số lượng cá voi từ một bài nghiên cứu do National Geographic xuất bản</td><td><input type="radio" name="q37_3" value="c"></td><td><input type="radio" name="q37_3" value="k"></td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 38</span>
+            <div class="question-text">Em hãy cho biết, thông tin nào nên được đưa vào trích dẫn cho một cuốn sách?</div>
+            <div class="options">
+                <label><input type="radio" name="q38" value="a"> Tên sách và tên tác giả</label>
+                <label><input type="radio" name="q38" value="b"> Tên của thư viện và ngày em đọc sách</label>
+                <label><input type="radio" name="q38" value="c"> Tên của người đã giới thiệu cuốn sách cho em</label>
+                <label><input type="radio" name="q38" value="d"> Bìa sách trông như thế nào và có bao nhiêu trang</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 39</span>
+            <div class="question-text">Em sẽ sử dụng ứng dụng nào để tạo và quản lý bảng tính (Spreadsheet)?</div>
+            <div class="options">
+                <label><input type="radio" name="q39" value="a"> Google Sheets</label>
+                <label><input type="radio" name="q39" value="b"> Microsoft PowerPoint</label>
+                <label><input type="radio" name="q39" value="c"> Adobe Illustrator</label>
+                <label><input type="radio" name="q39" value="d"> Apple Pages</label>
+            </div>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 40</span>
+            <div class="question-text">Em hãy xác định người tạo sản phẩm gốc. Hãy di chuyển chủ sở hữu từ danh sách ở bên phải sang loại đa phương tiện tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Loại đa phương tiện</th><th>Chủ sở hữu</th></tr>
+                <tr><td>Tác phẩm nghệ thuật số gốc</td><td>
+                    <select name="q40_1"><option value="">--Chọn--</option><option value="artist">Họa sĩ minh họa</option><option value="author">Tác giả</option><option value="sender">Người gửi</option></select>
+                </td></tr>
+                <tr><td>Bài đăng trên Blog</td><td>
+                    <select name="q40_2"><option value="">--Chọn--</option><option value="artist">Họa sĩ minh họa</option><option value="author">Tác giả</option><option value="sender">Người gửi</option></select>
+                </td></tr>
+                <tr><td>Email</td><td>
+                    <select name="q40_3"><option value="">--Chọn--</option><option value="artist">Họa sĩ minh họa</option><option value="author">Tác giả</option><option value="sender">Người gửi</option></select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 41</span>
+            <div class="question-text">Em hãy di chuyển từng phím tắt từ danh sách ở bên phải sang trường hợp sử dụng tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Trường hợp sử dụng</th><th>Phím tắt</th></tr>
+                <tr><td>Dán văn bản hoặc tập tin</td><td>
+                    <select name="q41_1"><option value="">--Chọn--</option><option value="paste">Ctrl + V</option><option value="copy">Ctrl + C</option><option value="switch">Alt + Tab</option></select>
+                </td></tr>
+                <tr><td>Sao chép văn bản hoặc tập tin</td><td>
+                    <select name="q41_2"><option value="">--Chọn--</option><option value="paste">Ctrl + V</option><option value="copy">Ctrl + C</option><option value="switch">Alt + Tab</option></select>
+                </td></tr>
+                <tr><td>Chuyển lẫn lượt sang các ứng dụng đang mở khác</td><td>
+                    <select name="q41_3"><option value="">--Chọn--</option><option value="paste">Ctrl + V</option><option value="copy">Ctrl + C</option><option value="switch">Alt + Tab</option></select>
+                </td></tr>
+            </table>
+        </div>
+
+        <div class="question-card"><span class="topic-label">Chủ đề 42</span>
+            <div class="question-text">Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang mô tả tương ứng ở bên trái.</div>
+            <table class="grid-table">
+                <tr><th>Mô tả</th><th>Thuật ngữ</th></tr>
+                <tr><td>Cung cấp thông tin về hình ảnh em lấy từ internet và dùng trong bài tập của mình</td><td>
+                    <select name="q42_1"><option value="">--Chọn--</option><option value="citation">Trích dẫn (Citation)</option><option value="plagiarism">Đạo văn</option><option value="autocomplete">Tự động hoàn tất</option><option value="autocorrect">Tự sửa</option></select>
+                </td></tr>
+                <tr><td>Sử dụng tác phẩm của người khác như là của mình</td><td>
+                    <select name="q42_2"><option value="">--Chọn--</option><option value="citation">Trích dẫn (Citation)</option><option value="plagiarism">Đạo văn</option><option value="autocomplete">Tự động hoàn tất</option><option value="autocorrect">Tự sửa</option></select>
+                </td></tr>
+                <tr><td>Khi tìm kiếm trên internet, công cụ tìm kiếm đề xuất "chó so với mèo" khi bạn gõ đến đoạn "chó so vớ"</td><td>
+                    <select name="q42_3"><option value="">--Chọn--</option><option value="citation">Trích dẫn (Citation)</option><option value="plagiarism">Đạo văn</option><option value="autocomplete">Tự động hoàn tất</option><option value="autocorrect">Tự sửa</option></select>
+                </td></tr>
+                <tr><td>Khi em soạn một tin nhắn để gửi cho giáo viên của mình, máy tính sửa "àv" thành "và"</td><td>
+                    <select name="q42_4"><option value="">--Chọn--</option><option value="citation">Trích dẫn (Citation)</option><option value="plagiarism">Đạo văn</option><option value="autocomplete">Tự động hoàn tất</option><option value="autocorrect">Tự sửa</option></select>
+                </td></tr>
+            </table>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+        <div id="result-area"></div>
+    </form>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <span class="copyright">© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</span>
+    <div class="footer-divider"></div>
+    <div class="footer-info">
+        <div><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com</div>
+        <div><i class="fas fa-phone"></i> 0937.438.939</div>
+        <div><i class="fas fa-university"></i> Vietinbank: 0937438939</div>
+    </div>
+</footer>
+
+<script>
+    const correctAnswers = {
+        q21: "b", // Kiến thức (Knowledge) - trả lời cho Why/How
+        q22: "a", // Phân phối tự do (cấp quyền sử dụng)
+        q23: "protocol", // Giao thức
+        
+        q24_1: "c", q24_2: "k", q24_3: "c", // T24: Yes, No, Yes
+        q25: "c", // Trang giới thiệu (About us)
+        q26: "b", // Trao quyền sử dụng
+        
+        q27_1: "k", // .com thường là thương mại, .edu mới uy tín hơn (tuy nhiên ngữ cảnh có thể khác, nhưng thường .com ít tin cậy hơn .edu/gov cho nghiên cứu)
+        q27_2: "k", // Quá cũ (1989)
+        q27_3: "c", // 2 nguồn khác đồng ý -> Đáng tin cậy
+        
+        q28_1: "know", // Kiến thức (Why/How/Understanding)
+        q28_2: "data", // Dữ liệu (Raw)
+        q28_3: "info", // Thông tin (Context)
+        
+        q29: "b", // Ghi công và tránh đạo văn
+        q30: ["d", "e", "f"], // Publisher, Title, Author
+        q31: "c", // Creative Commons
+        
+        q32_1: "copyright", // Bản quyền
+        q32_2: "perspective", // Quan điểm
+        q32_3: "relevance", // Mức độ liên quan
+        q32_4: "credibility", // Sự uy tín
+        
+        q33: "b", // Google Sheets
+        q34: "b", // Đăng nội dung gốc của người khác
+        q35: "a", // Biểu đồ tròn (Tỷ lệ phần trăm)
+        q36: "b", // Người tạo và tải lên
+        
+        q37_1: "k", q37_2: "c", q37_3: "c", // No (common phrase), Yes (creative work), Yes (research)
+        q38: "a", // Tên sách và tên tác giả
+        q39: "a", // Google Sheets
+        
+        q40_1: "artist", // Họa sĩ minh họa
+        q40_2: "author", // Tác giả
+        q40_3: "sender", // Người gửi
+        
+        q41_1: "paste", // Ctrl+V
+        q41_2: "copy",  // Ctrl+C
+        q41_3: "switch", // Alt+Tab
+        
+        q42_1: "citation", // Trích dẫn
+        q42_2: "plagiarism", // Đạo văn
+        q42_3: "autocomplete", // Tự động hoàn tất
+        q42_4: "autocorrect" // Tự sửa
+    };
+
+    function gradeQuiz() {
+        let score = 0;
+        let total = 22; // 21 -> 42
+        
+        for(let i=21; i<=42; i++) {
+            let qKey = "q" + i;
+            let isCorrect = false;
+
+            // Checkbox logic (Topic 30)
+            if(i === 30) {
+                let inputs = document.getElementsByName(qKey);
+                let checked = [];
+                for(let inp of inputs) if(inp.checked) checked.push(inp.value);
+                let correct = correctAnswers[qKey];
+                // Check if selected matches correct exactly (ignoring order)
+                if(checked.length === correct.length && checked.every(v => correct.includes(v))) {
+                    isCorrect = true;
+                }
+            }
+            // Matching / Table logic
+            else if([24, 27, 28, 32, 37, 40, 41, 42].includes(i)) {
+                let subScore = 0;
+                let subKeys = Object.keys(correctAnswers).filter(k => k.startsWith(qKey + "_"));
+                let subTotal = subKeys.length;
+                
+                for(let k of subKeys) {
+                    let el = document.getElementsByName(k)[0];
+                    let val = "";
+                    if(el.tagName === "SELECT") val = el.value;
+                    else {
+                        let radios = document.getElementsByName(k);
+                        for(let r of radios) if(r.checked) val = r.value;
+                    }
+                    if(val === correctAnswers[k]) subScore++;
+                }
+                if(subScore === subTotal) isCorrect = true;
+            }
+            // Standard Radio/Select
+            else {
+                let el = document.getElementsByName(qKey)[0];
+                let val = "";
+                if(el.tagName === "SELECT") val = el.value;
+                else {
+                    let radios = document.getElementsByName(qKey);
+                    for(let r of radios) if(r.checked) val = r.value;
+                }
+                if(val === correctAnswers[qKey]) isCorrect = true;
+            }
+
+            if(isCorrect) score++;
+        }
+
+        const res = document.getElementById('result-area');
+        res.style.display = "block";
+        const percent = Math.round((score / total) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score}/${total} CÂU ĐÚNG (${percent}%)`;
+        
+        if(percent >= 80) {
+            res.style.backgroundColor = "#d4edda";
+            res.style.color = "#155724";
+        } else {
+            res.style.backgroundColor = "#f8d7da";
+            res.style.color = "#721c24";
+        }
+        
+        document.querySelectorAll('.explanation').forEach(el => el.style.display = "block");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
