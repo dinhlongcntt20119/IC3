@@ -3,448 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (PHẦN 1.1)</title>
+    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (1.1)</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
-        :root {
-            --primary-blue: #234585; 
-            --accent-yellow: #ffc107; 
-            --bg-color: #f0f4f8;
-            --card-bg: #ffffff;
-            --success-color: #28a745;
-            --error-color: #dc3545;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
-
-        /* --- HEADER --- */
-        header {
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 10px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--accent-yellow);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .header-left { display: flex; align-items: center; gap: 15px; }
-
-        .home-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.4);
-            display: flex; align-items: center; gap: 5px;
-            transition: all 0.3s;
-        }
-        .home-btn:hover { background: rgba(255, 255, 255, 0.3); }
-
-        .logo-ic3 { 
-            font-family: 'Kanit', sans-serif; 
-            font-size: 1.8rem; 
-            font-style: italic; 
-            font-weight: 800; 
-            display: flex; 
-            align-items: center; 
-        }
-        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; margin-right: 5px; } 
+        :root { --primary-blue: #234585; --accent-yellow: #ffc107; --bg-color: #f0f4f8; --success-color: #d4edda; --error-color: #f8d7da; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; margin: 0; }
+        header { background: var(--primary-blue); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent-yellow); position: sticky; top: 0; z-index: 1000; }
+        .home-btn { background: rgba(255,255,255,0.2); color: white; text-decoration: none; padding: 6px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; gap: 5px; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 1.8rem; font-style: italic; font-weight: 800; }
+        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; } 
         .logo-ic3 span:nth-child(2) { color: #222; opacity: 0.7; }
-
-        .header-right { text-align: right; }
-        .teacher-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 2px; }
-        .sub-text { font-size: 0.85rem; opacity: 0.9; }
-
-        /* --- CONTENT --- */
         .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        
-        .page-title { text-align: center; margin-bottom: 30px; }
-        .page-title h1 { color: var(--primary-blue); font-size: 2rem; margin-bottom: 5px; text-transform: uppercase; }
-        .page-title p { color: #666; font-style: italic; }
-
-        .question-card {
-            background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;
-            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        
-        .topic-label {
-            position: absolute; top: -12px; left: 20px; background: #e9ecef; border: 1px solid #ccc;
-            color: #333; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
-        }
-        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; color: #2c3e50; margin-top: 5px; }
-
-        .options label {
-            display: block; padding: 10px 15px; margin-bottom: 8px; border: 1px solid #eee;
-            border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 0.95rem;
-        }
-        .options label:hover { background: #f0f7ff; border-color: #b3d7ff; }
-        .options input { margin-right: 10px; transform: scale(1.1); }
-
-        /* Grid Table for Yes/No */
+        .question-card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 1px solid #e1e8ed; }
+        .question-card.incomplete { border: 2px solid #dc3545; box-shadow: 0 0 8px rgba(220,53,69,0.4); }
+        .topic-label { position: absolute; top: -12px; left: 20px; background: #2a5298; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; }
+        .question-text { font-weight: 700; margin-bottom: 15px; color: #2c3e50; }
+        .options label { display: block; padding: 10px; margin-bottom: 8px; border: 1px solid #eee; border-radius: 8px; cursor: pointer; }
         .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .grid-table th, .grid-table td { border: 1px solid #dee2e6; padding: 10px; text-align: center; font-size: 0.95rem; }
-        .grid-table th { background: #f8f9fa; color: #495057; }
-        .grid-table td:first-child { text-align: left; font-weight: 500; width: 65%; }
-
-        .btn-submit {
-            display: block; width: 100%; padding: 18px; background: var(--primary-blue);
-            color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; 
-            cursor: pointer; margin-top: 30px; transition: opacity 0.2s; box-shadow: 0 4px 0 #1a3565;
-        }
-        .btn-submit:active { transform: translateY(4px); box-shadow: none; }
-
+        .grid-table td, .grid-table th { border: 1px solid #dee2e6; padding: 8px; text-align: center; }
+        .correct-answer { background-color: var(--success-color) !important; border: 1px solid #28a745 !important; }
+        .wrong-answer { background-color: var(--error-color) !important; border: 1px solid #dc3545 !important; }
+        .feedback-box { display: none; margin-top: 15px; padding: 15px; background: #eef2f7; border-left: 5px solid #28a745; }
+        .btn-submit { display: block; width: 100%; padding: 18px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 30px; }
         #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
-        .explanation { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 4px solid #28a745; font-size: 0.9rem; color: #2e7d32; }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        footer h3 { margin: 0 0 10px 0; font-size: 1.1rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-        footer .copyright { font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; display: block; }
-        
-        .footer-divider {
-            height: 1px; width: 100%; max-width: 600px; background: rgba(255,255,255,0.2); margin: 0 auto 25px auto;
-        }
-
-        .footer-info {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; font-size: 0.9rem;
-        }
-        .footer-info div { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .footer-info i { font-size: 1.2rem; margin-bottom: 5px; opacity: 0.9; }
-
-        @media (max-width: 768px) {
-            .footer-info { flex-direction: column; gap: 20px; }
-        }
+        footer { background: var(--primary-blue); color: white; padding: 30px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body>
-
 <header>
-    <div class="header-left">
-        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
-        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
-    </div>
-    <div class="header-right">
-        <div class="teacher-name">GV. Nguyễn Đình Bạch Long</div>
-        <div class="sub-text">Hệ thống ôn luyện Level 3</div>
-    </div>
+    <div class="header-left"><a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a><div class="logo-ic3"><span>IC3</span><span>spark</span></div></div>
+    <div>GV. Nguyễn Đình Bạch Long</div>
 </header>
-
 <div class="container">
-    <div class="page-title">
-        <h1>KIẾN THỨC TỔNG HỢP - PHẦN 1.1</h1>
-        <p>Phiếu bài tập IC3 Spark Level 3 (Chủ đề 01 - Chủ đề 20)</p>
-    </div>
-
+    <div style="text-align:center;"><h1>KIẾN THỨC TỔNG HỢP - PHẦN 1.1</h1><p>Câu 01 - Câu 20</p></div>
     <form id="quiz-form">
-        
-        <div class="question-card"><span class="topic-label">Chủ đề 01</span>
-            <div class="question-text">Em hãy chọn Có nếu là tùy chọn để khắc phục sự cố cơ bản trong công nghệ và chọn Không nếu không phải.</div>
-            <table class="grid-table">
-                <tr><th>Tùy chọn</th><th>Có</th><th>Không</th></tr>
-                <tr><td>Khởi động lại thiết bị</td><td><input type="radio" name="q1_1" value="c"></td><td><input type="radio" name="q1_1" value="k"></td></tr>
-                <tr><td>Ngắt kết nối nguồn điện khỏi tòa nhà chính</td><td><input type="radio" name="q1_2" value="c"></td><td><input type="radio" name="q1_2" value="k"></td></tr>
-                <tr><td>Làm mới hoặc tải lại (Refresh/Reload) trình duyệt web</td><td><input type="radio" name="q1_3" value="c"></td><td><input type="radio" name="q1_3" value="k"></td></tr>
-                <tr><td>Kiểm tra xem tất cả dây cáp đã được kết nối đúng cách chưa</td><td><input type="radio" name="q1_4" value="c"></td><td><input type="radio" name="q1_4" value="k"></td></tr>
-            </table>
-        </div>
+        <script>
+            const qData = [
+                {id:1, q:"Khắc phục sự cố cơ bản?", type:"table", rows:[{t:"Khởi động lại",a:"c"},{t:"Ngắt nguồn tòa nhà",a:"k"},{t:"Tải lại trình duyệt",a:"c"},{t:"Kiểm tra cáp",a:"c"}], explain:"Khởi động lại, Refresh, Kiểm tra cáp là bước cơ bản."},
+                {id:2, q:"Thành phần của URL?", type:"table", rows:[{t:"Giao thức",a:"c"},{t:"Tên miền",a:"c"},{t:"Chuỗi truy vấn",a:"c"},{t:"Neo (Anchor)",a:"c"}], explain:"Tất cả đều là thành phần cấu tạo URL."},
+                {id:3, q:"Bước lấy thông tin trực tuyến?", type:"table", rows:[{t:"Nhập URL",a:"c"},{t:"Khởi động lại máy",a:"k"},{t:"Máy chủ trả về thông tin",a:"c"},{t:"URL phân giải IP",a:"c"}], explain:"Khởi động lại không phải là bước lấy thông tin."},
+                {id:4, q:"USB Drive dùng để làm gì?", type:"radio", opts:[{v:"a",t:"Lưu trữ và truyền dữ liệu"},{v:"b",t:"Gửi SMS"},{v:"c",t:"Chụp ảnh"},{v:"d",t:"Chơi game"}], ans:"a", explain:"Lưu trữ dữ liệu."},
+                {id:5, q:"Cài đặt nào cho phép theo dõi vị trí?", type:"radio", opts:[{v:"a",t:"Độ sáng"},{v:"b",t:"Thông báo"},{v:"c",t:"Wifi"},{v:"d",t:"Vị trí (Location)"}], ans:"d", explain:"Cài đặt Vị trí (Location Services)."},
+                {id:6, q:"Giao thức kết nối an toàn?", type:"radio", opts:[{v:"a",t:"SMTP"},{v:"b",t:"HTTPS"},{v:"c",t:"FTP"},{v:"d",t:"HTTP"}], ans:"b", explain:"HTTPS (Secure)."},
+                {id:7, q:"Thiết bị âm thanh không hoạt động?", type:"radio", opts:[{v:"a",t:"Kiểm tra âm lượng"},{v:"b",t:"Thay thế"},{v:"c",t:"Cài card mới"},{v:"d",t:"Chỉnh độ sáng"}], ans:"a", explain:"Kiểm tra âm lượng hoặc nút Mute trước tiên."},
+                {id:8, q:"KHÔNG phải phần của URL?", type:"radio", opts:[{v:"a",t:"Subdomain"},{v:"b",t:"Domain"},{v:"c",t:"IP Address"},{v:"d",t:"Protocol"}], ans:"c", explain:"IP là địa chỉ số, URL là địa chỉ chữ. Tuy URL phân giải ra IP nhưng IP không phải là 'một phần' trong chuỗi URL thông thường."},
+                {id:9, q:"Mục đích địa chỉ IP?", type:"radio", opts:[{v:"a",t:"Gửi email"},{v:"b",t:"Chơi nhạc"},{v:"c",t:"Xác định vị trí trang web/thiết bị"},{v:"d",t:"Điều khiển chuột"}], ans:"c", explain:"Định danh và xác định vị trí trên mạng."},
+                {id:10, q:"Tên miền tin tưởng cho du lịch?", type:"radio", opts:[{v:"a",t:".net"},{v:"b",t:".gov"},{v:"c",t:".xyz"},{v:"d",t:".com"}], ans:"b", explain:".gov là chính phủ, thông tin du lịch chính thống thường tin cậy."},
+                {id:11, q:"Không kết nối được wifi tại nhà?", type:"radio", opts:[{v:"a",t:"Di chuyển lại gần Router"},{v:"b",t:"Thay pin"},{v:"c",t:"Tắt bluetooth"},{v:"d",t:"Reset adapter"}], ans:"a", explain:"Thử lại gần nguồn phát sóng trước."},
+                {id:12, q:"Khả năng tiếp cận (Accessibility)?", type:"radio", opts:[{v:"a",t:"Lưu đám mây"},{v:"b",t:"Kết nối mạng"},{v:"c",t:"Dễ sử dụng cho người khuyết tật"},{v:"d",t:"Gửi dữ liệu"}], ans:"c", explain:"Công nghệ hỗ trợ người khuyết tật."},
+                {id:13, q:"Mục đích IP (lặp lại)?", type:"radio", opts:[{v:"a",t:"Xác định thiết bị trên mạng"},{v:"b",t:"Email"},{v:"c",t:"Vị trí vật lý"},{v:"d",t:"Thông tin cá nhân"}], ans:"a", explain:"Identify devices."},
+                {id:14, q:"Internet là gì?", type:"radio", opts:[{v:"a",t:"Mạng lưới toàn cầu"},{v:"b",t:"Vị trí vật lý"},{v:"c",t:"Điện thoại"},{v:"d",t:"Trình duyệt"}], ans:"a", explain:"Global network."},
+                {id:15, q:"Lợi ích Cloud?", type:"radio", opts:[{v:"a",t:"Đồng bộ hóa"},{v:"b",t:"Truy cập 1 thiết bị"},{v:"c",t:"Bản in giấy"},{v:"d",t:"Truy cập không cần phép"}], ans:"a", explain:"Sync across devices."},
+                {id:16, q:"Nguồn thu thập dữ liệu?", type:"table", rows:[{t:"Google",a:"c"},{t:"GPS ô tô",a:"c"},{t:"Smartphone",a:"c"},{t:"MXH",a:"c"}], explain:"Tất cả đều thu thập dữ liệu người dùng."},
+                {id:17, q:"Tính năng USB?", type:"table", rows:[{t:"Mang theo được",a:"c"},{t:"Lưu trữ",a:"c"},{t:"Truyền tập tin",a:"c"},{t:"Kết nối không dây",a:"k"}], explain:"USB cắm trực tiếp, không không dây."},
+                {id:18, q:"Mô tả USB Drive?", type:"radio", opts:[{v:"a",t:"Không gian ổ cứng"},{v:"b",t:"CSDL online"},{v:"c",t:"Thiết bị lưu trữ dạng cắm"},{v:"d",t:"Bộ nhớ đám mây"}], ans:"c", explain:"Plug-in device."},
+                {id:19, q:"Công nghệ khả thi?", type:"table", rows:[{t:"Công nhân mỏ nhận dữ liệu",a:"c"},{t:"Y tá làm việc từ xa",a:"c"},{t:"Máy học sáng tác nhạc",a:"c"}], explain:"Công nghệ hiện đại cho phép tất cả."},
+                {id:20, q:"Bit dữ liệu nhỏ web thu thập?", type:"radio", opts:[{v:"a",t:"Cookies"},{v:"b",t:"Bảng tính"},{v:"c",t:"Hacking"},{v:"d",t:"Dữ liệu"}], ans:"a", explain:"Cookies."}
+            ];
+            
+            // Render Questions (Tái sử dụng logic render từ file level2)
+            const form = document.getElementById('quiz-form');
+            qData.forEach(q => {
+                let h = `<div class="question-card" id="c${q.id}"><span class="topic-label">Chủ đề ${q.id}</span><div class="question-text">${q.q}</div>`;
+                if(q.type==='radio'){
+                    h+=`<div class="options">`;
+                    q.opts.forEach(o=>h+=`<label><input type="radio" name="q${q.id}" value="${o.v}"> ${o.t}</label>`);
+                    h+=`</div>`;
+                } else if(q.type==='table'){
+                    h+=`<table class="grid-table"><tr><th>Nội dung</th><th>${q.id===1||q.id===17?'Có/Không':(q.id===16?'Có/Không':'Đúng/Sai')}</th></tr>`;
+                    q.rows.forEach((r,i)=>h+=`<tr><td>${r.t}</td><td><label style="display:inline"><input type="radio" name="q${q.id}_${i}" value="${r.a==='c'?'c':'d'}"> ${q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'Có':'Đúng'}</label> <label style="display:inline"><input type="radio" name="q${q.id}_${i}" value="${r.a==='c'?'k':'s'}"> ${q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'Không':'Sai'}</label></td></tr>`);
+                    h+=`</table>`;
+                }
+                h+=`<div class="feedback-box"><strong>Đáp án:</strong> ${q.explain}</div></div>`;
+                form.innerHTML+=h;
+            });
 
-        <div class="question-card"><span class="topic-label">Chủ đề 02</span>
-            <div class="question-text">Em hãy chọn Có nếu tùy chọn là thành phần của URL và chọn Không nếu không phải.</div>
-            <table class="grid-table">
-                <tr><th>Thành phần</th><th>Có</th><th>Không</th></tr>
-                <tr><td>Giao thức (Protocol)</td><td><input type="radio" name="q2_1" value="c"></td><td><input type="radio" name="q2_1" value="k"></td></tr>
-                <tr><td>Tên miền (Domain Name)</td><td><input type="radio" name="q2_2" value="c"></td><td><input type="radio" name="q2_2" value="k"></td></tr>
-                <tr><td>Chuỗi truy vấn (Query String)</td><td><input type="radio" name="q2_3" value="c"></td><td><input type="radio" name="q2_3" value="k"></td></tr>
-                <tr><td>Neo (Anchor)</td><td><input type="radio" name="q2_4" value="c"></td><td><input type="radio" name="q2_4" value="k"></td></tr>
-            </table>
-        </div>
+            function gradeQuiz(){
+                let score=0; let all=true; let firstMiss=null;
+                document.querySelectorAll('.question-card').forEach(c=>c.classList.remove('incomplete'));
+                document.querySelectorAll('.feedback-box').forEach(b=>b.style.display='none');
+                
+                qData.forEach(q=>{
+                    let ans=false;
+                    if(q.type==='radio'){
+                        if(document.querySelector(`input[name="q${q.id}"]:checked`)) ans=true;
+                    } else {
+                        let sub=0; q.rows.forEach((r,i)=>{ if(document.querySelector(`input[name="q${q.id}_${i}"]:checked`)) sub++; });
+                        if(sub===q.rows.length) ans=true;
+                    }
+                    if(!ans){ all=false; let c=document.getElementById(`c${q.id}`); c.classList.add('incomplete'); if(!firstMiss) firstMiss=c; }
+                });
 
-        <div class="question-card"><span class="topic-label">Chủ đề 03</span>
-            <div class="question-text">Em hãy cho biết, những bước nào liên quan đến việc lấy thông tin trực tuyến? Em hãy chọn Có nếu đây là bước bắt buộc và ngược lại chọn Không.</div>
-            <table class="grid-table">
-                <tr><th>Bước</th><th>Có</th><th>Không</th></tr>
-                <tr><td>Nhập URL</td><td><input type="radio" name="q3_1" value="c"></td><td><input type="radio" name="q3_1" value="k"></td></tr>
-                <tr><td>Khởi động lại thiết bị</td><td><input type="radio" name="q3_2" value="c"></td><td><input type="radio" name="q3_2" value="k"></td></tr>
-                <tr><td>Thông tin từ máy chủ trả về và hiển thị trên trình duyệt</td><td><input type="radio" name="q3_3" value="c"></td><td><input type="radio" name="q3_3" value="k"></td></tr>
-                <tr><td>URL phân giải thành địa chỉ IP</td><td><input type="radio" name="q3_4" value="c"></td><td><input type="radio" name="q3_4" value="k"></td></tr>
-            </table>
-        </div>
+                if(!all){ alert('Vui lòng làm hết bài!'); firstMiss.scrollIntoView({behavior:'smooth',block:'center'}); return; }
 
-        <div class="question-card"><span class="topic-label">Chủ đề 04</span>
-            <div class="question-text">Em hãy cho biết, USB Drive dùng để làm gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q4" value="a"> Lưu trữ và truyền dữ liệu</label>
-                <label><input type="radio" name="q4" value="b"> Gửi và nhận tin nhắn SMS</label>
-                <label><input type="radio" name="q4" value="c"> Chụp ảnh</label>
-                <label><input type="radio" name="q4" value="d"> Chơi game</label>
-            </div>
-        </div>
+                qData.forEach(q=>{
+                    let corr=false;
+                    if(q.type==='radio'){
+                        let v = document.querySelector(`input[name="q${q.id}"]:checked`).value;
+                        if(v===q.ans) corr=true;
+                        document.querySelectorAll(`input[name="q${q.id}"]`).forEach(i=>{
+                            if(i.value===q.ans) i.parentElement.classList.add('correct-answer');
+                            else if(i.checked) i.parentElement.classList.add('wrong-answer');
+                        });
+                    } else {
+                        let subC=0;
+                        q.rows.forEach((r,i)=>{
+                            let v = document.querySelector(`input[name="q${q.id}_${i}"]:checked`).value;
+                            // Logic: value 'c'/'d' is correct group, 'k'/'s' is wrong group.
+                            // Data uses 'c' for yes/correct in logic.
+                            let isTrue = (r.a==='c'||r.a==='d'); 
+                            // Input values: first option is always 'c'/'d', second is 'k'/'s'
+                            let userVal = document.querySelector(`input[name="q${q.id}_${i}"]:checked`);
+                            // Check logic map
+                            let correctVal = isTrue ? (q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'c':'d') : (q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'k':'s');
+                            
+                            if(userVal.value === correctVal) subC++;
+                            // Style
+                            document.querySelectorAll(`input[name="q${q.id}_${i}"]`).forEach(inp=>{
+                                if(inp.value === correctVal) inp.parentElement.classList.add('correct-answer');
+                                else if(inp.checked) inp.parentElement.classList.add('wrong-answer');
+                            });
+                        });
+                        if(subC===q.rows.length) corr=true;
+                    }
+                    if(corr) score++;
+                    document.querySelector(`#c${q.id} .feedback-box`).style.display='block';
+                });
 
-        <div class="question-card"><span class="topic-label">Chủ đề 05</span>
-            <div class="question-text">Em hãy cho biết, cài đặt thiết bị di động nào cho phép ứng dụng theo dõi vị trí của em?</div>
-            <div class="options">
-                <label><input type="radio" name="q5" value="a"> Cài đặt độ sáng màn hình</label>
-                <label><input type="radio" name="q5" value="b"> Cài đặt thông báo</label>
-                <label><input type="radio" name="q5" value="c"> Cài đặt Wifi</label>
-                <label><input type="radio" name="q5" value="d"> Cài đặt vị trí</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 06</span>
-            <div class="question-text">Em hãy cho biết, giao thức nào đảm bảo kết nối an toàn và được mã hóa giữa trình duyệt web và trang web?</div>
-            <div class="options">
-                <label><input type="radio" name="q6" value="a"> SMTP</label>
-                <label><input type="radio" name="q6" value="b"> HTTPS</label>
-                <label><input type="radio" name="q6" value="c"> FTP</label>
-                <label><input type="radio" name="q6" value="d"> HTTP</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 07</span>
-            <div class="question-text">Em hãy cho biết, bước khắc phục sự cố cơ bản cần thử trên thiết bị âm thanh không hoạt động là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q7" value="a"> Kiểm tra các điều khiển âm lượng</label>
-                <label><input type="radio" name="q7" value="b"> Thay thế thiết bị</label>
-                <label><input type="radio" name="q7" value="c"> Cài đặt một card âm thanh mới</label>
-                <label><input type="radio" name="q7" value="d"> Điều chỉnh độ sáng màn hình</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 08</span>
-            <div class="question-text">Em hãy cho biết, tùy chọn nào dưới đây KHÔNG phải là một phần của URL?</div>
-            <div class="options">
-                <label><input type="radio" name="q8" value="a"> Tên miền phụ (Subdomain)</label>
-                <label><input type="radio" name="q8" value="b"> Tên miền (Domain Name)</label>
-                <label><input type="radio" name="q8" value="c"> Địa chỉ IP (IP Address)</label>
-                <label><input type="radio" name="q8" value="d"> Giao thức (Protocol)</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 09</span>
-            <div class="question-text">Em hãy cho biết, mục đích của địa chỉ IP là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q9" value="a"> Gửi và nhận email</label>
-                <label><input type="radio" name="q9" value="b"> Chơi các tập tin âm nhạc</label>
-                <label><input type="radio" name="q9" value="c"> Xác định vị trí của một trang web</label>
-                <label><input type="radio" name="q9" value="d"> Điều khiển các thiết bị ngoại vi của máy tính</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 10</span>
-            <div class="question-text">Em tin tưởng tên miền nào nhất khi tìm kiếm thông tin cập nhật về du lịch nước ngoài?</div>
-            <div class="options">
-                <label><input type="radio" name="q10" value="a"> .net</label>
-                <label><input type="radio" name="q10" value="b"> .gov</label>
-                <label><input type="radio" name="q10" value="c"> .xyz</label>
-                <label><input type="radio" name="q10" value="d"> .com</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 11</span>
-            <div class="question-text">Em không kết nối được với internet ở nhà mình, không ai khác trong nhà gặp vấn đề này. Em nên làm gì trước tiên để khắc phục?</div>
-            <div class="options">
-                <label><input type="radio" name="q11" value="a"> Di chuyển đến gần bộ định tuyến hơn</label>
-                <label><input type="radio" name="q11" value="b"> Thay pin cho thiết bị của em</label>
-                <label><input type="radio" name="q11" value="c"> Tắt hoặc vô hiệu hóa bluetooth trên thiết bị của em</label>
-                <label><input type="radio" name="q11" value="d"> Khởi động lại (Reset) bộ chuyển đổi không dây (Wireless Adapter) trên thiết bị của em</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 12</span>
-            <div class="question-text">Em hãy cho biết, tuỳ chọn nào là khả năng tiếp cận trong công nghệ là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q12" value="a"> Quá trình lưu trữ dữ liệu trên đám mây</label>
-                <label><input type="radio" name="q12" value="b"> Khả năng kết nối với mạng</label>
-                <label><input type="radio" name="q12" value="c"> Sự dễ dàng sử dụng và sẵn có của công nghệ dành cho người khuyết tật</label>
-                <label><input type="radio" name="q12" value="d"> Cách dữ liệu được gửi qua internet</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 13</span>
-            <div class="question-text">Em hãy cho biết, mục đích của địa chỉ IP (Internet Protocol) là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q13" value="a"> Xác định các thiết bị hỗ trợ internet trên mạng máy tính</label>
-                <label><input type="radio" name="q13" value="b"> Gửi và nhận email</label>
-                <label><input type="radio" name="q13" value="c"> Xác định vị trí địa chỉ vật lý của trang web</label>
-                <label><input type="radio" name="q13" value="d"> Xác định thông tin cá nhân của người dùng</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 14</span>
-            <div class="question-text">Em hãy cho biết, internet là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q14" value="a"> Một mạng lưới toàn cầu gồm các máy tính và thiết bị được kết nối</label>
-                <label><input type="radio" name="q14" value="b"> Một vị trí vật lý nơi dữ liệu được lưu trữ</label>
-                <label><input type="radio" name="q14" value="c"> Một thiết bị để thực hiện cuộc gọi điện thoại</label>
-                <label><input type="radio" name="q14" value="d"> Một trình duyệt web</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 15</span>
-            <div class="question-text">Em hãy cho biết, lợi ích của việc lưu trữ đám mây là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q15" value="a"> Dữ liệu được tự động đồng bộ hóa trên tất cả thiết bị</label>
-                <label><input type="radio" name="q15" value="b"> Thông tin chỉ có thể được truy cập bởi một thiết bị tại một thời điểm</label>
-                <label><input type="radio" name="q15" value="c"> Bản in trên giấy (Physical Copies) của tài liệu được lưu trữ</label>
-                <label><input type="radio" name="q15" value="d"> Bất kì ai cũng có thể truy cập tập tin mà không cần xin phép</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 16</span>
-            <div class="question-text">Với mỗi câu phát biểu về việc thu thập dữ liệu, em hãy chọn Có nếu nguồn đó thu thập dữ liệu về hoạt động sử dụng của em hoặc chọn Không nếu không phải.</div>
-            <table class="grid-table">
-                <tr><th>Nguồn</th><th>Có</th><th>Không</th></tr>
-                <tr><td>Google</td><td><input type="radio" name="q16_1" value="c"></td><td><input type="radio" name="q16_1" value="k"></td></tr>
-                <tr><td>GPS ô tô</td><td><input type="radio" name="q16_2" value="c"></td><td><input type="radio" name="q16_2" value="k"></td></tr>
-                <tr><td>Điện thoại thông minh</td><td><input type="radio" name="q16_3" value="c"></td><td><input type="radio" name="q16_3" value="k"></td></tr>
-                <tr><td>Mạng xã hội</td><td><input type="radio" name="q16_4" value="c"></td><td><input type="radio" name="q16_4" value="k"></td></tr>
-            </table>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 17</span>
-            <div class="question-text">Em hãy chọn Có nếu tính năng của USB và chọn Không nếu không phải.</div>
-            <table class="grid-table">
-                <tr><th>Tính năng</th><th>Có</th><th>Không</th></tr>
-                <tr><td>Có thể mang theo</td><td><input type="radio" name="q17_1" value="c"></td><td><input type="radio" name="q17_1" value="k"></td></tr>
-                <tr><td>Không gian lưu trữ</td><td><input type="radio" name="q17_2" value="c"></td><td><input type="radio" name="q17_2" value="k"></td></tr>
-                <tr><td>Truyền tải tập tin</td><td><input type="radio" name="q17_3" value="c"></td><td><input type="radio" name="q17_3" value="k"></td></tr>
-                <tr><td>Kết nối không dây</td><td><input type="radio" name="q17_4" value="c"></td><td><input type="radio" name="q17_4" value="k"></td></tr>
-            </table>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 18</span>
-            <div class="question-text">Em hãy cho biết, tùy chọn nào dưới đây mô tả đúng về USB Drive?</div>
-            <div class="options">
-                <label><input type="radio" name="q18" value="a"> Một không gian lưu trữ trên một ổ cứng</label>
-                <label><input type="radio" name="q18" value="b"> Một cơ sở dữ liệu lưu trữ các tập tin trực tuyến</label>
-                <label><input type="radio" name="q18" value="c"> Một thiết bị lưu trữ dạng cắm</label>
-                <label><input type="radio" name="q18" value="d"> Một thiết bị nhớ hoạt động trên đám mây</label>
-            </div>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 19</span>
-            <div class="question-text">Với mỗi phát biểu về công nghệ, em hãy chọn Có nếu phát biểu đó nói về một điều khả thi hoặc chọn Không nếu không phải.</div>
-            <table class="grid-table">
-                <tr><th>Phát biểu</th><th>Có</th><th>Không</th></tr>
-                <tr><td>Các công nhân ở một khu mỏ có thể nhận được dữ liệu thời gian thực...</td><td><input type="radio" name="q19_1" value="c"></td><td><input type="radio" name="q19_1" value="k"></td></tr>
-                <tr><td>Một y tá làm việc từ xa có thể sử dụng dữ liệu y tế thời gian thực...</td><td><input type="radio" name="q19_2" value="c"></td><td><input type="radio" name="q19_2" value="k"></td></tr>
-                <tr><td>Máy học (Machine Learning) có thể giúp các nhạc sĩ sáng tác...</td><td><input type="radio" name="q19_3" value="c"></td><td><input type="radio" name="q19_3" value="k"></td></tr>
-            </table>
-        </div>
-
-        <div class="question-card"><span class="topic-label">Chủ đề 20</span>
-            <div class="question-text">Em hãy cho biết, thuật ngữ nào chỉ các bit dữ liệu nhỏ được thu thập bởi trang web mà em truy cập?</div>
-            <div class="options">
-                <label><input type="radio" name="q20" value="a"> Cookies</label>
-                <label><input type="radio" name="q20" value="b"> Bảng tính</label>
-                <label><input type="radio" name="q20" value="c"> Tấn công xâm nhập (Hacking)</label>
-                <label><input type="radio" name="q20" value="d"> Dữ liệu</label>
-            </div>
-        </div>
-
-        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+                let r = document.getElementById('result-area');
+                r.style.display='block';
+                r.innerHTML=`Kết quả: ${score}/${qData.length} câu đúng`;
+                r.style.backgroundColor = score/qData.length >= 0.8 ? '#d4edda':'#f8d7da';
+                window.scrollTo({top:0,behavior:'smooth'});
+                document.querySelectorAll('input').forEach(i=>i.disabled=true);
+            }
+        </script>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
         <div id="result-area"></div>
     </form>
 </div>
-
-<footer>
-    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
-    <span class="copyright">© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</span>
-    <div class="footer-divider"></div>
-    <div class="footer-info">
-        <div><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com</div>
-        <div><i class="fas fa-phone"></i> 0937.438.939</div>
-        <div><i class="fas fa-university"></i> Vietinbank: 0937438939</div>
-    </div>
-</footer>
-
-<script>
-    const correctAnswers = {
-        q1_1: "c", q1_2: "k", q1_3: "c", q1_4: "c", // Restart(Y), UnplugMain(N), Refresh(Y), Cables(Y)
-        q2_1: "c", q2_2: "c", q2_3: "c", q2_4: "c", // All are parts of URL structure
-        q3_1: "c", q3_2: "k", q3_3: "c", q3_4: "c", // Input(Y), Restart(N), ReturnInfo(Y), DNS(Y)
-        q4: "a", // Luu tru va truyen
-        q5: "d", // Cai dat vi tri
-        q6: "b", // HTTPS
-        q7: "a", // Kiem tra am luong
-        q8: "c", // IP address (Not a standard URL component like scheme/host)
-        q9: "c", // Xac dinh vi tri trang web
-        q10: "b", // .gov
-        q11: "a", // Di chuyen gan router
-        q12: "c", // Accessibility definition
-        q13: "a", // Identify devices
-        q14: "a", // Global network
-        q15: "a", // Sync
-        q16_1: "c", q16_2: "c", q16_3: "c", q16_4: "c", // All collect data
-        q17_1: "c", q17_2: "c", q17_3: "c", q17_4: "k", // USB drive is not wireless
-        q18: "c", // Plug-in storage
-        q19_1: "c", q19_2: "c", q19_3: "c", // All feasible
-        q20: "a"  // Cookies
-    };
-
-    function gradeQuiz() {
-        let score = 0;
-        let total = 20; 
-        
-        for(let i=1; i<=20; i++) {
-            let qKey = "q" + i;
-            let isCorrect = false;
-
-            // Handle Tables (Sub-questions)
-            if([1, 2, 3, 16, 17, 19].includes(i)) {
-                let subScore = 0;
-                let subTotal = 0;
-                let subKeys = Object.keys(correctAnswers).filter(k => k.startsWith(qKey + "_"));
-                subTotal = subKeys.length;
-
-                for(let k of subKeys) {
-                    let radios = document.getElementsByName(k);
-                    let val = "";
-                    for(let r of radios) if(r.checked) val = r.value;
-                    if(val === correctAnswers[k]) subScore++;
-                }
-                if(subScore === subTotal) isCorrect = true; 
-            }
-            // Handle Standard Radio
-            else {
-                let inputs = document.getElementsByName(qKey);
-                let val = "";
-                for(let inp of inputs) if(inp.checked) val = inp.value;
-                if(val === correctAnswers[qKey]) isCorrect = true;
-            }
-
-            if(isCorrect) score++;
-        }
-
-        const res = document.getElementById('result-area');
-        res.style.display = "block";
-        const percent = Math.round((score / total) * 100);
-        res.innerHTML = `KẾT QUẢ: ${score}/${total} CÂU ĐÚNG (${percent}%)`;
-        
-        if(percent >= 80) {
-            res.style.backgroundColor = "#d4edda";
-            res.style.color = "#155724";
-        } else {
-            res.style.backgroundColor = "#f8d7da";
-            res.style.color = "#721c24";
-        }
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
+<footer><p>© 2026 - GV Nguyễn Đình Bạch Long</p></footer>
 </body>
 </html>
