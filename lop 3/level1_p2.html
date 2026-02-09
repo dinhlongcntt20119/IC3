@@ -82,9 +82,9 @@
         .data-table tr:nth-child(even) { background-color: #fcfcfc; }
         .data-table tr:last-child td { border-bottom: none; }
         
-        /* Column Widths */
-        .data-table td:first-child { width: 65%; font-weight: 500; } /* Nội dung dài */
-        .data-table td:not(:first-child) { width: 17.5%; text-align: center; } /* Cột lựa chọn */
+        /* Cân chỉnh độ rộng cột */
+        .data-table td:first-child { width: 65%; font-weight: 500; }
+        .data-table td:not(:first-child) { width: 17.5%; text-align: center; }
 
         .data-table select {
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; 
@@ -101,7 +101,6 @@
         .correct-opt { background-color: var(--correct-bg) !important; border-color: #28a745 !important; }
         .wrong-opt { background-color: var(--wrong-bg) !important; border-color: #dc3545 !important; }
         
-        /* Correction Display */
         .correction { 
             display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
             color: #dc3545; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed #dc3545;
@@ -194,7 +193,7 @@
                 {t: "Bàn phím (Keyboard)", a: "yes"},
                 {t: "Máy ảnh (Camera)", a: "yes"},
                 {t: "Máy in (Printer)", a: "yes"},
-                {t: "Màn hình cảm ứng (Touchscreen)", a: "yes"}, /* Dựa theo ảnh, tích chọn Yes */
+                {t: "Màn hình cảm ứng (Touchscreen)", a: "yes"}, 
                 {t: "Máy tính bảng (Tablet)", a: "no"},
                 {t: "Điện thoại thông minh (Smartphone)", a: "no"}
             ],
@@ -665,6 +664,7 @@
                     checked.parentElement.classList.add('correct-opt');
                 } else {
                     checked.parentElement.classList.add('wrong-opt');
+                    // Highlight correct
                     let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
                     if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
                 }
@@ -692,6 +692,7 @@
                         sel.style.borderColor = "#dc3545";
                         sel.style.backgroundColor = "#f8d7da";
                         
+                        // Show correct answer below
                         let div = document.createElement("div");
                         div.className = "correction";
                         div.innerHTML = `Đúng: ${correctText}`;
@@ -732,6 +733,7 @@
         res.style.color = percent >= 80 ? '#28a745' : '#dc3545';
         res.style.borderColor = percent >= 80 ? '#28a745' : '#dc3545';
 
+        // Disable inputs
         document.querySelectorAll('input, select').forEach(el => el.disabled = true);
         window.scrollTo({top: 0, behavior: 'smooth'});
     }

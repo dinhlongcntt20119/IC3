@@ -3,646 +3,752 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC3 SPARK LEVEL 1 - KIẾN THỨC TỔNG HỢP (FULL)</title>
+    <title>Lớp 3 - Level 1 | Kiến Thức Tổng Hợp - Phần 1</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            --bg-color: #f0f4f8;
-            --success-color: #d4edda;
-            --success-border: #28a745;
-            --error-color: #f8d7da;
-            --error-border: #dc3545;
+            --primary-color: #28a745; /* Level 1 Green */
+            --primary-dark: #1e7e34;
+            --bg-light: #e8f5e9;
+            --text-color: #333;
+            --border-color: #dee2e6;
+            --correct-bg: #d4edda;
+            --wrong-bg: #f8d7da;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
-
+        body { font-family: 'Roboto', sans-serif; background-color: #f4f6f9; color: var(--text-color); margin: 0; padding: 0; }
+        
         /* HEADER */
         header {
-            background: var(--primary-gradient); color: white; padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-bottom: 6px solid #ffcc00;
-            position: sticky; top: 0; z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
         }
-        .header-left { display: flex; align-items: center; gap: 20px; }
-        .back-btn {
-            background: rgba(255, 255, 255, 0.2); color: white; text-decoration: none;
-            padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.5); transition: all 0.3s;
-            display: flex; align-items: center; gap: 5px;
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #d1e7dd; }
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
         }
-        .back-btn:hover { background: #ffcc00; color: #1e3c72; border-color: #ffcc00; }
-        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2.2rem; font-style: italic; font-weight: 800; }
-        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 0.5px #fff; }
-        .logo-ic3 span:nth-child(2) { color: #4CAF50; -webkit-text-stroke: 0.5px #fff; margin-right: 3px; }
-        .logo-ic3 span:nth-child(3) { color: #fff; font-size: 2.5rem; margin-right: 8px; }
-        .logo-ic3 span:nth-child(4) { color: #333; font-size: 2rem; }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
 
-        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
-        
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2rem; text-transform: uppercase; }
+        .page-title h2 { color: #555; margin: 10px 0 0; font-size: 1.3rem; font-weight: normal; }
+
+        /* QUESTION CARD */
         .question-card {
-            background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px;
-            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            transition: transform 0.3s;
+            background: white; border: 1px solid var(--border-color); border-radius: 10px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
         }
-        .question-card.incomplete { border: 2px solid var(--error-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.3); }
-        
-        .topic-label {
-            position: absolute; top: -12px; left: 20px; background: #2a5298;
-            color: white; padding: 4px 15px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
-        }
-        .question-text { font-weight: 700; font-size: 1.15rem; margin-bottom: 20px; color: #2c3e50; }
+        .question-card.incomplete { border: 2px solid #dc3545; box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
 
-        /* OPTIONS STYLING */
+        .topic-col {
+            background-color: var(--primary-color); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: #2c3e50; }
+
+        /* OPTIONS */
         .options label {
-            display: block; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #eee;
-            border-radius: 8px; cursor: pointer; transition: 0.2s; position: relative;
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f1f1f1; border-radius: 8px; transition: 0.2s; position: relative;
         }
-        .options label:hover { background: #f0f7ff; }
-        .options input { margin-right: 12px; transform: scale(1.2); }
+        .options label:hover { background-color: var(--bg-light); border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
 
-        /* FEEDBACK CLASSES */
-        .correct-answer { background-color: var(--success-color) !important; border: 1px solid var(--success-border) !important; }
-        .wrong-answer { background-color: var(--error-color) !important; border: 1px solid var(--error-border) !important; }
+        /* IMAGE GRID (Used for Q1, Q9) */
+        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .img-item { border: 2px solid #eee; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .img-item:hover { border-color: var(--primary-color); background: var(--bg-light); }
+        .img-item img { max-width: 100%; height: 120px; object-fit: contain; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
         
-        /* IMAGE GRID */
-        .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        .img-item { border: 2px solid #eee; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; }
-        .img-item img { max-width: 100%; height: 150px; object-fit: contain; display: block; margin: 0 auto; }
-        .img-item:hover { background-color: #f9f9f9; }
+        /* SINGLE IMAGE (Used for Q6, Q15, Q21) */
+        .single-img { display: block; max-width: 100%; max-height: 300px; margin: 0 auto 20px auto; border-radius: 8px; border: 1px solid #ddd; }
 
-        /* TABLE STYLING */
-        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 15px; }
-        .grid-table th, .grid-table td { border: 1px solid #ddd; padding: 12px; text-align: center; vertical-align: middle; }
-        .grid-table th { background: #f8f9fa; font-weight: bold; color: #495057; }
-        .grid-table td:first-child { text-align: left; font-weight: 500; width: 50%; }
-        .grid-table select { padding: 8px; width: 100%; border: 1px solid #ccc; border-radius: 4px; }
-
-        /* EXPLANATION BOX */
-        .feedback-box { 
-            display: none; margin-top: 20px; padding: 15px; background: #eef2f7; 
-            border-left: 5px solid #28a745; border-radius: 4px; font-size: 0.95rem; 
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
         }
-        .feedback-title { font-weight: bold; color: #155724; display: block; margin-bottom: 5px; }
-        .feedback-text { color: #333; }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; }
+        .data-table tr:nth-child(even) { background-color: #fcfcfc; }
+        .data-table tr:last-child td { border-bottom: none; }
+        
+        .data-table td:first-child { width: 65%; font-weight: 500; }
+        .data-table td:not(:first-child) { width: 17.5%; text-align: center; }
 
-        /* BUTTON */
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer;
+        }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; 
+            font-size: 0.95rem; color: #856404; display: none; line-height: 1.5;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: #28a745 !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: #dc3545 !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: #dc3545; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed #dc3545;
+        }
+
         .btn-submit {
-            display: block; width: 100%; padding: 20px; background: var(--primary-gradient);
-            color: white; border: none; border-radius: 10px; font-size: 1.3rem; font-weight: bold; 
-            cursor: pointer; margin-top: 40px; transition: opacity 0.3s;
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4); transition: 0.3s;
         }
-        .btn-submit:hover { opacity: 0.9; }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(40, 167, 69, 0.6); }
 
-        #result-area { 
-            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px; 
-            display: none; padding: 30px; border-radius: 12px; scroll-margin-top: 100px;
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
         }
 
-        footer { background: var(--primary-gradient); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; border-top: 6px solid #ffcc00; }
+        footer { background: var(--primary-color); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; justify-content: flex-start; border-right: none; border-bottom: 4px solid #1e7e34; }
+            .content-col { width: 100%; padding: 15px; }
+            .data-table td:first-child { width: 50%; }
+            .data-table td:not(:first-child) { width: 25%; }
+        }
     </style>
 </head>
 <body>
 
 <header>
     <div class="header-left">
-        <a href="../index.html" class="back-btn"><i class="fas fa-home"></i> Trang chủ</a>
-        <div class="logo-ic3"><span>I</span><span>C</span><span>3</span><span>spark</span></div>
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
     </div>
-    <div style="text-align: right; line-height: 1.4;">
-        <div>GV. Nguyễn Đình Bạch Long</div>
-        <div style="font-size: 0.8rem; opacity: 0.9;">Kiến thức tổng hợp - Phần 1</div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 1</span>
     </div>
 </header>
 
 <div class="container">
-    <div style="text-align:center; margin-bottom:40px;">
-        <h1 style="color:#1e3c72; font-size: 2.2rem; margin-bottom: 10px;">KIẾN THỨC TỔNG HỢP - PHẦN 1</h1>
-        <p style="color:#666;">Hoàn thành tất cả 30 câu hỏi bên dưới.</p>
+    <div class="page-title">
+        <h1>LỚP 3 - LEVEL 1</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 1</h2>
     </div>
 
     <form id="quiz-form">
-        <div class="question-card" id="card-q1"><span class="topic-label">Chủ đề 01</span>
-            <div class="question-text">Bạn hãy cho biết, hình ảnh nào sau đây là hình ảnh của một chiếc Laptop?</div>
-            <div class="img-grid">
-                <label class="img-item"><input type="radio" name="q1" value="a"> <img src="cd1.1.jpg" alt="Máy bàn"> Hình 1</label>
-                <label class="img-item"><input type="radio" name="q1" value="b"> <img src="cd1.2.jpg" alt="Laptop"> Hình 2</label>
-                <label class="img-item"><input type="radio" name="q1" value="c"> <img src="cd1.3.jpg" alt="Mobile"> Hình 3</label>
-                <label class="img-item"><input type="radio" name="q1" value="d"> <img src="cd1.4.jpg" alt="Tablet"> Hình 4</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Hình 2</span><span class="feedback-text">Hình 2 là máy tính xách tay (Laptop) có bàn phím gắn liền và gập lại được.</span></div>
-        </div>
+        </form>
 
-        <div class="question-card" id="card-q2"><span class="topic-label">Chủ đề 02</span>
-            <div class="question-text">Bạn hãy cho biết phần mềm nào sau đây là hệ điều hành?</div>
-            <div class="options">
-                <label><input type="radio" name="q2" value="a"> Google</label>
-                <label><input type="radio" name="q2" value="b"> Microsoft Windows</label>
-                <label><input type="radio" name="q2" value="c"> Apple iPad</label>
-                <label><input type="radio" name="q2" value="d"> Microsoft Word</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Microsoft Windows</span><span class="feedback-text">Microsoft Windows là hệ điều hành. Google là công cụ tìm kiếm, iPad là phần cứng, Word là ứng dụng.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q3"><span class="topic-label">Chủ đề 03</span>
-            <div class="question-text">Bạn hãy cho biết, loại phần cứng (Hardware) nào gửi dữ liệu đến máy tính?</div>
-            <div class="options">
-                <label><input type="radio" name="q3" value="a"> Xuất (Output)</label>
-                <label><input type="radio" name="q3" value="b"> Nhập (Input)</label>
-                <label><input type="radio" name="q3" value="c"> Lưu trữ (Storage)</label>
-                <label><input type="radio" name="q3" value="d"> Màn hình (Monitor)</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Nhập (Input)</span><span class="feedback-text">Thiết bị nhập (như bàn phím, chuột) gửi thông tin VÀO máy tính.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q4"><span class="topic-label">Chủ đề 04</span>
-            <div class="question-text">Bạn cần kết nối máy tính bảng với internet. Bạn nên sử dụng phương tiện gì dưới đây?</div>
-            <div class="options">
-                <label><input type="radio" name="q4" value="a"> Wifi</label>
-                <label><input type="radio" name="q4" value="b"> Cáp máy in</label>
-                <label><input type="radio" name="q4" value="c"> Cáp màn hình</label>
-                <label><input type="radio" name="q4" value="d"> Bluetooth</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Wifi</span><span class="feedback-text">Wifi là phương thức phổ biến nhất để kết nối Internet không dây cho máy tính bảng.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q5"><span class="topic-label">Chủ đề 05</span>
-            <div class="question-text">Bạn hãy cho biết, phần mềm nào dưới đây là phần mềm ứng dụng?</div>
-            <div class="options">
-                <label><input type="radio" name="q5" value="a"> IOS</label>
-                <label><input type="radio" name="q5" value="b"> Microsoft Word</label>
-                <label><input type="radio" name="q5" value="c"> Flash drive</label>
-                <label><input type="radio" name="q5" value="d"> Windows</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Microsoft Word</span><span class="feedback-text">Word là ứng dụng soạn thảo. IOS và Windows là hệ điều hành. Flash drive là phần cứng.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q6"><span class="topic-label">Chủ đề 06</span>
-            <div class="question-text">Hình ảnh này cho biết loại thiết bị máy tính nào?</div>
-            <img src="cd6.jpg" style="max-width:200px; display:block; margin: 10px auto; border:1px solid #ccc;">
-            <div class="options">
-                <label><input type="radio" name="q6" value="a"> Máy tính xách tay (Laptop)</label>
-                <label><input type="radio" name="q6" value="b"> Máy tính bảng (Tablet)</label>
-                <label><input type="radio" name="q6" value="c"> Máy tính để bàn (Desktop)</label>
-                <label><input type="radio" name="q6" value="d"> Điện thoại thông minh (Smartphone)</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Máy tính xách tay (Laptop)</span><span class="feedback-text">Hình ảnh thể hiện một chiếc máy tính có thể gập mở và mang theo được.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q7"><span class="topic-label">Chủ đề 07</span>
-            <div class="question-text">Máy tính để bàn có thể sử dụng loại thiết bị nào để kết nối internet?</div>
-            <div class="options">
-                <label><input type="radio" name="q7" value="a"> Một thiết bị wifi (Wifi device)</label>
-                <label><input type="radio" name="q7" value="b"> Một thiết bị hiển thị</label>
-                <label><input type="radio" name="q7" value="c"> Một thiết bị đa phương tiện</label>
-                <label><input type="radio" name="q7" value="d"> Một thiết bị lưu trữ</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Một thiết bị wifi</span><span class="feedback-text">Máy tính để bàn cần Card Wifi hoặc USB Wifi để kết nối không dây.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q8"><span class="topic-label">Chủ đề 08</span>
-            <div class="question-text">Bạn đang học tại thư viện và cần sạc pin. Một người lạ đang dùng ổ cắm. Bạn nên làm gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q8" value="a"> Di chuyển đến khu vực có sẵn một ổ cắm khác</label>
-                <label><input type="radio" name="q8" value="b"> Rút phích cắm của người lạ</label>
-                <label><input type="radio" name="q8" value="c"> Sử dụng dây nối dài gây cản trở</label>
-                <label><input type="radio" name="q8" value="d"> Học cho đến khi hết pin rồi về</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Di chuyển đến khu vực có ổ cắm</span><span class="feedback-text">Đây là cách cư xử lịch sự và giải quyết vấn đề hiệu quả nhất.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q9"><span class="topic-label">Chủ đề 09</span>
-            <div class="question-text">Bạn hãy cho biết, hai thiết bị nào sau đây là thiết bị ngoại vi? (Chọn 2)</div>
-            <div class="img-grid">
-                <label class="img-item"><input type="checkbox" name="q9" value="a"> <img src="cd9.1.jpg" alt="A"> Hình A</label>
-                <label class="img-item"><input type="checkbox" name="q9" value="b"> <img src="cd9.2.jpg" alt="B"> Hình B</label>
-                <label class="img-item"><input type="checkbox" name="q9" value="c"> <img src="cd9.3.jpg" alt="C"> Hình C</label>
-                <label class="img-item"><input type="checkbox" name="q9" value="d"> <img src="cd9.4.jpg" alt="D"> Hình D</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Hình A và Hình B (Ví dụ: Chuột và Bàn phím)</span><span class="feedback-text">Thiết bị ngoại vi là các thiết bị gắn ngoài máy tính để nhập hoặc xuất dữ liệu.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q10"><span class="topic-label">Chủ đề 10</span>
-            <div class="question-text">Thuật ngữ cho phần mềm chạy trên điện thoại hoặc máy tính bảng là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q10" value="a"> App (Ứng dụng)</label>
-                <label><input type="radio" name="q10" value="b"> Program (Chương trình)</label>
-                <label><input type="radio" name="q10" value="c"> Icon (Biểu tượng)</label>
-                <label><input type="radio" name="q10" value="d"> Widget</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: App</span><span class="feedback-text">Trên thiết bị di động, phần mềm thường được gọi là "App" (viết tắt của Application).</span></div>
-        </div>
-
-        <div class="question-card" id="card-q11"><span class="topic-label">Chủ đề 11</span>
-            <div class="question-text">Phân loại các mục sau là Phần cứng (Hardware) hay Phần mềm (Software):</div>
-            <table class="grid-table">
-                <tr><th>Mục</th><th>Phần cứng</th><th>Phần mềm</th></tr>
-                <tr><td>Máy in (Printer)</td><td><input type="radio" name="q11_1" value="hw"></td><td><input type="radio" name="q11_1" value="sw"></td></tr>
-                <tr><td>Cơ sở dữ liệu (Database)</td><td><input type="radio" name="q11_2" value="hw"></td><td><input type="radio" name="q11_2" value="sw"></td></tr>
-                <tr><td>Chuột (Mouse)</td><td><input type="radio" name="q11_3" value="hw"></td><td><input type="radio" name="q11_3" value="sw"></td></tr>
-                <tr><td>Bàn phím (Keyboard)</td><td><input type="radio" name="q11_4" value="hw"></td><td><input type="radio" name="q11_4" value="sw"></td></tr>
-                <tr><td>Thư điện tử (Email)</td><td><input type="radio" name="q11_5" value="hw"></td><td><input type="radio" name="q11_5" value="sw"></td></tr>
-            </table>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng:</span><span class="feedback-text">Phần cứng: Máy in, Chuột, Bàn phím.<br>Phần mềm: Cơ sở dữ liệu, Email.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q12"><span class="topic-label">Chủ đề 12</span>
-            <div class="question-text">Ghép định nghĩa với thuật ngữ tương ứng:</div>
-            <table class="grid-table">
-                <tr><th>Định nghĩa</th><th>Thuật ngữ</th></tr>
-                <tr><td>Hướng dẫn mà máy tính làm theo</td><td><select name="q12_1"><option value="">--Chọn--</option><option value="program">Chương trình</option><option value="hardware">Phần cứng</option><option value="device">Thiết bị</option><option value="mobile">Công nghệ di động</option></select></td></tr>
-                <tr><td>Các bộ phận của máy tính mà bạn có thể chạm vào</td><td><select name="q12_2"><option value="">--Chọn--</option><option value="program">Chương trình</option><option value="hardware">Phần cứng</option><option value="device">Thiết bị</option><option value="mobile">Công nghệ di động</option></select></td></tr>
-                <tr><td>Thiết bị được phát minh cho một mục đích cụ thể</td><td><select name="q12_3"><option value="">--Chọn--</option><option value="program">Chương trình</option><option value="hardware">Phần cứng</option><option value="device">Thiết bị</option><option value="mobile">Công nghệ di động</option></select></td></tr>
-                <tr><td>Công nghệ đi đến nơi người dùng đến</td><td><select name="q12_4"><option value="">--Chọn--</option><option value="program">Chương trình</option><option value="hardware">Phần cứng</option><option value="device">Thiết bị</option><option value="mobile">Công nghệ di động</option></select></td></tr>
-            </table>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng:</span><span class="feedback-text">1. Chương trình - 2. Phần cứng - 3. Thiết bị - 4. Công nghệ di động</span></div>
-        </div>
-
-        <div class="question-card" id="card-q13"><span class="topic-label">Chủ đề 13</span>
-            <div class="question-text">Thiết bị nào có bàn di chuột (Touchpad) tích hợp để trỏ và nhấp?</div>
-            <div class="options">
-                <label><input type="radio" name="q13" value="a"> Laptop computer</label>
-                <label><input type="radio" name="q13" value="b"> Desktop computer</label>
-                <label><input type="radio" name="q13" value="c"> Tablet</label>
-                <label><input type="radio" name="q13" value="d"> Smartphone</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Laptop computer</span><span class="feedback-text">Laptop có bàn di chuột ngay bên dưới bàn phím.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q14"><span class="topic-label">Chủ đề 14</span>
-            <div class="question-text">An cần sạc điện thoại vào ban đêm. Đâu là nơi an toàn để An giữ điện thoại?</div>
-            <div class="options">
-                <label><input type="radio" name="q14" value="a"> Trên bàn làm việc</label>
-                <label><input type="radio" name="q14" value="b"> Dưới gối nằm</label>
-                <label><input type="radio" name="q14" value="c"> Trên kệ trong phòng tắm</label>
-                <label><input type="radio" name="q14" value="d"> Trên sàn nhà (lối đi)</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Trên bàn làm việc</span><span class="feedback-text">Để trên bàn là nơi thoáng mát, tránh nguy cơ cháy nổ (dưới gối) hoặc ẩm ướt (phòng tắm).</span></div>
-        </div>
-
-        <div class="question-card" id="card-q15"><span class="topic-label">Chủ đề 15</span>
-            <div class="question-text">Bạn muốn tìm một trò chơi đã cài đặt. Bạn nên nhấp vào đâu trên thanh tác vụ?</div>
-            <img src="cd15.jpg" style="max-width:100%; display:block; margin: 10px 0;">
-            <div class="options">
-                 <label><input type="radio" name="q15" value="a"> Vị trí A (nút Start)</label>
-                <label><input type="radio" name="q15" value="b"> Vị trí B (ô tìm kiếm (Type here to search))</label>
-                <label><input type="radio" name="q15" value="c"> Vị trí C</label>
-                <label><input type="radio" name="q15" value="d"> Vị trí D</label>
-                <label><input type="radio" name="q15" value="e"> Vị trí E</label>
-		<label><input type="radio" name="q15" value="g"> Vị trí G</label>
-                <label><input type="radio" name="q15" value="f"> Vị trí F</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Ô tìm kiếm (Vị trí B)</span><span class="feedback-text">Ô tìm kiếm giúp bạn tìm nhanh các phần mềm và tập tin trong máy.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q16"><span class="topic-label">Chủ đề 16</span>
-            <div class="question-text">Thiết bị đầu vào nào được tích hợp vào điện thoại thông minh?</div>
-            <div class="options">
-                <label><input type="radio" name="q16" value="a"> Màn hình cảm ứng (Touchscreen)</label>
-                <label><input type="radio" name="q16" value="b"> Bàn di chuột</label>
-                <label><input type="radio" name="q16" value="c"> Tai nghe</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Màn hình cảm ứng</span><span class="feedback-text">Màn hình cảm ứng vừa là thiết bị xuất (hiển thị) vừa là thiết bị nhập (nhận cảm ứng).</span></div>
-        </div>
-
-        <div class="question-card" id="card-q17"><span class="topic-label">Chủ đề 17</span>
-            <div class="question-text">Phát biểu đúng về phần mềm ứng dụng trên máy tính để bàn:</div>
-            <div class="options">
-                <label><input type="radio" name="q17" value="a"> Phải được cài đặt trên máy tính trước khi khởi chạy</label>
-                <label><input type="radio" name="q17" value="b"> Không yêu cầu dung lượng lưu trữ</label>
-                <label><input type="radio" name="q17" value="c"> Chỉ chạy được khi có Internet</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Phải được cài đặt trước</span><span class="feedback-text">Ứng dụng desktop truyền thống cần được cài đặt vào ổ cứng máy tính.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q18"><span class="topic-label">Chủ đề 18</span>
-            <div class="question-text">Pin máy tính bảng yếu và bộ sạc bị hỏng. Bạn nên làm gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q18" value="a"> Báo cho giáo viên biết</label>
-                <label><input type="radio" name="q18" value="b"> Cố dùng bộ sạc không tương thích</label>
-                <label><input type="radio" name="q18" value="c"> Lấy trộm sạc của bạn</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Báo cho giáo viên</span><span class="feedback-text">Báo cho người lớn để được hỗ trợ là cách giải quyết an toàn nhất.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q19"><span class="topic-label">Chủ đề 19</span>
-            <div class="question-text">Ví dụ về thiết bị đầu vào tích hợp sẵn là:</div>
-            <div class="options">
-                <label><input type="radio" name="q19" value="a"> Màn hình cảm ứng (Touchscreen)</label>
-                <label><input type="radio" name="q19" value="b"> Chuột rời</label>
-                <label><input type="radio" name="q19" value="c"> Tai nghe</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Màn hình cảm ứng</span><span class="feedback-text">Các thiết bị như Tablet/Smartphone tích hợp sẵn màn hình cảm ứng để nhập liệu.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q20"><span class="topic-label">Chủ đề 20</span>
-            <div class="question-text">Tùy chọn nào sau đây là một tập tin (File)?</div>
-            <div class="options">
-                <label><input type="radio" name="q20" value="a"> Tài liệu danh sách bài tập</label>
-                <label><input type="radio" name="q20" value="b"> Thư mục ảnh</label>
-                <label><input type="radio" name="q20" value="c"> Trang web</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Tài liệu danh sách bài tập</span><span class="feedback-text">Tài liệu văn bản là một tập tin cụ thể, thư mục là nơi chứa tập tin.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q21"><span class="topic-label">Chủ đề 21</span>
-            <div class="question-text">Bạn sẽ tìm thấy lệnh Đóng (Close) trên thẻ (Tab) nào?</div>
-            <img src="cd21.jpg" style="max-width:100%; display:block; margin: 10px 0;">
-            <div class="options">
-                <label><input type="radio" name="q21" value="a"> Vị trí A (Thẻ File)</label>
-                <label><input type="radio" name="q21" value="b"> Vị trí B (Thẻ Home)</label>
-                <label><input type="radio" name="q21" value="c"> Vị trí C (Thẻ Insert)</label>
-                <label><input type="radio" name="q21" value="d"> Vị trí D (Thẻ Design)</label>
-                <label><input type="radio" name="q21" value="e"> Vị trí E (Thẻ View)</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Thẻ File</span><span class="feedback-text">Thẻ File (Tệp) chứa các lệnh quản lý tệp như Lưu, In, và Đóng.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q22"><span class="topic-label">Chủ đề 22</span>
-            <div class="question-text">Máy tính để bàn cần thiết bị gì để kết nối Wifi?</div>
-            <div class="options">
-                <label><input type="radio" name="q22" value="a"> Một thiết bị Wifi (Wifi device)</label>
-                <label><input type="radio" name="q22" value="b"> Thiết bị lưu trữ</label>
-                <label><input type="radio" name="q22" value="c"> Thiết bị hiển thị</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Thiết bị Wifi</span><span class="feedback-text">Cần có card mạng không dây hoặc USB Wifi.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q23"><span class="topic-label">Chủ đề 23</span>
-            <div class="question-text">Thuật ngữ cho thời gian bạn dành để xem TV, chơi game, dùng máy tính là gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q23" value="a"> Thời gian sử dụng thiết bị (Screen time)</label>
-                <label><input type="radio" name="q23" value="b"> Thời gian tập trung</label>
-                <label><input type="radio" name="q23" value="c"> Tương tác trực tuyến</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Thời gian sử dụng thiết bị (Screen time)</span><span class="feedback-text">Screen time là tổng thời gian mắt bạn tiếp xúc với các loại màn hình điện tử.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q24"><span class="topic-label">Chủ đề 24</span>
-            <div class="question-text">Chọn Đúng/Sai về việc vận chuyển máy tính xách tay:</div>
-            <table class="grid-table">
-                <tr><th>Phát biểu</th><th>Đúng</th><th>Sai</th></tr>
-                <tr><td>Máy tính có thể giữ an toàn trong xe hơi nóng</td><td><input type="radio" name="q24_1" value="d"></td><td><input type="radio" name="q24_1" value="s"></td></tr>
-                <tr><td>Nên dùng túi chống sốc khi di chuyển</td><td><input type="radio" name="q24_2" value="d"></td><td><input type="radio" name="q24_2" value="s"></td></tr>
-                <tr><td>Nhiệt độ khắc nghiệt có thể làm hỏng máy</td><td><input type="radio" name="q24_3" value="d"></td><td><input type="radio" name="q24_3" value="s"></td></tr>
-            </table>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng:</span><span class="feedback-text">1. Sai (Nhiệt độ xe hơi có thể gây hại) - 2. Đúng - 3. Đúng.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q25"><span class="topic-label">Chủ đề 25</span>
-            <div class="question-text">Trường của Sarus dùng mật khẩu là "orange". Bạn nên khuyên Sarus điều gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q25" value="a"> Sử dụng thêm số và ký hiệu</label>
-                <label><input type="radio" name="q25" value="b"> Chia sẻ mật khẩu với bạn bè</label>
-                <label><input type="radio" name="q25" value="c"> Dùng tên thú cưng</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Sử dụng thêm số và ký hiệu</span><span class="feedback-text">Mật khẩu mạnh cần kết hợp chữ hoa, thường, số và ký hiệu đặc biệt.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q26"><span class="topic-label">Chủ đề 26</span>
-            <div class="question-text">Thông tin nào an toàn để chia sẻ trực tuyến?</div>
-            <div class="options">
-                <label><input type="radio" name="q26" value="a"> Màu sắc yêu thích</label>
-                <label><input type="radio" name="q26" value="b"> Địa chỉ nhà</label>
-                <label><input type="radio" name="q26" value="c"> Tên trường học</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Màu sắc yêu thích</span><span class="feedback-text">Đây là thông tin sở thích chung, không dùng để định danh hoặc gây nguy hiểm cho bạn.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q27"><span class="topic-label">Chủ đề 27</span>
-            <div class="question-text">Đánh giá mật khẩu Mạnh hay Yếu:</div>
-            <table class="grid-table">
-                <tr><th>Mật khẩu</th><th>Mạnh</th><th>Yếu</th></tr>
-                <tr><td>W3*ud28x</td><td><input type="radio" name="q27_1" value="m"></td><td><input type="radio" name="q27_1" value="y"></td></tr>
-                <tr><td>1234567890</td><td><input type="radio" name="q27_2" value="m"></td><td><input type="radio" name="q27_2" value="y"></td></tr>
-                <tr><td>ILoveC@ndy2</td><td><input type="radio" name="q27_3" value="m"></td><td><input type="radio" name="q27_3" value="y"></td></tr>
-            </table>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng:</span><span class="feedback-text">1. Mạnh (ngẫu nhiên, đa dạng ký tự) - 2. Yếu (dãy số đơn giản) - 3. Mạnh (kết hợp ký tự).</span></div>
-        </div>
-
-        <div class="question-card" id="card-q28"><span class="topic-label">Chủ đề 28</span>
-            <div class="question-text">Bạn nhận email lạ báo trúng thưởng 1000 đô la và yêu cầu nhập thông tin. Bạn nên lo lắng điều gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q28" value="a"> Email có thể là lừa đảo (Phishing)</label>
-                <label><input type="radio" name="q28" value="b"> Cửa hàng nhầm lẫn</label>
-                <label><input type="radio" name="q28" value="c"> Tiền thưởng quá ít</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Email có thể là lừa đảo</span><span class="feedback-text">Không bao giờ cung cấp thông tin cá nhân cho các email trúng thưởng không rõ nguồn gốc.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q29"><span class="topic-label">Chủ đề 29</span>
-            <div class="question-text">Nếu bị người lạ có hành vi tục tĩu trực tuyến, bạn nên làm gì?</div>
-            <div class="options">
-                <label><input type="radio" name="q29" value="a"> Nói với cha mẹ hoặc giáo viên</label>
-                <label><input type="radio" name="q29" value="b"> Trò chuyện lại với họ</label>
-                <label><input type="radio" name="q29" value="c"> Giữ bí mật</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Nói với cha mẹ hoặc giáo viên</span><span class="feedback-text">Luôn báo cáo hành vi xấu cho người lớn tin cậy để được bảo vệ.</span></div>
-        </div>
-
-        <div class="question-card" id="card-q30"><span class="topic-label">Chủ đề 30</span>
-            <div class="question-text">Nhóm nào thích hợp để kết bạn trực tuyến?</div>
-            <div class="options">
-                <label><input type="radio" name="q30" value="a"> Những người bạn biết trong đời thực</label>
-                <label><input type="radio" name="q30" value="b"> Người lạ chơi game cùng</label>
-                <label><input type="radio" name="q30" value="c"> Bất kỳ ai gửi lời mời</label>
-            </div>
-            <div class="feedback-box"><span class="feedback-title">Đáp án đúng: Những người bạn biết trong đời thực</span><span class="feedback-text">Chỉ nên kết bạn trực tuyến với những người bạn đã biết và tin tưởng ngoài đời.</span></div>
-        </div>
-
-        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
-        <div id="result-area"></div>
-    </form>
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+    <div id="result-area"></div>
 </div>
 
-<footer><p>&copy; 2026 - Website hỗ trợ học tập IC3 Spark | GV Nguyễn Đình Bạch Long</p></footer>
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
 
 <script>
-    const correctAnswers = {
-        q1: "b", q2: "b", q3: "b", q4: "a", q5: "b", q6: "a", q7: "a", q8: "a",
-        q9: ["a", "b"], // Checkbox A and B
-        q10: "a", 
-        q11_1: "hw", q11_2: "sw", q11_3: "hw", q11_4: "hw", q11_5: "sw",
-        q12_1: "program", q12_2: "hardware", q12_3: "device", q12_4: "mobile",
-        q13: "a", q14: "a", q15: "b", q16: "a", q17: "a", q18: "a", q19: "a", q20: "a",
-        q21: "a", q22: "a", q23: "a", 
-        q24_1: "s", q24_2: "d", q24_3: "d",
-        q25: "a", q26: "a", 
-        q27_1: "m", q27_2: "y", q27_3: "m",
-        q28: "a", q29: "a", q30: "a"
-    };
+    const questions = [
+        // --- CÂU 1-9 TỪ FILE EXCEL (TEXT ĐẦY ĐỦ 100%) ---
+        {
+            id: 1, type: "img_radio",
+            q: "Bạn hãy cho biết, hình ảnh nào sau đây là hình ảnh của một chiếc Laptop?",
+            // CHỈNH SỬA: Bỏ nội dung mô tả, chỉ giữ lại "Hình 1", "Hình 2"...
+            opts: [
+                {v: "a", t: "Hình 1", img: "cd1.1.jpg"},
+                {v: "b", t: "Hình 2", img: "cd1.2.jpg"},
+                {v: "c", t: "Hình 3", img: "cd1.3.jpg"},
+                {v: "d", t: "Hình 4", img: "cd1.4.jpg"}
+            ],
+            ans: "b",
+            explain: "Hình thứ hai từ trái sang là một chiếc máy tính xách tay (Laptop) với thiết kế có thể gập mở linh hoạt."
+        },
+        {
+            id: 2, type: "radio",
+            q: "Bạn hãy cho biết phần mềm nào sau đây là hệ điều hành?",
+            opts: [
+                {v: "a", t: "Google"},
+                {v: "b", t: "Microsoft Windows"},
+                {v: "c", t: "Apple iPad"},
+                {v: "d", t: "Microsoft Word"}
+            ],
+            ans: "b",
+            explain: "Microsoft Windows là một hệ điều hành phổ biến dùng để quản lý phần cứng và phần mềm trên máy tính."
+        },
+        {
+            id: 3, type: "radio",
+            q: "Bạn hãy cho biết, loại phần cứng (Hardware) nào gửi dữ liệu đến máy tính?",
+            opts: [
+                {v: "a", t: "Xuất (Output)"},
+                {v: "b", t: "Nhập (Input)"},
+                {v: "c", t: "Lưu trữ (Storage)"},
+                {v: "d", t: "Màn hình (Monitor)"}
+            ],
+            ans: "b",
+            explain: "Thiết bị nhập (Input device) là loại phần cứng dùng để đưa dữ liệu hoặc lệnh vào máy tính."
+        },
+        {
+            id: 4, type: "radio",
+            q: "Bạn cần kết nối máy tính bảng với internet. Bạn nên sử dụng phương tiện gì dưới đây?",
+            opts: [
+                {v: "a", t: "Wifi"},
+                {v: "b", t: "A printer cable"},
+                {v: "c", t: "A monitor cable"},
+                {v: "d", t: "Bluetooth"}
+            ],
+            ans: "a",
+            explain: "Wifi là phương thức kết nối mạng không dây phổ biến nhất để truy cập internet trên máy tính bảng."
+        },
+        {
+            id: 5, type: "radio",
+            q: "Bạn hãy cho biết, phần mềm nào dưới đây là phần mềm ứng dụng?",
+            opts: [
+                {v: "a", t: "IOS"},
+                {v: "b", t: "Microsoft Word"},
+                {v: "c", t: "Flash drive"},
+                {v: "d", t: "Windows"}
+            ],
+            ans: "b",
+            explain: "Microsoft Word là một phần mềm ứng dụng dùng để soạn thảo văn bản, khác với hệ điều hành như iOS hay Windows."
+        },
+        {
+            id: 6, type: "radio",
+            q: "Hình ảnh này cho biết loại thiết bị máy tính nào?",
+            img: "cd6.jpg",
+            opts: [
+                {v: "a", t: "Máy tính xách tay (Laptop computer)"},
+                {v: "b", t: "Máy tính bảng (Tablet)"},
+                {v: "c", t: "Máy tính để bàn (Desktop computer)"},
+                {v: "d", t: "Điện thoại thông minh (Smartphone)"}
+            ],
+            ans: "a",
+            explain: "Hình ảnh minh họa một chiếc máy tính xách tay (Laptop)."
+        },
+        {
+            id: 7, type: "radio",
+            q: "Máy tính để bàn có thể sử dụng loại thiết bị nào để kết nối internet?",
+            opts: [
+                {v: "a", t: "Thiết bị wifi"},
+                {v: "b", t: "Một thiết bị hiển thị"},
+                {v: "c", t: "Một thiết bị đa phương tiện"},
+                {v: "d", t: "Một thiết bị lưu trữ"}
+            ],
+            ans: "a",
+            explain: "Máy tính để bàn có thể sử dụng card wifi hoặc USB wifi để kết nối internet không dây."
+        },
+        {
+            id: 8, type: "radio",
+            q: "Bạn đang học trực tuyến tại thư viện công cộng. Bạn cần sạc pin máy tính xách tay để hoàn thành công việc của mình. Một người lạ đang sạc điện thoại di động của họ ở ổ cắm gần nhất. Bạn nên làm gì để vừa sạc pin máy tính và vừa tiếp tục làm việc?",
+            opts: [
+                {v: "a", t: "Di chuyển đến khu vực có sẵn một ổ cắm để sạc pin máy tính và tiếp tục buổi học"},
+                {v: "b", t: "Rút phích cắm của điện thoại di động để bạn có thể sử dụng ổ cắm gần đó"},
+                {v: "c", t: "Sử dụng dây nối dài kéo dài khắp thư viện để bạn không phải thay đổi chỗ ngồi"},
+                {v: "d", t: "Học cho đến khi hết pin máy tính xách tay để bạn không làm phiền bất cứ ai"}
+            ],
+            ans: "a",
+            explain: "Di chuyển đến nơi có ổ cắm trống là giải pháp lịch sự và hiệu quả nhất để đảm bảo việc học không bị gián đoạn."
+        },
+        {
+            id: 9, type: "img_check",
+            q: "Bạn hãy cho biết, hai thiết bị nào sau đây là thiết bị ngoại vi? (Chọn 2)",
+            // CHỈNH SỬA: Bỏ nội dung mô tả, chỉ giữ lại "Hình 1", "Hình 2"...
+            opts: [
+                {v: "a", t: "Hình 1", img: "cd9.1.jpg"},
+                {v: "b", t: "Hình 2", img: "cd9.2.jpg"},
+                {v: "c", t: "Hình 3", img: "cd9.3.jpg"},
+                {v: "d", t: "Hình 4", img: "cd9.4.jpg"}
+            ],
+            ans: ["b", "c"],
+            explain: "Bàn phím và chuột là hai thiết bị ngoại vi phổ biến dùng để nhập liệu vào máy tính."
+        },
+        // --- 10-30 TỪ FILE ẢNH (Level 1) ---
+        {
+            id: 10, type: "radio",
+            q: "Phần mềm trên điện thoại gọi là gì?",
+            opts: [
+                {v: "a", t: "App"},
+                {v: "b", t: "Program"},
+                {v: "c", t: "Icon"},
+                {v: "d", t: "Widget"}
+            ],
+            ans: "a",
+            explain: "Ứng dụng trên điện thoại thường được gọi là App."
+        },
+        {
+            id: 11, type: "table_tf", 
+            q: "Phân loại Phần cứng và Phần mềm:",
+            headers: ["Phần cứng", "Phần mềm"],
+            rows: [
+                {t: "Máy in (Printer)", a: "hw"},
+                {t: "Cơ sở dữ liệu (Database)", a: "sw"},
+                {t: "Chuột (Mouse)", a: "hw"},
+                {t: "Bàn phím (Keyboard)", a: "hw"},
+                {t: "Email", a: "sw"}
+            ],
+            explain: "Phần cứng là thiết bị vật lý (Máy in, Chuột, Phím). Phần mềm là chương trình (CSDL, Email)."
+        },
+        {
+            id: 12, type: "match",
+            q: "Ghép định nghĩa với thuật ngữ:",
+            rows: [
+                {t: "Hướng dẫn máy tính làm theo", a: "prog"},
+                {t: "Các bộ phận của máy tính mà bạn có thể chạm vào", a: "hard"},
+                {t: "Thiết bị được phát minh cho một mục đích cụ thể", a: "dev"},
+                {t: "Công nghệ đi đến nơi người dùng đến", a: "mob"}
+            ],
+            opts: [
+                {v: "prog", t: "Chương trình (Program)"},
+                {v: "hard", t: "Phần cứng (Hardware)"},
+                {v: "dev", t: "Thiết bị (Device)"},
+                {v: "mob", t: "Công nghệ di động (Mobile)"}
+            ],
+            explain: "Program: Hướng dẫn. Hardware: Phần cứng. Device: Thiết bị. Mobile: Di động."
+        },
+        {
+            id: 13, type: "radio",
+            q: "Thiết bị nào có bàn di chuột tích hợp để trỏ và nhấp?",
+            opts: [
+                {v: "a", t: "Laptop"},
+                {v: "b", t: "Desktop"},
+                {v: "c", t: "Tablet"},
+                {v: "d", t: "Smartphone"}
+            ],
+            ans: "a",
+            explain: "Laptop có Touchpad tích hợp."
+        },
+        {
+            id: 14, type: "radio",
+            q: "Nơi an toàn để sạc điện thoại ban đêm?",
+            opts: [
+                {v: "a", t: "Trên bàn làm việc"},
+                {v: "b", t: "Dưới gối"},
+                {v: "c", t: "Trong phòng tắm"},
+                {v: "d", t: "Trên sàn nhà"}
+            ],
+            ans: "a",
+            explain: "Bàn làm việc là nơi bằng phẳng, thoáng mát, an toàn."
+        },
+        {
+            id: 15, type: "radio",
+            q: "Tìm game đã cài đặt ở đâu trên thanh tác vụ?",
+            img: "cd15.jpg", // Hiển thị ảnh đầy đủ
+            // CHỈNH SỬA: Hiển thị đầy đủ lựa chọn
+            opts: [
+                {v: "a", t: "Vị trí A"},
+ 		{v: "b", t: "Vị trí B"},
+		{v: "c", t: "Vị trí C"},
+		{v: "d", t: "Vị trí D"},
+		{v: "e", t: "Vị trí E"},
+		{v: "g", t: "Vị trí G"},
+		{v: "f", t: "Vị trí F"},
+            ],
+            ans: "b",
+            explain: "Sử dụng ô tìm kiếm để tìm nhanh ứng dụng hoặc trò chơi."
+        },
+        {
+            id: 16, type: "radio",
+            q: "Thiết bị đầu vào tích hợp trên Smartphone?",
+            opts: [
+                {v: "a", t: "Màn hình cảm ứng (Touchscreen)"},
+                {v: "b", t: "Touchpad"},
+                {v: "c", t: "Tai nghe"},
+                {v: "d", t: "Sạc"}
+            ],
+            ans: "a",
+            explain: "Màn hình cảm ứng nhận tín hiệu đầu vào từ ngón tay."
+        },
+        {
+            id: 17, type: "radio",
+            q: "Phát biểu đúng về phần mềm Desktop?",
+            opts: [
+                {v: "a", t: "Phải cài đặt trước khi dùng"},
+                {v: "b", t: "Không cần lưu trữ"},
+                {v: "c", t: "Chỉ chạy khi có mạng"}
+            ],
+            ans: "a",
+            explain: "Phần mềm Desktop cần được cài đặt vào ổ cứng máy tính."
+        },
+        {
+            id: 18, type: "radio",
+            q: "Sạc Tablet hỏng, pin yếu. Bạn nên làm gì?",
+            opts: [
+                {v: "a", t: "Báo giáo viên"},
+                {v: "b", t: "Dùng sạc lạ"},
+                {v: "c", t: "Nghỉ học"}
+            ],
+            ans: "a",
+            explain: "Luôn báo cáo sự cố cho người phụ trách (giáo viên)."
+        },
+        {
+            id: 19, type: "radio",
+            q: "Ví dụ thiết bị đầu vào tích hợp?",
+            opts: [
+                {v: "a", t: "Màn hình cảm ứng"},
+                {v: "b", t: "Chuột"},
+                {v: "c", t: "Tai nghe"}
+            ],
+            ans: "a",
+            explain: "Màn hình cảm ứng là thiết bị Input tích hợp sẵn."
+        },
+        {
+            id: 20, type: "radio",
+            q: "Cái nào là một tập tin (File)?",
+            opts: [
+                {v: "a", t: "Tài liệu danh sách bài tập"},
+                {v: "b", t: "Thư mục ảnh"},
+                {v: "c", t: "Trang web"}
+            ],
+            ans: "a",
+            explain: "Tài liệu văn bản là một tập tin (File)."
+        },
+        {
+            id: 21, type: "radio",
+            q: "Lệnh Close nằm ở thẻ nào?",
+            img: "cd21.jpg", // Hiển thị ảnh
+            // CHỈNH SỬA: Hiển thị đầy đủ lựa chọn
+            opts: [
+                {v: "a", t: "Vị trí A (Thẻ File)"},
+                {v: "b", t: "Vị trí B (Thẻ Home)"},
+                {v: "c", t: "Vị trí C (Thẻ Insert)"},
+		{v: "d", t: "Vị trí D (Thẻ Design)"},
+		{v: "e", t: "Vị trí E (Thẻ View)"},
+
+            ],
+            ans: "a",
+            explain: "Thẻ File chứa các lệnh quản lý tệp tin như Close, Save, Print."
+        },
+        {
+            id: 22, type: "radio",
+            q: "Desktop kết nối Wifi cần gì?",
+            opts: [
+                {v: "a", t: "Thiết bị Wifi (Adapter)"},
+                {v: "b", t: "Màn hình"},
+                {v: "c", t: "Loa"}
+            ],
+            ans: "a",
+            explain: "Cần thiết bị thu sóng Wifi (Card hoặc USB Wifi)."
+        },
+        {
+            id: 23, type: "radio",
+            q: "Thuật ngữ thời gian dùng máy?",
+            opts: [
+                {v: "a", t: "Screen time"},
+                {v: "b", t: "Focus time"},
+                {v: "c", t: "Online interaction"}
+            ],
+            ans: "a",
+            explain: "Screen time (Thời gian sử dụng thiết bị)."
+        },
+        {
+            id: 24, type: "table_tf",
+            q: "Vận chuyển Laptop: Đúng hay Sai?",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Để trong xe hơi nóng là an toàn", a: "sai"},
+                {t: "Dùng túi chống sốc", a: "dung"},
+                {t: "Nhiệt độ khắc nghiệt gây hỏng", a: "dung"}
+            ],
+            explain: "Nhiệt độ cao gây hại cho máy tính. Túi chống sốc giúp bảo vệ máy."
+        },
+        {
+            id: 25, type: "radio",
+            q: "Mật khẩu 'orange' yếu, sửa thế nào?",
+            opts: [
+                {v: "a", t: "Thêm số và ký hiệu"},
+                {v: "b", t: "Chia sẻ với bạn"},
+                {v: "c", t: "Tên thú cưng"}
+            ],
+            ans: "a",
+            explain: "Thêm ký tự đặc biệt và số để tăng độ mạnh mật khẩu."
+        },
+        {
+            id: 26, type: "radio",
+            q: "Thông tin an toàn để chia sẻ?",
+            opts: [
+                {v: "a", t: "Màu sắc yêu thích"},
+                {v: "b", t: "Địa chỉ nhà"},
+                {v: "c", t: "Tên trường"}
+            ],
+            ans: "a",
+            explain: "Sở thích chung không làm lộ danh tính cá nhân."
+        },
+        {
+            id: 27, type: "table", // Manh/Yeu Classification
+            q: "Đánh giá mật khẩu Mạnh/Yếu:",
+            headers: ["Mạnh", "Yếu"],
+            rows: [
+                {t: "W3*ud28x", a: "manh"},
+                {t: "1234567890", a: "yeu"},
+                {t: "ILoveC@ndy2", a: "manh"}
+            ],
+            explain: "Mật khẩu mạnh cần kết hợp chữ hoa, thường, số và ký tự đặc biệt."
+        },
+        {
+            id: 28, type: "radio",
+            q: "Email trúng thưởng 1000$?",
+            opts: [
+                {v: "a", t: "Lừa đảo (Phishing)"},
+                {v: "b", t: "Thật"},
+                {v: "c", t: "Quảng cáo"}
+            ],
+            ans: "a",
+            explain: "Đây là dấu hiệu của lừa đảo trực tuyến."
+        },
+        {
+            id: 29, type: "radio",
+            q: "Gặp hành vi tục tĩu online?",
+            opts: [
+                {v: "a", t: "Báo cha mẹ/giáo viên"},
+                {v: "b", t: "Nói chuyện lại"},
+                {v: "c", t: "Giữ bí mật"}
+            ],
+            ans: "a",
+            explain: "Luôn báo cáo hành vi xấu cho người lớn tin cậy."
+        },
+        {
+            id: 30, type: "radio",
+            q: "Kết bạn trực tuyến với ai?",
+            opts: [
+                {v: "a", t: "Bạn biết ngoài đời thực"},
+                {v: "b", t: "Người lạ chơi game"},
+                {v: "c", t: "Shipper"}
+            ],
+            ans: "a",
+            explain: "Chỉ nên kết bạn với người đã biết rõ trong thực tế."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${q.id < 10 ? '0' + q.id : q.id}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.img && q.type !== 'img_radio' && q.type !== 'img_check') {
+                html += `<img src="${q.img}" class="single-img" alt="Minh họa">`;
+            }
+
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'img_radio') {
+                html += `<div class="img-grid">`;
+                q.opts.forEach(opt => {
+                    html += `<label class="img-item">
+                        <img src="${opt.img}" alt="${opt.t}">
+                        <input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}
+                    </label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'img_check') {
+                html += `<div class="img-grid">`;
+                q.opts.forEach(opt => {
+                    html += `<label class="img-item">
+                        <img src="${opt.img}" alt="${opt.t}">
+                        <input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}
+                    </label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Định nghĩa/Mô tả</th><th>Thuật ngữ/Lựa chọn</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table') {
+                let val1 = (q.id === 11) ? 'hw' : 'manh';
+                let val2 = (q.id === 11) ? 'sw' : 'yeu';
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val1}"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val2}"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
 
     function gradeQuiz() {
         let score = 0;
-        let total = 30; // 30 main questions
         let allAnswered = true;
-        let firstMissing = null;
+        let firstUnanswered = null;
 
-        // Reset previous styles
-        document.querySelectorAll('.question-card').forEach(card => card.classList.remove('incomplete'));
-        document.querySelectorAll('.options input, .grid-table input, .grid-table select').forEach(el => {
-            el.parentElement.classList.remove('correct-answer', 'wrong-answer');
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type.includes('radio')) {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type.includes('check')) {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'match' || q.type.includes('table')) {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
         });
 
-        // 1. VALIDATION LOOP
-        for (let i = 1; i <= 30; i++) {
-            let isQuestionAnswered = false;
-            let key = "q" + i;
-
-            // Handle Checkboxes (Q9)
-            if (i === 9) {
-                if (document.querySelectorAll(`input[name="${key}"]:checked`).length > 0) isQuestionAnswered = true;
-            }
-            // Handle Tables (Q11, 12, 24, 27)
-            else if ([11, 12, 24, 27].includes(i)) {
-                let subKeys = Object.keys(correctAnswers).filter(k => k.startsWith(key + "_"));
-                let subAnsweredCount = 0;
-                subKeys.forEach(subKey => {
-                    let els = document.getElementsByName(subKey);
-                    if (els[0].tagName === "SELECT") {
-                        if (els[0].value !== "") subAnsweredCount++;
-                    } else {
-                        for (let r of els) if (r.checked) subAnsweredCount++;
-                    }
-                });
-                if (subAnsweredCount === subKeys.length) isQuestionAnswered = true;
-            }
-            // Handle Radio (Standard)
-            else {
-                let radios = document.getElementsByName(key);
-                for (let r of radios) if (r.checked) isQuestionAnswered = true;
-            }
-
-            if (!isQuestionAnswered) {
-                allAnswered = false;
-                let card = document.getElementById('card-' + key) || document.getElementsByName(key)[0].closest('.question-card');
-                if (card) {
-                    card.classList.add('incomplete');
-                    if (!firstMissing) firstMissing = card;
-                }
-            }
-        }
-
         if (!allAnswered) {
-            alert("Vui lòng trả lời tất cả các câu hỏi trước khi nộp bài!");
-            if (firstMissing) firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
             return;
         }
 
-        // 2. GRADING LOOP
-        for (let i = 1; i <= 30; i++) {
-            let key = "q" + i;
+        questions.forEach((q, index) => {
             let isCorrect = false;
-
-            // Checkbox Logic (Q9)
-            if (i === 9) {
-                let inputs = document.getElementsByName(key);
-                let checkedVals = [];
-                for(let inp of inputs) if(inp.checked) checkedVals.push(inp.value);
-                
-                // Sort to compare arrays
-                checkedVals.sort();
-                let correctVals = correctAnswers[key].sort();
-                
-                // Exact match check
-                if(JSON.stringify(checkedVals) === JSON.stringify(correctVals)) {
+            if (q.type === 'radio' || q.type === 'img_radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
                     isCorrect = true;
-                    // Visuals for checkboxes
-                    for(let inp of inputs) {
-                        if(inp.checked) inp.parentElement.classList.add('correct-answer');
-                    }
+                    checked.parentElement.classList.add('correct-opt');
                 } else {
-                    for(let inp of inputs) {
-                        if(inp.checked) inp.parentElement.classList.add('wrong-answer');
-                        // Show missing correct ones
-                        if(correctVals.includes(inp.value) && !inp.checked) {
-                            inp.parentElement.style.border = "2px dashed #28a745"; // Hint missed answers
-                        }
-                    }
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
                 }
-            }
-            // Table Logic
-            else if ([11, 12, 24, 27].includes(i)) {
-                let subKeys = Object.keys(correctAnswers).filter(k => k.startsWith(key + "_"));
-                let allSubCorrect = true;
-                
-                subKeys.forEach(subKey => {
-                    let userVal = "";
-                    let els = document.getElementsByName(subKey);
-                    
-                    if (els[0].tagName === "SELECT") {
-                        userVal = els[0].value;
-                        if(userVal === correctAnswers[subKey]) {
-                            els[0].style.border = "2px solid #28a745";
-                            els[0].style.backgroundColor = "#d4edda";
-                        } else {
-                            els[0].style.border = "2px solid #dc3545";
-                            els[0].style.backgroundColor = "#f8d7da";
-                            allSubCorrect = false;
-                        }
+            } else if (q.type === 'check' || q.type === 'img_check') {
+                let checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checked.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    let userVal = sel.value;
+                    let correctKey = r.a;
+                    let correctText = q.opts.find(o => o.v === correctKey).t;
+
+                    if (userVal === correctKey) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
                     } else {
-                        // Radio in table
-                        for(let r of els) {
-                            if(r.checked) userVal = r.value;
-                        }
-                        // Visuals for radio table
-                        for(let r of els) {
-                            if(r.checked) {
-                                if(r.value === correctAnswers[subKey]) {
-                                    r.parentElement.classList.add('correct-answer'); // Highlight TD
-                                } else {
-                                    r.parentElement.classList.add('wrong-answer');
-                                    allSubCorrect = false;
-                                }
-                            }
-                        }
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${correctText}`;
+                        sel.parentElement.appendChild(div);
                     }
                 });
-                if(allSubCorrect) isCorrect = true;
-            }
-            // Standard Radio
-            else {
-                let inputs = document.getElementsByName(key);
-                let userVal = "";
-                for(let inp of inputs) if(inp.checked) userVal = inp.value;
-
-                if (userVal === correctAnswers[key]) {
-                    isCorrect = true;
-                    // Style the selected label
-                    for(let inp of inputs) if(inp.checked) inp.parentElement.classList.add('correct-answer');
-                } else {
-                    // Style wrong and correct
-                    for(let inp of inputs) {
-                        if(inp.checked) inp.parentElement.classList.add('wrong-answer');
-                        if(inp.value === correctAnswers[key]) inp.parentElement.style.border = "2px dashed #28a745"; // Show correct
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type.includes('table')) {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal;
+                    if (q.type === 'table_tf') {
+                        rightVal = r.a; 
+                    } else {
+                        rightVal = r.a; // 'hw', 'sw', 'manh', 'yeu'
                     }
-                }
+                    
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
             }
 
             if (isCorrect) score++;
-        }
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
 
-        // 3. SHOW RESULTS
-        const res = document.getElementById('result-area');
-        res.style.display = "block";
-        const percent = Math.round((score / total) * 100);
-        res.innerHTML = `KẾT QUẢ: ${score}/${total} CÂU ĐÚNG (${percent}%)`;
-        res.style.backgroundColor = percent >= 80 ? "#d4edda" : "#f8d7da";
-        res.style.color = percent >= 80 ? "#155724" : "#721c24";
-        
-        // Show explanations
-        document.querySelectorAll('.feedback-box').forEach(el => el.style.display = "block");
-        
-        // Disable inputs
-        let allInputs = document.querySelectorAll('input, select');
-        allInputs.forEach(el => el.disabled = true);
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CÂU ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? '#28a745' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? '#28a745' : '#dc3545';
 
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
+
+    renderQuiz();
 </script>
 </body>
 </html>
