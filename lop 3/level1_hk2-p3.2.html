@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 3 - Level 1 | Kiến Thức Tổng Hợp - Phần 3 (Tiếp theo)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #28a745; /* Level 1 Green */
+            --primary-dark: #1e7e34;
+            --bg-light: #e8f5e9;
+            --text-color: #333;
+            --border-color: #dee2e6;
+            --correct-bg: #d4edda;
+            --wrong-bg: #f8d7da;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: #f4f6f9; color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #d1e7dd; }
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2rem; text-transform: uppercase; }
+        .page-title h2 { color: #555; margin: 10px 0 0; font-size: 1.3rem; font-weight: normal; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 10px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        }
+        .question-card.incomplete { border: 2px solid #dc3545; box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-color); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: #2c3e50; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f1f1f1; border-radius: 8px; transition: 0.2s; position: relative;
+        }
+        .options label:hover { background-color: var(--bg-light); border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* IMAGE GRID */
+        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .img-item { border: 2px solid #eee; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .img-item:hover { border-color: var(--primary-color); background: var(--bg-light); }
+        .img-item img { max-width: 100%; height: 120px; object-fit: contain; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+        
+        /* SINGLE IMAGE */
+        .single-img { display: block; max-width: 100%; max-height: 300px; margin: 0 auto 20px auto; border-radius: 8px; border: 1px solid #ddd; }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; }
+        .data-table tr:nth-child(even) { background-color: #fcfcfc; }
+        .data-table tr:last-child td { border-bottom: none; }
+        
+        .data-table td:first-child { width: 60%; font-weight: 500; }
+        .data-table td:not(:first-child) { width: 20%; text-align: center; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer;
+        }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; 
+            font-size: 0.95rem; color: #856404; display: none; line-height: 1.5;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: #28a745 !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: #dc3545 !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: #dc3545; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed #dc3545;
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(40, 167, 69, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-color); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; justify-content: flex-start; border-right: none; border-bottom: 4px solid #1e7e34; }
+            .content-col { width: 100%; padding: 15px; }
+            .data-table td:first-child { width: 50%; }
+            .data-table td:not(:first-child) { width: 25%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 1</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>LỚP 3 - LEVEL 1</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 3 (TIẾP THEO)</h2>
+    </div>
+
+    <form id="quiz-form">
+        </form>
+
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 20, type: "radio",
+            q: "Nhi đã xây dựng một mô hình lớp học của mình như một bài tập về nhà. Bạn ấy muốn đưa nó cho anh của bạn ấy, người sống ở xa. Bạn ấy muốn chỉ cho anh ấy nơi bạn ấy ngồi và nói với anh ấy về giáo viên của bạn ấy và bạn bè của mình. Nhi nên thể hiện và nói với anh mình những điều này như thế nào?",
+            opts: [
+                {v: "a", t: "Trong cuộc trò chuyện video (Video chat)"},
+                {v: "b", t: "Trong tin nhắn văn bản"},
+                {v: "c", t: "Trong thông điệp email"},
+                {v: "d", t: "Trong một bài đăng trên mạng xã hội"}
+            ],
+            ans: "a",
+            explain: "Cuộc trò chuyện video cho phép Nhi vừa nói chuyện vừa cho anh xem mô hình trực quan (Show and Tell)."
+        },
+        {
+            id: 21, type: "radio",
+            q: "Bạn đang nói chuyện với bạn bè trên thiết bị kỹ thuật số của mình. Với sự trợ giúp của camera tích hợp, bạn có thể chủ động nhìn thấy bạn bè của mình và bạn bè của bạn có thể nhìn thấy bạn. Bạn và bạn bè của bạn đang sử dụng hình thức giao tiếp kỹ thuật số nào?",
+            opts: [
+                {v: "a", t: "Trò chuyện video (Video chat)"},
+                {v: "b", t: "Gọi điện thoại (Phone call)"},
+                {v: "c", t: "Gửi thư điện tử (Email)"},
+                {v: "d", t: "Tin nhắn văn bản (Text message)"}
+            ],
+            ans: "a",
+            explain: "Trò chuyện video sử dụng camera để truyền tải hình ảnh và âm thanh trực tiếp."
+        },
+        {
+            id: 22, type: "radio",
+            q: "Bạn của bạn đã gửi một tin nhắn điện tử ngắn từ điện thoại của bạn ấy đến điện thoại của bạn. Tin nhắn chứa các chữ cái, số và biểu tượng cảm xúc. Bạn của bạn đã sử dụng hình thức giao tiếp kỹ thuật số nào?",
+            opts: [
+                {v: "a", t: "Tin nhắn văn bản"},
+                {v: "b", t: "Gọi điện thoại"},
+                {v: "c", t: "Trò chuyện Video"},
+                {v: "d", t: "Thông báo cập nhật"}
+            ],
+            ans: "a",
+            explain: "Tin nhắn văn bản (SMS/Text) là tin nhắn ngắn chứa ký tự, số và icon được gửi qua điện thoại."
+        },
+        {
+            id: 23, type: "match",
+            q: "Nối mỗi từ với định nghĩa thích hợp.",
+            rows: [
+                {t: "Nêu chủ đề của email bằng một vài từ", a: "subject"},
+                {t: "Nơi bạn nhập thông điệp thực sự bạn muốn gửi", a: "body"},
+                {t: "Người nhận thư (Địa chỉ email bạn nhập vào trường To:)", a: "recipient"},
+                {t: "Điều đầu tiên được đọc trong một cuộc giao tiếp. Có thể không chính thức hoặc trang trọng tùy thuộc vào đối tượng", a: "greeting"}
+            ],
+            opts: [
+                {v: "greeting", t: "Lời chào (Greeting)"},
+                {v: "subject", t: "Dòng chủ đề (Subject line)"},
+                {v: "recipient", t: "Người nhận (Recipient)"},
+                {v: "body", t: "Nội dung thư (Message Body)"}
+            ],
+            explain: "Subject: Chủ đề. Body: Nội dung chính. Recipient: Người nhận. Greeting: Lời chào đầu thư."
+        },
+        {
+            id: 24, type: "radio",
+            q: "Bạn hãy cho biết, điều gì sau đây là một lợi thế của việc sử dụng email thay vì tin nhắn tức thời?",
+            opts: [
+                {v: "a", t: "Hỗ trợ biểu tượng cảm xúc (Emoticons)"},
+                {v: "b", t: "Có thể đính kèm hình ảnh"},
+                {v: "c", t: "Có thể chống lại virus"},
+                {v: "d", t: "Người nhận không cần phải online ngay lúc email được gửi"}
+            ],
+            ans: "d",
+            explain: "Email là phương thức giao tiếp không đồng bộ (asynchronous), người nhận có thể đọc thư sau đó mà không cần online cùng lúc."
+        },
+        {
+            id: 25, type: "radio",
+            q: "An cần gửi email cảm ơn đến giáo viên của mình nhưng bạn ấy không biết nên sử dụng phông chữ nào. Phông chữ nào thích hợp nhất cho thông báo này?",
+            img: "p3_cd25.jpg", /* Ảnh chứa 4 mẫu chữ A, B, C, D */
+            opts: [
+                {v: "a", t: "Mẫu A (Chữ in thường, rõ ràng)"},
+                {v: "b", t: "Mẫu B (Chữ in hoa toàn bộ)"},
+                {v: "c", t: "Mẫu C (Chữ viết tay/nghệ thuật)"},
+                {v: "d", t: "Mẫu D (Chữ in đậm nghiêng)"}
+            ],
+            ans: "a",
+            explain: "Khi gửi email cho giáo viên (trang trọng), nên dùng phông chữ đơn giản, rõ ràng, dễ đọc (Sans-serif) và không viết hoa toàn bộ."
+        },
+        {
+            id: 26, type: "match",
+            q: "Hầu hết các thư và email đều có lời chào và lời kết thúc. Bạn hãy chọn cụm từ tương ứng đúng với thể loại câu phù hợp.",
+            rows: [
+                {t: "Những lời chúc tốt đẹp nhất (Best wishes),", a: "closing"},
+                {t: "Trân trọng (Sincerely yours),", a: "closing"},
+                {t: "Cô An thân mến (Dear miss An),", a: "greeting"},
+                {t: "Xin chào (Good morning),", a: "greeting"}
+            ],
+            opts: [
+                {v: "closing", t: "Câu kết thúc (Closing statements)"},
+                {v: "greeting", t: "Câu chào hỏi (Greetings)"}
+            ],
+            explain: "'Thân mến', 'Xin chào' là lời chào mở đầu. 'Trân trọng', 'Chúc tốt đẹp' là lời kết thúc."
+        },
+        {
+            id: 27, type: "radio",
+            q: "Bạn đang thực hiện một dự án nhóm về động vật. Bạn cần gửi hai bức ảnh và hai đoạn về thằn lằn cho bạn cùng lớp của bạn, người đang làm áp phích cho nhóm. Bạn nên gửi thông tin cho bạn cùng lớp của mình như thế nào?",
+            opts: [
+                {v: "a", t: "Gửi bằng email"},
+                {v: "b", t: "Gửi bằng tin nhắn văn bản"},
+                {v: "c", t: "Trò chuyện video"},
+                {v: "d", t: "Gửi bằng cách đăng trên phương tiện truyền thông xã hội"}
+            ],
+            ans: "a",
+            explain: "Email là công cụ tốt nhất để gửi kèm văn bản dài và tệp đính kèm (hình ảnh) trong công việc."
+        },
+        {
+            id: 28, type: "radio",
+            q: "Bạn cần gửi một email cho giáo viên của bạn. Bạn nên đặt địa chỉ email của giáo viên ở đâu? (Chọn vị trí chính xác trong khu vực trả lời)",
+            img: "p3_cd28.jpg", /* Ảnh soạn thảo email */
+            opts: [
+                {v: "a", t: "Vị trí A (To)"},
+                {v: "b", t: "Vị trí B (Cc)"},
+                {v: "c", t: "Vị trí C (Body)"}
+            ],
+            ans: "a",
+            explain: "Trường 'To' là nơi nhập địa chỉ email của người nhận chính."
+        },
+        {
+            id: 29, type: "radio",
+            q: "Rian đang gửi cho cô Dung một email. Bạn ấy biết có năm phần quan trọng cần đưa vào email. Lời chào là phần nào? (Chọn phần thích hợp trong khu vực trả lời)",
+            img: "p3_cd29.jpg", /* Ảnh đọc email */
+            opts: [
+                {v: "a", t: "Vị trí A"},
+                {v: "b", t: "Vị trí B"},
+                {v: "c", t: "Vị trí C (Dear Ms. Dung)"},
+                {v: "d", t: "Vị trí D"},
+                {v: "e", t: "Vị trí E"}
+            ],
+            ans: "c",
+            explain: "'Dear Ms. Dung' (Cô Dung thân mến) là lời chào (Salutation/Greeting)."
+        },
+        {
+            id: 30, type: "radio",
+            q: "Nhi đang gặp bạn mình sau giờ học để học nhóm. Vào cuối giờ học, giáo viên của Nhi yêu cầu bạn ấy ở lại vài phút để giúp dọn dẹp bàn học. Nhi sẽ đến muộn để gặp bạn mình. Cách nhanh nhất để Nhi nói với bạn mình rằng bạn ấy sẽ đến muộn vài phút là gì?",
+            opts: [
+                {v: "a", t: "Gửi tin nhắn văn bản (Text message)"},
+                {v: "b", t: "Gửi email"},
+                {v: "c", t: "Trò chuyện video (Video chat)"},
+                {v: "d", t: "Đăng trên phương tiện truyền thông xã hội (Post on social media)"}
+            ],
+            ans: "a",
+            explain: "Tin nhắn văn bản là phương thức nhanh nhất và trực tiếp nhất để thông báo sự việc khẩn cấp."
+        },
+        {
+            id: 31, type: "radio",
+            q: "Giáo viên của bạn gửi một email để nhắc nhở phụ huynh rằng sẽ có một bài kiểm tra vào ngày mai. Bạn muốn sắp xếp một buổi học nhóm trước khi đến lớp. Bạn nhắn tin cho một người bạn, gọi cho người khác và trò chuyện video với người bạn thứ ba để sắp xếp thời gian và địa điểm học nhóm. Quy trình nào đang được sử dụng để gửi và nhận thông tin?",
+            opts: [
+                {v: "a", t: "Truyền thông kỹ thuật số (Digital communication)"},
+                {v: "b", t: "Bắt nạt trên mạng (Cyberbullying)"},
+                {v: "c", t: "Thời gian sử dụng thiết bị (Screen time)"},
+                {v: "d", t: "Cộng tác (Collaboration)"}
+            ],
+            ans: "a",
+            explain: "Quá trình trao đổi (gửi và nhận) thông tin qua các thiết bị điện tử gọi là Truyền thông kỹ thuật số."
+        },
+        {
+            id: 32, type: "radio",
+            q: "Hoạt động nào là một ví dụ về sự hợp tác?",
+            opts: [
+                {v: "a", t: "Làm việc trong một dự án nhóm với các bạn cùng lớp"},
+                {v: "b", t: "Chạy một cuộc đua để đánh bại thời gian tốt nhất của bạn"},
+                {v: "c", t: "Làm bài kiểm tra trong lớp học của bạn"},
+                {v: "d", t: "Ăn trưa trong nhà ăn"}
+            ],
+            ans: "a",
+            explain: "Hợp tác (Collaboration) là làm việc cùng người khác để đạt mục tiêu chung (dự án nhóm)."
+        },
+        {
+            id: 33, type: "radio",
+            q: "Bạn và hai người bạn cùng lớp đang làm việc cùng nhau trong một dự án. Nhiệm vụ của bạn là tạo ra một áp phích với thông tin về cá mập. Bạn sẽ in ra những bức ảnh của cá mập. Một người bạn sẽ mua bảng áp phích và điểm đánh dấu và người kia sẽ lắp ráp áp phích. Mục đích của việc phân chia này là gì?",
+            opts: [
+                {v: "a", t: "Để tạo áp phích với thông tin về cá mập"},
+                {v: "b", t: "Để hòa hợp với tư cách là một nhóm"},
+                {v: "c", t: "Để thực hiện công việc nhanh nhất có thể"},
+                {v: "d", t: "Để in gọn gàng trên bảng áp phích"}
+            ],
+            ans: "c",
+            explain: "Phân chia nhiệm vụ giúp nhóm hoàn thành công việc hiệu quả và nhanh chóng hơn."
+        },
+        {
+            id: 34, type: "table_tf",
+            q: "Đối với mỗi phát biểu về mục tiêu cộng tác, bạn hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Học sinh học hỏi từ ý tưởng của người khác", a: "yes"},
+                {t: "Học sinh học cách giao tiếp với người khác", a: "yes"},
+                {t: "Học sinh học được rằng cách tốt nhất để làm việc là làm việc một mình", a: "no"}
+            ],
+            explain: "Cộng tác giúp học hỏi và giao tiếp. Làm việc một mình không phải là mục tiêu của cộng tác."
+        },
+        {
+            id: 35, type: "radio",
+            displayId: "36", /* Hiển thị là 36 theo sách */
+            q: "Bạn đang nghiên cứu trực tuyến cho một bài tập vẽ đại dương. Giáo viên của bạn đã hướng dẫn bạn bao gồm ít nhất ba sự kiện và không có ý kiến. Tùy chọn nào sau đây là một ý kiến?",
+            opts: [
+                {v: "a", t: "Đại dương tối tăm và đáng sợ"},
+                {v: "b", t: "Nhiều loại động vật sống trong đại dương"},
+                {v: "c", t: "Cá sống trong đại dương"},
+                {v: "d", t: "Đại dương luôn chuyển động"}
+            ],
+            ans: "a",
+            explain: "'Tối tăm và đáng sợ' là cảm nhận chủ quan (ý kiến), các câu còn lại là sự thật hiển nhiên (sự kiện)."
+        },
+        {
+            id: 36, type: "radio",
+            displayId: "36", /* Hiển thị là 36 theo sách (Trùng lặp) */
+            q: "Kịch bản nào là một ví dụ về cộng tác kỹ thuật số?",
+            opts: [
+                {v: "a", t: "Có một cuộc gọi video với nhóm học tập của bạn trước khi kiểm tra"},
+                {v: "b", t: "Thảo luận vẽ một cuốn sách với nhóm đọc của bạn"},
+                {v: "c", t: "Đọc sách điện tử từ thư viện trực tuyến"},
+                {v: "d", t: "Tạo bản trình bày cho lớp học của bạn"}
+            ],
+            ans: "a",
+            explain: "Gọi video với nhóm là hoạt động tương tác, làm việc chung qua công cụ kỹ thuật số."
+        },
+        {
+            id: 37, type: "radio",
+            q: "Mục tiêu là gì?",
+            opts: [
+                {v: "a", t: "Một kết quả mà bạn muốn đạt được"},
+                {v: "b", t: "Thông tin an toàn để chia sẻ trực tuyến"},
+                {v: "c", t: "Một thực tế đã được chứng minh"},
+                {v: "d", t: "Thông tin mà bạn cho là đúng sự thật"}
+            ],
+            ans: "a",
+            explain: "Mục tiêu (Goal) là đích đến hoặc kết quả mong muốn của một hành động."
+        },
+        {
+            id: 38, type: "radio",
+            q: "Mục đích của sự cộng tác (Collaboration) là gì?",
+            opts: [
+                {v: "a", t: "Làm việc với những người khác để hướng tới một mục tiêu chung"},
+                {v: "b", t: "Làm việc chăm chỉ hơn các học sinh khác trong lớp"},
+                {v: "c", t: "Làm việc một mình để hoàn thành nhiệm vụ"},
+                {v: "d", t: "Trở thành học sinh nhanh nhất trong lớp"}
+            ],
+            ans: "a",
+            explain: "Cộng tác là quá trình nhiều người cùng làm việc để đạt được mục đích chung."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.displayId ? q.displayId : (q.id < 10 ? '0' + q.id : q.id);
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.img && q.type !== 'img_radio' && q.type !== 'img_check') {
+                html += `<img src="${q.img}" class="single-img" alt="Minh họa">`;
+            }
+
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Định nghĩa/Mô tả</th><th>Thuật ngữ/Lựa chọn</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'match') {
+                let subCount = 0;
+                q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                if (subCount === q.rows.length) answered = true;
+            } else if (q.type === 'table_tf') {
+                let subCount = 0;
+                q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                if (subCount === q.rows.length) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    let userVal = sel.value;
+                    let correctKey = r.a;
+                    let correctText = q.opts.find(o => o.v === correctKey).t;
+
+                    if (userVal === correctKey) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${correctText}`;
+                        sel.parentElement.appendChild(div);
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CÂU ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? '#28a745' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? '#28a745' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
+</body>
+</html>
