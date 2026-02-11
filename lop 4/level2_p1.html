@@ -9,12 +9,12 @@
     
     <style>
         :root {
-            /* TÔNG MÀU CAM LEVEL 2 */
-            --primary-color: #ef6c00; /* Orange */
-            --primary-dark: #e65100;  /* Darker Orange */
-            --accent-color: #ff9800;  /* Lighter Orange */
-            --bg-body: #fff8e1;       /* Cream background */
-            --text-color: #3e2723;    /* Dark brown text */
+            /* MÀU CAM LEVEL 2 */
+            --primary-color: #ef6c00; 
+            --primary-dark: #e65100;
+            --accent-color: #ff9800;
+            --bg-body: #fff8e1;
+            --text-color: #3e2723;
             --border-color: #ffe0b2;
             
             --correct-bg: #d4edda;
@@ -34,7 +34,7 @@
         .header-left { display: flex; flex-direction: column; align-items: flex-start; }
         .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
         .logo-ic3 span:nth-child(1) { color: #fff; } 
-        .logo-ic3 span:nth-child(2) { color: #ffe0b2; } /* Light orange text */
+        .logo-ic3 span:nth-child(2) { color: #ffe0b2; }
         
         .home-btn {
             margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
@@ -56,14 +56,14 @@
         .question-card {
             background: white; border: 1px solid var(--border-color); border-radius: 12px; 
             margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
-            box-shadow: 0 4px 12px rgba(230, 81, 0, 0.08); /* Orange tinted shadow */
+            box-shadow: 0 4px 12px rgba(230, 81, 0, 0.08);
         }
         .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
 
         .topic-col {
             background-color: var(--primary-dark); width: 140px; padding: 20px;
             display: flex; align-items: center; justify-content: center; text-align: center;
-            font-weight: 700; color: white; flex-shrink: 0; font-size: 1rem; border-right: 1px solid #fff;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
         }
         .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
 
@@ -77,10 +77,7 @@
         .options label:hover { background-color: #fff3e0; border-color: var(--primary-color); }
         .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
 
-        /* SINGLE IMAGE */
-        .single-img { display: block; max-width: 100%; max-height: 400px; margin: 0 auto 20px auto; border-radius: 8px; border: 1px solid #ddd; }
-
-        /* TABLES */
+        /* TABLE STYLES */
         .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
         .data-table { width: 100%; border-collapse: collapse; margin: 0; }
         .data-table th {
@@ -88,11 +85,15 @@
             text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
         }
         .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; }
-        .data-table tr:nth-child(even) { background-color: #fff8e1; } /* Light cream for rows */
-        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:nth-child(even) { background-color: #fff8e1; }
         
-        .data-table td:first-child { width: 65%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
-        .data-table td:not(:first-child) { width: 35%; text-align: center; }
+        /* Cấu hình cột cho bảng True/False */
+        .tf-table td:first-child { width: 60%; font-weight: 500; }
+        .tf-table td:not(:first-child) { width: 20%; text-align: center; }
+
+        /* Cấu hình cột cho bảng Match (Ghép nối) đặc biệt (Q31, Q32) */
+        .match-table td:first-child { width: 65%; vertical-align: top; background-color: #fffbf2; } /* Cột nội dung */
+        .match-table td:last-child { width: 35%; vertical-align: middle; } /* Cột lựa chọn */
 
         .data-table select {
             width: 100%; padding: 10px; border: 1px solid #ffcc80; border-radius: 5px; 
@@ -100,6 +101,14 @@
         }
         .data-table select:focus { outline: none; border-color: var(--primary-dark); }
         .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* STYLES CHO NỘI DUNG MÔ PHỎNG (Q31, Q32) */
+        .preview-box { font-family: 'Times New Roman', serif; color: #000; }
+        .preview-title { font-weight: bold; font-size: 1.5rem; margin-bottom: 5px; }
+        .preview-heading { font-weight: bold; font-size: 1.1rem; margin-top: 10px; margin-bottom: 5px; }
+        .preview-list { margin: 0; padding-left: 20px; }
+        
+        .format-box { border: 1px dashed #999; padding: 15px; background: #fff; margin-bottom: 10px; }
 
         /* FEEDBACK */
         .feedback { 
@@ -135,7 +144,7 @@
 
         @media (max-width: 768px) {
             .question-card { flex-direction: column; }
-            .topic-col { width: 100%; padding: 10px; justify-content: flex-start; border-right: none; border-bottom: 4px solid #ffcc80; }
+            .topic-col { width: 100%; border-right: none; border-bottom: 4px solid #ffcc80; }
             .content-col { width: 100%; padding: 15px; }
             .data-table td:first-child { width: 50%; }
             .data-table td:not(:first-child) { width: 25%; }
@@ -164,7 +173,7 @@
     <form id="quiz-form">
         </form>
 
-    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
     <div id="result-area"></div>
 </div>
 
@@ -178,56 +187,385 @@
 
 <script>
     const questions = [
-        { id: 1, type: "radio", q: "Hệ điều hành (OS) là gì?", opts: [{v: "a", t: "Khu vực làm việc của màn hình máy tính"}, {v: "b", t: "Một cái gì đó đi vào máy tính"}, {v: "c", t: "Phần mềm hỗ trợ các chức năng cơ bản của máy tính"}, {v: "d", t: "Thiết bị vật lý lưu trữ thông tin cho hệ điều hành, phần mềm và phần cứng"}], ans: "c", explain: "Hệ điều hành (Operating System - OS) là một phần mềm quản lý và điều khiển tất cả các hoạt động của máy tính." },
-        { id: 2, type: "radio", q: "Thiết bị nào trong số này là thiết bị nhập (Input Device)?", opts: [{v: "a", t: "Keyboard (Bàn phím)"}, {v: "b", t: "Speakers (Loa)"}, {v: "c", t: "Printer (Máy in)"}, {v: "d", t: "Monitor (Màn hình)"}], ans: "a", explain: "Keyboard: Thiết bị đầu vào sử dụng để nhập dữ liệu vào máy tính." },
-        { id: 3, type: "radio", q: "Tùy chọn nào dưới đây có thể được sử dụng để truyền dữ liệu không dây giữa 2 thiết bị gần nhau?", opts: [{v: "a", t: "Ethernet"}, {v: "b", t: "Firewall"}, {v: "c", t: "Modem"}, {v: "d", t: "Bluetooth"}], ans: "d", explain: "Bluetooth: Một công nghệ truyền thông sử dụng kết nối không dây tầm ngắn." },
-        { id: 4, type: "radio", q: "Nỗ lực khai thác hệ thống máy tính hoặc mạng riêng bên trong máy tính được gọi là gì?", opts: [{v: "a", t: "Bystander"}, {v: "b", t: "Công dân kỷ nguyên số"}, {v: "c", t: "Dấu chân kỹ thuật số"}, {v: "d", t: "Hacking"}], ans: "d", explain: "Hacking: Truy cập trái phép vào hệ thống máy tính." },
-        { id: 5, type: "radio", q: "Phản ứng thích hợp nếu bạn bị bắt nạt trên mạng (Cyberbullying) là gì?", opts: [{v: "a", t: "Làm gì đó để trả thù"}, {v: "b", t: "Dừng lại, tạm thời, nói chuyện với người lớn"}, {v: "c", t: "Bỏ qua nó và không làm gì cả"}, {v: "d", t: "Ngừng sử dụng máy tính"}], ans: "b", explain: "Hãy dừng lại và nói chuyện với người lớn để giúp giải quyết vấn đề." },
-        { id: 6, type: "radio", q: "Điều gì KHÔNG phải là một phần của dấu chân kỹ thuật số (Footprint) của bạn?", opts: [{v: "a", t: "Đăng ký nhận bản tin email"}, {v: "b", t: "Bài đăng trên mạng xã hội"}, {v: "c", t: "Nhạc được lưu trên ổ cứng máy tính"}, {v: "d", t: "Mua hàng trực tuyến"}], ans: "c", explain: "Nhạc lưu cục bộ không phải là dấu chân số công khai." },
-        { id: 7, type: "radio", q: "Một ví dụ về việc sử dụng công nghệ kỹ thuật số một cách thích hợp trong trường học là gì?", opts: [{v: "a", t: "Bí mật ghi lại âm thanh"}, {v: "b", t: "Hợp tác với các bạn cùng lớp trong một bài tập nhóm"}, {v: "c", t: "Chơi game"}, {v: "d", t: "Quay video các bạn cùng lớp"}], ans: "b", explain: "Cộng tác trực tuyến là cách sử dụng phù hợp." },
-        { id: 8, type: "radio", q: "Nó được gọi là gì khi bạn buộc một trình duyệt truy xuất một trang web từ máy chủ thay vì tải nó từ bộ đệm?", opts: [{v: "a", t: "Tải lại (Reloading)"}, {v: "b", t: "Điều hướng"}, {v: "c", t: "Đánh dấu trang"}, {v: "d", t: "Gửi biểu mẫu"}], ans: "a", explain: "Tải lại (Reload) giúp cập nhật nội dung mới nhất từ máy chủ." },
-        { id: 9, type: "radio", q: "Cách nhanh nhất để quay lại một trang web sau đó là gì?", opts: [{v: "a", t: "Nói với bạn bè"}, {v: "b", t: "In trang web"}, {v: "c", t: "Viết URL"}, {v: "d", t: "Tạo dấu trang (Bookmark)"}], ans: "d", explain: "Tạo dấu trang (Bookmark) giúp truy cập lại nhanh chóng." },
-        { id: 10, type: "radio", q: "Tùy chọn nào dưới đây là một ví dụ về giải trí?", opts: [{v: "a", t: "Gửi email"}, {v: "b", t: "Bảng tính"}, {v: "c", t: "Truyền trực tuyến (Streaming) một chương trình"}, {v: "d", t: "Từ điển trực tuyến"}], ans: "c", explain: "Streaming video/nhạc là hình thức giải trí." },
-        { id: 11, type: "radio", q: "Địa chỉ của một trang web được gọi là gì?", opts: [{v: "a", t: "URL"}, {v: "b", t: "Tiêu đề trang"}, {v: "c", t: "Nhà xuất bản"}, {v: "d", t: "Tác giả"}], ans: "a", explain: "URL là địa chỉ định danh của trang web." },
-        { id: 12, type: "radio", q: "Bạn cần thông tin cho trường học, nhưng tìm kiếm ban đầu không hữu ích. Bạn nên thử gì tiếp theo?", opts: [{v: "a", t: "Nhấp vào quảng cáo"}, {v: "b", t: "Tinh chỉnh tìm kiếm của bạn"}, {v: "c", t: "Gửi email giáo viên"}, {v: "d", t: "Từ bỏ"}], ans: "b", explain: "Tinh chỉnh từ khóa tìm kiếm để có kết quả tốt hơn." },
-        { id: 13, type: "radio", q: "Khi bạn thấy \"quảng cáo\" bên cạnh liên kết tìm kiếm, điều đó có nghĩa là gì?", opts: [{v: "a", t: "Đây là mục được tài trợ đã trả tiền"}, {v: "b", t: "Tìm kiếm không đủ kết quả"}, {v: "c", t: "Máy tính nhiễm virus"}, {v: "d", t: "Sẽ mất tiền nếu nhấp vào"}], ans: "a", explain: "Đó là kết quả trả phí (Sponsored/Ad)." },
-        { id: 14, type: "radio", q: "Khi bạn sử dụng từ đồng nghĩa để tìm kiếm, bạn đang làm gì?", opts: [{v: "a", t: "Làm rộng phạm vi"}, {v: "b", t: "Giới hạn kết quả"}, {v: "c", t: "Sử dụng từ tương tự để tinh chỉnh kết quả"}, {v: "d", t: "Bỏ qua quảng cáo"}], ans: "c", explain: "Dùng từ đồng nghĩa giúp tìm được các nội dung liên quan sát nghĩa hơn." },
-        { id: 15, type: "radio", q: "Các từ hoặc cụm từ ngắn ở đầu trang trình chiếu kỹ thuật số là gì?", opts: [{v: "a", t: "Tiêu đề (Heading)"}, {v: "b", t: "Tác giả"}, {v: "c", t: "URL"}, {v: "d", t: "Nhà xuất bản"}], ans: "a", explain: "Tiêu đề (Heading) tóm tắt nội dung slide." },
-        { id: 16, type: "radio", q: "Ứng dụng nào dùng để hiển thị hình ảnh, văn bản, video cho khán giả?", opts: [{v: "a", t: "Nhắn tin"}, {v: "b", t: "Bảng tính"}, {v: "c", t: "Trình chiếu (Slideshow application)"}, {v: "d", t: "Email"}], ans: "c", explain: "Phần mềm trình chiếu (như PowerPoint) dùng cho việc này." },
-        { id: 17, type: "radio", q: "Việc sử dụng thích hợp của một danh sách được đánh số là gì?", opts: [{v: "a", t: "Thêm hình ảnh"}, {v: "b", t: "Viết thư"}, {v: "c", t: "Gửi tin nhắn"}, {v: "d", t: "Liệt kê các mục theo thứ tự hoặc trình tự thời gian"}], ans: "d", explain: "Danh sách số dùng cho các bước hoặc quy trình có thứ tự." },
-        { id: 18, type: "radio", q: "Tùy chọn nào là nghi thức trực tuyến KHÔNG phù hợp?", opts: [{v: "a", t: "Giải quyết xung đột ngoại tuyến"}, {v: "b", t: "Tôn trọng riêng tư"}, {v: "c", t: "Viết email sử dụng tất cả các chữ hoa"}, {v: "d", t: "Đối xử tốt với người khác"}], ans: "c", explain: "Viết hoa toàn bộ (ALL CAPS) được coi là la hét." },
-        { id: 19, type: "radio", q: "Bạn đọc tin tức trực tuyến làm bạn khó chịu. Bạn nên làm gì?", opts: [{v: "a", t: "Tạm ngừng, hít thở và suy nghĩ trước khi hành động"}, {v: "b", t: "Ngừng đọc tin tức"}, {v: "c", t: "Viết email tức giận"}, {v: "d", t: "Nói tin tức là giả"}], ans: "a", explain: "Giữ bình tĩnh và suy nghĩ thấu đáo trước khi phản ứng." },
-        { id: 20, type: "radio", q: "Việc chia sẻ công việc với các bạn cùng lớp để nhận phản hồi được gọi là gì?", opts: [{v: "a", t: "Trách nhiệm"}, {v: "b", t: "Xuất bản"}, {v: "c", t: "Vai trò"}, {v: "d", t: "Đánh giá ngang hàng (Peer review)"}], ans: "d", explain: "Đánh giá ngang hàng giúp cải thiện chất lượng công việc." },
-        { id: 21, type: "radio", q: "Yếu tố nào KHÔNG phải là yếu tố hợp tác thành công?", opts: [{v: "a", t: "Đặt mục tiêu rõ ràng"}, {v: "b", t: "Giao tiếp rõ ràng"}, {v: "c", t: "Tiếp tục nhiệm vụ"}, {v: "d", t: "Phê bình ý kiến trước khi hiểu chúng"}], ans: "d", explain: "Cần lắng nghe và thấu hiểu trước khi phê bình." },
-        { id: 22, type: "radio", q: "Phần mềm diệt virus là gì?", opts: [{v: "a", t: "Quấy rối trực tuyến"}, {v: "b", t: "Chương trình bảo vệ máy tính khỏi phần mềm độc hại"}, {v: "c", t: "Truy cập nhiều người dùng"}, {v: "d", t: "Ăn cắp dữ liệu"}], ans: "b", explain: "Nó bảo vệ máy tính khỏi virus và malware." },
-        { id: 23, type: "radio", q: "Điều gì KHÔNG phải là mối nguy hiểm phổ biến của thói quen sử dụng thiết bị kéo dài?", opts: [{v: "a", t: "Mệt mỏi hoặc đau chân"}, {v: "b", t: "Khó ngủ"}, {v: "c", t: "Mắt căng thẳng"}, {v: "d", t: "Đau lưng và cổ"}], ans: "a", explain: "Đau chân ít liên quan trực tiếp đến việc ngồi máy tính so với mắt và lưng." },
-        { id: 24, type: "radio", q: "Ví dụ về CYBERBULLYING?", opts: [{v: "a", t: "Gửi tin nhắn gây tổn thương trực tuyến"}, {v: "b", t: "Nói xấu trong bữa trưa"}, {v: "c", t: "Lan truyền tin đồn ở trường"}, {v: "d", t: "Để lại giấy ghi chú gây tổn thương"}], ans: "a", explain: "Phải diễn ra trên môi trường mạng mới là Cyberbullying." },
-        { id: 25, type: "radio", q: "Làm gì khi nhận được URL lạ trong email?", opts: [{v: "a", t: "Hỏi người gửi"}, {v: "b", t: "Dừng lại, nói chuyện với người lớn"}, {v: "c", t: "Nhấp vào xem"}, {v: "d", t: "Chuyển tiếp"}], ans: "b", explain: "An toàn là trên hết, không click vào link lạ." },
-        { id: 26, type: "radio", q: "Trang Web sử dụng gì để theo dõi dữ liệu người dùng?", opts: [{v: "a", t: "Thông tin xác thực"}, {v: "b", t: "SMS"}, {v: "c", t: "Heading"}, {v: "d", t: "Cookies"}], ans: "d", explain: "Cookies lưu trữ thông tin duyệt web của người dùng." },
-        { id: 27, type: "table_tf", q: "Chọn CÓ nếu là THIẾT BỊ ĐẦU VÀO, KHÔNG nếu không phải.", headers: ["Có", "Không"], rows: [{t: "Touchpad", a: "yes"}, {t: "Monitor", a: "no"}, {t: "Touchscreen", a: "yes"}, {t: "Headphones", a: "no"}], explain: "Touchpad/Touchscreen là Input. Monitor/Headphone là Output." },
-        { id: 28, type: "table_tf", q: "Chọn CÓ nếu thiết bị có thể NHÌN THẤY bạn.", headers: ["Có", "Không"], rows: [{t: "Laptop có webcam", a: "yes"}, {t: "Tai nghe Bluetooth", a: "no"}, {t: "Chuông cửa nhà thông minh", a: "yes"}, {t: "Google Chromebook", a: "yes"}], explain: "Thiết bị có Camera mới nhìn thấy được bạn." },
-        { id: 29, type: "table_tf", q: "Chọn CÓ nếu là giao tiếp phù hợp.", headers: ["Có", "Không"], rows: [{t: "Nhắn tin cho giáo viên lúc 3 giờ sáng", a: "no"}, {t: "Gửi email cho thủ thư", a: "yes"}, {t: "Trò chuyện video thảo luận dự án", a: "yes"}], explain: "Cần tôn trọng thời gian nghỉ ngơi của người khác." },
-        { id: 30, type: "table_tf", q: "Chọn CÓ nếu sử dụng hình ảnh phù hợp.", headers: ["Có", "Không"], rows: [{t: "Thêm ảnh vào bài thuyết trình", a: "yes"}, {t: "Thêm chú thích cho ảnh", a: "yes"}, {t: "Sử dụng ảnh không sở hữu cho báo trường", a: "no"}, {t: "Dùng ảnh Creative Commons", a: "yes"}], explain: "Không dùng ảnh bản quyền mà không xin phép." },
-        
-        // --- CHỦ ĐỀ 31 (Bảng mô phỏng tài liệu) ---
         {
-            id: 31, type: "match",
+            id: 1, type: "radio",
+            q: "Hệ điều hành (OS) là gì?",
+            opts: [
+                {v: "a", t: "Khu vực làm việc của màn hình máy tính"},
+                {v: "b", t: "Một cái gì đó đi vào máy tính"},
+                {v: "c", t: "Phần mềm hỗ trợ các chức năng cơ bản của máy tính"},
+                {v: "d", t: "Thiết bị vật lý lưu trữ thông tin cho hệ điều hành, phần mềm và phần cứng"}
+            ],
+            ans: "c",
+            explain: "Hệ điều hành (Operating System - OS) là một phần mềm quản lý và điều khiển tất cả các hoạt động của máy tính hoặc thiết bị điện tử khác."
+        },
+        {
+            id: 2, type: "radio",
+            q: "Thiết bị nào trong số này là thiết bị nhập (Input Device)?",
+            opts: [
+                {v: "a", t: "Keyboard (Bàn phím)"},
+                {v: "b", t: "Speakers (Loa)"},
+                {v: "c", t: "Printer (Máy in)"},
+                {v: "d", t: "Monitor (Màn hình)"}
+            ],
+            ans: "a",
+            explain: "Keyboard: Thiết bị đầu vào sử dụng để nhập dữ liệu vào máy tính."
+        },
+        {
+            id: 3, type: "radio",
+            q: "Tùy chọn nào dưới đây có thể được sử dụng để truyền dữ liệu không dây giữa 2 thiết bị gần nhau?",
+            opts: [
+                {v: "a", t: "Ethernet"},
+                {v: "b", t: "Firewall"},
+                {v: "c", t: "Modem"},
+                {v: "d", t: "Bluetooth"}
+            ],
+            ans: "d",
+            explain: "Bluetooth: Một công nghệ truyền thông sử dụng kết nối không dây tầm ngắn."
+        },
+        {
+            id: 4, type: "radio",
+            q: "Nỗ lực khai thác hệ thống máy tính hoặc mạng riêng bên trong máy tính được gọi là gì?",
+            opts: [
+                {v: "a", t: "Bystander"},
+                {v: "b", t: "Công dân kỷ nguyên số (Digital Citizenship)"},
+                {v: "c", t: "Dấu chân kỹ thuật số (Digital Footprint)"},
+                {v: "d", t: "Hacking"}
+            ],
+            ans: "d",
+            explain: "Hacking: Sử dụng kiến thức kỹ thuật số để truy cập hoặc thay đổi thông tin trên một hệ thống máy tính hoặc mạng máy tính mà không được sự cho phép."
+        },
+        {
+            id: 5, type: "radio",
+            q: "Phản ứng thích hợp nếu bạn bị bắt nạt trên mạng (Cyberbullying) là gì?",
+            opts: [
+                {v: "a", t: "Làm gì đó để trả thù"},
+                {v: "b", t: "Dừng lại, tạm thời, nói chuyện với người lớn"},
+                {v: "c", t: "Bỏ qua nó và không làm gì cả"},
+                {v: "d", t: "Ngừng sử dụng máy tính"}
+            ],
+            ans: "b",
+            explain: "Khi gặp tình huống bắt nạt trực tuyến, em hãy ngừng tương tác, nhận tin, gọi điện và hãy nói chuyện với người lớn để giúp giải quyết vấn đề."
+        },
+        {
+            id: 6, type: "radio",
+            q: "Điều gì KHÔNG phải là một phần của dấu chân kỹ thuật số (Footprint) của bạn?",
+            opts: [
+                {v: "a", t: "Đăng ký nhận bản tin email"},
+                {v: "b", t: "Bài đăng trên mạng xã hội"},
+                {v: "c", t: "Nhạc được lưu trên ổ cứng máy tính"},
+                {v: "d", t: "Mua hàng trực tuyến"}
+            ],
+            ans: "c",
+            explain: "Nhạc lưu trên ổ cứng là dữ liệu cục bộ (Local), không được chia sẻ lên Internet nên không tạo thành dấu chân số công khai."
+        },
+        {
+            id: 7, type: "radio",
+            q: "Một ví dụ về việc sử dụng công nghệ kỹ thuật số một cách thích hợp trong trường học hoặc nơi làm việc là gì?",
+            opts: [
+                {v: "a", t: "Bí mật ghi lại âm thanh của anh chị em của bạn để hiển thị bạn bè của bạn"},
+                {v: "b", t: "Hợp tác với các bạn cùng lớp trong một bài tập nhóm"},
+                {v: "c", t: "Chơi game hầu hết thời gian trong ngày"},
+                {v: "d", t: "Quay video các bạn cùng lớp ăn trưa và đăng lên mạng"}
+            ],
+            ans: "b",
+            explain: "Sử dụng công nghệ kỹ thuật số một cách thích hợp trong trường học có thể đem lại lợi ích như: Học trực tuyến, Cộng tác trực tuyến, v.v."
+        },
+        {
+            id: 8, type: "radio",
+            q: "Nó được gọi là gì khi bạn buộc một trình duyệt truy xuất một trang web từ máy chủ thay vì tải nó từ bộ đệm?",
+            opts: [
+                {v: "a", t: "Tải lại (Reloading)"},
+                {v: "b", t: "Điều hướng (Navigating)"},
+                {v: "c", t: "Đánh dấu trang (Bookmarking)"},
+                {v: "d", t: "Gửi biểu mẫu (Submitting a form)"}
+            ],
+            ans: "a",
+            explain: "Trình duyệt thường sử dụng bộ đệm để tải lại các tài nguyên của trang web. Tải lại (Reload) giúp cập nhật nội dung mới nhất từ máy chủ."
+        },
+        {
+            id: 9, type: "radio",
+            q: "Cách nhanh nhất để quay lại một trang web sau đó là gì?",
+            opts: [
+                {v: "a", t: "Nói với một người bạn về trang web bạn tìm thấy"},
+                {v: "b", t: "In toàn bộ trang web"},
+                {v: "c", t: "Viết URL trên một tờ giấy"},
+                {v: "d", t: "Tạo dấu trang (Bookmark)"}
+            ],
+            ans: "d",
+            explain: "Tạo dấu trang (Bookmark) giúp bạn truy cập lại trang web một cách hiệu quả và tận dụng thông tin trên internet một cách tốt hơn."
+        },
+        {
+            id: 10, type: "radio",
+            q: "Tùy chọn nào dưới đây là một ví dụ về giải trí?",
+            opts: [
+                {v: "a", t: "Gửi email cho giáo viên của bạn"},
+                {v: "b", t: "Một bảng tính điểm của bạn"},
+                {v: "c", t: "Truyền trực tuyến (Streaming) một chương trình"},
+                {v: "d", t: "Một từ điển trực tuyến"}
+            ],
+            ans: "c",
+            explain: "Giải trí trên công nghệ kỹ thuật số bao gồm: Xem phim, chương trình truyền hình, Nghe nhạc, Trò chơi điện tử, v.v."
+        },
+        {
+            id: 11, type: "radio",
+            q: "Địa chỉ của một trang web được gọi là gì?",
+            opts: [
+                {v: "a", t: "URL"},
+                {v: "b", t: "Tiêu đề trang (Page title)"},
+                {v: "c", t: "Nhà xuất bản (Publisher)"},
+                {v: "d", t: "Tác giả (Author)"}
+            ],
+            ans: "a",
+            explain: "URL (Uniform Resource Locator): Dùng để chỉ định địa chỉ của một trang web hoặc tài nguyên trên internet."
+        },
+        {
+            id: 12, type: "radio",
+            q: "Bạn cần thông tin về một chủ đề cụ thể cho trường học, nhưng tìm kiếm ban đầu của bạn không trả lại bất kỳ kết quả hữu ích nào. Bạn nên thử gì tiếp theo?",
+            opts: [
+                {v: "a", t: "Nhấp vào quảng cáo được đề xuất"},
+                {v: "b", t: "Tinh chỉnh tìm kiếm của bạn"},
+                {v: "c", t: "Gửi email cho giáo viên của bạn về việc thay đổi chủ đề"},
+                {v: "d", t: "Từ bỏ và sử dụng một cuốn sách"}
+            ],
+            ans: "b",
+            explain: "Thay đổi cụm từ tìm kiếm hoặc sử dụng các công cụ tìm kiếm khác nhau giúp tìm kiếm hiệu quả hơn."
+        },
+        {
+            id: 13, type: "radio",
+            q: "Khi bạn tìm kiếm một chủ đề và thấy \"quảng cáo\" bên cạnh một số liên kết, điều đó có nghĩa là gì?",
+            opts: [
+                {v: "a", t: "Đây là một mục được tài trợ mà ai đó đã trả tiền"},
+                {v: "b", t: "Tìm kiếm của bạn không mang lại đủ kết quả"},
+                {v: "c", t: "Máy tính của bạn bị nhiễm virus"},
+                {v: "d", t: "Bạn sẽ mất tiền nếu bạn nhấp vào liên kết"}
+            ],
+            ans: "a",
+            explain: "Mục đích là thu hút người dùng nhấp vào. Đây là một phần của mô hình kinh doanh nơi nhà quảng cáo trả phí để hiển thị quảng cáo."
+        },
+        {
+            id: 14, type: "radio",
+            q: "Khi bạn sử dụng từ đồng nghĩa để làm rõ mục tiêu tìm kiếm, bạn đang làm gì?",
+            opts: [
+                {v: "a", t: "Làm cho phạm vi tìm kiếm càng rộng càng tốt"},
+                {v: "b", t: "Giới hạn kết quả tìm kiếm chỉ cho các trang web giáo dục"},
+                {v: "c", t: "Sử dụng các từ tương tự hoặc giống với tìm kiếm ban đầu để tinh chỉnh kết quả"},
+                {v: "d", t: "Bỏ qua các quảng cáo trong một công cụ tìm kiếm"}
+            ],
+            ans: "c",
+            explain: "Sử dụng các từ hoặc cụm từ tương tự từ khóa bạn muốn tìm kiếm để mở rộng phạm vi tìm kiếm và cải thiện kết quả."
+        },
+        {
+            id: 15, type: "radio",
+            q: "Các từ hoặc cụm từ ngắn ở đầu trang trình chiếu kỹ thuật số (Digital slide) là gì?",
+            opts: [
+                {v: "a", t: "Tiêu đề (Heading)"},
+                {v: "b", t: "Tác giả (Author)"},
+                {v: "c", t: "URL"},
+                {v: "d", t: "Nhà xuất bản (Publisher)"}
+            ],
+            ans: "a",
+            explain: "Tiêu đề (Heading) giúp người xem nhận biết nội dung chính của trang trình chiếu."
+        },
+        {
+            id: 16, type: "radio",
+            q: "Ứng dụng nào có thể được sử dụng để hiển thị hình ảnh, văn bản, video và nội dung trực quan khác cho khán giả?",
+            opts: [
+                {v: "a", t: "Ứng dụng nhắn tin (Text/SMS application)"},
+                {v: "b", t: "Ứng dụng bảng tính (Spreadsheet application)"},
+                {v: "c", t: "Ứng dụng trình chiếu (Slideshow application)"},
+                {v: "d", t: "Ứng dụng thư điện tử (Email application)"}
+            ],
+            ans: "c",
+            explain: "Ứng dụng trình chiếu (Slideshow application): Tạo và trình chiếu các bài thuyết trình trực quan."
+        },
+        {
+            id: 17, type: "radio",
+            q: "Việc sử dụng thích hợp của một danh sách được đánh số là gì?",
+            opts: [
+                {v: "a", t: "Thêm hình ảnh vào bản trình chiếu"},
+                {v: "b", t: "Viết một lá thư gồm nhiều đoạn"},
+                {v: "c", t: "Gửi tin nhắn văn bản"},
+                {v: "d", t: "Liệt kê các mục theo một thứ tự hoặc trình tự thời gian nhất định"}
+            ],
+            ans: "d",
+            explain: "Danh sách được đánh số thường được sử dụng để liệt kê các mục theo một trình tự cụ thể hoặc hướng dẫn từng bước."
+        },
+        {
+            id: 18, type: "radio",
+            q: "Tùy chọn nào dưới đây là nghi thức trực tuyến KHÔNG phù hợp?",
+            opts: [
+                {v: "a", t: "Giải quyết xung đột trực tuyến ngoại tuyến"},
+                {v: "b", t: "Tôn trọng sự riêng tư của người khác"},
+                {v: "c", t: "Viết email sử dụng tất cả các chữ hoa"},
+                {v: "d", t: "Hãy đối xử với người khác theo cách bạn muốn được đối xử"}
+            ],
+            ans: "c",
+            explain: "Viết hoa toàn bộ (ALL CAPS) thường được coi là đang la hét (shouting) trong giao tiếp trực tuyến."
+        },
+        {
+            id: 19, type: "radio",
+            q: "Bạn đọc một số tin tức trực tuyến làm bạn khó chịu. Bạn nên làm gì tiếp theo?",
+            opts: [
+                {v: "a", t: "Tạm ngừng, hít thở và suy nghĩ trước khi bạn hành động"},
+                {v: "b", t: "Ngừng đọc tin tức trực tuyến"},
+                {v: "c", t: "Viết một email tức giận cho tác giả"},
+                {v: "d", t: "Nói với mọi người bạn biết rằng tin tức là giả mạo"}
+            ],
+            ans: "a",
+            explain: "Bảo vệ tâm trạng và trạng thái tinh thần của mình để duy trì sự cân bằng và tránh căng thẳng."
+        },
+        {
+            id: 20, type: "radio",
+            q: "Việc bạn chia sẻ công việc với các bạn cùng lớp để nhận phản hồi được gọi là gì?",
+            opts: [
+                {v: "a", t: "Trách nhiệm (Responsibilities)"},
+                {v: "b", t: "Xuất bản (Publishing)"},
+                {v: "c", t: "Vai trò (Roles)"},
+                {v: "d", t: "Đánh giá ngang hàng (Peer review)"}
+            ],
+            ans: "d",
+            explain: "Đánh giá ngang hàng (Peer review): Các chuyên gia hoặc đồng nghiệp cùng lĩnh vực đánh giá và xem xét công việc."
+        },
+        {
+            id: 21, type: "radio",
+            q: "Yếu tố nào KHÔNG phải là yếu tố hợp tác thành công?",
+            opts: [
+                {v: "a", t: "Đặt mục tiêu và kỳ vọng rõ ràng"},
+                {v: "b", t: "Giao tiếp rõ ràng"},
+                {v: "c", t: "Tiếp tục nhiệm vụ"},
+                {v: "d", t: "Phê bình ý kiến hoặc quan điểm của mọi người trước khi hiểu chúng"}
+            ],
+            ans: "d",
+            explain: "Phê bình mà không hiểu rõ quan điểm sẽ gây cản trở sự hợp tác và giao tiếp hiệu quả."
+        },
+        {
+            id: 22, type: "radio",
+            q: "Phần mềm diệt virus là gì?",
+            opts: [
+                {v: "a", t: "Một hình thức quấy rối trực tuyến"},
+                {v: "b", t: "Một chương trình bảo vệ máy tính hoặc mạng khỏi phần mềm độc hại (Computer viruses)"},
+                {v: "c", t: "Khả năng cho nhiều người dùng truy cập vào cùng một tập tin"},
+                {v: "d", t: "Ăn cắp, xem hoặc làm hỏng dữ liệu của người dùng khác"}
+            ],
+            ans: "b",
+            explain: "Phần mềm diệt virus quét hệ thống và các tập tin để phát hiện, cách ly, xóa hoặc sửa chữa các tệp tin bị nhiễm."
+        },
+        {
+            id: 23, type: "radio",
+            q: "Điều gì KHÔNG phải là mối nguy hiểm phổ biến của thói quen sử dụng thiết bị kéo dài?",
+            opts: [
+                {v: "a", t: "Mệt mỏi hoặc đau chân"},
+                {v: "b", t: "Khó ngủ"},
+                {v: "c", t: "Mắt căng thẳng hoặc mệt mỏi"},
+                {v: "d", t: "Đau lưng và cổ"}
+            ],
+            ans: "a",
+            explain: "Sử dụng máy tính kéo dài thường gây hại cho mắt, lưng, cổ và giấc ngủ (do ánh sáng xanh), ít gây đau chân trực tiếp."
+        },
+        {
+            id: 24, type: "radio",
+            q: "Tùy chọn nào dưới đây là một ví dụ về CYBERBULLYING?",
+            opts: [
+                {v: "a", t: "Gửi tin nhắn gây tổn thương cho ai đó trực tuyến"},
+                {v: "b", t: "Nói những điều gây tổn thương về ai đó trong bữa trưa"},
+                {v: "c", t: "Lan truyền tin đồn về ai đó trong giờ học"},
+                {v: "d", t: "Để lại những ghi chú gây tổn thương trên bàn của ai đó ở trường"}
+            ],
+            ans: "a",
+            explain: "Cyberbullying (Bắt nạt trên mạng) phải diễn ra trên môi trường kỹ thuật số như mạng xã hội, email, tin nhắn điện tử."
+        },
+        {
+            id: 25, type: "radio",
+            q: "Bước tiếp theo an toàn nhất là gì khi bạn nhận được một siêu liên kết (URL) trong email từ một người gửi mà bạn không biết?",
+            opts: [
+                {v: "a", t: "Trả lời và hỏi người gửi URL có an toàn để mở không"},
+                {v: "b", t: "Dừng lại, tạm dừng và nói chuyện với người lớn"},
+                {v: "c", t: "Nhấp vào liên kết để xem những gì họ làm"},
+                {v: "d", t: "Chuyển tiếp nó đến càng nhiều người càng tốt"}
+            ],
+            ans: "b",
+            explain: "Không bao giờ nhấp vào liên kết lạ. Hãy dừng lại và hỏi ý kiến người lớn hoặc chuyên gia."
+        },
+        {
+            id: 26, type: "radio",
+            q: "Trang Web sử dụng gì để theo dõi dữ liệu và sở thích của người dùng?",
+            opts: [
+                {v: "a", t: "Thông tin xác thực (Credentials)"},
+                {v: "b", t: "Dịch vụ tin nhắn ngắn (SMS)"},
+                {v: "c", t: "Tiêu đề (Heading)"},
+                {v: "d", t: "Cookies"}
+            ],
+            ans: "d",
+            explain: "Cookies là những tệp tin nhỏ chứa dữ liệu được lưu trữ trên máy tính khi truy cập vào một trang web để theo dõi sở thích người dùng."
+        },
+        {
+            id: 27, type: "table_tf",
+            q: "Đối với mỗi ví dụ, hãy chọn Có nếu đó là ví dụ về THIẾT BỊ ĐẦU VÀO (Input Device) và Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Touchpad (Bàn di chuột)", a: "yes"},
+                {t: "Monitor (Màn hình)", a: "no"},
+                {t: "Touchscreen (Màn hình cảm ứng)", a: "yes"},
+                {t: "Headphones (Tai nghe)", a: "no"}
+            ],
+            explain: "Touchpad và Touchscreen dùng để nhập liệu. Monitor và Headphones dùng để xuất thông tin (Output)."
+        },
+        {
+            id: 28, type: "table_tf",
+            q: "Đối với mỗi câu lệnh, hãy chọn Có nếu thiết bị có thể NHÌN THẤY bạn trong quá trình sử dụng và Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Laptop có tích hợp webcam", a: "yes"},
+                {t: "Tai nghe Bluetooth", a: "no"},
+                {t: "Chuông cửa nhà thông minh", a: "yes"},
+                {t: "Google Chromebook", a: "yes"}
+            ],
+            explain: "Các thiết bị có camera (Webcam, Chuông cửa video) có khả năng ghi hình bạn."
+        },
+        {
+            id: 29, type: "table_tf",
+            q: "Đối với mỗi câu, hãy chọn Có nếu đó là một ví dụ về giao tiếp phù hợp và Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Nhắn tin cho giáo viên của bạn lúc 3 giờ sáng về bài tập ở trường", a: "no"},
+                {t: "Gửi email cho thủ thư để yêu cầu giới thiệu sách", a: "yes"},
+                {t: "Sử dụng trò chuyện video để thảo luận về một dự án ở trường với các bạn cùng lớp vào cuối tuần", a: "yes"}
+            ],
+            explain: "Giao tiếp cần đúng thời điểm và phương thức. Nhắn tin lúc 3 giờ sáng là không lịch sự."
+        },
+        {
+            id: 30, type: "table_tf",
+            q: "Đối với mỗi ví dụ, chọn CÓ nếu đó là ví dụ về cách sử dụng hình ảnh phù hợp và KHÔNG nếu không.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Việc thêm ảnh của bạn vào mỗi slide của bài thuyết trình nhóm ở trường", a: "yes"},
+                {t: "Thêm chú thích cho tất cả hình ảnh trong báo cáo của trường", a: "yes"},
+                {t: "Sử dụng hình ảnh bạn không sở hữu cho một bài báo trên tờ báo của trường", a: "no"},
+                {t: "Lưu hình ảnh trực tuyến với giấy phép Creative Commons để sử dụng cho tờ báo của trường", a: "yes"}
+            ],
+            explain: "Cần tôn trọng bản quyền hình ảnh. Creative Commons cho phép sử dụng hợp pháp."
+        },
+        
+        // --- CHỦ ĐỀ 31 (MÔ PHỎNG GIAO DIỆN TÀI LIỆU - MATCHING) ---
+        {
+            id: 31, type: "match_html_left",
             q: "Nối mỗi ví dụ (Bên trái) với phần tài liệu được thể hiện ở bên phải.",
             rows: [
                 {
-                    html: '<h2 style="margin:0; font-size:1.6rem; font-weight:bold; color:#000;">Marine Animals</h2>', 
+                    html: '<h2 style="margin:0; font-size:1.6rem; font-weight:bold; color:black;">Marine Animals</h2>', 
                     a: "title"
                 },
                 {
-                    html: '<ul style="margin:0; padding-left:20px; text-align:left; color:#000;"><li>snorkel</li><li>dry suit</li><li>swimsuit</li><li>sunscreen</li></ul>', 
+                    html: '<ul style="margin:0; padding-left:20px; text-align:left; color:black;"><li>snorkel</li><li>dry suit</li><li>swimsuit</li><li>sunscreen</li></ul>', 
                     a: "bullet"
                 },
                 {
-                    html: '<h3 style="margin:0; font-size:1.2rem; font-weight:bold; color:#000;">Endangered water habitats</h3>', 
+                    html: '<h3 style="margin:0; font-size:1.2rem; font-weight:bold; color:black;">Endangered water habitats</h3>', 
                     a: "head"
                 },
                 {
-                    html: '<ol style="margin:0; padding-left:20px; text-align:left; color:#000;"><li>Swim away from the boat</li><li>Dive under the surface...</li></ol>', 
+                    html: '<ol style="margin:0; padding-left:20px; text-align:left; color:black;"><li>Swim away from the boat</li><li>Dive under the surface...</li></ol>', 
                     a: "num"
                 }
             ],
@@ -237,24 +575,24 @@
                 {v: "head", t: "Heading (Đề mục/Tiêu đề phần)"},
                 {v: "num", t: "Numbered list (Danh sách số đầu dòng)"}
             ],
-            explain: "Marine Animals (To nhất) = Title. Endangered... (Nhỏ hơn, đậm) = Heading. Danh sách chấm tròn = Bulleted list. Danh sách số = Numbered list."
+            explain: "Title: Tiêu đề chính. Bulleted list: Dấu chấm tròn. Heading: Đề mục nhỏ. Numbered list: Danh sách số."
         },
 
-        // --- CHỦ ĐỀ 32 (Bảng mô phỏng định dạng) ---
+        // --- CHỦ ĐỀ 32 (MÔ PHỎNG ĐỊNH DẠNG - MATCHING) ---
         {
-            id: 32, type: "match",
+            id: 32, type: "match_html_left",
             q: "Nối mỗi ví dụ (Bên trái) với kiểu định dạng tương ứng ở bên phải.",
             rows: [
                 {
-                    html: '<div style="text-align:center; border:1px solid #ddd; padding:10px; background:#fff; color:#000;"><strong>Candy Around the World</strong><br>Candy Bars<br>Chocolates</div>', 
+                    html: '<div style="text-align:center; border:1px solid #ddd; padding:10px; background:#fff; color:black;"><strong>Candy Around the World</strong><br>Candy Bars<br>Chocolates</div>', 
                     a: "align"
                 },
                 {
-                    html: '<div style="text-align:left; border:1px solid #ddd; padding:10px; background:#fff; color:#000;"><strong>Animals in the Wild</strong></div>', 
+                    html: '<div style="text-align:left; border:1px solid #ddd; padding:10px; background:#fff; color:black;"><strong>Animals in the Wild</strong></div>', 
                     a: "bold"
                 },
                 {
-                    html: '<div style="text-align:left; border:1px solid #ddd; padding:10px; background:#fff; color:#000;"><span style="font-size:1.4rem; font-weight:bold;">The Animal Kingdom</span><br><span style="font-size:1rem;">Predators and Prey</span><br><span style="font-size:0.8rem;">Everything You Need to Know</span></div>', 
+                    html: '<div style="text-align:left; border:1px solid #ddd; padding:10px; background:#fff; color:black;"><span style="font-size:1.4rem; font-weight:bold;">The Animal Kingdom</span><br><span style="font-size:1rem;">Predators and Prey</span><br><span style="font-size:0.8rem;">Everything You Need to Know</span></div>', 
                     a: "size"
                 }
             ],
@@ -266,7 +604,23 @@
             explain: "Căn giữa (Center) = Alignment. Chữ đậm = Bold. Chữ to nhỏ = Font size."
         },
 
-        { id: 33, type: "match", q: "Nối mỗi thuật ngữ ở bên trái với định nghĩa tương ứng.", rows: [{t: "Etiquette (Nghi thức)", a: "etiquette"}, {t: "Respect (Tôn trọng)", a: "respect"}, {t: "Empathy (Đồng cảm)", a: "empathy"}, {t: "Posting (Đăng bài)", a: "posting"}], opts: [{v: "empathy", t: "Hiểu cảm xúc người khác"}, {v: "etiquette", t: "Thể hiện sự tôn trọng online"}, {v: "respect", t: "Chấp nhận sự khác biệt"}, {v: "posting", t: "Đưa gì đó lên internet"}], explain: "Etiquette: Phép lịch sự. Empathy: Đồng cảm. Respect: Tôn trọng. Posting: Đăng tải." }
+        {
+            id: 33, type: "match",
+            q: "Nối mỗi thuật ngữ ở bên trái với định nghĩa tương ứng ở bên phải.",
+            rows: [
+                {t: "Etiquette (Nghi thức/Phép xã giao)", a: "etiquette"},
+                {t: "Respect (Tôn trọng)", a: "respect"},
+                {t: "Empathy (Đồng cảm)", a: "empathy"},
+                {t: "Posting (Đăng bài)", a: "posting"}
+            ],
+            opts: [
+                {v: "empathy", t: "Có thể hiểu được người khác đang cảm thấy thế nào"},
+                {v: "etiquette", t: "Cách chúng ta thể hiện sự tôn trọng và tử tế khi trực tuyến"},
+                {v: "respect", t: "Chấp nhận ai đó hoặc điều gì đó ngay cả khi bạn không đồng ý"},
+                {v: "posting", t: "Đưa một cái gì đó lên internet"}
+            ],
+            explain: "Empathy: Đồng cảm. Etiquette: Phép lịch sự. Respect: Tôn trọng sự khác biệt. Posting: Đăng tải."
+        }
     ];
 
     function renderQuiz() {
@@ -279,24 +633,20 @@
                 <div class="content-col">
                     <div class="question-text">${q.q}</div>`;
             
-            if (q.img && q.type !== 'img_radio' && q.type !== 'img_check' && !q.customHtml) {
-                html += `<img src="${q.img}" class="single-img" alt="Minh họa">`;
-            }
-
             if (q.type === 'radio') {
                 html += `<div class="options">`;
                 q.opts.forEach(opt => {
                     html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
                 });
                 html += `</div>`;
-            } else if (q.type === 'match') {
-                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Ví dụ / Nội dung</th><th>Lựa chọn</th></tr></thead><tbody>`;
+            } else if (q.type === 'match_html_left') {
+                // RENDER SPECIFIC FOR Q31, Q32 (HTML LEFT, SELECT RIGHT)
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Ví dụ / Nội dung</th><th>Lựa chọn</th></tr></thead><tbody>`;
                 q.rows.forEach((r, rIdx) => {
-                    let leftContent = r.html ? r.html : r.t;
                     html += `<tr>
-                        <td style="vertical-align: middle;">${leftContent}</td>
-                        <td style="vertical-align: middle;">
-                            <select name="q${index}_${rIdx}" style="width:100%; padding:8px;">
+                        <td class="preview-box">${r.html}</td>
+                        <td>
+                            <select name="q${index}_${rIdx}">
                                 <option value="">-- Chọn --</option>`;
                     q.opts.forEach(opt => {
                         html += `<option value="${opt.v}">${opt.t}</option>`;
@@ -306,8 +656,18 @@
                     </tr>`;
                 });
                 html += `</tbody></table></div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Thuật ngữ / Yêu cầu</th><th>Lựa chọn / Định nghĩa</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
             } else if (q.type === 'table_tf') {
-                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
                 q.rows.forEach((r, rIdx) => {
                     html += `<tr><td>${r.t}</td>
                         <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
@@ -340,7 +700,7 @@
             let answered = false;
             if (q.type === 'radio') {
                 if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
-            } else if (q.type === 'match') {
+            } else if (q.type === 'match' || q.type === 'match_html_left') {
                 let subCount = 0;
                 q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
                 if (subCount === q.rows.length) answered = true;
@@ -376,25 +736,17 @@
                     let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
                     if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
                 }
-            } else if (q.type === 'match') {
+            } else if (q.type === 'match' || q.type === 'match_html_left') {
                 let subCorrect = 0;
                 q.rows.forEach((r, rIdx) => {
                     let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
-                    let userVal = sel.value;
-                    let correctKey = r.a;
-                    let correctText = q.opts.find(o => o.v === correctKey).t;
-
-                    if (userVal === correctKey) {
+                    if (sel.value === r.a) {
                         subCorrect++;
                         sel.style.borderColor = "#28a745";
                         sel.style.backgroundColor = "#d4edda";
                     } else {
                         sel.style.borderColor = "#dc3545";
                         sel.style.backgroundColor = "#f8d7da";
-                        let div = document.createElement("div");
-                        div.className = "correction";
-                        div.innerHTML = `Đúng: ${correctText}`;
-                        sel.parentElement.appendChild(div);
                     }
                 });
                 if (subCorrect === q.rows.length) isCorrect = true;
@@ -402,8 +754,7 @@
                 let subCorrect = 0;
                 q.rows.forEach((r, rIdx) => {
                     let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
-                    let rightVal = r.a; 
-                    
+                    let rightVal = r.a;
                     if (checked.value === rightVal) {
                         subCorrect++;
                         checked.parentElement.style.backgroundColor = "#d4edda";
