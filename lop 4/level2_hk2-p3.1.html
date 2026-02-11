@@ -9,12 +9,11 @@
     
     <style>
         :root {
-            /* TÔNG MÀU CAM LEVEL 2 */
-            --primary-color: #ef6c00; /* Orange */
-            --primary-dark: #e65100;  /* Darker Orange */
-            --accent-color: #ff9800;  /* Lighter Orange */
-            --bg-body: #fff8e1;       /* Cream background */
-            --text-color: #3e2723;    /* Dark brown text */
+            --primary-color: #ef6c00; 
+            --primary-dark: #e65100;
+            --accent-color: #ff9800;
+            --bg-body: #fff8e1;
+            --text-color: #3e2723;
             --border-color: #ffe0b2;
             
             --correct-bg: #d4edda;
@@ -25,7 +24,6 @@
 
         body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
         
-        /* HEADER */
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
@@ -33,8 +31,7 @@
         }
         .header-left { display: flex; flex-direction: column; align-items: flex-start; }
         .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
-        .logo-ic3 span:nth-child(1) { color: #fff; } 
-        .logo-ic3 span:nth-child(2) { color: #ffe0b2; } 
+        .logo-ic3 span:nth-child(1) { color: #fff; } .logo-ic3 span:nth-child(2) { color: #ffe0b2; }
         
         .home-btn {
             margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
@@ -45,14 +42,11 @@
         .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
         .sub-title { font-size: 0.9rem; opacity: 0.9; }
 
-        /* CONTAINER */
         .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        
         .page-title { text-align: center; margin-bottom: 40px; }
         .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
         .page-title h2 { color: #5d4037; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
 
-        /* QUESTION CARD */
         .question-card {
             background: white; border: 1px solid var(--border-color); border-radius: 12px; 
             margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
@@ -66,10 +60,8 @@
             font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
         }
         .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
-
         .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); }
 
-        /* OPTIONS */
         .options label {
             display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
             border: 2px solid #fff3e0; border-radius: 8px; transition: 0.2s; position: relative;
@@ -77,10 +69,7 @@
         .options label:hover { background-color: #fff3e0; border-color: var(--primary-color); }
         .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
 
-        /* SINGLE IMAGE */
-        .single-img { display: block; max-width: 100%; max-height: 400px; margin: 0 auto 20px auto; border-radius: 8px; border: 1px solid #ddd; }
-
-        /* TABLES */
+        /* TABLES STYLE */
         .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
         .data-table { width: 100%; border-collapse: collapse; margin: 0; }
         .data-table th {
@@ -89,22 +78,25 @@
         }
         .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; }
         .data-table tr:nth-child(even) { background-color: #fff8e1; }
-        .data-table tr:last-child td { border-bottom: none; }
         
-        .data-table td:first-child { width: 65%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
-        .data-table td:not(:first-child) { width: 35%; text-align: center; }
+        /* Cấu hình cột cho bảng Đúng/Sai (TF) - Nội dung dài */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; }
+
+        /* Cấu hình cột cho bảng Nối (Match) - Bên trái ngắn, Bên phải dài (Menu) */
+        .match-table td:first-child { width: 30%; font-weight: bold; text-align: right; padding-right: 20px; } 
+        .match-table td:last-child { width: 70%; }
 
         .data-table select {
             width: 100%; padding: 10px; border: 1px solid #ffcc80; border-radius: 5px; 
             background: white; font-size: 0.95rem; cursor: pointer;
         }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
         .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
 
-        /* FEEDBACK */
         .feedback { 
             margin-top: 20px; padding: 15px; background-color: #fff3cd; 
-            border-left: 5px solid #ffc107; border-radius: 4px; 
-            font-size: 0.95rem; color: #856404; display: none; line-height: 1.5;
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5;
         }
         .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
         .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
@@ -129,10 +121,12 @@
 
         @media (max-width: 768px) {
             .question-card { flex-direction: column; }
-            .topic-col { width: 100%; padding: 10px; justify-content: flex-start; border-right: none; border-bottom: 4px solid #ffcc80; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #ffcc80; }
             .content-col { width: 100%; padding: 15px; }
             .data-table td:first-child { width: 50%; }
             .data-table td:not(:first-child) { width: 25%; }
+            .match-table td:first-child { width: 40%; text-align: left; }
+            .match-table td:last-child { width: 60%; }
         }
     </style>
 </head>
@@ -173,220 +167,221 @@
 <script>
     const questions = [
         {
-            id: 1, type: "radio",
-            q: "Bạn nên sử dụng ứng dụng nào để hiển thị ảnh, bản đồ và video từ kỳ nghỉ hè của mình cho các bạn trong lớp học của bạn xem?",
+            id: 1, type: "check",
+            q: "Em hãy cho biết, tùy chọn nào sau đây có thể được thực hiện trong thẻ Animation của PowerPoint? (Chọn 2)",
             opts: [
-                {v: "a", t: "Bài trình chiếu (Slide Presentation)"},
-                {v: "b", t: "Tài liệu (Document)"},
-                {v: "c", t: "Trang tính (Spreadsheet)"},
-                {v: "d", t: "Áp phích (Poster)"}
+                {v: "a", t: "Thay đổi thứ tự của các hiệu ứng hoạt hình phát đầu tiên trên một Slide"},
+                {v: "b", t: "Nhập hiệu ứng hoạt hình từ các chương trình khác"},
+                {v: "c", t: "Tạo tùy chỉnh hiệu ứng hoạt hình (Animations) từ các tập tin (Files) trên máy tính"},
+                {v: "d", t: "Thay đổi thời gian khi phát hiệu ứng hoạt hình (Animations)"}
             ],
-            ans: "a",
-            explain: "Bài trình chiếu (như PowerPoint) là công cụ tốt nhất để trình bày nội dung đa phương tiện cho khán giả."
+            ans: ["a", "d"],
+            explain: "Thẻ Animation cho phép sắp xếp lại thứ tự (Reorder) và chỉnh thời gian (Timing/Duration) của hiệu ứng."
         },
         {
             id: 2, type: "radio",
-            q: "Nhi muốn tham gia một trang mạng xã hội mới nổi tiếng. Để đăng ký, cô ấy phải điền vào một biểu mẫu trực tuyến. Nhi nên giữ phím nào trong khi gõ để chỉ viết hoa chữ cái đầu tiên trong tên của cô ấy? (Chọn khóa/phím thích hợp trong khu vực trả lời)",
-            img: "l2_hk2_p3_cau02.jpg",
+            q: "Em hãy cho biết, tùy chọn nào sau đây được dùng để biểu diễn tiêu đề dòng trong Excel?",
             opts: [
-                {v: "a", t: "Phím Shift"},
-                {v: "b", t: "Phím Caps Lock"},
-                {v: "c", t: "Phím Tab"},
-                {v: "d", t: "Phím Ctrl"}
+                {v: "a", t: "Màu sắc (Colors)"},
+                {v: "b", t: "Kí tự (Letters)"},
+                {v: "c", t: "Con số (Numbers)"},
+                {v: "d", t: "Số La Mã (Roman numerals)"}
             ],
-            ans: "a",
-            explain: "Phím Shift dùng để viết hoa tạm thời một ký tự khi được nhấn giữ."
+            ans: "c",
+            explain: "Tiêu đề dòng (Row headers) trong Excel được đánh số 1, 2, 3..."
         },
         {
             id: 3, type: "radio",
-            q: "Em hãy cho biết, cần sử dụng phần mềm ứng dụng nào để tạo ra các chữ cái tiêu chuẩn thay vì sử dụng máy đánh chữ?",
+            q: "Khi em chia sẻ tài liệu trực tuyến với ai đó, em quyết định những quyền mà người đó có. Em hãy cho biết, quyền nào cho phép ai đó xem tài liệu nhưng không được thực hiện thay đổi đối với tài liệu?",
             opts: [
-                {v: "a", t: "Một ứng dụng bảng tính"},
-                {v: "b", t: "Một ứng dụng CAD"},
-                {v: "c", t: "Một ứng dụng trình chiếu"},
-                {v: "d", t: "Một ứng dụng xử lý văn bản"}
+                {v: "a", t: "Xem tài liệu (View document)"},
+                {v: "b", t: "Tạo nhận xét (Make comments)"},
+                {v: "c", t: "Chỉnh sửa tài liệu (Edit document)"},
+                {v: "d", t: "Sao chép tài liệu (Copy document)"}
             ],
-            ans: "d",
-            explain: "Ứng dụng xử lý văn bản (như Microsoft Word) dùng để soạn thảo văn bản, thay thế cho máy đánh chữ."
+            ans: "a",
+            explain: "Quyền 'Xem' (View/Read only) chỉ cho phép đọc nội dung, không cho phép chỉnh sửa."
         },
         {
             id: 4, type: "radio",
-            q: "Em hãy cho biết, đây là loại tập tin gì?",
-            img: "l2_hk2_p3_cau04.jpg",
+            q: "Em hãy cho biết, thẻ nào trong các tùy chọn sau có thể chứa các tùy chọn trình chiếu?",
             opts: [
-                {v: "a", t: "Một tài liệu (A document)"},
-                {v: "b", t: "Một bài trình chiếu (A presentation)"},
-                {v: "c", t: "Một trang tính (A spreadsheet)"},
-                {v: "d", t: "Một trang web (A web page)"}
+                {v: "a", t: "Review"},
+                {v: "b", t: "Home"},
+                {v: "c", t: "Slide Show"},
+                {v: "d", t: "File"}
             ],
-            ans: "a",
-            explain: "Hình ảnh hiển thị một văn bản có định dạng thư từ, đó là một Tài liệu (Document)."
+            ans: "c",
+            explain: "Thẻ Slide Show chứa các lệnh để bắt đầu và thiết lập bài trình chiếu."
         },
         {
             id: 5, type: "radio",
-            q: "Em hãy cho biết, tổ hợp phím nào sau đây được sử dụng để chọn tất cả văn bản trong cùng một tài liệu?",
+            q: "Trong chương trình Microsoft Word, khi một hình ảnh được chọn, các Handle nhỏ xuất hiện xung quanh đường viền của hình ảnh. Em hãy cho biết, chức năng của các handle là gì?",
             opts: [
-                {v: "a", t: "CTRL + A"},
-                {v: "b", t: "TAB + A"},
-                {v: "c", t: "SHIFT + A"},
-                {v: "d", t: "ALT + A"}
+                {v: "a", t: "Thêm đường viền (Border) cho hình ảnh"},
+                {v: "b", t: "Thay đổi kích thước hình ảnh"},
+                {v: "c", t: "Thêm các kiểu dáng (Style) cho hình ảnh"},
+                {v: "d", t: "Cắt (Crop) hình ảnh"}
             ],
-            ans: "a",
-            explain: "CTRL + A (Select All) là phím tắt phổ biến để chọn toàn bộ nội dung."
+            ans: "b",
+            explain: "Các điểm neo (Handle) xung quanh ảnh dùng để kéo thả nhằm thay đổi kích thước ảnh."
         },
         {
             id: 6, type: "radio",
-            q: "Bạn đang tạo một áp phích trên máy tính. Bạn muốn thay đổi giao diện của các chữ cái và số trong tiêu đề áp phích. Bạn nên thay đổi điều gì?",
+            q: "Em hãy cho biết, văn bản được nhập thủ công vào bảng (Table) trong tài liệu Word như thế nào?",
             opts: [
-                {v: "a", t: "Phông chữ (The Font)"},
-                {v: "b", t: "Lề (The Margin)"},
-                {v: "c", t: "Kích thước trang (The Page size)"},
-                {v: "d", t: "Dãn cách đoạn văn (The Paragraph spacing)"}
+                {v: "a", t: "Văn bản được nhập thủ công khi người dùng nhấp chuột vào ô và bắt đầu nhập"},
+                {v: "b", t: "Văn bản được chèn qua thẻ insert"},
+                {v: "c", t: "Văn bản không khả dụng cho bảng trong tài liệu word"},
+                {v: "d", t: "Văn bản được nhập tự động"}
             ],
             ans: "a",
-            explain: "Thay đổi phông chữ (Font) sẽ làm thay đổi hình dáng và kiểu cách của văn bản."
+            explain: "Để nhập liệu vào bảng trong Word, ta chỉ cần nhấp chuột vào ô cần nhập và gõ văn bản."
         },
         {
             id: 7, type: "radio",
-            q: "Trolling là gì?",
+            q: "Em hãy cho biết, trong MS Word, tùy chọn nào cho biết lỗi chính tả?",
             opts: [
-                {v: "a", t: "Cố gắng làm cho ai đó tức giận bằng cách đăng những điều có ý nghĩa về họ (lời lẽ khiêu khích)"},
-                {v: "b", t: "Chia sẻ thông tin cá nhân về ai đó mà không có sự cho phép của họ"},
-                {v: "c", t: "Đăng nhập vào trang cá nhân của người khác và mạo danh người đó"},
-                {v: "d", t: "Cố tình bỏ ai đó ra ngoài"}
+                {v: "a", t: "Một vòng tròn màu đỏ"},
+                {v: "b", t: "Một đường lượn sóng màu đỏ"},
+                {v: "c", t: "Một vòng tròn màu xanh lam"},
+                {v: "d", t: "Một đường lượn sóng màu xanh"}
             ],
-            ans: "a",
-            explain: "Trolling là hành vi đăng nội dung khiêu khích hoặc gây tranh cãi để chọc tức người khác."
+            ans: "b",
+            explain: "Đường lượn sóng màu đỏ (Red wavy line) báo hiệu lỗi chính tả. Đường màu xanh thường là lỗi ngữ pháp."
         },
         {
-            id: 8, type: "table_tf",
-            q: "Tùy chọn nào sau đây là Đúng? (Chọn Có nếu đáp án đúng và Không nếu đáp án sai).",
-            headers: ["Có", "Không"],
-            rows: [
-                {t: "Trực tuyến là mãi mãi", a: "yes"},
-                {t: "Bạn có thể xóa vĩnh viễn các tin nhắn độc hại hoặc các bài đăng trên mạng xã hội khỏi internet", a: "no"},
-                {t: "Thông tin cá nhân như địa chỉ và số điện thoại không nên được đăng trực tuyến", a: "yes"},
-                {t: "Bạn nên gửi tin nhắn riêng cho bạn cùng lớp bằng mật khẩu của mình trong trường hợp bạn quên mật khẩu", a: "no"}
+            id: 8, type: "radio",
+            q: "Em hãy cho biết, tính năng nào được sử dụng với tính năng Find, sẽ thay thế văn bản sau khi nó được tìm thấy?",
+            opts: [
+                {v: "a", t: "Thu hồi (Retrieve)"},
+                {v: "b", t: "Thay thế (Substitute)"},
+                {v: "c", t: "Thay thế (Replace)"},
+                {v: "d", t: "Thay đổi (Change)"}
             ],
-            explain: "Thông tin trên mạng tồn tại rất lâu (mãi mãi). Không bao giờ chia sẻ mật khẩu."
+            ans: "c",
+            explain: "Tính năng Replace (Thay thế) đi kèm với Find (Tìm kiếm) để sửa đổi văn bản."
         },
         {
             id: 9, type: "radio",
-            q: "Bạn nhập tên của mình vào một công cụ tìm kiếm. Kết quả tìm kiếm bao gồm các ảnh mà bạn đã xóa khỏi trang web nơi bạn đã đăng chúng. Điều này có nghĩa là gì?",
+            q: "Điều gì có nghĩa là kiếm tiền cho chủ sở hữu trang web khi bạn tìm kiếm trực tuyến?",
             opts: [
-                {v: "a", t: "Thông tin được đăng trực tuyến có thể được sao chép hoặc chia sẻ bởi những người khác"},
-                {v: "b", t: "Dữ liệu công cụ tìm kiếm đã không được cập nhật gần đây"},
-                {v: "c", t: "Bạn cần làm mới trang kết quả tìm kiếm"},
-                {v: "d", t: "Chủ sở hữu trang web vẫn chưa xóa xong ảnh"}
+                {v: "a", t: "Từ đồng nghĩa (Synonyms)"},
+                {v: "b", t: "Quảng cáo (Ads)"},
+                {v: "c", t: "Tin nhắn trong ứng dụng (In-app messages)"},
+                {v: "d", t: "Kết quả tìm kiếm"}
             ],
-            ans: "a",
-            explain: "Khi đã đăng lên mạng, người khác có thể lưu lại và chia sẻ, nên việc xóa gốc không đảm bảo xóa hoàn toàn."
+            ans: "b",
+            explain: "Quảng cáo (Ads) là nguồn doanh thu chính cho các trang web và công cụ tìm kiếm."
         },
         {
             id: 10, type: "radio",
-            q: "Tùy chọn nào đại diện cho một đặc điểm của công dân kỹ thuật số tốt?",
+            q: "Em hãy cho biết, trong các tùy chọn sau, tùy chọn nào là tính năng tìm kiếm cho phép em tìm kiếm các từ dựa trên các mẫu và trình tự cụ thể?",
             opts: [
-                {v: "a", t: "Biết giả sử mọi thứ bạn đăng sẽ được người khác nhìn thấy và chia sẻ"},
-                {v: "b", t: "Sử dụng \"P@ssW0rd\" làm mật khẩu cho tất cả các tài khoản của bạn"},
-                {v: "c", t: "Lan truyền tin đồn trên mạng xã hội"},
-                {v: "d", t: "Chia sẻ vị trí của bạn trên phương tiện truyền thông xã hội"}
+                {v: "a", t: "Go To"},
+                {v: "b", t: "Undo"},
+                {v: "c", t: "Replace"},
+                {v: "d", t: "Wildcard characters (Ký tự đại diện)"}
             ],
-            ans: "a",
-            explain: "Công dân số tốt luôn ý thức rằng không gian mạng là công cộng và hành động có trách nhiệm."
+            ans: "d",
+            explain: "Wildcard characters (như * hoặc ?) đại diện cho một hoặc nhiều ký tự, giúp tìm kiếm theo mẫu."
         },
         {
             id: 11, type: "radio",
-            q: "Bạn thấy những bình luận ác ý trong một cuộc trò chuyện trong nhóm trực tuyến. Là một công dân tốt của thời đại kỷ nguyên số, bạn nên nói gì?",
+            q: "Bạn định trả lời vào một bài đăng trên diễn đàn mạng hỏi về những sở thích cá nhân của mọi người. Bạn nên phản hồi như thế nào cho phù hợp?",
             opts: [
-                {v: "a", t: "Những bình luận này sẽ trực tuyến mãi mãi"},
-                {v: "b", t: "Chúng ta chỉ nên đăng những bình luận ác ý trong một cuộc trò chuyện riêng tư"},
-                {v: "c", t: "Bình luận ác ý là OK nếu chúng bị xóa sau khi nhóm đọc chúng"},
-                {v: "d", t: "Bạn có thể đăng những bình luận ác ý nếu người khác không nhìn thấy chúng"}
+                {v: "a", t: "Thu thập đồng xu là sở thích của tôi. John Doe thu thập tem, anh ta sống trên con phố lớn trong khu. Bạn có muốn tôi kể ra những đồng xu đáng giá mà John có không?"},
+                {v: "b", t: "Tôi thu thập tem. Hãy cho tôi biết bạn sống ở đâu, tôi sẽ đến tận nhà và cho bạn xem bộ sưu tập tem của tôi"},
+                {v: "c", t: "TÔI THÍCH CHƠI BÓNG CHÀY VỚI BẠN BÈ SAU GIỜ HỌC. CÓ THỂ TÔI SẼ THAM GIA ĐỘI TUYỂN KHU VỰC ĐỊA PHƯƠNG MÙA TỚI"},
+                {v: "d", t: "Tôi thích chơi bóng chày với bạn bè sau giờ học. Có thể tôi sẽ tham gia đội tuyển khu vực địa phương mùa tới"}
             ],
-            ans: "a",
-            explain: "Nhắc nhở mọi người về hậu quả lâu dài của việc đăng tải nội dung xấu."
+            ans: "d",
+            explain: "Đây là phản hồi an toàn, lịch sự (không viết hoa toàn bộ) và không chia sẻ/hỏi thông tin cá nhân nhạy cảm."
         },
         {
-            id: 12, type: "table_tf",
-            q: "Đối với mỗi phát biểu về việc đăng thông tin trên internet, bạn hãy chọn đáp án Đúng hoặc Sai.",
+            id: 12, type: "radio",
+            q: "Như thế nào là cách giao tiếp thích hợp trên môi trường kỹ thuật số?",
+            opts: [
+                {v: "a", t: "Trả lời email của giáo viên và gọi thầy/cô bằng tên trêu chọc theo kiểu ác ý"},
+                {v: "b", t: "Dùng lời lẽ quan tâm, hòa nhã trên ứng dụng nhắn tin"},
+                {v: "c", t: "Chia sẻ địa chỉ của bạn trên mạng xã hội"},
+                {v: "d", t: "Dùng toàn chữ IN HOA để trả lời tin nhắn"}
+            ],
+            ans: "b",
+            explain: "Dùng lời lẽ quan tâm, hòa nhã là biểu hiện của giao tiếp văn minh và tôn trọng."
+        },
+        {
+            id: 13, type: "table_tf",
+            q: "Với mỗi ví dụ, hãy chọn Có nếu đó là ví dụ về kỹ năng hành xử đúng mực hoặc Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Một người bạn rất biết lắng nghe và cố gắng thấu hiểu cảm xúc của người khác", a: "yes"},
+                {t: "Một thầy/cô không trả lời email sau vài tháng", a: "no"},
+                {t: "Một học sinh cư xử tốt bụng với mọi người khi ở trước mặt, nhưng nói những điều sai sự thật và làm người khác tổn thương trên mạng", a: "no"}
+            ],
+            explain: "Lắng nghe và thấu hiểu là kỹ năng tốt. Không trả lời email hoặc nói xấu sau lưng là hành xử kém."
+        },
+        
+        // --- CHỦ ĐỀ 14 (Dạng nối: Trái ngắn, Phải dài) ---
+        {
+            id: 14, type: "match",
+            q: "Hãy di chuyển từng ví dụ về nội dung trực tuyến từ danh sách ở bên phải sang mục đích tương ứng ở bên trái.",
+            rows: [
+                {t: "Giao tiếp", a: "comm"},
+                {t: "Giải trí", a: "ent"},
+                {t: "Cung cấp thông tin", a: "info"}
+            ],
+            opts: [
+                {v: "comm", t: "Phần mềm/ứng dụng nhắn tin tức thời (Instant Message)"},
+                {v: "ent", t: "Trò chơi trực tuyến"},
+                {v: "info", t: "Trang hướng dẫn"}
+            ],
+            explain: "Nhắn tin -> Giao tiếp. Trò chơi -> Giải trí. Trang hướng dẫn -> Cung cấp thông tin."
+        },
+
+        {
+            id: 15, type: "table_tf",
+            q: "Với mỗi câu phát biểu về việc giao tiếp, hãy chọn Đúng hoặc Sai.",
             headers: ["Đúng", "Sai"],
             rows: [
-                {t: "Sẽ không ai nhìn thấy nội dung bạn đã đăng ngoại trừ những người theo dõi bạn", a: "no"},
-                {t: "Xóa một hình ảnh hoặc video khỏi phương tiện truyền thông xã hội sẽ xóa nó vĩnh viễn", a: "no"},
-                {t: "Những gì bạn đăng trên internet có thể ảnh hưởng đến những gì mọi người nghĩ về bạn", a: "yes"}
+                {t: "Đồng cảm là khả năng thấu hiểu và chia sẻ cảm xúc với người khác", a: "yes"},
+                {t: "Phép xã giao trên môi trường số là quy tắc ứng xử đúng đắn trên internet", a: "yes"},
+                {t: "Tôn trọng là khi bạn mong một việc gì đó xảy ra hai lần", a: "no"}
             ],
-            explain: "Nội dung có thể bị chia sẻ ra ngoài nhóm bạn bè. Xóa không đảm bảo mất vĩnh viễn."
+            explain: "Tôn trọng là sự đánh giá cao, coi trọng danh dự, phẩm giá của người khác."
         },
         {
-            id: 13, type: "radio",
-            q: "Ai đó đã đăng một bình luận xấu tính trên mạng xã hội về bạn An. Bạn ấy đã xóa bình luận, nhưng cũng chính người đó đã viết những bình luận ác ý hơn. Một thuật ngữ cho người đã viết các ý kiến có nghĩa là gì?",
-            opts: [
-                {v: "a", t: "Bắt nạt trên mạng (A cyberbully)"},
-                {v: "b", t: "Một kẻ lừa đảo (A scammer)"},
-                {v: "c", t: "Một hacker (A hacker)"},
-                {v: "d", t: "Một người mạo danh - lừa đảo (A catfish)"}
+            id: 16, type: "table_tf",
+            q: "Với mỗi câu phát biểu về phép xã giao thích hợp trên mạng, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Rất dễ nhận ra và hiểu được cảm xúc qua tin nhắn kỹ thuật số", a: "no"},
+                {t: "Viết toàn chữ IN HOA khi nhắn tin chỉ ra rằng người đó có cung cách giao tiếp đúng đắn và thái độ hào hứng", a: "no"},
+                {t: "Nhắn tin ngắn gọn và rõ ràng giúp người nhận hiểu được ý định của bạn", a: "yes"}
             ],
-            ans: "a",
-            explain: "Hành vi liên tục đăng bình luận ác ý nhắm vào người khác là bắt nạt qua mạng."
+            explain: "Cảm xúc khó nhận biết qua tin nhắn. Chữ IN HOA thường bị coi là thô lỗ/la hét."
         },
         {
-            id: 14, type: "radio",
-            q: "Khi ai đó sử dụng công nghệ để gây ác ý với người khác, việc họ đang làm được gọi là gì?",
-            opts: [
-                {v: "a", t: "Bắt nạt trên mạng (Cyberbullying)"},
-                {v: "b", t: "Là một người ngoài cuộc"},
-                {v: "c", t: "Là một người hành động"},
-                {v: "d", t: "Trolling"}
+            id: 17, type: "table_tf",
+            q: "Bạn là thành viên của một diễn đàn trực tuyến chuyên thảo luận về môn bóng chày. Có một người đăng lên bình luận sau: \"Tôi hiện sống ở New Jersey, nhưng từng sống ở Florida được hơn 40 năm. Florida Pythons sẽ luôn là đội tôi yêu thích. Bạn quyết định trả lời bình luận này. Ở mỗi câu trả lời, hãy chọn Thích hợp hoặc Không thích hợp.",
+            headers: ["Thích hợp", "Không thích hợp"],
+            rows: [
+                {t: "Có phải chú đã quá già để còn mê bóng chày không nhỉ? Bóng chày là môn cho người trẻ mà, thật đấy", a: "no"},
+                {t: "Cháu có thể hiểu được sao chú lại thích đội Pythons. Nếu sống ở Florida, chắc cháu cũng sẽ rất yêu mến họ!", a: "yes"},
+                {t: "Pythons là một đội kém cỏi, ông chú thích chúng nó nên cũng cùng một giuộc, thế nhé!", a: "no"}
             ],
-            ans: "a",
-            explain: "Cyberbullying là việc sử dụng công nghệ để quấy rối, đe dọa hoặc làm xấu hổ người khác."
-        },
-        {
-            id: 15, type: "radio",
-            q: "Hành động nào là một ví dụ về bắt nạt trên mạng?",
-            opts: [
-                {v: "a", t: "Đăng tin nhắn ác ý về ai đó trên phương tiện truyền thông xã hội"},
-                {v: "b", t: "Thích một bài đăng trên phương tiện truyền thông xã hội của một người bạn cùng lớp mà bạn không biết"},
-                {v: "c", t: "Bị bỏ rơi khỏi cuộc trò chuyện vào bữa trưa"},
-                {v: "d", t: "Tạo niềm vui cho một người bạn cùng lớp vào giờ ra chơi"}
-            ],
-            ans: "a",
-            explain: "Đăng tin nhắn ác ý là hành vi gây tổn thương trực tiếp trên môi trường mạng."
-        },
-        {
-            id: 16, type: "radio",
-            q: "Bạn đang trò chuyện trực tuyến với một người bạn và một cuộc tranh cãi nảy sinh. Bạn nên làm gì?",
-            opts: [
-                {v: "a", t: "Rời khỏi cuộc trò chuyện"},
-                {v: "b", t: "Tìm bằng chứng để giành chiến thắng trong cuộc tranh luận"},
-                {v: "c", t: "Nhờ một người bạn khác hỗ trợ bạn"},
-                {v: "d", t: "Phớt lờ bạn bè của bạn cho đến khi họ ngừng nói chuyện"}
-            ],
-            ans: "a",
-            explain: "Rời khỏi cuộc trò chuyện giúp cả hai bình tĩnh lại và tránh làm tình hình tồi tệ hơn."
-        },
-        {
-            id: 17, type: "radio",
-            q: "Quyền riêng tư kỹ thuật số là gì?",
-            opts: [
-                {v: "a", t: "Bảo vệ thông tin được lưu trữ hoặc chia sẻ trực tuyến"},
-                {v: "b", t: "Sử dụng mật khẩu phức tạp"},
-                {v: "c", t: "Trở thành bạn bè trực tuyến chỉ với những người bạn biết trong thế giới thực"},
-                {v: "d", t: "Che camera trên máy tính xách tay khi không sử dụng"}
-            ],
-            ans: "a",
-            explain: "Quyền riêng tư kỹ thuật số bao hàm việc kiểm soát và bảo vệ thông tin cá nhân trên mạng."
+            explain: "Bình luận thứ 2 thể hiện sự đồng cảm và tôn trọng (Thích hợp). Các bình luận còn lại mang tính công kích cá nhân, phân biệt tuổi tác (Không thích hợp)."
         },
         {
             id: 18, type: "table_tf",
-            q: "Đối với mỗi phát biểu về tương tác kỹ thuật số, hãy chọn Đúng hoặc Sai.",
+            q: "Với mỗi câu phát biểu, hãy chọn Đúng hoặc Sai.",
             headers: ["Đúng", "Sai"],
             rows: [
-                {t: "Thật an toàn khi chia sẻ tên đầy đủ và vị trí của bạn với bạn bè trực tuyến của bạn", a: "no"},
-                {t: "Một công dân kỹ thuật số tốt sẽ xin phép trước khi chia sẻ ảnh của người khác", a: "yes"},
-                {t: "Bạn có thể đưa ra những nhận xét ác ý trực tuyến miễn là bạn không nói chúng trực tiếp", a: "no"}
+                {t: "Mục đích của video hài hước là để cung cấp thông tin", a: "no"},
+                {t: "Mục đích của việc gửi email là để giao tiếp", a: "yes"},
+                {t: "Mục đích của bài báo tin tức trên mạng là để giải trí", a: "no"}
             ],
-            explain: "Không chia sẻ thông tin nhạy cảm. Luôn xin phép trước khi đăng ảnh người khác."
+            explain: "Video hài -> Giải trí. Email -> Giao tiếp. Bài báo -> Cung cấp thông tin."
         }
     ];
 
@@ -396,26 +391,40 @@
         questions.forEach((q, index) => {
             let label = q.id < 10 ? '0' + q.id : q.id;
             html += `<div class="question-card" id="card-${index}">
-                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="topic-col">Câu ${label}</div>
                 <div class="content-col">
-                    <div class="question-text">${q.q}</div>`;
+                    <div class="question-text">${q.q.replace(/\n/g, '<br>')}</div>`;
             
-            if (q.img) {
-                html += `<img src="${q.img}" class="single-img" alt="Minh họa">`;
-            }
-
             if (q.type === 'radio') {
                 html += `<div class="options">`;
                 q.opts.forEach(opt => {
                     html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
                 });
                 html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                // Áp dụng class match-table để tùy chỉnh cột
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Nội dung</th><th>Lựa chọn</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}" style="width:100%"><option value="">-- Chọn --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
             } else if (q.type === 'table_tf') {
-                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                // Áp dụng class tf-table để tùy chỉnh cột
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
                 q.rows.forEach((r, rIdx) => {
                     html += `<tr><td>${r.t}</td>
-                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
-                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${q.headers[0] === 'Đúng' || q.headers[0] === 'Có' || q.headers[0] === 'Thích hợp' ? 'yes' : 'no'}"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${q.headers[1] === 'Sai' || q.headers[1] === 'Không' || q.headers[1] === 'Không thích hợp' ? 'no' : 'yes'}"></td></tr>`;
                 });
                 html += `</tbody></table></div>`;
             }
@@ -444,10 +453,17 @@
             let answered = false;
             if (q.type === 'radio') {
                 if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
-            } else if (q.type === 'table_tf') {
+            } else if (q.type === 'check') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
                 let subCount = 0;
-                q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
-                if (subCount === q.rows.length) answered = true;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
             }
 
             if (!answered) {
@@ -476,12 +492,32 @@
                     let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
                     if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
                 }
+            } else if (q.type === 'check') {
+                let checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checked.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
             } else if (q.type === 'table_tf') {
                 let subCorrect = 0;
                 q.rows.forEach((r, rIdx) => {
                     let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
                     let rightVal = r.a; 
-                    
                     if (checked.value === rightVal) {
                         subCorrect++;
                         checked.parentElement.style.backgroundColor = "#d4edda";
