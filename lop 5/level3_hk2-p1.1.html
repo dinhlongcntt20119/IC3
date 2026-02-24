@@ -3,146 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (1.1)</title>
+    <title>Lớp 5 - Level 3 | Kiến Thức Tổng Hợp - Phần 1.1</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root { --primary-blue: #234585; --accent-yellow: #ffc107; --bg-color: #f0f4f8; --success-color: #d4edda; --error-color: #f8d7da; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; margin: 0; }
-        header { background: var(--primary-blue); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent-yellow); position: sticky; top: 0; z-index: 1000; }
-        .home-btn { background: rgba(255,255,255,0.2); color: white; text-decoration: none; padding: 6px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; gap: 5px; }
-        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 1.8rem; font-style: italic; font-weight: 800; }
-        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; } 
-        .logo-ic3 span:nth-child(2) { color: #222; opacity: 0.7; }
-        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        .question-card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 1px solid #e1e8ed; }
-        .question-card.incomplete { border: 2px solid #dc3545; box-shadow: 0 0 8px rgba(220,53,69,0.4); }
-        .topic-label { position: absolute; top: -12px; left: 20px; background: #2a5298; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; }
-        .question-text { font-weight: 700; margin-bottom: 15px; color: #2c3e50; }
-        .options label { display: block; padding: 10px; margin-bottom: 8px; border: 1px solid #eee; border-radius: 8px; cursor: pointer; }
-        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .grid-table td, .grid-table th { border: 1px solid #dee2e6; padding: 8px; text-align: center; }
-        .correct-answer { background-color: var(--success-color) !important; border: 1px solid #28a745 !important; }
-        .wrong-answer { background-color: var(--error-color) !important; border: 1px solid #dc3545 !important; }
-        .feedback-box { display: none; margin-top: 15px; padding: 15px; background: #eef2f7; border-left: 5px solid #28a745; }
-        .btn-submit { display: block; width: 100%; padding: 18px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 30px; }
-        #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
-        footer { background: var(--primary-blue); color: white; padding: 30px; text-align: center; margin-top: 50px; }
+        :root {
+            /* TÔNG MÀU TÍM LEVEL 3 */
+            --primary-color: #8e44ad; 
+            --primary-dark: #6c3483;  
+            --accent-color: #af7ac5;  
+            --bg-body: #f9f2fc;       
+            --text-color: #4a235a;    
+            --border-color: #d2b4de;  
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #f4ecf7; } 
+        
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #76448a; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f4ecf7; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4; color: #000;
+        }
+        .options label:hover { background-color: #f4ecf7; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #faf5fc; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; font-weight: bold; }
+
+        .match-table td:first-child { width: 65%; font-family: 'Times New Roman', serif; font-size: 1.05rem; color: #000; }
+        .match-table td:last-child { width: 35%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #c39bd3; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer; color: #000;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5; color: #856404;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #c39bd3; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
     </style>
 </head>
 <body>
+
 <header>
-    <div class="header-left"><a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a><div class="logo-ic3"><span>IC3</span><span>spark</span></div></div>
-    <div>GV. Nguyễn Đình Bạch Long</div>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 3</span>
+    </div>
 </header>
+
 <div class="container">
-    <div style="text-align:center;"><h1>KIẾN THỨC TỔNG HỢP - PHẦN 1.1</h1><p>Câu 01 - Câu 20</p></div>
+    <div class="page-title">
+        <h1>LỚP 5 - LEVEL 3</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 1.1 (CHỦ ĐỀ 01 - 20)</h2>
+    </div>
+
     <form id="quiz-form">
-        <script>
-            const qData = [
-                {id:1, q:"Khắc phục sự cố cơ bản?", type:"table", rows:[{t:"Khởi động lại",a:"c"},{t:"Ngắt nguồn tòa nhà",a:"k"},{t:"Tải lại trình duyệt",a:"c"},{t:"Kiểm tra cáp",a:"c"}], explain:"Khởi động lại, Refresh, Kiểm tra cáp là bước cơ bản."},
-                {id:2, q:"Thành phần của URL?", type:"table", rows:[{t:"Giao thức",a:"c"},{t:"Tên miền",a:"c"},{t:"Chuỗi truy vấn",a:"c"},{t:"Neo (Anchor)",a:"c"}], explain:"Tất cả đều là thành phần cấu tạo URL."},
-                {id:3, q:"Bước lấy thông tin trực tuyến?", type:"table", rows:[{t:"Nhập URL",a:"c"},{t:"Khởi động lại máy",a:"k"},{t:"Máy chủ trả về thông tin",a:"c"},{t:"URL phân giải IP",a:"c"}], explain:"Khởi động lại không phải là bước lấy thông tin."},
-                {id:4, q:"USB Drive dùng để làm gì?", type:"radio", opts:[{v:"a",t:"Lưu trữ và truyền dữ liệu"},{v:"b",t:"Gửi SMS"},{v:"c",t:"Chụp ảnh"},{v:"d",t:"Chơi game"}], ans:"a", explain:"Lưu trữ dữ liệu."},
-                {id:5, q:"Cài đặt nào cho phép theo dõi vị trí?", type:"radio", opts:[{v:"a",t:"Độ sáng"},{v:"b",t:"Thông báo"},{v:"c",t:"Wifi"},{v:"d",t:"Vị trí (Location)"}], ans:"d", explain:"Cài đặt Vị trí (Location Services)."},
-                {id:6, q:"Giao thức kết nối an toàn?", type:"radio", opts:[{v:"a",t:"SMTP"},{v:"b",t:"HTTPS"},{v:"c",t:"FTP"},{v:"d",t:"HTTP"}], ans:"b", explain:"HTTPS (Secure)."},
-                {id:7, q:"Thiết bị âm thanh không hoạt động?", type:"radio", opts:[{v:"a",t:"Kiểm tra âm lượng"},{v:"b",t:"Thay thế"},{v:"c",t:"Cài card mới"},{v:"d",t:"Chỉnh độ sáng"}], ans:"a", explain:"Kiểm tra âm lượng hoặc nút Mute trước tiên."},
-                {id:8, q:"KHÔNG phải phần của URL?", type:"radio", opts:[{v:"a",t:"Subdomain"},{v:"b",t:"Domain"},{v:"c",t:"IP Address"},{v:"d",t:"Protocol"}], ans:"c", explain:"IP là địa chỉ số, URL là địa chỉ chữ. Tuy URL phân giải ra IP nhưng IP không phải là 'một phần' trong chuỗi URL thông thường."},
-                {id:9, q:"Mục đích địa chỉ IP?", type:"radio", opts:[{v:"a",t:"Gửi email"},{v:"b",t:"Chơi nhạc"},{v:"c",t:"Xác định vị trí trang web/thiết bị"},{v:"d",t:"Điều khiển chuột"}], ans:"c", explain:"Định danh và xác định vị trí trên mạng."},
-                {id:10, q:"Tên miền tin tưởng cho du lịch?", type:"radio", opts:[{v:"a",t:".net"},{v:"b",t:".gov"},{v:"c",t:".xyz"},{v:"d",t:".com"}], ans:"b", explain:".gov là chính phủ, thông tin du lịch chính thống thường tin cậy."},
-                {id:11, q:"Không kết nối được wifi tại nhà?", type:"radio", opts:[{v:"a",t:"Di chuyển lại gần Router"},{v:"b",t:"Thay pin"},{v:"c",t:"Tắt bluetooth"},{v:"d",t:"Reset adapter"}], ans:"a", explain:"Thử lại gần nguồn phát sóng trước."},
-                {id:12, q:"Khả năng tiếp cận (Accessibility)?", type:"radio", opts:[{v:"a",t:"Lưu đám mây"},{v:"b",t:"Kết nối mạng"},{v:"c",t:"Dễ sử dụng cho người khuyết tật"},{v:"d",t:"Gửi dữ liệu"}], ans:"c", explain:"Công nghệ hỗ trợ người khuyết tật."},
-                {id:13, q:"Mục đích IP (lặp lại)?", type:"radio", opts:[{v:"a",t:"Xác định thiết bị trên mạng"},{v:"b",t:"Email"},{v:"c",t:"Vị trí vật lý"},{v:"d",t:"Thông tin cá nhân"}], ans:"a", explain:"Identify devices."},
-                {id:14, q:"Internet là gì?", type:"radio", opts:[{v:"a",t:"Mạng lưới toàn cầu"},{v:"b",t:"Vị trí vật lý"},{v:"c",t:"Điện thoại"},{v:"d",t:"Trình duyệt"}], ans:"a", explain:"Global network."},
-                {id:15, q:"Lợi ích Cloud?", type:"radio", opts:[{v:"a",t:"Đồng bộ hóa"},{v:"b",t:"Truy cập 1 thiết bị"},{v:"c",t:"Bản in giấy"},{v:"d",t:"Truy cập không cần phép"}], ans:"a", explain:"Sync across devices."},
-                {id:16, q:"Nguồn thu thập dữ liệu?", type:"table", rows:[{t:"Google",a:"c"},{t:"GPS ô tô",a:"c"},{t:"Smartphone",a:"c"},{t:"MXH",a:"c"}], explain:"Tất cả đều thu thập dữ liệu người dùng."},
-                {id:17, q:"Tính năng USB?", type:"table", rows:[{t:"Mang theo được",a:"c"},{t:"Lưu trữ",a:"c"},{t:"Truyền tập tin",a:"c"},{t:"Kết nối không dây",a:"k"}], explain:"USB cắm trực tiếp, không không dây."},
-                {id:18, q:"Mô tả USB Drive?", type:"radio", opts:[{v:"a",t:"Không gian ổ cứng"},{v:"b",t:"CSDL online"},{v:"c",t:"Thiết bị lưu trữ dạng cắm"},{v:"d",t:"Bộ nhớ đám mây"}], ans:"c", explain:"Plug-in device."},
-                {id:19, q:"Công nghệ khả thi?", type:"table", rows:[{t:"Công nhân mỏ nhận dữ liệu",a:"c"},{t:"Y tá làm việc từ xa",a:"c"},{t:"Máy học sáng tác nhạc",a:"c"}], explain:"Công nghệ hiện đại cho phép tất cả."},
-                {id:20, q:"Bit dữ liệu nhỏ web thu thập?", type:"radio", opts:[{v:"a",t:"Cookies"},{v:"b",t:"Bảng tính"},{v:"c",t:"Hacking"},{v:"d",t:"Dữ liệu"}], ans:"a", explain:"Cookies."}
-            ];
-            
-            // Render Questions (Tái sử dụng logic render từ file level2)
-            const form = document.getElementById('quiz-form');
-            qData.forEach(q => {
-                let h = `<div class="question-card" id="c${q.id}"><span class="topic-label">Chủ đề ${q.id}</span><div class="question-text">${q.q}</div>`;
-                if(q.type==='radio'){
-                    h+=`<div class="options">`;
-                    q.opts.forEach(o=>h+=`<label><input type="radio" name="q${q.id}" value="${o.v}"> ${o.t}</label>`);
-                    h+=`</div>`;
-                } else if(q.type==='table'){
-                    h+=`<table class="grid-table"><tr><th>Nội dung</th><th>${q.id===1||q.id===17?'Có/Không':(q.id===16?'Có/Không':'Đúng/Sai')}</th></tr>`;
-                    q.rows.forEach((r,i)=>h+=`<tr><td>${r.t}</td><td><label style="display:inline"><input type="radio" name="q${q.id}_${i}" value="${r.a==='c'?'c':'d'}"> ${q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'Có':'Đúng'}</label> <label style="display:inline"><input type="radio" name="q${q.id}_${i}" value="${r.a==='c'?'k':'s'}"> ${q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'Không':'Sai'}</label></td></tr>`);
-                    h+=`</table>`;
-                }
-                h+=`<div class="feedback-box"><strong>Đáp án:</strong> ${q.explain}</div></div>`;
-                form.innerHTML+=h;
-            });
+        </form>
 
-            function gradeQuiz(){
-                let score=0; let all=true; let firstMiss=null;
-                document.querySelectorAll('.question-card').forEach(c=>c.classList.remove('incomplete'));
-                document.querySelectorAll('.feedback-box').forEach(b=>b.style.display='none');
-                
-                qData.forEach(q=>{
-                    let ans=false;
-                    if(q.type==='radio'){
-                        if(document.querySelector(`input[name="q${q.id}"]:checked`)) ans=true;
-                    } else {
-                        let sub=0; q.rows.forEach((r,i)=>{ if(document.querySelector(`input[name="q${q.id}_${i}"]:checked`)) sub++; });
-                        if(sub===q.rows.length) ans=true;
-                    }
-                    if(!ans){ all=false; let c=document.getElementById(`c${q.id}`); c.classList.add('incomplete'); if(!firstMiss) firstMiss=c; }
-                });
-
-                if(!all){ alert('Vui lòng làm hết bài!'); firstMiss.scrollIntoView({behavior:'smooth',block:'center'}); return; }
-
-                qData.forEach(q=>{
-                    let corr=false;
-                    if(q.type==='radio'){
-                        let v = document.querySelector(`input[name="q${q.id}"]:checked`).value;
-                        if(v===q.ans) corr=true;
-                        document.querySelectorAll(`input[name="q${q.id}"]`).forEach(i=>{
-                            if(i.value===q.ans) i.parentElement.classList.add('correct-answer');
-                            else if(i.checked) i.parentElement.classList.add('wrong-answer');
-                        });
-                    } else {
-                        let subC=0;
-                        q.rows.forEach((r,i)=>{
-                            let v = document.querySelector(`input[name="q${q.id}_${i}"]:checked`).value;
-                            // Logic: value 'c'/'d' is correct group, 'k'/'s' is wrong group.
-                            // Data uses 'c' for yes/correct in logic.
-                            let isTrue = (r.a==='c'||r.a==='d'); 
-                            // Input values: first option is always 'c'/'d', second is 'k'/'s'
-                            let userVal = document.querySelector(`input[name="q${q.id}_${i}"]:checked`);
-                            // Check logic map
-                            let correctVal = isTrue ? (q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'c':'d') : (q.id===1||q.id===3||q.id===16||q.id===17||q.id===19?'k':'s');
-                            
-                            if(userVal.value === correctVal) subC++;
-                            // Style
-                            document.querySelectorAll(`input[name="q${q.id}_${i}"]`).forEach(inp=>{
-                                if(inp.value === correctVal) inp.parentElement.classList.add('correct-answer');
-                                else if(inp.checked) inp.parentElement.classList.add('wrong-answer');
-                            });
-                        });
-                        if(subC===q.rows.length) corr=true;
-                    }
-                    if(corr) score++;
-                    document.querySelector(`#c${q.id} .feedback-box`).style.display='block';
-                });
-
-                let r = document.getElementById('result-area');
-                r.style.display='block';
-                r.innerHTML=`Kết quả: ${score}/${qData.length} câu đúng`;
-                r.style.backgroundColor = score/qData.length >= 0.8 ? '#d4edda':'#f8d7da';
-                window.scrollTo({top:0,behavior:'smooth'});
-                document.querySelectorAll('input').forEach(i=>i.disabled=true);
-            }
-        </script>
-        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
-        <div id="result-area"></div>
-    </form>
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
 </div>
-<footer><p>© 2026 - GV Nguyễn Đình Bạch Long</p></footer>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 1, type: "table_tf",
+            q: "Em hãy chọn Có nếu là tùy chọn để khắc phục sự cố cơ bản trong công nghệ và chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Khởi động lại thiết bị", a: "yes"},
+                {t: "Ngắt kết nối nguồn điện khỏi tòa nhà chính", a: "no"},
+                {t: "Làm mới hoặc tải lại (Refresh/Reload) trình duyệt web", a: "yes"},
+                {t: "Kiểm tra xem tất cả dây cáp đã được kết nối đúng cách chưa", a: "yes"}
+            ],
+            explain: "Các bước cơ bản bao gồm khởi động lại, kiểm tra cáp và tải lại trang. Việc ngắt nguồn điện toàn nhà là hành động nguy hiểm và không phải là bước khắc phục cơ bản."
+        },
+        {
+            id: 2, type: "table_tf",
+            q: "Em hãy chọn Có nếu tùy chọn là thành phần của URL và chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Giao thức (Protocol)", a: "yes"},
+                {t: "Tên miền (Domain Name)", a: "yes"},
+                {t: "Chuỗi truy vấn (Query String)", a: "yes"},
+                {t: "Neo (Anchor)", a: "yes"}
+            ],
+            explain: "Tất cả các thành phần trên đều cấu tạo nên một địa chỉ URL hoàn chỉnh."
+        },
+        {
+            id: 3, type: "table_tf",
+            q: "Em hãy cho biết, những bước nào liên quan đến việc lấy thông tin trực tuyến? Em hãy chọn Có nếu đây là bước bắt buộc và ngược lại chọn Không.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Nhập URL", a: "yes"},
+                {t: "Khởi động lại thiết bị", a: "no"},
+                {t: "Thông tin từ máy chủ trả về và hiển thị trên trình duyệt", a: "yes"},
+                {t: "URL phân giải thành địa chỉ IP", a: "yes"}
+            ],
+            explain: "Quá trình tải web gồm: Nhập URL -> Phân giải IP -> Máy chủ trả thông tin. Khởi động lại thiết bị không thuộc quy trình này."
+        },
+        {
+            id: 4, type: "radio",
+            q: "Em hãy cho biết, USB Drive dùng để làm gì?",
+            opts: [
+                {v: "a", t: "Lưu trữ và truyền dữ liệu"},
+                {v: "b", t: "Gửi và nhận tin nhắn SMS"},
+                {v: "c", t: "Chụp ảnh"},
+                {v: "d", t: "Chơi game"}
+            ],
+            ans: "a",
+            explain: "USB Drive là thiết bị phần cứng nhỏ gọn chuyên dùng để lưu trữ, sao lưu và truyền tải dữ liệu giữa các máy tính."
+        },
+        {
+            id: 5, type: "radio",
+            q: "Em hãy cho biết, cài đặt thiết bị di động nào cho phép ứng dụng theo dõi vị trí của em?",
+            opts: [
+                {v: "a", t: "Cài đặt độ sáng màn hình"},
+                {v: "b", t: "Cài đặt thông báo"},
+                {v: "c", t: "Cài đặt Wifi"},
+                {v: "d", t: "Cài đặt vị trí"}
+            ],
+            ans: "d",
+            explain: "Cài đặt vị trí (Location Services / GPS) cấp quyền cho ứng dụng biết tọa độ địa lý của thiết bị."
+        },
+        {
+            id: 6, type: "radio",
+            q: "Em hãy cho biết, giao thức nào đảm bảo kết nối an toàn và được mã hóa giữa trình duyệt web và trang web?",
+            opts: [
+                {v: "a", t: "SMTP"},
+                {v: "b", t: "HTTPS"},
+                {v: "c", t: "FTP"},
+                {v: "d", t: "HTTP"}
+            ],
+            ans: "b",
+            explain: "HTTPS (Hypertext Transfer Protocol Secure) sử dụng mã hóa để bảo vệ giao tiếp qua mạng máy tính an toàn."
+        },
+        {
+            id: 7, type: "radio",
+            q: "Em hãy cho biết, bước khắc phục sự cố cơ bản cần thử trên thiết bị âm thanh không hoạt động là gì?",
+            opts: [
+                {v: "a", t: "Kiểm tra các điều khiển âm lượng"},
+                {v: "b", t: "Thay thế thiết bị"},
+                {v: "c", t: "Cài đặt một card âm thanh mới"},
+                {v: "d", t: "Điều chỉnh độ sáng màn hình"}
+            ],
+            ans: "a",
+            explain: "Việc đầu tiên và cơ bản nhất khi mất âm thanh là kiểm tra xem thiết bị có đang bị tắt tiếng (Mute) hay để mức âm lượng quá nhỏ không."
+        },
+        {
+            id: 8, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào dưới đây KHÔNG phải là một phần của URL?",
+            opts: [
+                {v: "a", t: "Tên miền phụ (Subdomain)"},
+                {v: "b", t: "Tên miền (Domain Name)"},
+                {v: "c", t: "Địa chỉ IP (IP Address)"},
+                {v: "d", t: "Giao thức (Protocol)"}
+            ],
+            ans: "c",
+            explain: "URL là địa chỉ dạng văn bản. Địa chỉ IP là chuỗi số dùng để định danh thiết bị mạng, không phải là một phần của chuỗi văn bản URL."
+        },
+        {
+            id: 9, type: "radio",
+            q: "Em hãy cho biết, mục đích của địa chỉ IP là gì?",
+            opts: [
+                {v: "a", t: "Gửi và nhận email"},
+                {v: "b", t: "Chơi các tập tin âm nhạc"},
+                {v: "c", t: "Xác định vị trí của một trang web"},
+                {v: "d", t: "Điều khiển các thiết bị ngoại vi của máy tính"}
+            ],
+            ans: "c",
+            explain: "Địa chỉ IP (Internet Protocol) là hệ thống định vị giúp xác định vị trí của các thiết bị và máy chủ web trên mạng Internet."
+        },
+        {
+            id: 10, type: "radio",
+            q: "Em tin tưởng tên miền nào nhất khi tìm kiếm thông tin cập nhật về du lịch nước ngoài?",
+            opts: [
+                {v: "a", t: ".net"},
+                {v: "b", t: ".gov"},
+                {v: "c", t: ".xyz"},
+                {v: "d", t: ".com"}
+            ],
+            ans: "b",
+            explain: "Tên miền .gov thuộc về các tổ chức và cơ quan chính phủ, do đó thông tin cung cấp mang tính chất chính thức và có độ tin cậy cao nhất."
+        },
+        {
+            id: 11, type: "radio",
+            q: "Em không kết nối được với internet ở nhà mình, không ai khác trong nhà gặp vấn đề này. Em nên làm gì trước tiên để khắc phục?",
+            opts: [
+                {v: "a", t: "Di chuyển đến gần bộ định tuyến hơn"},
+                {v: "b", t: "Thay pin cho thiết bị của em"},
+                {v: "c", t: "Tắt hoặc vô hiệu hóa bluetooth trên thiết bị của em"},
+                {v: "d", t: "Khởi động lại (Reset) bộ chuyển đổi không dây (Wireless Adapter) trên thiết bị của em"}
+            ],
+            ans: "d",
+            explain: "Vì chỉ có thiết bị của em gặp lỗi, vấn đề nằm ở thiết bị chứ không phải do mạng lưới chung. Khởi động lại bộ thu phát Wifi (Wireless Adapter) trên máy là bước hiệu quả nhất."
+        },
+        {
+            id: 12, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào là khả năng tiếp cận trong công nghệ là gì?",
+            opts: [
+                {v: "a", t: "Quá trình lưu trữ dữ liệu trên đám mây"},
+                {v: "b", t: "Khả năng kết nối với mạng"},
+                {v: "c", t: "Sự dễ dàng sử dụng và sẵn có của công nghệ dành cho người khuyết tật"},
+                {v: "d", t: "Cách dữ liệu được gửi qua internet"}
+            ],
+            ans: "c",
+            explain: "Khả năng tiếp cận (Accessibility) đảm bảo phần mềm và phần cứng được thiết kế để tất cả mọi người, kể cả người khiếm khuyết, đều có thể sử dụng được."
+        },
+        {
+            id: 13, type: "radio",
+            q: "Em hãy cho biết, mục đích của địa chỉ IP (Internet Protocol) là gì?",
+            opts: [
+                {v: "a", t: "Xác định các thiết bị hỗ trợ internet trên mạng máy tính"},
+                {v: "b", t: "Gửi và nhận email"},
+                {v: "c", t: "Xác định vị trí địa chỉ vật lý của trang web"},
+                {v: "d", t: "Xác định thông tin cá nhân của người dùng"}
+            ],
+            ans: "a",
+            explain: "Địa chỉ IP đóng vai trò như một 'số nhà', giúp định danh và xác định vị trí của bất kỳ thiết bị nào đang kết nối vào mạng."
+        },
+        {
+            id: 14, type: "radio",
+            q: "Em hãy cho biết, internet là gì?",
+            opts: [
+                {v: "a", t: "Một mạng lưới toàn cầu gồm các máy tính và thiết bị được kết nối"},
+                {v: "b", t: "Một vị trí vật lý nơi dữ liệu được lưu trữ"},
+                {v: "c", t: "Một thiết bị để thực hiện cuộc gọi điện thoại"},
+                {v: "d", t: "Một trình duyệt web"}
+            ],
+            ans: "a",
+            explain: "Internet là hệ thống mạng máy tính toàn cầu, kết nối hàng tỷ thiết bị với nhau bằng các giao thức mạng tiêu chuẩn."
+        },
+        {
+            id: 15, type: "radio",
+            q: "Em hãy cho biết, lợi ích của việc lưu trữ đám mây là gì?",
+            opts: [
+                {v: "a", t: "Dữ liệu được tự động đồng bộ hóa trên tất cả thiết bị"},
+                {v: "b", t: "Thông tin chỉ có thể được truy cập bởi một thiết bị tại một thời điểm"},
+                {v: "c", t: "Bản in trên giấy (Physical Copies) của tài liệu được lưu trữ"},
+                {v: "d", t: "Bất kì ai cũng có thể truy cập tập tin mà không cần xin phép"}
+            ],
+            ans: "a",
+            explain: "Lưu trữ đám mây (Cloud Storage) giúp dữ liệu luôn được cập nhật và đồng bộ trên mọi thiết bị có kết nối Internet."
+        },
+        {
+            id: 16, type: "table_tf",
+            q: "Với mỗi câu phát biểu về việc thu thập dữ liệu, em hãy chọn Có nếu nguồn đó thu thập dữ liệu về hoạt động sử dụng của em hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Google", "a": "yes"},
+                {t: "GPS ô tô", "a": "yes"},
+                {t: "Điện thoại thông minh", "a": "yes"},
+                {t: "Mạng xã hội", "a": "yes"}
+            ],
+            explain: "Các dịch vụ công cụ tìm kiếm (Google), thiết bị định vị (GPS), Smartphone và Mạng xã hội đều liên tục thu thập dữ liệu để tối ưu hóa trải nghiệm người dùng hoặc phục vụ quảng cáo."
+        },
+        {
+            id: 17, type: "table_tf",
+            q: "Em hãy chọn Có nếu tính năng của USB và chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Có thể mang theo", "a": "yes"},
+                {t: "Không gian lưu trữ", "a": "yes"},
+                {t: "Truyền tải tập tin", "a": "yes"},
+                {t: "Kết nối không dây", "a": "no"}
+            ],
+            explain: "USB là thiết bị vật lý dùng cổng cắm, không có tính năng truyền tải không dây (như Bluetooth hay Wifi)."
+        },
+        {
+            id: 18, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào dưới đây mô tả đúng về USB Drive?",
+            opts: [
+                {v: "a", t: "Một không gian lưu trữ trên một ổ cứng"},
+                {v: "b", t: "Một cơ sở dữ liệu lưu trữ các tập tin trực tuyến"},
+                {v: "c", t: "Một thiết bị lưu trữ dạng cắm"},
+                {v: "d", t: "Một thiết bị nhớ hoạt động trên đám mây"}
+            ],
+            ans: "c",
+            explain: "USB Drive (ổ đĩa flash USB) là một thiết bị lưu trữ dữ liệu dạng cắm vật lý trực tiếp vào cổng máy tính."
+        },
+        {
+            id: 19, type: "table_tf",
+            q: "Với mỗi phát biểu về công nghệ, em hãy chọn Có nếu phát biểu đó nói về một điều khả thi hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Các công nhân ở một khu mỏ có thể nhận được dữ liệu thời gian thực từ các công nhân ở một khu mỏ khác", "a": "yes"},
+                {t: "Một y tá làm việc từ xa có thể sử dụng dữ liệu y tế thời gian thực để chẩn đoán các vấn đề cho một bệnh nhân đang ở nhà", "a": "yes"},
+                {t: "Máy học (Machine Learning) có thể giúp các nhạc sĩ sáng tác thêm nhiều bài hát nổi tiếng", "a": "yes"}
+            ],
+            explain: "Công nghệ hiện đại (IoT, Telemedicine, AI/Machine Learning) hoàn toàn có thể hỗ trợ truyền dữ liệu thời gian thực và phân tích sáng tạo một cách hiệu quả."
+        },
+        {
+            id: 20, type: "radio",
+            q: "Em hãy cho biết, thuật ngữ nào chỉ các bit dữ liệu nhỏ được thu thập bởi trang web mà em truy cập?",
+            opts: [
+                {v: "a", t: "Cookies"},
+                {v: "b", "t": "Bảng tính"},
+                {v: "c", "t": "Tấn công xâm nhập (Hacking)"},
+                {v: "d", "t": "Dữ kiện"}
+            ],
+            ans: "a",
+            explain: "Cookies là các tệp dữ liệu nhỏ được trang web tạo ra và lưu trên máy tính của người dùng nhằm ghi nhớ thông tin và sở thích truy cập."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.id < 10 ? '0' + q.id : q.id;
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CHỦ ĐỀ ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
 </body>
 </html>
