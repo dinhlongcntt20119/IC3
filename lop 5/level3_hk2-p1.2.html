@@ -3,154 +3,639 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (1.2)</title>
+    <title>Lớp 5 - Level 3 | Kiến Thức Tổng Hợp - Phần 1.2</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root { --primary-blue: #234585; --accent-yellow: #ffc107; --bg-color: #f0f4f8; --success-color: #d4edda; --error-color: #f8d7da; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; margin: 0; }
-        header { background: var(--primary-blue); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent-yellow); position: sticky; top: 0; z-index: 1000; }
-        .home-btn { background: rgba(255,255,255,0.2); color: white; padding: 6px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; gap: 5px; text-decoration: none; }
-        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 1.8rem; font-style: italic; font-weight: 800; }
-        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; } 
-        .logo-ic3 span:nth-child(2) { color: #222; opacity: 0.7; }
-        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        .question-card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 1px solid #e1e8ed; }
-        .question-card.incomplete { border: 2px solid #dc3545; }
-        .topic-label { position: absolute; top: -12px; left: 20px; background: #2a5298; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; }
-        .question-text { font-weight: 700; margin-bottom: 15px; color: #2c3e50; }
-        .options label { display: block; padding: 10px; margin-bottom: 8px; border: 1px solid #eee; border-radius: 8px; cursor: pointer; }
-        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .grid-table td, .grid-table th { border: 1px solid #dee2e6; padding: 8px; text-align: center; }
-        .correct-answer { background-color: var(--success-color) !important; border: 1px solid #28a745 !important; }
-        .wrong-answer { background-color: var(--error-color) !important; border: 1px solid #dc3545 !important; }
-        .feedback-box { display: none; margin-top: 15px; padding: 15px; background: #eef2f7; border-left: 5px solid #28a745; }
-        .btn-submit { display: block; width: 100%; padding: 18px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 30px; }
-        #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
-        footer { background: var(--primary-blue); color: white; padding: 30px; text-align: center; margin-top: 50px; }
+        :root {
+            /* TÔNG MÀU TÍM LEVEL 3 */
+            --primary-color: #8e44ad; 
+            --primary-dark: #6c3483;  
+            --accent-color: #af7ac5;  
+            --bg-body: #f9f2fc;       
+            --text-color: #4a235a;    
+            --border-color: #d2b4de;  
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #f4ecf7; } 
+        
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #76448a; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f4ecf7; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4; color: #000;
+        }
+        .options label:hover { background-color: #f4ecf7; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* SINGLE IMAGE */
+        .single-img { display: block; max-width: 100%; max-height: 400px; margin: 0 auto 20px auto; border-radius: 8px; border: 1px solid #d2b4de; }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #faf5fc; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; font-weight: bold; }
+
+        .match-table td:first-child { width: 65%; font-family: 'Times New Roman', serif; font-size: 1.05rem; color: #000; }
+        .match-table td:last-child { width: 35%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #c39bd3; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer; color: #000;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5; color: #856404;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #c39bd3; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
     </style>
 </head>
 <body>
+
 <header>
-    <div class="header-left"><a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a><div class="logo-ic3"><span>IC3</span><span>spark</span></div></div>
-    <div>GV. Nguyễn Đình Bạch Long</div>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 3</span>
+    </div>
 </header>
+
 <div class="container">
-    <div style="text-align:center;"><h1>KIẾN THỨC TỔNG HỢP - PHẦN 1.2</h1><p>Câu 21 - Câu 42</p></div>
+    <div class="page-title">
+        <h1>LỚP 5 - LEVEL 3</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 1.2 (CHỦ ĐỀ 21 - 42)</h2>
+    </div>
+
     <form id="quiz-form">
-        <script>
-            const qData = [
-                {id:21, q:"Máy in ngừng in, làm gì trước?", type:"radio", opts:[{v:"a",t:"Khởi động lại máy"},{v:"b",t:"Xóa hàng chờ"},{v:"c",t:"Đổi driver"},{v:"d",t:"Kiểm tra dây cáp/kết nối"}], ans:"d", explain:"Kiểm tra vật lý (dây cáp) trước tiên."},
-                {id:22, q:"Máy tính bị chậm?", type:"radio", opts:[{v:"a",t:"Đóng ứng dụng không dùng"},{v:"b",t:"Rút phích cắm"},{v:"c",t:"Cập nhật OS"},{v:"d",t:"Nhấp chuột liên tục"}], ans:"a", explain:"Giải phóng RAM bằng cách đóng ứng dụng."},
-                {id:23, q:"URL là gì?", type:"radio", opts:[{v:"a",t:"Nhà phát hành"},{v:"b",t:"Tên trang"},{v:"c",t:"Địa chỉ trang web"},{v:"d",t:"Tác giả"}], ans:"c", explain:"Uniform Resource Locator."},
-                {id:24, q:"Ẩn vị trí khi tìm nhà hàng?", type:"radio", opts:[{v:"a",t:"Duyệt riêng tư (Incognito)"},{v:"b",t:"Chặn quảng cáo"},{v:"c",t:"Xóa cookies"},{v:"d",t:"Xóa cache"}], ans:"a", explain:"Chế độ riêng tư hạn chế lưu dấu vết."},
-                {id:25, q:"Tài xế xe buýt dùng gì để định hướng?", type:"radio", opts:[{v:"a",t:"Radio"},{v:"b",t:"GPS"},{v:"c",t:"MP3"},{v:"d",t:"Địa cầu"}], ans:"b", explain:"GPS (Global Positioning System)."},
-                {id:26, q:"URL đúng định dạng?", type:"radio", opts:[{v:"a",t:"https://.company"},{v:"b",t:"https://www.companypro.net/test"},{v:"c",t:"http://www"},{v:"d",t:"https://www/net"}], ans:"b", explain:"Đúng cú pháp protocol://domain/path."},
-                {id:27, q:"Nhập URL ở đâu?", type:"radio", opts:[{v:"a",t:"Thanh địa chỉ (Address Bar)"},{v:"b",t:"Ô tìm kiếm"},{v:"c",t:"Nút đăng nhập"},{v:"d",t:"Gmail"}], ans:"a", explain:"Thanh địa chỉ nằm trên cùng."},
-                {id:28, q:"Đuôi trang web phi lợi nhuận?", type:"radio", opts:[{v:"a",t:".net"},{v:"b",t:".edu"},{v:"c",t:".org"},{v:"d",t:".com"}], ans:"c", explain:".org (Organization)."},
-                {id:29, q:"Ghép loại lưu trữ:", type:"match", rows:[{t:"Lưu trên laptop",a:"hdd"},{t:"Sao lưu an toàn bởi cty khác",a:"cloud"},{t:"Sao chép không cần mạng",a:"usb"}], explain:"HDD: Tại chỗ, Cloud: Từ xa, USB: Di động offline."},
-                {id:30, q:"Các bước truy cập web:", type:"match_inline", txt:"1. Kết nối tới [1]. 2. [2] gửi về. 3. [3] hiển thị.", ans:["server","page","browser"], explain:"Browser -> Server -> Page -> Browser."},
-                {id:31, q:"Catfishing là gì?", type:"radio", opts:[{v:"a",t:"Kết bạn an toàn"},{v:"b",t:"Môn thể thao"},{v:"c",t:"Nghiên cứu"},{v:"d",t:"Giả mạo người khác để lừa đảo"}], ans:"d", explain:"Lừa đảo bằng danh tính giả."},
-                {id:32, q:"Công dân số tích cực?", type:"radio", opts:[{v:"a",t:"Chia sẻ kiến thức/giúp đỡ"},{v:"b",t:"Không báo cáo xấu"},{v:"c",t:"Tạo nick giả"},{v:"d",t:"Chia sẻ info cá nhân"}], ans:"a", explain:"Hành vi tích cực."},
-                {id:33, q:"Công dân số tiêu cực?", type:"radio", opts:[{v:"a",t:"Khen ngợi"},{v:"b",t:"Hợp tác"},{v:"c",t:"Tôn trọng"},{v:"d",t:"Tải lậu bản quyền"}], ans:"d", explain:"Vi phạm bản quyền."},
-                {id:34, q:"Ghép loại Hacker:", type:"match", rows:[{t:"Kiểm tra bảo mật (báo cáo)",a:"ethical"},{t:"Tấn công vì mục đích xã hội",a:"hacktivist"},{t:"Chặn truy cập (phá hoại)",a:"unethical"}], explain:"Ethical: Đạo đức, Hacktivist: Nhà hoạt động, Unethical: Xấu."},
-                {id:35, q:"Hacker mũ trắng?", type:"radio", opts:[{v:"a",t:"Nhắm vào người xấu"},{v:"b",t:"Đội mũ trắng"},{v:"c",t:"Dùng kỹ năng cho mục đích tốt"},{v:"d",t:"Mặc đồ trắng"}], ans:"c", explain:"Chuyên gia bảo mật hợp pháp."},
-                {id:36, q:"Ghép thuật ngữ:", type:"match", rows:[{t:"Che giấu danh tính",a:"anon"},{t:"Dùng kỹ năng thử nghiệm/giải quyết",a:"hacker"},{t:"Sao chép không phép",a:"piracy"},{t:"Hành động trách nhiệm",a:"ethical"}], explain:"Anon: Ẩn danh, Piracy: Bản quyền."},
-                {id:37, q:"Gặp nội dung không phù hợp?", type:"radio", opts:[{v:"a",t:"Báo cáo cho người lớn"},{v:"b",t:"Bỏ qua"},{v:"c",t:"Bình luận"},{v:"d",t:"Chia sẻ"}], ans:"a", explain:"Báo cáo (Report/Tell)."},
-                {id:38, q:"Bảo vệ quyền riêng tư bài đăng?", type:"radio", opts:[{v:"a",t:"Xóa bài"},{v:"b",t:"Công khai hết"},{v:"c",t:"Mật khẩu"},{v:"d",t:"Chỉnh cài đặt quyền riêng tư (Privacy Settings)"}], ans:"d", explain:"Giới hạn người xem."},
-                {id:39, q:"Kiểm soát ai xem/bình luận?", type:"radio", opts:[{v:"a",t:"Đổi pass"},{v:"b",t:"Thông báo"},{v:"c",t:"Phông chữ"},{v:"d",t:"Cài đặt quyền riêng tư"}], ans:"d", explain:"Privacy Settings."},
-                {id:40, q:"Nội dung giới hạn độ tuổi?", type:"radio", opts:[{v:"a",t:"Giáo dục"},{v:"b",t:"Hoạt hình"},{v:"c",t:"Game bạo lực"},{v:"d",t:"Nấu ăn"}], ans:"c", explain:"Nội dung bạo lực/người lớn."},
-                {id:41, q:"Tầm quan trọng Privacy Settings?", type:"radio", opts:[{v:"a",t:"Bảo vệ thông tin cá nhân"},{v:"b",t:"Chia sẻ công khai"},{v:"c",t:"Tăng hiển thị"},{v:"d",t:"Kiếm like"}], ans:"a", explain:"Kiểm soát thông tin."},
-                {id:42, q:"Ghép Hacker:", type:"match", rows:[{t:"Bất hợp pháp/Xấu",a:"black"},{t:"Không phép/Chia sẻ phí",a:"gray"},{t:"Truy cập trái phép",a:"hacking"},{t:"Hợp pháp",a:"white"}], explain:"Black: Mũ đen, Gray: Mũ xám, White: Mũ trắng."}
-            ];
+        </form>
 
-            const form = document.getElementById('quiz-form');
-            qData.forEach(q => {
-                let h = `<div class="question-card" id="c${q.id}"><span class="topic-label">Chủ đề ${q.id}</span><div class="question-text">${q.q}</div>`;
-                if(q.type==='radio'){
-                    h+=`<div class="options">`;
-                    q.opts.forEach(o=>h+=`<label><input type="radio" name="q${q.id}" value="${o.v}"> ${o.t}</label>`);
-                    h+=`</div>`;
-                } else if(q.type==='match'){
-                    h+=`<table class="grid-table"><tr><th>Nội dung</th><th>Lựa chọn</th></tr>`;
-                    q.rows.forEach((r,i)=>{
-                        h+=`<tr><td>${r.t}</td><td><select name="q${q.id}_${i}"><option value="">--Chọn--</option>`;
-                        if(q.id===29) h+=`<option value="hdd">Ổ cứng</option><option value="cloud">Cloud</option><option value="usb">USB</option>`;
-                        if(q.id===34) h+=`<option value="ethical">Hacker đạo đức</option><option value="hacktivist">Hacker hoạt động</option><option value="unethical">Hacker xấu</option>`;
-                        if(q.id===36) h+=`<option value="anon">Ẩn danh</option><option value="hacker">Hacker</option><option value="piracy">Vi phạm bản quyền</option><option value="ethical">Đạo đức</option>`;
-                        if(q.id===42) h+=`<option value="black">Mũ đen</option><option value="gray">Mũ xám</option><option value="hacking">Hacking</option><option value="white">Mũ trắng</option>`;
-                        h+=`</select></td></tr>`;
-                    });
-                    h+=`</table>`;
-                } else if(q.type==='match_inline'){
-                    h+=`<div>${q.txt.replace('[1]',`<select name="q${q.id}_1"><option value="">...</option><option value="server">Máy chủ web</option><option value="browser">Trình duyệt</option><option value="page">Trang</option></select>`).replace('[2]',`<select name="q${q.id}_2"><option value="">...</option><option value="page">Trang</option><option value="server">Máy chủ</option></select>`).replace('[3]',`<select name="q${q.id}_3"><option value="">...</option><option value="browser">Trình duyệt</option><option value="page">Trang</option></select>`)}</div>`;
-                }
-                h+=`<div class="feedback-box"><strong>Đáp án:</strong> ${q.explain}</div></div>`;
-                form.innerHTML+=h;
-            });
-
-            function gradeQuiz(){
-                let score=0; let all=true; let firstMiss=null;
-                document.querySelectorAll('.question-card').forEach(c=>c.classList.remove('incomplete'));
-                document.querySelectorAll('.feedback-box').forEach(b=>b.style.display='none');
-                
-                qData.forEach(q=>{
-                    let ans=false;
-                    if(q.type==='radio'){
-                        if(document.querySelector(`input[name="q${q.id}"]:checked`)) ans=true;
-                    } else if(q.type==='match'){
-                        let sub=0; q.rows.forEach((r,i)=>{ if(document.querySelector(`select[name="q${q.id}_${i}"]`).value!=='') sub++; });
-                        if(sub===q.rows.length) ans=true;
-                    } else if(q.type==='match_inline'){
-                        if(document.querySelector(`select[name="q${q.id}_1"]`).value!=='' && document.querySelector(`select[name="q${q.id}_2"]`).value!=='' && document.querySelector(`select[name="q${q.id}_3"]`).value!=='') ans=true;
-                    }
-                    if(!ans){ all=false; let c=document.getElementById(`c${q.id}`); c.classList.add('incomplete'); if(!firstMiss) firstMiss=c; }
-                });
-
-                if(!all){ alert('Vui lòng làm hết bài!'); firstMiss.scrollIntoView({behavior:'smooth',block:'center'}); return; }
-
-                qData.forEach(q=>{
-                    let corr=false;
-                    if(q.type==='radio'){
-                        let v = document.querySelector(`input[name="q${q.id}"]:checked`).value;
-                        if(v===q.ans) corr=true;
-                        document.querySelectorAll(`input[name="q${q.id}"]`).forEach(i=>{
-                            if(i.value===q.ans) i.parentElement.classList.add('correct-answer');
-                            else if(i.checked) i.parentElement.classList.add('wrong-answer');
-                        });
-                    } else if(q.type==='match'){
-                        let subC=0;
-                        q.rows.forEach((r,i)=>{
-                            let sel = document.querySelector(`select[name="q${q.id}_${i}"]`);
-                            if(sel.value===r.a) { subC++; sel.classList.add('correct-answer'); }
-                            else sel.classList.add('wrong-answer');
-                        });
-                        if(subC===q.rows.length) corr=true;
-                    } else if(q.type==='match_inline'){
-                        let s1 = document.querySelector(`select[name="q${q.id}_1"]`);
-                        let s2 = document.querySelector(`select[name="q${q.id}_2"]`);
-                        let s3 = document.querySelector(`select[name="q${q.id}_3"]`);
-                        if(s1.value===q.ans[0]) s1.classList.add('correct-answer'); else s1.classList.add('wrong-answer');
-                        if(s2.value===q.ans[1]) s2.classList.add('correct-answer'); else s2.classList.add('wrong-answer');
-                        if(s3.value===q.ans[2]) s3.classList.add('correct-answer'); else s3.classList.add('wrong-answer');
-                        if(s1.value===q.ans[0] && s2.value===q.ans[1] && s3.value===q.ans[2]) corr=true;
-                    }
-                    if(corr) score++;
-                    document.querySelector(`#c${q.id} .feedback-box`).style.display='block';
-                });
-
-                let r = document.getElementById('result-area');
-                r.style.display='block';
-                r.innerHTML=`Kết quả: ${score}/${qData.length} câu đúng`;
-                r.style.backgroundColor = score/qData.length >= 0.8 ? '#d4edda':'#f8d7da';
-                window.scrollTo({top:0,behavior:'smooth'});
-                document.querySelectorAll('input, select').forEach(i=>i.disabled=true);
-            }
-        </script>
-        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
-        <div id="result-area"></div>
-    </form>
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
 </div>
-<footer><p>© 2026 - GV Nguyễn Đình Bạch Long</p></footer>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 21, type: "radio",
+            q: "Máy in của em ngừng in, em nên làm gì trước tiên để giải quyết vấn đề này?",
+            opts: [
+                {v: "a", t: "Khởi động lại máy tính"},
+                {v: "b", t: "Dọn sạch hàng chờ máy in"},
+                {v: "c", t: "Thay đổi trình điều khiển máy in"},
+                {v: "d", t: "Kiểm tra dây cáp hoặc kết nối của máy in"}
+            ],
+            ans: "d",
+            explain: "Khi một thiết bị ngoại vi ngừng hoạt động, bước khắc phục sự cố cơ bản đầu tiên luôn là kiểm tra kết nối vật lý (dây cáp, nguồn điện)."
+        },
+        {
+            id: 22, type: "radio",
+            q: "Máy tính của em bị chậm. Em nên làm gì trước tiên?",
+            opts: [
+                {v: "a", t: "Đóng các ứng dụng hoặc cửa sổ không sử dụng"},
+                {v: "b", t: "Rút phích cắm máy tính"},
+                {v: "c", t: "Cập nhật hệ điều hành"},
+                {v: "d", t: "Nhấp chuột liên tục"}
+            ],
+            ans: "a",
+            explain: "Đóng bớt các phần mềm hoặc cửa sổ không dùng đến sẽ giải phóng bộ nhớ RAM và giúp máy tính hoạt động mượt mà hơn."
+        },
+        {
+            id: 23, type: "radio",
+            q: "Em hãy cho biết, URL (Uniform Resource Locator) là gì?",
+            opts: [
+                {v: "a", t: "Nhà phát hành của một trang web"},
+                {v: "b", t: "Tên của một trang web"},
+                {v: "c", t: "Địa chỉ của một trang web"},
+                {v: "d", t: "Tác giả của một trang web"}
+            ],
+            ans: "c",
+            explain: "URL là địa chỉ duy nhất của một trang web hoặc tài nguyên trên Internet, giúp trình duyệt tìm đến đúng vị trí."
+        },
+        {
+            id: 24, type: "radio",
+            q: "Khi tìm một nhà hàng bán thức ăn nhanh trên mạng, hành động nào sẽ có thể giúp ẩn vị trí của em?",
+            opts: [
+                {v: "a", t: "Bật duyệt web ở chế độ riêng tư"},
+                {v: "b", t: "Tải phần mềm chặn quảng cáo"},
+                {v: "c", t: "Xóa cookies của em"},
+                {v: "d", t: "Xóa cache (bộ đệm ẩn) sau khi ngừng duyệt web"}
+            ],
+            ans: "a",
+            explain: "Duyệt web ở chế độ riêng tư (Incognito/Private) giúp hạn chế việc trình duyệt lưu lại lịch sử, dữ liệu trang web và hạn chế các trang web theo dõi hoạt động vị trí cá nhân."
+        },
+        {
+            id: 25, type: "radio",
+            q: "Orson là tài xế xe buýt của một trường học. Anh ấy đang chở một đoàn học sinh đi thực tế tới một nơi chưa từng đến. Anh ấy có thể sử dụng loại công nghệ nào để giúp mình định hướng được vị trí cần đến?",
+            opts: [
+                {v: "a", t: "Radio"},
+                {v: "b", t: "GPS (Global Positioning System)"},
+                {v: "c", t: "Máy phát MP3 (MP3 Player)"},
+                {v: "d", t: "Quả địa cầu (Globe)"}
+            ],
+            ans: "b",
+            explain: "Hệ thống định vị toàn cầu GPS cung cấp bản đồ kỹ thuật số và hướng dẫn chỉ đường chính xác theo thời gian thực."
+        },
+        {
+            id: 26, type: "radio",
+            q: "Em hãy cho biết, địa chỉ URL nào có định dạng đúng?",
+            opts: [
+                {v: "a", t: "https://.companypro.net/test"},
+                {v: "b", t: "https://www.companypro.net/test"},
+                {v: "c", t: "http://www.companypro/test"},
+                {v: "d", t: "https://www.companypro/net/test"}
+            ],
+            ans: "b",
+            explain: "Một URL chuẩn bao gồm: Giao thức (https://), Tên miền phụ (www.), Tên miền chính (companypro.net), và đường dẫn (/test)."
+        },
+        {
+            id: 27, type: "radio",
+            q: "Em nên nhập www.companypro.net vào vị trí nào trên trình duyệt web để có thể truy cập trực tiếp đến trang web? (Tham khảo hình minh họa)",
+            img: "hk2-p1.2-cd27.jpg",
+            opts: [
+                {v: "a", t: "Thanh địa chỉ (Address bar) nằm ở trên cùng của cửa sổ"},
+                {v: "b", t: "Ô tìm kiếm Google ở chính giữa màn hình"},
+                {v: "c", t: "Nút Tải lại (Reload)"},
+                {v: "d", t: "Dấu trang (Bookmarks)"}
+            ],
+            ans: "a",
+            explain: "Để đi thẳng tới một trang web khi đã biết địa chỉ cụ thể, em cần nhập URL trực tiếp vào Thanh địa chỉ (Address bar) nằm ở mép trên cùng của trình duyệt."
+        },
+        {
+            id: 28, type: "radio",
+            q: "Em định quyên góp cho một tổ chức gây quỹ và muốn đảm bảo rằng mình đang ở đúng trang web. Tùy chọn nào sau đây là phần đuôi đúng cho trang web chính thức của một tổ chức phi lợi nhuận?",
+            opts: [
+                {v: "a", t: ".net"},
+                {v: "b", t: ".edu"},
+                {v: "c", t: ".org"},
+                {v: "d", t: ".com"}
+            ],
+            ans: "c",
+            explain: "Đuôi .org (Organization) thường được sử dụng cho các tổ chức, đặc biệt là các tổ chức phi lợi nhuận (Non-profit)."
+        },
+        {
+            id: 29, type: "match",
+            q: "Em hãy di chuyển từng loại lưu trữ dữ liệu từ danh sách ở bên phải sang trường hợp sử dụng phù hợp ở bên trái.",
+            rows: [
+                {t: "Em chỉ muốn lưu trữ dữ liệu trên máy tính xách tay của mình", a: "hdd"},
+                {t: "Em muốn dữ liệu của mình được sao lưu và lưu trữ một cách an toàn bởi một công ty khác", a: "cloud"},
+                {t: "Em muốn sao chép hình ảnh giữa hai máy tính mà không cần kết nối mạng", a: "usb"}
+            ],
+            opts: [
+                {v: "cloud", t: "Lưu trữ đám mây (Cloud Storage)"},
+                {v: "usb", t: "USB"},
+                {v: "hdd", t: "Ổ cứng (Hard Drive)"}
+            ],
+            explain: "Ổ cứng: lưu trữ cá nhân nội bộ. Đám mây: lưu trữ và sao lưu qua mạng bởi nhà cung cấp. USB: chuyển file vật lý không cần mạng."
+        },
+        {
+            id: 30, type: "match",
+            q: "Em cần mô tả các bước xảy ra khi dùng trình duyệt web của mình để truy cập www.companypro.net. Hoàn thành các câu dưới đây bằng cách chọn đúng tùy chọn cho chỗ trống.",
+            rows: [
+                {t: "Kết nối được thiết lập đến ____________", a: "server"},
+                {t: "____________ được gửi đến máy tính của người dùng", a: "page"},
+                {t: "____________ hiển thị trang web", a: "browser"}
+            ],
+            opts: [
+                {v: "browser", t: "Trình duyệt web (Web Browser)"},
+                {v: "server", t: "Máy chủ web (Web Server)"},
+                {v: "page", t: "Trang (Webpage)"},
+                {v: "ip", t: "Địa chỉ IP"}
+            ],
+            explain: "Trình tự: 1. Kết nối với Máy chủ web. 2. Trang web (dữ liệu) được tải về máy tính. 3. Trình duyệt web đảm nhiệm việc giải mã và hiển thị trang web cho người dùng xem."
+        },
+        {
+            id: 31, type: "radio",
+            q: "Em hãy cho biết, Catfishing là gì?",
+            opts: [
+                {v: "a", t: "Một cách an toàn để kết bạn trực tuyến"},
+                {v: "b", t: "Một môn thể thao liên quan đến câu cá"},
+                {v: "c", t: "Một loại nghiên cứu được thực hiện trực tuyến"},
+                {v: "d", t: "Giả vờ là người khác trên mạng để đánh lừa hoặc lừa đảo người khác"}
+            ],
+            ans: "d",
+            explain: "Catfishing là hành vi tạo danh tính ảo, sử dụng hình ảnh và thông tin của người khác để lừa gạt trên Internet."
+        },
+        {
+            id: 32, type: "radio",
+            q: "Em hãy cho biết, một ví dụ về quyền công dân kỹ thuật số tích cực là gì?",
+            opts: [
+                {v: "a", t: "Sử dụng nền tảng trực tuyến để chia sẻ kiến thức và giúp đỡ người khác"},
+                {v: "b", t: "Không báo cáo nội dung không phù hợp được tìm thấy trực tuyến"},
+                {v: "c", t: "Tạo tài khoản giả để lừa gạt người khác"},
+                {v: "d", t: "Chia sẻ thông tin cá nhân với người lạ trực tuyến"}
+            ],
+            ans: "a",
+            explain: "Công dân kỹ thuật số tích cực luôn lan tỏa giá trị tốt đẹp, chia sẻ kiến thức hữu ích và cư xử văn minh trên không gian mạng."
+        },
+        {
+            id: 33, type: "radio",
+            q: "Em hãy cho biết, một ví dụ về quyền công dân kỹ thuật số tiêu cực là gì?",
+            opts: [
+                {v: "a", t: "Khen ngợi tác phẩm nghệ thuật của một người bạn trực tuyến"},
+                {v: "b", t: "Tham gia vào các dự án hợp tác trực tuyến"},
+                {v: "c", t: "Khuyến khích bạn bè tôn trọng và tử tế trên mạng"},
+                {v: "d", t: "Tải xuống tài liệu có bản quyền mà không được phép"}
+            ],
+            ans: "d",
+            explain: "Hành vi tải xuống, sử dụng trái phép các tài liệu, phần mềm có bản quyền (Piracy) là vi phạm pháp luật và là biểu hiện tiêu cực."
+        },
+        {
+            id: 34, type: "match",
+            q: "Em hãy di chuyển mỗi loại tin tặc (Hacker) từ danh sách ở bên phải sang ví dụ tương ứng ở bên trái.",
+            rows: [
+                {t: "Kiểm tra hệ thống mạng của một công ty để xem có dễ để tìm mật khẩu hay không, rồi cho công ty đó biết cách khắc phục", a: "ethical"},
+                {t: "Tấn công một công ty để lôi kéo sự chú ý về một vấn đề nào đó, ví dụ như trả lương không công bằng cho nhân viên", a: "hacktivist"},
+                {t: "Tấn công một hệ thống mạng để chặn không cho người dùng truy cập các tập tin của họ", a: "unethical"}
+            ],
+            opts: [
+                {v: "hacktivist", t: "Tin tặc kiêm nhà hoạt động (Hacktivist)"},
+                {v: "ethical", t: "Tin tặc có đạo đức (Ethical Hacker)"},
+                {v: "unethical", t: "Tin tặc vô đạo đức (Unethical Hacker)"}
+            ],
+            explain: "Ethical Hacker (Mũ trắng) tìm lỗi để khắc phục. Hacktivist tấn công vì mục đích chính trị/xã hội. Unethical Hacker (Mũ đen) tấn công để phá hoại, trục lợi."
+        },
+        {
+            id: 35, type: "radio",
+            q: "Em hãy cho biết, Hacker mũ trắng là gì?",
+            opts: [
+                {v: "a", t: "Ai đó nhằm vào những người xấu trực tuyến"},
+                {v: "b", t: "Ai đó đội mũ trắng để che giấu danh tính"},
+                {v: "c", t: "Một người sử dụng các kỹ năng và kiến thức máy tính cho mục đích tốt"},
+                {v: "d", t: "Người mặc đồ trắng khi sử dụng máy tính"}
+            ],
+            ans: "c",
+            explain: "Hacker mũ trắng (White Hat) là chuyên gia bảo mật được các tổ chức thuê để kiểm tra và bảo vệ hệ thống mạng."
+        },
+        {
+            id: 36, type: "match",
+            q: "Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.",
+            rows: [
+                {t: "Không xác định được danh tính hoặc che giấu thông tin cá nhân trực tuyến", a: "anon"},
+                {t: "Người sử dụng các kỹ năng và kiến thức máy tính để thử nghiệm, khám phá và giải quyết các vấn đề về công nghệ", a: "hacker"},
+                {t: "Sao chép, phân phối hoặc sử dụng nội dung kỹ thuật số mà không có sự cho phép của chủ sở hữu", a: "piracy"},
+                {t: "Hành động có trách nhiệm, tôn trọng và hợp pháp khi sử dụng các công cụ kỹ thuật số và trực tuyến", a: "ethic"}
+            ],
+            opts: [
+                {v: "hacker", t: "Hacker"},
+                {v: "anon", t: "Anonymity (Ẩn danh)"},
+                {v: "ethic", t: "Ethical (Đạo đức)"},
+                {v: "piracy", t: "Piracy (Vi phạm bản quyền)"}
+            ],
+            explain: "Ẩn danh (che giấu tên). Hacker (người am hiểu sâu công nghệ). Đạo đức (sử dụng có trách nhiệm). Vi phạm bản quyền (dùng lậu)."
+        },
+        {
+            id: 37, type: "radio",
+            q: "Em nên làm gì khi thấy nội dung trực tuyến không phù hợp với lứa tuổi của mình?",
+            opts: [
+                {v: "a", t: "Báo cáo việc này cho người lớn đáng tin cậy hoặc người điều hành trang web"},
+                {v: "b", t: "Bỏ qua và tiếp tục duyệt web"},
+                {v: "c", t: "Để lại một bình luận rằng nội dung làm em khó chịu"},
+                {v: "d", t: "Chia sẻ với bạn bè của em"}
+            ],
+            ans: "a",
+            explain: "Hành động an toàn nhất khi thấy nội dung xấu là thông báo ngay cho người lớn hoặc cơ quan chức năng để được hỗ trợ ngăn chặn."
+        },
+        {
+            id: 38, type: "radio",
+            q: "Em có thể bảo vệ quyền riêng tư của mình khi đăng bài trực tuyến bằng cách nào?",
+            opts: [
+                {v: "a", t: "Xóa bài viết của bạn vài ngày một lần để đảm bảo sự riêng tư"},
+                {v: "b", t: "Làm cho tất cả các bài viết của bạn có thể được xem công khai"},
+                {v: "c", t: "Sử dụng mật khẩu phức tạp cho tài khoản của bạn"},
+                {v: "d", t: "Điều chỉnh cài đặt quyền riêng tư để giới hạn người có thể xem bài đăng của bạn"}
+            ],
+            ans: "d",
+            explain: "Sử dụng tính năng 'Cài đặt quyền riêng tư' (Privacy Settings) trên mạng xã hội là cách trực tiếp nhất để giới hạn đối tượng xem nội dung."
+        },
+        {
+            id: 39, type: "radio",
+            q: "Em hãy cho biết, làm cách nào có thể kiểm soát ai có thể xem, thích và nhận xét về bài đăng trực tuyến của em?",
+            opts: [
+                {v: "a", t: "Cập nhật mật khẩu tài khoản của em"},
+                {v: "b", t: "Thay đổi cài đặt thông báo"},
+                {v: "c", t: "Sửa đổi cài đặt kiểu phông chữ"},
+                {v: "d", t: "Điều chỉnh cài đặt quyền riêng tư"}
+            ],
+            ans: "d",
+            explain: "Tương tự như bảo vệ nội dung, cài đặt quyền riêng tư cho phép thiết lập cả quyền tương tác (ai được bình luận, ai được thả cảm xúc)."
+        },
+        {
+            id: 40, type: "radio",
+            q: "Em hãy cho biết, ví dụ về nội dung kỹ thuật số có thể bị giới hạn độ tuổi là gì?",
+            opts: [
+                {v: "a", t: "Nội dung giáo dục được đăng trên trang web của trường"},
+                {v: "b", t: "Phim hoạt hình trẻ em"},
+                {v: "c", t: "Trò chơi điện tử bạo lực"},
+                {v: "d", t: "Công thức nấu ăn và hướng dẫn nấu ăn"}
+            ],
+            ans: "c",
+            explain: "Các nội dung chứa yếu tố bạo lực, kinh dị, nhạy cảm như trò chơi điện tử bạo lực bắt buộc phải dán nhãn và giới hạn độ tuổi người xem."
+        },
+        {
+            id: 41, type: "radio",
+            q: "Em hãy cho biết, tầm quan trọng của cài đặt quyền riêng tư là gì?",
+            opts: [
+                {v: "a", t: "Để bảo vệ thông tin cá nhân và kiểm soát những người nhìn thấy thông tin đó"},
+                {v: "b", t: "Để chia sẻ thông tin cá nhân với công chúng"},
+                {v: "c", t: "Để tăng khả năng hiển thị của bài viết hoặc tin nhắn trực tuyến"},
+                {v: "d", t: "Để có được người theo dõi hoặc lượt thích"}
+            ],
+            ans: "a",
+            explain: "Quyền riêng tư giúp cá nhân tự do quyết định mức độ công khai thông tin của bản thân trên môi trường mạng, tránh bị kẻ gian lợi dụng."
+        },
+        {
+            id: 42, type: "match",
+            q: "Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.",
+            rows: [
+                {t: "Người sử dụng các kỹ năng Hack một cách bất hợp pháp và có mục đích xấu", a: "black"},
+                {t: "Ai đó sử dụng các kỹ năng Hack để xác định các lỗ hổng bảo mật mà không có sự cho phép của chủ sở hữu, sau đó chia sẻ những phát hiện của họ - thường phải trả phí", a: "gray"},
+                {t: "Hành động truy cập trái phép vào thông tin kỹ thuật số", a: "hack"},
+                {t: "Người sử dụng các kỹ năng Hack hợp pháp để xác định các lỗ hổng bảo mật trong công nghệ", a: "white"}
+            ],
+            opts: [
+                {v: "hack", t: "Hacking"},
+                {v: "white", t: "White Hat Hacker (Tin tặc mũ trắng)"},
+                {v: "black", t: "Black Hat Hacker (Tin tặc mũ đen)"},
+                {v: "gray", t: "Gray Hat Hacker (Tin tặc mũ xám)"}
+            ],
+            explain: "Mũ đen: phá hoại, trộm cắp. Mũ xám: xâm nhập không phép nhưng không phá hoại, thường đòi tiền chuộc thông tin lỗi. Mũ trắng: được thuê hợp pháp để bảo mật."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.id; 
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.img) {
+                html += `<img src="${q.img}" class="single-img" alt="Minh họa">`;
+            }
+
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Định nghĩa / Mô tả</th><th>Lựa chọn tương ứng</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn đáp án --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'check') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'check') {
+                let checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checked.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let correctText = q.opts.find(o => o.v === r.a).t;
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${correctText}`;
+                        sel.parentElement.appendChild(div);
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CHỦ ĐỀ ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
 </body>
 </html>
