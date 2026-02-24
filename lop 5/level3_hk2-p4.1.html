@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 5 - Level 3 | Kiến Thức Tổng Hợp - Phần 4.1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* TÔNG MÀU TÍM LEVEL 3 */
+            --primary-color: #8e44ad; 
+            --primary-dark: #6c3483;  
+            --accent-color: #af7ac5;  
+            --bg-body: #f9f2fc;       
+            --text-color: #4a235a;    
+            --border-color: #d2b4de;  
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #f4ecf7; } 
+        
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #76448a; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+        .quote-box { background: #fdf5e6; border-left: 4px solid var(--primary-color); padding: 10px 15px; margin-bottom: 15px; font-style: italic; color: #555; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f4ecf7; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4; color: #000;
+        }
+        .options label:hover { background-color: #f4ecf7; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #faf5fc; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; font-weight: bold; }
+
+        .match-table td:first-child { width: 65%; font-family: 'Times New Roman', serif; font-size: 1.05rem; color: #000; }
+        .match-table td:last-child { width: 35%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #c39bd3; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer; color: #000;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5; color: #856404;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #c39bd3; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 3</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>LỚP 5 - LEVEL 3</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 4.1 (CHỦ ĐỀ 01 - 15)</h2>
+    </div>
+
+    <form id="quiz-form">
+        </form>
+
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 1, type: "radio",
+            q: "Em hãy cho biết, thu thập dữ liệu là gì?",
+            opts: [
+                {v: "a", t: "Sử dụng phần mềm diệt virus trên máy tính"},
+                {v: "b", t: "Thu thập và ghi lại thông tin từ nhiều nguồn khác nhau"},
+                {v: "c", t: "Luôn cập nhật thiết bị với phần mềm mới nhất"},
+                {v: "d", t: "Đặt mật khẩu mạnh cho tài khoản người dùng"}
+            ],
+            ans: "b",
+            explain: "Thu thập dữ liệu là quá trình tìm kiếm, gom nhặt và ghi nhận thông tin từ nhiều nguồn khác nhau để tổng hợp và phân tích."
+        },
+        {
+            id: 2, type: "radio",
+            q: "Em hãy cho biết, khi nào em cần xin phép chụp ảnh ai đó?",
+            opts: [
+                {v: "a", t: "Không bao giờ, việc chụp ảnh ai đó mà không được phép luôn là điều bình thường"},
+                {v: "b", t: "Luôn luôn, bất kể người đó là ai"},
+                {v: "c", t: "Chỉ khi đó là thành viên trong gia đình"},
+                {v: "d", t: "Chỉ khi người đó là người nổi tiếng"}
+            ],
+            ans: "b",
+            explain: "Quyền riêng tư về hình ảnh là quyền cơ bản của mỗi cá nhân. Do đó, em phải luôn xin phép trước khi chụp ảnh người khác."
+        },
+        {
+            id: 3, type: "radio",
+            q: "Em hãy cho biết, công nghệ thu thập dữ liệu là gì?",
+            opts: [
+                {v: "a", t: "Một cách để theo dõi và thu thập dữ liệu từ nhiều nguồn khác nhau bằng công nghệ"},
+                {v: "b", t: "Một công cụ giúp người dùng cộng tác trong các dự án"},
+                {v: "c", t: "Một phương pháp lưu trữ thông tin cá nhân trên ổ cứng"},
+                {v: "d", t: "Một loại trò chơi máy tính thu thập thông tin người chơi"}
+            ],
+            ans: "a",
+            explain: "Công nghệ thu thập dữ liệu sử dụng phần mềm, thuật toán hoặc thiết bị để tự động theo dõi, thu thập thông tin từ người dùng và môi trường mạng."
+        },
+        {
+            id: 4, type: "radio",
+            q: "Em hãy cho biết, lựa chọn nào là hành động hợp lý khi sử dụng thiết bị điện tử?",
+            opts: [
+                {v: "a", t: "Nghỉ giải lao và giới hạn thời gian sử dụng thiết bị"},
+                {v: "b", t: "Đừng bao giờ sử dụng công nghệ"},
+                {v: "c", t: "Sử dụng thiết bị bao lâu tùy thích mà không bị giới hạn thời gian"},
+                {v: "d", t: "Chỉ sử dụng công nghệ vào ban đêm"}
+            ],
+            ans: "a",
+            explain: "Để bảo vệ sức khỏe và đặc biệt là thị lực, em cần giới hạn thời gian sử dụng thiết bị và phải có những khoảng nghỉ ngơi hợp lý."
+        },
+        {
+            id: 5, type: "table_tf",
+            q: "Với mỗi phát biểu về việc đăng ảnh người khác lên mạng xã hội, em hãy chọn Có nếu việc đó cần được họ hoặc người giám hộ của họ cho phép hoặc chọn Không nếu không cần.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Một nhân viên muốn đăng hình về một em bé sơ sinh tại nhà trẻ", a: "yes"},
+                {t: "Một tài xế xe buýt muốn đăng hình về một em học sinh cấp một trên xe buýt", a: "yes"},
+                {t: "Một y tá muốn đăng ảnh về một bệnh nhân tại một bệnh viện", a: "yes"}
+            ],
+            explain: "Trẻ em (dưới tuổi vị thành niên) và bệnh nhân là những đối tượng đặc biệt cần được bảo vệ quyền riêng tư nghiêm ngặt. Bất kỳ hình ảnh nào về họ đều bắt buộc phải có sự đồng ý của họ hoặc người giám hộ."
+        },
+        {
+            id: 6, type: "check",
+            q: "Em hãy cho biết, những tác hại nào có thể xảy ra nếu em xem màn hình quá lâu? (Chọn 2)",
+            opts: [
+                {v: "a", t: "Tăng cân"},
+                {v: "b", t: "Suy giảm thính giác"},
+                {v: "c", t: "Rút lui khỏi công nghệ (Technology Withdrawal)"},
+                {v: "d", t: "Khó ngủ"}
+            ],
+            ans: ["a", "d"],
+            explain: "Việc ngồi lâu trước màn hình khiến cơ thể ít vận động (gây tăng cân) và ánh sáng xanh từ màn hình sẽ ức chế hormone giấc ngủ (gây khó ngủ)."
+        },
+        {
+            id: 7, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào là hành động giúp quản lý dấu chân kỹ thuật số (Digital Footprint) của riêng em?",
+            opts: [
+                {v: "a", t: "Chỉ sử dụng internet trong giờ học"},
+                {v: "b", t: "Hãy đăng bài về người khác trước khi họ đăng bài về em"},
+                {v: "c", t: "Yêu cầu mọi người không đăng bài trực tuyến về em"},
+                {v: "d", t: "Xóa mọi nội dung em tìm thấy trên trực tuyến về bản thân"}
+            ],
+            ans: "c",
+            explain: "Yêu cầu người khác tôn trọng quyền riêng tư và không tự ý đăng thông tin/hình ảnh của em lên mạng là một bước quan trọng để kiểm soát dấu chân kỹ thuật số."
+        },
+        {
+            id: 8, type: "radio",
+            q: "Có người đã đe dọa sẽ gây hại cho em trên một nền tảng mạng xã hội. Em nên làm gì trước tiên?",
+            opts: [
+                {v: "a", t: "Nói cho bạn thân của em"},
+                {v: "b", t: "Chụp ảnh màn hình"},
+                {v: "c", t: "Trả lời với họ rằng: Hãy để tôi yên!"},
+                {v: "d", t: "Viết lại đoạn tin nhắn"}
+            ],
+            ans: "b",
+            explain: "Bước đầu tiên và quan trọng nhất khi bị đe dọa trên mạng là chụp ảnh màn hình để lưu lại bằng chứng trước khi kẻ xấu kịp xóa tin nhắn."
+        },
+        {
+            id: 9, type: "radio",
+            q: "Em và các bạn của mình đang trò chuyện khi chơi game trên mạng. Cuộc hội thoại khiến em cảm thấy khó chịu và em lo rằng một người chơi có thể đang bắt nạt người khác. Em nên thực hiện hành động nào?",
+            opts: [
+                {v: "a", t: "Chụp ảnh màn hình và chia sẻ với bố mẹ của mình"},
+                {v: "b", t: "Xóa cuộc trò chuyện"},
+                {v: "c", t: "Thoát trò chơi"},
+                {v: "d", t: "Nói với bạn của mình đừng trò chuyện nữa và tập trung vào trò chơi"}
+            ],
+            ans: "a",
+            explain: "Thay vì lờ đi (thoát game), hành động đúng đắn là chụp lại bằng chứng và báo cáo cho người lớn (bố mẹ) để họ hướng dẫn cách xử lý an toàn."
+        },
+        {
+            id: 10, type: "table_tf",
+            q: "Với mỗi câu phát biểu về tác động tiêu cực của bắt nạt trực tuyến (Cyberbullying), em hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Nạn nhân có thể cảm thấy hoàn toàn bất lực", a: "yes"},
+                {t: "Nạn nhân có thể thu mình lại", a: "yes"},
+                {t: "Nạn nhân có thể bị căng thẳng về lâu dài", a: "yes"}
+            ],
+            explain: "Bắt nạt mạng gây tổn thương nặng nề đến tâm lý. Nạn nhân thường cảm thấy cô lập, bất lực, thu mình khỏi xã hội và gánh chịu sự căng thẳng (stress) kéo dài."
+        },
+        {
+            id: 11, type: "table_tf",
+            q: "Em có tạo một Blog cho lớp, cho phép những người khác đăng ảnh lên. Với mỗi câu phát biểu về hình ảnh, hãy chọn Có nếu cần có sự cho phép trước khi đăng hình ảnh hoặc chọn Không nếu không cần.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Ảnh chụp thầy cô và các phụ huynh tại một sự kiện công", a: "no"},
+                {t: "Ảnh của khối lớp 3", a: "yes"},
+                {t: "Ảnh kỷ yếu của học sinh được chụp chuyên nghiệp", a: "yes"},
+                {t: "Các hình ảnh của Creative Commons", a: "no"}
+            ],
+            explain: "Ảnh chụp toàn cảnh ở sự kiện công cộng (Public Event) và ảnh có giấy phép Creative Commons thường không cần xin phép đặc biệt. Tuy nhiên, ảnh của trẻ vị thành niên (Lớp 3) và ảnh cá nhân chụp chân dung chuyên nghiệp thì bắt buộc phải xin phép."
+        },
+        {
+            id: 12, type: "radio",
+            q: "Em từng chia sẻ với một người bạn tên tài khoản và mật khẩu của một ứng dụng truyền phát phim. Em nhận ra rằng người khác có thể xem được lịch sử xem phim của mình. Em muốn ngừng việc người khác có thể xem lịch sử xem phim của mình, em nên làm gì?",
+            opts: [
+                {v: "a", t: "Kết nối ứng dụng với một mạng riêng ảo (VPN) khi xem phim"},
+                {v: "b", t: "Đổi mật khẩu và không chia sẻ mật khẩu mới với bạn của em"},
+                {v: "c", t: "Xóa lịch sử trình duyệt trên thiết bị của em"},
+                {v: "d", t: "Tải phần mềm chống virus trên thiết bị của em"}
+            ],
+            ans: "b",
+            explain: "Cách duy nhất để ngăn người khác tiếp tục truy cập vào tài khoản của em là thay đổi mật khẩu và giữ bí mật mật khẩu mới đó."
+        },
+        {
+            id: 13, type: "match",
+            q: "Em nghi ngờ một người lớn đã liên hệ với em một cách không phù hợp trên mạng. Chuyện này cần phải được báo cáo. Em hãy chọn thứ tự các bước thực hiện sao cho đúng nhất.",
+            rows: [
+                {t: "Chụp ảnh màn hình (để lưu giữ bằng chứng)", a: "b1"},
+                {t: "Kể cho một người lớn mà em tin tưởng (bố mẹ, thầy cô)", a: "b2"},
+                {t: "Liên hệ cơ quan hành pháp và báo cáo chuyện này", a: "b3"},
+                {t: "Làm theo sự hướng dẫn của cơ quan hành pháp", a: "b4"}
+            ],
+            opts: [
+                {v: "b1", t: "Bước 1"},
+                {v: "b2", t: "Bước 2"},
+                {v: "b3", t: "Bước 3"},
+                {v: "b4", t: "Bước 4"}
+            ],
+            explain: "Trình tự xử lý: Đầu tiên phải lưu lại bằng chứng (Chụp màn hình). Sau đó báo ngay cho người lớn tin cậy. Người lớn sẽ giúp liên hệ cơ quan chức năng. Cuối cùng là làm theo hướng dẫn của cơ quan."
+        },
+        {
+            id: 14, type: "table_tf",
+            q: "Với mỗi câu phát biểu, em hãy chọn Có nếu phát biểu đó thể hiện sự thay đổi hành vi vì bị bắt nạt trực tuyến hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Nạn nhân có thể ngừng sử dụng mạng xã hội", a: "yes"},
+                {t: "Nạn nhân có thể tham gia nhiều buổi họp mặt xã hội và sự kiện hơn", a: "no"},
+                {t: "Nạn nhân có thể cảm thấy khó tập trung vào việc học ở trường", a: "yes"}
+            ],
+            explain: "Nạn nhân bị bắt nạt trên mạng thường có xu hướng tránh né, sợ hãi mạng xã hội và suy giảm kết quả học tập. Họ sẽ ít tham gia (chứ không phải tham gia nhiều) các hoạt động xã hội."
+        },
+        {
+            id: 15, type: "table_tf",
+            q: "Với mỗi phát biểu về việc chụp ảnh người khác, em hãy chọn Có nếu cần được họ cho phép hoặc chọn Không nếu không cần.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Một đội điền kinh xuyên quốc gia đang chạy trên đường", a: "no"},
+                {t: "Một khách hàng trong phòng thử đồ tại một trung tâm mua sắm", a: "yes"},
+                {t: "Một chiếc xe hơi thể thao đắt tiền trong bãi đỗ xe", a: "no"}
+            ],
+            explain: "Chụp ở không gian công cộng (người chạy trên đường) hoặc chụp đồ vật (chiếc xe) thì không vi phạm quyền riêng tư. Tuy nhiên, chụp ở những nơi đòi hỏi sự riêng tư cao như phòng thử đồ, nhà vệ sinh là vi phạm pháp luật và bắt buộc phải xin phép."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.id < 10 ? '0' + q.id : q.id;
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q.replace(/\n/g, '<br>')}</div>`;
+            
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Hành động / Tình huống</th><th>Lựa chọn tương ứng</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn đáp án --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    let val1 = (q.headers[0] === 'Đúng' || q.headers[0] === 'Có' || q.headers[0] === 'Tích cực' || q.headers[0] === 'An toàn') ? 'yes' : 'no';
+                    let val2 = (q.headers[1] === 'Sai' || q.headers[1] === 'Không' || q.headers[1] === 'Tiêu cực' || q.headers[1] === 'Không an toàn') ? 'no' : 'yes';
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val1}"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val2}"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'check') {
+                if (document.querySelectorAll(`input[name="q${index}"]:checked`).length > 0) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'check') {
+                let checkedInputs = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checkedInputs.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let correctText = q.opts.find(o => o.v === r.a).t;
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${correctText}`;
+                        sel.parentElement.appendChild(div);
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CHỦ ĐỀ ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
+</body>
+</html>

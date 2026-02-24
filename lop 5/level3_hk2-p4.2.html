@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 5 - Level 3 | Kiến Thức Tổng Hợp - Phần 4.2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* TÔNG MÀU TÍM LEVEL 3 */
+            --primary-color: #8e44ad; 
+            --primary-dark: #6c3483;  
+            --accent-color: #af7ac5;  
+            --bg-body: #f9f2fc;       
+            --text-color: #4a235a;    
+            --border-color: #d2b4de;  
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #f4ecf7; } 
+        
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #76448a; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+        .quote-box { background: #fdf5e6; border-left: 4px solid var(--primary-color); padding: 10px 15px; margin-bottom: 15px; font-style: italic; color: #555; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f4ecf7; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4; color: #000;
+        }
+        .options label:hover { background-color: #f4ecf7; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #faf5fc; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; font-weight: bold; }
+
+        .match-table td:first-child { width: 65%; font-family: 'Times New Roman', serif; font-size: 1.05rem; color: #000; }
+        .match-table td:last-child { width: 35%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #c39bd3; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer; color: #000;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5; color: #856404;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #c39bd3; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 3</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>LỚP 5 - LEVEL 3</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 4.2 (CHỦ ĐỀ 16 - 33)</h2>
+    </div>
+
+    <form id="quiz-form">
+        </form>
+
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 16, type: "table_tf",
+            q: "Rian vừa đăng video trực tiếp khi đang đi du lịch với gia đình. Bài đăng nêu cả địa điểm và số ngày đi chơi của cả gia đình. Em cần xác định các rủi ro liên quan đến bài đăng này. Với mỗi câu phát biểu về bài đăng, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Kẻ cắp có thể biết được rằng gia đình của Rian không có ở nhà và có thể đột nhập để ăn trộm", a: "yes"},
+                {t: "Một tội phạm có thể chọn gia đình của Rian làm mục tiêu vì biết được vị trí chính xác của họ", a: "yes"},
+                {t: "Một kẻ lừa đảo có thể theo dõi hoạt động gia đình của Rian và dùng thông tin đó vì lợi ích cá nhân", a: "yes"}
+            ],
+            explain: "Việc chia sẻ vị trí thời gian thực và thời gian vắng nhà tạo cơ hội lớn cho trộm cắp, kẻ theo dõi hoặc những kẻ lừa đảo nhắm mục tiêu vào gia đình bạn."
+        },
+        {
+            id: 17, type: "table_tf",
+            q: "Em có tạo một Blog cho lớp, cho phép những người khác đăng ảnh lên. Với mỗi câu phát biểu về hình ảnh, em hãy chọn Có nếu việc đó cần được cho phép hoặc chọn Không nếu không cần.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Một học sinh chụp ảnh giáo viên đang giảng bài", a: "yes"},
+                {t: "Một phụ huynh muốn đăng ảnh về một đứa trẻ khác đến dự bữa tiệc sinh nhật", a: "yes"},
+                {t: "Một học sinh quay video về cuộc thi thể thao ngoài trời", a: "no"}
+            ],
+            explain: "Việc chụp ảnh giáo viên đang dạy (trong không gian lớp học) hoặc chụp trẻ em (dưới tuổi vị thành niên) đều bắt buộc phải xin phép. Các sự kiện thể thao công cộng ngoài trời, đông người thì thường không cần xin phép."
+        },
+        {
+            id: 18, type: "radio",
+            q: "Em hãy cho biết, vì sao em nên ý thức về những phát biểu mình đăng trên mạng xã hội?",
+            opts: [
+                {v: "a", t: "Việc đăng thông tin sai trên mạng xã hội là bất hợp pháp"},
+                {v: "b", t: "Dữ liệu em đăng có tác động đến điểm uy tín của em"},
+                {v: "c", t: "Các trang mạng xã hội thu thập dữ liệu và có thể lưu trữ rất lâu, kể cả nếu em đã xóa dữ liệu"},
+                {v: "d", t: "Các phát biểu của em cần phải đại diện cho thông tin thực tế và không được dựa trên ý kiến của chính em"}
+            ],
+            ans: "c",
+            explain: "Lý do quan trọng nhất là 'dấu chân kỹ thuật số' (Digital Footprint) thường mang tính vĩnh viễn. Máy chủ có thể lưu trữ và khôi phục thông tin của em ngay cả khi em nghĩ rằng mình đã xóa nó."
+        },
+        {
+            id: 19, type: "radio",
+            q: "Giáo viên vừa đăng một hình ảnh về em và các học sinh khác trên mạng xã hội. Em không muốn hình của mình có trên internet. Em nên làm gì trước tiên?",
+            opts: [
+                {v: "a", t: "Chụp ảnh giáo viên và đăng trên trang của em"},
+                {v: "b", t: "Liên hệ với hiệu trưởng"},
+                {v: "c", t: "Thuê một luật sư"},
+                {v: "d", t: "Yêu cầu giáo viên xóa hình"}
+            ],
+            ans: "d",
+            explain: "Bước đầu tiên, trực tiếp và hòa bình nhất để giải quyết vấn đề riêng tư về hình ảnh là yêu cầu người đăng (giáo viên) gỡ bỏ nó."
+        },
+        {
+            id: 20, type: "radio",
+            q: "Em nhận ra rằng mình đã đăng thông tin không phù hợp hoặc chia sẻ quá mức trên mạng. Em nên làm gì trước tiên?",
+            opts: [
+                {v: "a", t: "Xóa nội dung đó"},
+                {v: "b", t: "Nói với cha mẹ"},
+                {v: "c", t: "Không làm gì"},
+                {v: "d", t: "Báo cáo với cảnh sát"}
+            ],
+            ans: "a",
+            explain: "Hành động khắc phục hậu quả nhanh nhất là tự mình xóa bỏ nội dung đó ngay lập tức để hạn chế sự lan truyền."
+        },
+        {
+            id: 21, type: "table_tf",
+            q: "Với mỗi phát biểu, em hãy chọn Có nếu cần xin phép trước khi đăng ảnh hoặc chọn Không nếu không cần.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Em chụp ảnh những người hâm mộ ở một cuộc thi điền kinh", a: "no"},
+                {t: "Em chụp ảnh mình và bạn thân tại nhà của mình", a: "yes"},
+                {t: "Em chụp ảnh mình và hai người bạn khác tại trung tâm mua sắm", a: "yes"}
+            ],
+            explain: "Chụp đám đông tại sự kiện công cộng thì không cần xin phép. Tuy nhiên, chụp ảnh cận cảnh cá nhân (bạn thân, bạn bè) để đăng lên mạng thì luôn cần có sự đồng ý của họ."
+        },
+        {
+            id: 22, type: "table_tf",
+            q: "Hãy chọn Có nếu câu phát biểu đó nói về ảnh hưởng của bắt nạt trực tuyến (Cyberbullying) hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Đạt điểm cao hơn ở trường", a: "no"},
+                {t: "Suy giảm lòng tự trọng", a: "yes"},
+                {t: "Khó ngủ", a: "yes"}
+            ],
+            explain: "Bắt nạt trực tuyến gây ra nhiều tác động tâm lý tiêu cực như làm suy giảm sự tự tin, gây căng thẳng, khó ngủ. Nó tuyệt đối không giúp nạn nhân đạt điểm cao hơn."
+        },
+        {
+            id: 23, type: "table_tf",
+            q: "Với mỗi câu phát biểu về việc sử dụng thiết bị, em hãy chọn Đúng nếu đó là một lựa chọn lành mạnh hoặc chọn Sai nếu lựa chọn đó không lành mạnh.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Tạm ngưng sử dụng thiết bị sau mỗi 20 phút", a: "yes"},
+                {t: "Để điện thoại cạnh giường ngủ để em có thể sử dụng chức năng báo thức", a: "no"},
+                {t: "Chớp mắt thường xuyên để giảm mỏi mắt", a: "yes"}
+            ],
+            explain: "Nghỉ ngơi và chớp mắt là các biện pháp tốt để bảo vệ mắt. Tuy nhiên, để điện thoại cạnh giường ngủ dễ làm em xao nhãng, ảnh hưởng đến giấc ngủ do ánh sáng xanh, nên dùng đồng hồ báo thức riêng thì tốt hơn."
+        },
+        {
+            id: 24, type: "match",
+            q: "Hãy nối các thuật ngữ ở cột bên phải với định nghĩa phù hợp ở cột bên trái",
+            rows: [
+                {t: "Có nhiều xe màu đỏ đang đậu trong bãi xe", a: "know"},
+                {t: "Xe màu đỏ", a: "info"},
+                {t: "Màu đỏ", a: "data"}
+            ],
+            opts: [
+                {v: "know", t: "Kiến thức"},
+                {v: "info", t: "Thông tin"},
+                {v: "data", t: "Dữ liệu"}
+            ],
+            explain: "Dữ liệu: Các chi tiết, từ ngữ thô (Màu đỏ). Thông tin: Dữ liệu được gắn ngữ cảnh có ý nghĩa (Xe màu đỏ). Kiến thức: Sự hiểu biết, nhận định rút ra từ thông tin (Có nhiều xe màu đỏ đang đậu...)."
+        },
+        {
+            id: 25, type: "check",
+            q: "Em hãy cho biết, tùy chọn nào sau đây là lợi ích khi cộng tác với người khác? (Chọn 2)",
+            opts: [
+                {v: "a", t: "Tiết kiệm thời gian"},
+                {v: "b", t: "Làm việc một mình"},
+                {v: "c", t: "Đồng quan điểm"},
+                {v: "d", t: "Đa dạng quan điểm"}
+            ],
+            ans: ["a", "d"],
+            explain: "Cộng tác (làm việc nhóm) giúp phân chia khối lượng công việc để hoàn thành nhanh hơn (tiết kiệm thời gian) và tập hợp được nhiều ý tưởng, góc nhìn khác nhau (đa dạng quan điểm)."
+        },
+        {
+            id: 26, type: "match",
+            q: "Em hãy di chuyển mỗi kiểu hợp tác kỹ thuật số từ danh sách ở bên phải sang ví dụ tương ứng ở bên trái.",
+            rows: [
+                {t: "Em tổ chức một hội thảo video cho đội bóng chuyền để có thể bàn bạc về các chiến thuật mới", a: "sync"},
+                {t: "Em lên lịch gửi email sau giờ học để hỏi người bạn của mình về các mẹo cải thiện bài tập", a: "async"},
+                {t: "Em và bạn cùng lớp mỗi người tạo 5 trang chiếu cho bài trình chiếu về động vật hoang dã", a: "co_author"}
+            ],
+            opts: [
+                {v: "sync", t: "Cộng tác đồng bộ"},
+                {v: "async", t: "Cộng tác không đồng bộ"},
+                {v: "co_author", t: "Đồng tác giả"}
+            ],
+            explain: "Hội thảo trực tiếp (video) là giao tiếp 'Đồng bộ'. Gửi email và chờ phản hồi là 'Không đồng bộ'. Cùng nhau tạo ra nội dung cho chung một tài liệu gọi là 'Đồng tác giả'."
+        },
+        {
+            id: 27, type: "check",
+            q: "Rian muốn cộng tác với một nhóm để làm bài tập của mình. Bạn ấy sẽ nhận được lợi ích gì từ việc này? (Chọn 2)",
+            opts: [
+                {v: "a", t: "Nhiều ý tưởng sáng tạo hơn"},
+                {v: "b", t: "Chia sẻ bớt khối lượng công việc"},
+                {v: "c", t: "Đạt được điểm số cao nhất"},
+                {v: "d", t: "Có nhiều quyền kiểm soát hơn đối với bài tập"}
+            ],
+            ans: ["a", "b"],
+            explain: "Làm việc nhóm mang lại sự phong phú về ý tưởng và giảm tải công việc cá nhân. Nó không đảm bảo chắc chắn điểm cao nhất, và quyền kiểm soát cá nhân thường bị giảm đi."
+        },
+        {
+            id: 28, type: "radio",
+            q: "Em hãy cho biết, hành động nào có các lợi ích như: tiết kiệm thời gian, khám phá nhiều quan điểm đa dạng và có thể phân chia công việc cho phù hợp với thế mạnh cá nhân?",
+            opts: [
+                {v: "a", t: "Sử dụng một quy trình cộng tác"},
+                {v: "b", t: "Áp dụng các công cụ quản lý thông tin"},
+                {v: "c", t: "Sử dụng công cụ thu thập dữ liệu"},
+                {v: "d", t: "Hành động của công dân kỹ thuật số tích cực"}
+            ],
+            ans: "a",
+            explain: "Tiết kiệm thời gian, phát huy thế mạnh cá nhân và tập hợp quan điểm là những lợi ích kinh điển của việc sử dụng quy trình hợp tác (cộng tác nhóm)."
+        },
+        {
+            id: 29, type: "match",
+            q: "Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.",
+            rows: [
+                {t: "Một quy trình mà ở đó nhiều người cùng tạo ra một sản phẩm", a: "co_author"},
+                {t: "Một quy trình mà ở đó nhiều người hợp tác cùng lúc để tạo ra một sản phẩm", a: "sync"},
+                {t: "Một quy trình mà ở đó nhiều người sử dụng các tài liệu dùng chung để tạo ra một sản phẩm theo thời gian riêng", a: "async"}
+            ],
+            opts: [
+                {v: "sync", t: "Cộng tác đồng bộ"},
+                {v: "co_author", t: "Đồng tác giả"},
+                {v: "async", t: "Cộng tác không đồng bộ"}
+            ],
+            explain: "Cùng làm ra sản phẩm = Đồng tác giả. Tương tác cùng lúc (thời gian thực) = Đồng bộ. Làm việc trên cùng tài liệu nhưng vào các thời điểm khác nhau = Không đồng bộ."
+        },
+        {
+            id: 30, type: "radio",
+            q: "Ken và Orson đều đang ở nhà. Họ có thể làm bài tập về nhà cùng nhau cùng lúc qua hình thức kỹ thuật số nào?",
+            opts: [
+                {v: "a", t: "Viết ghi chú cho nhau"},
+                {v: "b", t: "Gửi email vào buổi sáng"},
+                {v: "c", t: "Tạo một hội thảo Video lúc 6 giờ chiều"},
+                {v: "d", t: "Chụp ảnh để chia sẻ ở trường"}
+            ],
+            ans: "c",
+            explain: "Để làm việc 'cùng nhau cùng lúc' (đồng bộ) từ hai địa điểm khác nhau, tạo một cuộc hội thảo qua Video là giải pháp tối ưu nhất."
+        },
+        {
+            id: 31, type: "match",
+            q: "Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang tình huống phù hợp tương ứng ở bên trái.",
+            rows: [
+                {t: "Em và năm học sinh khác làm bài tập nhóm bằng cách sử dụng một tài liệu dùng chung", a: "co_author"},
+                {t: "Em và một bạn cùng lớp tạo một ứng dụng bằng cách hợp tác ở lớp và làm việc một mình khi ở nhà", a: "async"},
+                {t: "Em và một bạn cùng lớp ngồi trong thư viện để cùng thiết kế trang web cho lớp", a: "sync"}
+            ],
+            opts: [
+                {v: "sync", t: "Cộng tác đồng bộ"},
+                {v: "co_author", t: "Đồng tác giả"},
+                {v: "async", t: "Cộng tác không đồng bộ"}
+            ],
+            explain: "Chỉnh sửa chung tài liệu -> Đồng tác giả. Ngồi cạnh nhau làm cùng lúc -> Đồng bộ. Phân chia công việc, làm ở thời điểm và không gian khác nhau -> Không đồng bộ."
+        },
+        {
+            id: 32, type: "radio",
+            q: "Em hãy cho biết, công nghệ hỗ trợ làm việc từ xa và linh hoạt tại nơi làm việc như thế nào?",
+            opts: [
+                {v: "a", t: "Bằng cách cung cấp các công cụ và phần mềm để cộng tác và liên lạc từ xa"},
+                {v: "b", t: "Việc đó hạn chế quyền truy cập vào thông tin liên quan đến công việc"},
+                {v: "c", t: "Bằng cách không khuyến khích việc sử dụng thiết bị di động và máy tính xách tay"},
+                {v: "d", t: "Bằng cách yêu cầu nhân viên phải luôn có mặt tại văn phòng"}
+            ],
+            ans: "a",
+            explain: "Nhờ có phần mềm họp trực tuyến, hệ thống lưu trữ đám mây và ứng dụng nhắn tin, nhân viên có thể kết nối và làm việc với nhau dù ở bất kỳ đâu."
+        },
+        {
+            id: 33, type: "table_tf",
+            q: "Em hãy chọn Có nếu là lợi ích của việc cộng tác và chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Dữ liệu có giá trị hơn khi có nhiều người xem nó", a: "no"},
+                {t: "Chia sẻ khối lượng công việc giúp tiết kiệm thời gian", a: "yes"},
+                {t: "Những quan điểm đa dạng được chia sẻ", a: "yes"},
+                {t: "Nhiệm vụ có thể phù hợp với kỹ năng của mỗi người", a: "yes"}
+            ],
+            explain: "Làm việc nhóm mang lại hiệu quả về thời gian, phát huy thế mạnh cá nhân và thu thập nhiều góc nhìn. Việc dữ liệu có nhiều người xem không làm tăng giá trị cốt lõi của nó."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.id; 
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Định nghĩa / Mô tả / Tình huống</th><th>Lựa chọn tương ứng</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn đáp án --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'check') {
+                if (document.querySelectorAll(`input[name="q${index}"]:checked`).length > 0) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'check') {
+                let checkedInputs = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checkedInputs.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let correctText = q.opts.find(o => o.v === r.a).t;
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${correctText}`;
+                        sel.parentElement.appendChild(div);
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CHỦ ĐỀ ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
+</body>
+</html>
