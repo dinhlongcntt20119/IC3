@@ -2,155 +2,631 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (2.2)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 5 - Level 3 | Kiến Thức Tổng Hợp - Phần 2.2</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root { --primary-blue: #234585; --accent-yellow: #ffc107; --bg-color: #f0f4f8; --success-color: #d4edda; --error-color: #f8d7da; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; margin: 0; }
-        header { background: var(--primary-blue); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent-yellow); position: sticky; top: 0; z-index: 1000; }
-        .home-btn { background: rgba(255,255,255,0.2); color: white; padding: 6px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.4); text-decoration: none; }
-        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        .question-card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 1px solid #e1e8ed; }
-        .question-card.incomplete { border: 2px solid #dc3545; }
-        .topic-label { position: absolute; top: -12px; left: 20px; background: #2a5298; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; }
-        .question-text { font-weight: 700; margin-bottom: 15px; }
-        .options label { display: block; padding: 10px; margin-bottom: 8px; border: 1px solid #eee; border-radius: 8px; cursor: pointer; }
-        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .grid-table td, .grid-table th { border: 1px solid #dee2e6; padding: 8px; text-align: center; }
-        .correct-answer { background-color: var(--success-color) !important; border: 1px solid #28a745 !important; }
-        .wrong-answer { background-color: var(--error-color) !important; border: 1px solid #dc3545 !important; }
-        .feedback-box { display: none; margin-top: 15px; padding: 15px; background: #eef2f7; border-left: 5px solid #28a745; }
-        .btn-submit { display: block; width: 100%; padding: 18px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 30px; }
-        #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
+        :root {
+            /* TÔNG MÀU TÍM LEVEL 3 */
+            --primary-color: #8e44ad; 
+            --primary-dark: #6c3483;  
+            --accent-color: #af7ac5;  
+            --bg-body: #f9f2fc;       
+            --text-color: #4a235a;    
+            --border-color: #d2b4de;  
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #f4ecf7; } 
+        
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #76448a; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+        .quote-box { background: #fdf5e6; border-left: 4px solid var(--primary-color); padding: 10px 15px; margin-bottom: 15px; font-style: italic; color: #555; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f4ecf7; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4; color: #000;
+        }
+        .options label:hover { background-color: #f4ecf7; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #faf5fc; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; font-weight: bold; }
+
+        .match-table td:first-child { width: 65%; font-family: 'Times New Roman', serif; font-size: 1.05rem; color: #000; }
+        .match-table td:last-child { width: 35%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #c39bd3; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer; color: #000;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5; color: #856404;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #c39bd3; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
     </style>
 </head>
 <body>
+
 <header>
-    <div class="header-left"><a href="../index.html" class="home-btn">Trang chủ</a></div>
-    <div>GV. Nguyễn Đình Bạch Long</div>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 3</span>
+    </div>
 </header>
+
 <div class="container">
-    <div style="text-align:center;"><h1>KIẾN THỨC TỔNG HỢP - PHẦN 2.2</h1><p>Câu 21 - Câu 42</p></div>
+    <div class="page-title">
+        <h1>LỚP 5 - LEVEL 3</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 2.2 (CHỦ ĐỀ 21 - 42)</h2>
+    </div>
+
     <form id="quiz-form">
-        <script>
-            const qData = [
-                {id:21, q:"Trả lời câu hỏi Vì sao/Như thế nào?", type:"radio", opts:[{v:"a",t:"Thông tin"},{v:"b",t:"Kiến thức"},{v:"c",t:"Cộng tác"},{v:"d",t:"Dữ liệu"}], ans:"b", explain:"Kiến thức (Knowledge)."},
-                {id:22, q:"Mục tiêu Creative Commons?", type:"radio", opts:[{v:"a",t:"Phân phối tự do"},{v:"b",t:"Áp dụng luật"},{v:"c",t:"Giới hạn"},{v:"d",t:"Độc quyền"}], ans:"a", explain:"Chia sẻ quyền sử dụng."},
-                {id:23, q:"Điền từ:", type:"match_inline", txt:"[1] giao tiếp là bộ quy tắc.", ans:["protocol"], explain:"Giao thức (Protocol)."},
-                {id:24, q:"Nguồn tin cậy?", type:"table", rows:[{t:"National Geographic",a:"c"},{t:"Không trích dẫn",a:"k"},{t:"Nghiên cứu nhiều nguồn",a:"c"}], explain:"NatGeo và nghiên cứu kỹ lưỡng là tin cậy."},
-                {id:25, q:"Tác giả trang web ở đâu?", type:"radio", opts:[{v:"a",t:"Hỗ trợ"},{v:"b",t:"URL"},{v:"c",t:"About us/Team"},{v:"d",t:"SĐT"}], ans:"c", explain:"Mục Giới thiệu/Về chúng tôi."},
-                {id:26, q:"Mục đích Creative Commons?", type:"radio", opts:[{v:"a",t:"Sao chép không ghi công"},{v:"b",t:"Trao quyền sử dụng"},{v:"c",t:"Chỉnh sửa bán"},{v:"d",t:"Từ bỏ quyền"}], ans:"b", explain:"Cấp quyền sử dụng hợp pháp."},
-                {id:27, q:"Nguồn tin cậy?", type:"table", rows:[{t:"Đại học .com",a:"k"},{t:"Quá cũ (1989)",a:"k"},{t:"Được 2 nguồn khác đồng ý",a:"c"}], explain:"Đồng thuận từ nhiều nguồn tăng độ tin cậy."},
-                {id:28, q:"Ghép dữ liệu/thông tin:", type:"match", rows:[{t:"Áo trắng không hấp thụ nhiệt (Lý giải)",a:"know"},{t:"Màu trắng (Thô)",a:"data"},{t:"Áo có màu trắng (Ngữ cảnh)",a:"info"}], explain:"Data: Thô, Info: Có ngữ cảnh, Know: Hiểu biết/Quy luật."},
-                {id:29, q:"Mục đích trích dẫn?", type:"radio", opts:[{v:"a",t:"Thêm trang"},{v:"b",t:"Ghi công & tránh đạo văn"},{v:"c",t:"Thể hiện kiến thức"},{v:"d",t:"Làm đẹp"}], ans:"b", explain:"Tôn trọng bản quyền."},
-                {id:30, q:"Thông tin trong trích dẫn sách? (Chọn 3)", type:"check", opts:[{v:"a",t:"Số trang"},{v:"b",t:"File"},{v:"c",t:"URL"},{v:"d",t:"Nhà xuất bản"},{v:"e",t:"Tiêu đề"},{v:"f",t:"Tác giả"}], ans:["d","e","f"], explain:"Tác giả, Tiêu đề, Nhà xuất bản."},
-                {id:31, q:"Tổ chức cấp quyền miễn phí?", type:"radio", opts:[{v:"a",t:"Wix"},{v:"b",t:"Shutterstock"},{v:"c",t:"Creative Commons"},{v:"d",t:"Canva"}], ans:"c", explain:"Creative Commons."},
-                {id:32, q:"Ghép thuật ngữ:", type:"match", rows:[{t:"Bảo vệ pháp lý",a:"copyright"},{t:"Cách nhìn nhận",a:"perspective"},{t:"Mức độ hữu ích",a:"relevance"},{t:"Độ tin cậy",a:"credibility"}], explain:"Copyright, Perspective, Relevance, Credibility."},
-                {id:33, q:"Ứng dụng bảng tính?", type:"radio", opts:[{v:"a",t:"Teams"},{v:"b",t:"Google Sheets"},{v:"c",t:"TextEdit"},{v:"d",t:"Photoshop"}], ans:"b", explain:"Google Sheets/Excel."},
-                {id:34, q:"Khi nào dùng trích dẫn?", type:"radio", opts:[{v:"a",t:"Tự vẽ"},{v:"b",t:"Đăng nội dung người khác"},{v:"c",t:"Phỏng vấn"},{v:"d",t:"Tự thiết kế"}], ans:"b", explain:"Khi sử dụng tác phẩm không phải của mình."},
-                {id:35, q:"Biểu đồ so sánh phần trăm?", type:"radio", opts:[{v:"a",t:"Tròn (Pie)"},{v:"b",t:"Đường"},{v:"c",t:"Thanh"},{v:"d",t:"Cột"}], ans:"a", explain:"Biểu đồ tròn thể hiện tỷ lệ %."},
-                {id:36, q:"Ai sở hữu ảnh trên mạng?", type:"radio", opts:[{v:"a",t:"Công cụ tìm kiếm"},{v:"b",t:"Người tạo/tải lên"},{v:"c",t:"Người viết chú thích"},{v:"d",t:"Trang web hiển thị"}], ans:"b", explain:"Chủ sở hữu gốc."},
-                {id:37, q:"Cần trích dẫn không?", type:"table", rows:[{t:"Chúc mừng sinh nhật",a:"k"},{t:"Hình siêu anh hùng",a:"c"},{t:"Đoạn trích NatGeo",a:"c"}], explain:"Thông tin phổ biến không cần, tác phẩm sáng tạo cần."},
-                {id:38, q:"Thông tin trích dẫn sách?", type:"radio", opts:[{v:"a",t:"Tên sách & Tác giả"},{v:"b",t:"Thư viện"},{v:"c",t:"Người giới thiệu"},{v:"d",t:"Bìa sách"}], ans:"a", explain:"Tên sách và Tác giả."},
-                {id:39, q:"App tạo bảng tính?", type:"radio", opts:[{v:"a",t:"Google Sheets"},{v:"b",t:"PowerPoint"},{v:"c",t:"Illustrator"},{v:"d",t:"Pages"}], ans:"a", explain:"Google Sheets."},
-                {id:40, q:"Ghép chủ sở hữu:", type:"match", rows:[{t:"Nghệ thuật số",a:"artist"},{t:"Blog",a:"author"},{t:"Email",a:"sender"}], explain:"Artist (Họa sĩ), Author (Tác giả), Sender (Người gửi)."},
-                {id:41, q:"Ghép phím tắt:", type:"match", rows:[{t:"Dán",a:"paste"},{t:"Sao chép",a:"copy"},{t:"Chuyển app",a:"switch"}], explain:"Paste: Ctrl+V, Copy: Ctrl+C, Switch: Alt+Tab."},
-                {id:42, q:"Ghép thuật ngữ:", type:"match", rows:[{t:"Thông tin nguồn ảnh",a:"citation"},{t:"Dùng như của mình",a:"plagiarism"},{t:"Gợi ý từ",a:"autocomplete"},{t:"Sửa lỗi",a:"autocorrect"}], explain:"Citation, Plagiarism, Autocomplete, Autocorrect."}
-            ];
+        </form>
 
-            const form = document.getElementById('quiz-form');
-            qData.forEach(q => {
-                let h = `<div class="question-card" id="c${q.id}"><span class="topic-label">Chủ đề ${q.id}</span><div class="question-text">${q.q}</div>`;
-                if(q.type==='radio' || q.type==='check'){
-                    h+=`<div class="options">`;
-                    let t = q.type==='radio'?'radio':'checkbox';
-                    q.opts.forEach(o=>h+=`<label><input type="${t}" name="q${q.id}" value="${o.v}"> ${o.t}</label>`);
-                    h+=`</div>`;
-                } else if(q.type==='table'){
-                    h+=`<table class="grid-table"><tr><th>Nội dung</th><th>${q.id===37?'Có/Không':'Có/Không'}</th></tr>`;
-                    q.rows.forEach((r,i)=>h+=`<tr><td>${r.t}</td><td><label style="display:inline"><input type="radio" name="q${q.id}_${i}" value="${r.a==='c'?'c':'k'}"> ${q.id===37?'Có':'Có'}</label> <label style="display:inline"><input type="radio" name="q${q.id}_${i}" value="${r.a==='c'?'k':'c'}"> ${q.id===37?'Không':'Không'}</label></td></tr>`);
-                    h+=`</table>`;
-                } else if(q.type==='match'){
-                    h+=`<table class="grid-table"><tr><th>Nội dung</th><th>Lựa chọn</th></tr>`;
-                    q.rows.forEach((r,i)=>{
-                        h+=`<tr><td>${r.t}</td><td><select name="q${q.id}_${i}"><option value="">--Chọn--</option>`;
-                        if(q.id===28) h+=`<option value="data">Dữ liệu</option><option value="info">Thông tin</option><option value="know">Kiến thức</option>`;
-                        if(q.id===32) h+=`<option value="copyright">Bản quyền</option><option value="perspective">Quan điểm</option><option value="relevance">Liên quan</option><option value="credibility">Uy tín</option>`;
-                        if(q.id===40) h+=`<option value="artist">Họa sĩ</option><option value="author">Tác giả</option><option value="sender">Người gửi</option>`;
-                        if(q.id===41) h+=`<option value="paste">Ctrl+V</option><option value="copy">Ctrl+C</option><option value="switch">Alt+Tab</option>`;
-                        if(q.id===42) h+=`<option value="citation">Trích dẫn</option><option value="plagiarism">Đạo văn</option><option value="autocomplete">Tự động hoàn tất</option><option value="autocorrect">Tự sửa</option>`;
-                        h+=`</select></td></tr>`;
-                    });
-                    h+=`</table>`;
-                } else if(q.type==='match_inline'){
-                    h+=`<div>${q.txt.replace('[1]',`<select name="q${q.id}_1"><option value="">...</option><option value="protocol">Giao thức</option><option value="network">Mạng</option></select>`)}</div>`;
-                }
-                h+=`<div class="feedback-box"><strong>Đáp án:</strong> ${q.explain}</div></div>`;
-                form.innerHTML+=h;
-            });
-
-            function gradeQuiz(){
-                let score=0; let all=true; let firstMiss=null;
-                document.querySelectorAll('.question-card').forEach(c=>c.classList.remove('incomplete'));
-                document.querySelectorAll('.feedback-box').forEach(b=>b.style.display='none');
-                
-                qData.forEach(q=>{
-                    let ans=false;
-                    if(q.type==='radio' || q.type==='check'){ if(document.querySelector(`input[name="q${q.id}"]:checked`)) ans=true; }
-                    else if(q.type==='table'){ let sub=0; q.rows.forEach((r,i)=>{ if(document.querySelector(`input[name="q${q.id}_${i}"]:checked`)) sub++; }); if(sub===q.rows.length) ans=true; }
-                    else if(q.type==='match'){ let sub=0; q.rows.forEach((r,i)=>{ if(document.querySelector(`select[name="q${q.id}_${i}"]`).value!=='') sub++; }); if(sub===q.rows.length) ans=true; }
-                    else if(q.type==='match_inline'){ if(document.querySelector(`select[name="q${q.id}_1"]`).value!=='') ans=true; }
-                    if(!ans){ all=false; document.getElementById(`c${q.id}`).classList.add('incomplete'); if(!firstMiss) firstMiss=document.getElementById(`c${q.id}`); }
-                });
-
-                if(!all){ alert('Vui lòng làm hết bài!'); firstMiss.scrollIntoView({behavior:'smooth',block:'center'}); return; }
-
-                qData.forEach(q=>{
-                    let corr=false;
-                    if(q.type==='radio'){
-                        let v = document.querySelector(`input[name="q${q.id}"]:checked`).value;
-                        if(v===q.ans) corr=true;
-                        document.querySelectorAll(`input[name="q${q.id}"]`).forEach(i=>{ if(i.value===q.ans) i.parentElement.classList.add('correct-answer'); else if(i.checked) i.parentElement.classList.add('wrong-answer'); });
-                    } else if(q.type==='check'){
-                        let chk = Array.from(document.querySelectorAll(`input[name="q${q.id}"]:checked`)).map(i=>i.value);
-                        if(JSON.stringify(chk.sort())===JSON.stringify(q.ans.sort())) corr=true;
-                        document.querySelectorAll(`input[name="q${q.id}"]`).forEach(i=>{ if(q.ans.includes(i.value)) i.parentElement.classList.add('correct-answer'); else if(i.checked) i.parentElement.classList.add('wrong-answer'); });
-                    } else if(q.type==='table'){
-                        let subC=0;
-                        q.rows.forEach((r,i)=>{
-                            let v = document.querySelector(`input[name="q${q.id}_${i}"]:checked`).value;
-                            let rightVal = r.a==='c'?'c':'k';
-                            if(v===rightVal) subC++;
-                            document.querySelectorAll(`input[name="q${q.id}_${i}"]`).forEach(inp=>{ if(inp.value===rightVal) inp.parentElement.classList.add('correct-answer'); else if(inp.checked) inp.parentElement.classList.add('wrong-answer'); });
-                        });
-                        if(subC===q.rows.length) corr=true;
-                    } else if(q.type==='match'){
-                        let subC=0;
-                        q.rows.forEach((r,i)=>{
-                            let s = document.querySelector(`select[name="q${q.id}_${i}"]`);
-                            if(s.value===r.a) { subC++; s.classList.add('correct-answer'); } else s.classList.add('wrong-answer');
-                        });
-                        if(subC===q.rows.length) corr=true;
-                    } else if(q.type==='match_inline'){
-                        let s = document.querySelector(`select[name="q${q.id}_1"]`);
-                        if(s.value===q.ans[0]) { corr=true; s.classList.add('correct-answer'); } else s.classList.add('wrong-answer');
-                    }
-                    if(corr) score++;
-                    document.querySelector(`#c${q.id} .feedback-box`).style.display='block';
-                });
-
-                let r = document.getElementById('result-area');
-                r.style.display='block';
-                r.innerHTML=`Kết quả: ${score}/${qData.length} câu đúng`;
-                r.style.backgroundColor = score/qData.length >= 0.8 ? '#d4edda':'#f8d7da';
-                window.scrollTo({top:0,behavior:'smooth'});
-                document.querySelectorAll('input, select').forEach(i=>i.disabled=true);
-            }
-        </script>
-        <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
-        <div id="result-area"></div>
-    </form>
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
 </div>
-<footer><p>© 2026 - GV Nguyễn Đình Bạch Long</p></footer>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 21, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào trả lời cho các câu hỏi vì sao và như thế nào?",
+            opts: [
+                {v: "a", t: "Thông tin"},
+                {v: "b", t: "Kiến thức"},
+                {v: "c", t: "Cộng tác"},
+                {v: "d", t: "Dữ liệu"}
+            ],
+            ans: "b",
+            explain: "Kiến thức (Knowledge) là sự đúc kết và hiểu biết sâu sắc, giúp chúng ta giải thích được bản chất sự việc (vì sao) và cách thức hoạt động (như thế nào)."
+        },
+        {
+            id: 22, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào là mục tiêu chính của Creative Commons?",
+            opts: [
+                {v: "a", t: "Để phân phối thông tin một cách tự do"},
+                {v: "b", t: "Để áp dụng luật bản quyền đến mức độ cao nhất"},
+                {v: "c", t: "Để giới hạn việc sáng tác nghệ thuật"},
+                {v: "d", t: "Để đảm bảo mọi phần mềm đều được sở hữu độc quyền"}
+            ],
+            ans: "a",
+            explain: "Creative Commons (CC) cung cấp các giấy phép mở giúp người sáng tạo dễ dàng chia sẻ và phân phối tác phẩm của mình một cách hợp pháp và tự do cho cộng đồng."
+        },
+        {
+            id: 23, type: "radio",
+            q: "Em hãy hoàn thành phát biểu dưới đây bằng cách chọn câu trả lời đúng từ danh sách thả xuống.<br><br><b>__________</b> giao tiếp là một bộ quy tắc được các máy tính sử dụng giao tiếp với nhau.",
+            opts: [
+                {v: "a", t: "Giao thức (Protocol)"},
+                {v: "b", t: "Mạng (Network)"},
+                {v: "c", t: "Diễn đàn (Forum)"}
+            ],
+            ans: "a",
+            explain: "Giao thức (Protocol) là một tập hợp các quy tắc và tiêu chuẩn chung để các thiết bị trong mạng có thể kết nối, giao tiếp và truyền dữ liệu cho nhau."
+        },
+        {
+            id: 24, type: "table_tf",
+            q: "Với mỗi câu phát biểu, em hãy chọn Có nếu là nguồn thông tin đáng tin cậy hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Tác giả sử dụng trang web của National Geographic về cá voi xanh", a: "yes"},
+                {t: "Không có thông tin trích dẫn nào trong bài viết về cá voi xanh", a: "no"},
+                {t: "Sử dụng một bách khoa toàn thư trực tuyến mà trường của em giới thiệu", a: "yes"}
+            ],
+            explain: "Tài liệu từ tổ chức khoa học (National Geographic) và giáo dục là đáng tin cậy. Bài viết thiếu trích dẫn thì không thể kiểm chứng tính xác thực."
+        },
+        {
+            id: 25, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào sau đây sẽ cho em biết tác giả của một trang web?",
+            opts: [
+                {v: "a", t: "Trang hỗ trợ khách hàng"},
+                {v: "b", t: "URL"},
+                {v: "c", t: "Trang giới thiệu (About us)"},
+                {v: "d", t: "Số điện thoại ở mục liên hệ với chúng tôi"}
+            ],
+            ans: "c",
+            explain: "Trang 'Giới thiệu' (About Us) là nơi cung cấp thông tin chi tiết về cá nhân hoặc tổ chức tạo ra, quản lý và chịu trách nhiệm cho nội dung trang web."
+        },
+        {
+            id: 26, type: "radio",
+            q: "Mục đích của Creative Commons là gì?",
+            opts: [
+                {v: "a", t: "Cho phép mọi người tự do sao chép mọi sản phẩm mà không cần ghi công người sáng tạo"},
+                {v: "b", t: "Cho phép nhà sáng tạo trao quyền sử dụng sản phẩm của họ cho người khác"},
+                {v: "c", t: "Cho phép mọi người chỉnh sửa và bán sản phẩm của người khác"},
+                {v: "d", t: "Cho phép nhà sáng tạo từ bỏ mọi quyền đối với sản phẩm của họ"}
+            ],
+            ans: "b",
+            explain: "Giấy phép Creative Commons cho phép tác giả giữ bản quyền nhưng vẫn chủ động trao một số quyền sử dụng nhất định cho cộng đồng (ví dụ: được dùng nhưng phải ghi nguồn)."
+        },
+        {
+            id: 27, type: "table_tf",
+            q: "Bạn cần tìm các nguồn thông tin đáng tin cậy và hợp lệ cho một bài viết của mình về tình hình sử dụng công nghệ hiện nay ở trường học. Với mỗi phát biểu về các nguồn thông tin, em hãy chọn Có nếu là nguồn đáng tin cậy, chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Một bài viết được đăng bởi một trường đại học với URL có đuôi là .com", a: "no"},
+                {t: "Trang web được phát hành vào tháng 01 năm 1989", a: "no"},
+                {t: "Có hai nguồn tài nguyên khác đồng ý với trang web này", a: "yes"}
+            ],
+            explain: "Trang học thuật chuẩn thường dùng đuôi .edu (trường dùng .com có thể là trang thương mại). Tài liệu năm 1989 đã lỗi thời so với từ 'hiện nay'. Việc đối chiếu chéo (nhiều nguồn đồng ý) làm tăng độ tin cậy."
+        },
+        {
+            id: 28, type: "match",
+            q: "Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.",
+            rows: [
+                {t: "Áo khoác màu trắng thường không hấp thụ nhiệt nhiều như các màu sậm hơn", a: "know"},
+                {t: "Màu trắng", a: "data"},
+                {t: "Áo khoác có màu trắng", a: "info"}
+            ],
+            opts: [
+                {v: "data", t: "Dữ liệu"},
+                {v: "info", t: "Thông tin"},
+                {v: "know", t: "Kiến thức"}
+            ],
+            explain: "Dữ liệu (Data): Thông tin thô, đơn lẻ (Màu trắng). Thông tin (Info): Dữ liệu gắn với ngữ cảnh (Áo khoác màu trắng). Kiến thức (Knowledge): Quy luật, hiểu biết rút ra (Áo trắng ít hấp thụ nhiệt)."
+        },
+        {
+            id: 29, type: "radio",
+            q: "Em hãy cho biết, mục đích của việc đưa các trích dẫn vào một bài nghiên cứu ở trường là gì?",
+            opts: [
+                {v: "a", t: "Để thêm trang vào bài tập"},
+                {v: "b", t: "Để ghi công cho các tác giả ban đầu và tránh đạo văn"},
+                {v: "c", t: "Để thể hiện kiến thức của em về nhiều nguồn"},
+                {v: "d", t: "Để làm cho nhiệm vụ của em trông đẹp hơn"}
+            ],
+            ans: "b",
+            explain: "Trích dẫn là quy tắc bắt buộc trong nghiên cứu để tôn trọng bản quyền, ghi nhận công sức của người tạo ra nội dung gốc và đảm bảo tính trung thực (tránh đạo văn)."
+        },
+        {
+            id: 30, type: "check",
+            q: "Em có các trích dẫn sau:<br><div class='quote-box'>Orson, D: 2010. Sách mẫu. (Tái bản lần thứ 2). Companypro.</div>Em hãy cho biết, thông tin nào có trong trích dẫn? (Chọn 3)",
+            opts: [
+                {v: "a", t: "Số trang (Number of Pages)"},
+                {v: "b", t: "Tập tin (File)"},
+                {v: "c", t: "URL (Uniform Resource Locator)"},
+                {v: "d", t: "Nhà xuất bản (Publisher)"},
+                {v: "e", t: "Tiêu đề (Title)"},
+                {v: "f", t: "Tác giả (Author)"}
+            ],
+            ans: ["d", "e", "f"],
+            explain: "Dựa vào chuỗi trích dẫn, ta có: Tác giả = Orson, D. Tiêu đề = Sách mẫu. Nhà xuất bản = Companypro. Không có thông tin về trang, URL hay Tập tin."
+        },
+        {
+            id: 31, type: "radio",
+            q: "Em hãy cho biết, tổ chức nào cung cấp phương thức để người sáng tạo có thể cấp quyền sử dụng miễn phí sản phẩm sáng tạo của họ theo luật bản quyền?",
+            opts: [
+                {v: "a", t: "Wix"},
+                {v: "b", t: "Shutterstock"},
+                {v: "c", t: "Creative Commons"},
+                {v: "d", t: "Canva"}
+            ],
+            ans: "c",
+            explain: "Creative Commons là tổ chức phi lợi nhuận cung cấp các chuẩn hình thức cấp phép (Giấy phép CC) giúp mọi người dễ dàng chia sẻ tác phẩm của mình."
+        },
+        {
+            id: 32, type: "match",
+            q: "Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang phát biểu tương ứng ở bên trái.",
+            rows: [
+                {t: "Một hình thức bảo vệ pháp lý mang lại cho người sáng tạo tác phẩm gốc quyền độc quyền kiểm soát cách tác phẩm đó được sử dụng và phân phối", a: "copy"},
+                {t: "Cách ai đó nhìn hoặc hiểu điều gì đó dựa trên kinh nghiệm, kiến thức và niềm tin của chính họ", a: "pers"},
+                {t: "Mức độ áp dụng hoặc hữu ích của thông tin, kết quả tìm kiếm hoặc nội dung", a: "rel"},
+                {t: "Thông tin có thể tin được hay đáng tin cậy như thế nào", a: "cred"}
+            ],
+            opts: [
+                {v: "rel", t: "Relevance (Mức độ liên quan)"},
+                {v: "pers", t: "Perspective (Quan điểm)"},
+                {v: "copy", t: "Copyright (Bản quyền)"},
+                {v: "cred", t: "Credibility (Sự uy tín)"}
+            ],
+            explain: "Bảo vệ pháp lý sáng tạo = Bản quyền. Cách nhìn nhận cá nhân = Quan điểm. Tính hữu ích áp dụng = Mức độ liên quan. Đáng tin cậy = Sự uy tín."
+        },
+        {
+            id: 33, type: "radio",
+            q: "Ứng dụng nào cho phép hiển thị dữ liệu theo hàng, cột và tạo biểu đồ từ các giá trị?",
+            opts: [
+                {v: "a", t: "Microsoft Teams"},
+                {v: "b", t: "Google Sheets"},
+                {v: "c", t: "Apple TextEdit"},
+                {v: "d", t: "Adobe Photoshop"}
+            ],
+            ans: "b",
+            explain: "Google Sheets là ứng dụng bảng tính (Spreadsheet) chuyên dụng để tổ chức dữ liệu dạng hàng cột, tính toán và vẽ biểu đồ."
+        },
+        {
+            id: 34, type: "radio",
+            q: "Em hãy cho biết, tình huống mà em nên dùng trích dẫn?",
+            opts: [
+                {v: "a", t: "Khi em tạo ra một tác phẩm hội họa mới trên lớp"},
+                {v: "b", t: "Khi em đăng nội dung gốc của người khác trên mạng xã hội"},
+                {v: "c", t: "Khi em được phỏng vấn cho một bài báo"},
+                {v: "d", t: "Khi em tạo ra bản thiết kế trang phục mới cho trường học"}
+            ],
+            ans: "b",
+            explain: "Bất cứ khi nào em sử dụng nội dung, ý tưởng hoặc hình ảnh KHÔNG phải do mình tự tạo ra (nội dung gốc của người khác), em bắt buộc phải trích dẫn ghi nguồn."
+        },
+        {
+            id: 35, type: "radio",
+            q: "Em đang tạo một biểu đồ thể hiện <b>tỷ lệ phần trăm</b> số điểm mỗi người chơi ghi được so với <b>tổng số điểm</b> đã ghi được trong mùa. Em nên sử dụng loại biểu đồ nào cho dạng so sánh này?",
+            opts: [
+                {v: "a", t: "Biểu đồ tròn (Pie Chart)"},
+                {v: "b", t: "Biểu đồ đường (Line Chart)"},
+                {v: "c", t: "Biểu đồ thanh (Bar Chart)"},
+                {v: "d", t: "Biểu đồ cột (Column Chart)"}
+            ],
+            ans: "a",
+            explain: "Biểu đồ tròn (Pie Chart) là loại biểu đồ tiêu chuẩn và trực quan nhất để thể hiện tỷ lệ phần trăm (thành phần) đóng góp vào một tổng thể."
+        },
+        {
+            id: 36, type: "radio",
+            q: "Em hãy cho biết, ai có quyền sở hữu đối với hình ảnh mà em tìm thấy trên internet?",
+            opts: [
+                {v: "a", t: "Công cụ tìm kiếm em đã sử dụng để tìm hình ảnh"},
+                {v: "b", t: "Người đã tạo và tải lên hình ảnh"},
+                {v: "c", t: "Người viết chú thích cho hình ảnh trực tuyến"},
+                {v: "d", t: "Trang web nơi hình ảnh được hiển thị"}
+            ],
+            ans: "b",
+            explain: "Bản quyền của bất kỳ hình ảnh, video hay bài viết nào luôn thuộc về tác giả - người trực tiếp sáng tạo ra nó."
+        },
+        {
+            id: 37, type: "table_tf",
+            q: "Em đang chuẩn bị một bài trình chiếu để trình bày trước lớp. Với mỗi phát biểu, em hãy chọn Có nếu cần trích dẫn nguồn hoặc Không nếu không cần.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Em dùng chữ chúc mừng sinh nhật trong bài trình chiếu của mình", a: "no"},
+                {t: "Em dùng hình ảnh về một siêu anh hùng do một tác giả nổi tiếng tạo ra", a: "yes"},
+                {t: "Em trích dẫn một đoạn về số lượng cá voi từ một bài nghiên cứu do National Geographic xuất bản", a: "yes"}
+            ],
+            explain: "Câu chúc mừng thông thường là kiến thức chung (không cần trích dẫn). Tuy nhiên, tác phẩm nghệ thuật của tác giả khác và số liệu nghiên cứu cụ thể thì bắt buộc phải ghi rõ nguồn."
+        },
+        {
+            id: 38, type: "radio",
+            q: "Em hãy cho biết, thông tin nào nên được đưa vào trích dẫn cho một cuốn sách?",
+            opts: [
+                {v: "a", t: "Tên sách và tên tác giả"},
+                {v: "b", t: "Tên của thư viện và ngày em đọc sách"},
+                {v: "c", t: "Tên của người đã giới thiệu cuốn sách cho em"},
+                {v: "d", t: "Bìa sách trông như thế nào và có bao nhiêu trang"}
+            ],
+            ans: "a",
+            explain: "Yếu tố cốt lõi của một trích dẫn sách bao gồm: Tên tác giả, Tựa sách, Nhà xuất bản và Năm xuất bản."
+        },
+        {
+            id: 39, type: "radio",
+            q: "Em sẽ sử dụng ứng dụng nào để tạo và quản lý bảng tính (Spreadsheet)?",
+            opts: [
+                {v: "a", t: "Google Sheets"},
+                {v: "b", t: "Microsoft PowerPoint"},
+                {v: "c", t: "Adobe Illustrator"},
+                {v: "d", t: "Apple Pages"}
+            ],
+            ans: "a",
+            explain: "Google Sheets (cùng với Microsoft Excel) là phần mềm được thiết kế đặc biệt để tạo, tính toán và xử lý dữ liệu dạng bảng tính."
+        },
+        {
+            id: 40, type: "match",
+            q: "Em đang cố xác định người tạo sản phẩm gốc của một số loại nội dung đa phương tiện trực tuyến khác nhau. Em hãy di chuyển chủ sở hữu từ danh sách ở bên phải sang loại đa phương tiện tương ứng ở bên trái.",
+            rows: [
+                {t: "Tác phẩm nghệ thuật gốc", a: "illustrator"},
+                {t: "Bài đăng trên Blog", a: "author"},
+                {t: "Email", a: "sender"}
+            ],
+            opts: [
+                {v: "illustrator", t: "Họa sĩ minh họa"},
+                {v: "author", t: "Tác giả"},
+                {v: "sender", t: "Người gửi"}
+            ],
+            explain: "Tranh vẽ/nghệ thuật = Họa sĩ minh họa. Bài viết blog/sách = Tác giả. Nội dung thư điện tử = Người gửi."
+        },
+        {
+            id: 41, type: "match",
+            q: "Em hãy di chuyển từng phím tắt từ danh sách ở bên phải sang trường hợp sử dụng tương ứng ở bên trái.",
+            rows: [
+                {t: "Dán văn bản hoặc tập tin", a: "paste"},
+                {t: "Sao chép văn bản hoặc tập tin", a: "copy"},
+                {t: "Chuyển lần lượt sang các ứng dụng đang mở khác", a: "switch"}
+            ],
+            opts: [
+                {v: "copy", t: "Ctrl + C hoặc CMD + C"},
+                {v: "paste", t: "Ctrl + V hoặc CMD + V"},
+                {v: "switch", t: "Alt + Tab hoặc CMD + Tab"}
+            ],
+            explain: "Lệnh Copy (Sao chép) dùng phím C. Lệnh Paste (Dán) dùng phím V. Lệnh Switch Window (Đổi cửa sổ) dùng tổ hợp Alt/CMD + Tab."
+        },
+        {
+            id: 42, type: "match",
+            q: "Em hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang mô tả tương ứng ở bên trái.",
+            rows: [
+                {t: "Cung cấp thông tin về hình ảnh em lấy từ internet và dùng trong bài tập của mình", a: "cite"},
+                {t: "Sử dụng tác phẩm của người khác như là của mình", a: "plag"},
+                {t: "Khi tìm kiếm trên internet, công cụ tìm kiếm đề xuất \"chó so với mèo\" khi bạn gõ đến đoạn \"chó so vớ\"", a: "auto_c"},
+                {t: "Khi em soạn một tin nhắn để gửi cho giáo viên của mình, máy tính sửa \"àv\" thành \"và\"", a: "auto_r"}
+            ],
+            opts: [
+                {v: "auto_r", t: "Tự sửa (AutoCorrect)"},
+                {v: "cite", t: "Trích dẫn (Citation)"},
+                {v: "plag", t: "Đạo văn (Plagiarism)"},
+                {v: "auto_c", t: "Tự động hoàn tất (AutoComplete)"}
+            ],
+            explain: "Trích dẫn = ghi nguồn ảnh. Đạo văn = lấy của người khác làm của mình. Tự động hoàn tất = gợi ý điền nốt phần còn thiếu. Tự sửa = máy tự nhận diện và sửa lỗi gõ sai."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.id; 
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Định nghĩa / Mô tả</th><th>Lựa chọn tương ứng</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn đáp án --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'check') {
+                if (document.querySelectorAll(`input[name="q${index}"]:checked`).length > 0) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'check') {
+                let checkedInputs = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checkedInputs.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let correctText = q.opts.find(o => o.v === r.a).t;
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${correctText}`;
+                        sel.parentElement.appendChild(div);
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CHỦ ĐỀ ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
 </body>
 </html>
