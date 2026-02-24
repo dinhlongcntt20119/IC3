@@ -3,114 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC3 SPARK LEVEL 3 - KIẾN THỨC TỔNG HỢP (3.2)</title>
+    <title>Lớp 5 - Level 3 | Kiến Thức Tổng Hợp - Phần 3.2</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-blue: #234585; 
-            --accent-yellow: #ffc107; 
-            --bg-color: #f0f4f8;
-            --card-bg: #ffffff;
-            --success-color: #d4edda;
-            --success-border: #28a745;
-            --error-color: #f8d7da;
-            --error-border: #dc3545;
+            /* TÔNG MÀU TÍM LEVEL 3 */
+            --primary-color: #8e44ad; 
+            --primary-dark: #6c3483;  
+            --accent-color: #af7ac5;  
+            --bg-body: #f9f2fc;       
+            --text-color: #4a235a;    
+            --border-color: #d2b4de;  
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: #333; line-height: 1.6; }
-
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
         /* HEADER */
         header {
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 10px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--accent-yellow);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            position: sticky; top: 0; z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
         }
-        .header-left { display: flex; align-items: center; gap: 15px; }
-        .home-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.4);
-            display: flex; align-items: center; gap: 5px;
-            transition: all 0.3s;
-        }
-        .home-btn:hover { background: rgba(255, 255, 255, 0.3); }
-        .logo-ic3 { 
-            font-family: 'Kanit', sans-serif; 
-            font-size: 1.8rem; font-style: italic; font-weight: 800; 
-            display: flex; align-items: center; 
-        }
-        .logo-ic3 span:nth-child(1) { color: #4CAF50; -webkit-text-stroke: 1px white; margin-right: 5px; } 
-        .logo-ic3 span:nth-child(2) { color: #222; opacity: 0.7; }
-        .header-right { text-align: right; }
-        .teacher-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 2px; }
-        .sub-text { font-size: 0.85rem; opacity: 0.9; }
-
-        /* CONTENT */
-        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        .page-title { text-align: center; margin-bottom: 30px; }
-        .page-title h1 { color: var(--primary-blue); font-size: 2rem; margin-bottom: 5px; text-transform: uppercase; }
-        .page-title p { color: #666; font-style: italic; }
-
-        .question-card {
-            background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;
-            position: relative; border: 1px solid #e1e8ed; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .question-card.incomplete { border: 2px solid var(--error-border); box-shadow: 0 0 8px rgba(220,53,69,0.4); }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #f4ecf7; } 
         
-        .topic-label {
-            position: absolute; top: -12px; left: 20px; background: #e9ecef; border: 1px solid #ccc;
-            color: #333; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
         }
-        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; color: #2c3e50; margin-top: 5px; }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
 
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #76448a; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+        
+        /* QUOTE BOX FOR LONG TEXT/EMAILS */
+        .quote-box { 
+            background: #faf5fc; border-left: 4px solid var(--primary-color); 
+            padding: 15px; margin: 15px 0; font-style: italic; color: #333;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* OPTIONS */
         .options label {
-            display: block; padding: 10px 15px; margin-bottom: 8px; border: 1px solid #eee;
-            border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 0.95rem;
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f4ecf7; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4; color: #000;
         }
-        .options label:hover { background: #f0f7ff; border-color: #b3d7ff; }
-        .options input { margin-right: 10px; transform: scale(1.1); }
+        .options label:hover { background-color: #f4ecf7; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+        
+        /* Hỗ trợ hiển thị Emoji to hơn một chút */
+        .emoji-icon { font-size: 1.3rem; margin-right: 5px; vertical-align: middle; }
 
-        /* Grid Table */
-        .grid-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .grid-table th, .grid-table td { border: 1px solid #dee2e6; padding: 10px; text-align: center; font-size: 0.95rem; }
-        .grid-table th { background: #f8f9fa; color: #495057; }
-        .grid-table td:first-child { text-align: left; font-weight: 500; width: 60%; }
-        .grid-table select { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #faf5fc; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; font-weight: bold; }
 
-        /* Feedback */
-        .correct-answer { background-color: var(--success-color) !important; border: 1px solid var(--success-border) !important; }
-        .wrong-answer { background-color: var(--error-color) !important; border: 1px solid var(--error-border) !important; }
-        .feedback-box { display: none; margin-top: 15px; padding: 15px; background: #eef2f7; border-left: 5px solid #28a745; border-radius: 4px; }
-        .feedback-title { font-weight: bold; color: #155724; display: block; margin-bottom: 5px; }
+        .match-table td:first-child { width: 65%; font-family: 'Times New Roman', serif; font-size: 1.05rem; color: #000; }
+        .match-table td:last-child { width: 35%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #c39bd3; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer; color: #000;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5; color: #856404;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
 
         .btn-submit {
-            display: block; width: 100%; padding: 18px; background: var(--primary-blue);
-            color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; 
-            cursor: pointer; margin-top: 30px; transition: opacity 0.2s; box-shadow: 0 4px 0 #1a3565;
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4); transition: 0.3s;
         }
-        .btn-submit:active { transform: translateY(4px); box-shadow: none; }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6); }
 
-        #result-area { text-align: center; font-size: 1.4rem; font-weight: bold; margin-top: 30px; display: none; padding: 20px; border-radius: 8px; }
-
-        footer {
-            background-color: var(--primary-blue); color: white; padding: 40px 20px;
-            text-align: center; margin-top: 50px;
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
         }
-        .footer-info { display: flex; justify-content: center; gap: 40px; font-size: 0.9rem; margin-top: 20px; }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #c39bd3; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
     </style>
 </head>
 <body>
@@ -121,148 +160,147 @@
         <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
     </div>
     <div class="header-right">
-        <div class="teacher-name">GV. Nguyễn Đình Bạch Long</div>
-        <div class="sub-text">Hệ thống ôn luyện Level 3</div>
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 3</span>
     </div>
 </header>
 
 <div class="container">
     <div class="page-title">
-        <h1>KIẾN THỨC TỔNG HỢP - PHẦN 3.2</h1>
-        <p>Phiếu bài tập IC3 Spark Level 3 (Chủ đề 21 - Chủ đề 42)</p>
+        <h1>LỚP 5 - LEVEL 3</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 3.2 (CHỦ ĐỀ 21 - 42)</h2>
     </div>
 
     <form id="quiz-form">
         </form>
-    
-    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
     <div id="result-area"></div>
 </div>
 
 <footer>
     <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
-    <span>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</span>
     <div class="footer-info">
-        <div><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com</div>
-        <div><i class="fas fa-phone"></i> 0937.438.939</div>
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
     </div>
 </footer>
 
 <script>
     const questions = [
         {
-            id: 21,
+            id: 21, type: "radio",
             q: "Em hãy cho biết, tùy chọn nào dưới đây là ví dụ về giao tiếp không đồng bộ (Asynchronous Communication)?",
-            type: "radio",
             opts: [
                 {v: "a", t: "Chủ trì cuộc họp video cho một nhóm người"},
-                {v: "b", t: "Gửi và nhận tin nhắn văn bản"}, 
+                {v: "b", t: "Gửi và nhận tin nhắn văn bản"},
                 {v: "c", t: "Nói chuyện điện thoại với ai đó ở múi giờ khác"},
                 {v: "d", t: "Có một cuộc trò chuyện trực tiếp"}
             ],
             ans: "b",
-            explain: "Gửi tin nhắn (Email/SMS) là không đồng bộ vì người nhận không cần phản hồi ngay lập tức."
+            explain: "Giao tiếp không đồng bộ là khi thông tin được gửi đi nhưng không yêu cầu người nhận phải có mặt và trả lời ngay lập tức (như nhắn tin, gửi email)."
         },
         {
-            id: 22,
-            q: "Em nhận được tin nhắn quảng cáo Laptop giảm giá 40%... Em hãy chọn Có nếu phát biểu có bao gồm thiên kiến hoặc Không nếu không phải.",
-            type: "table",
+            id: 22, type: "table_tf",
+            q: "Em nhận được tin nhắn sau:<div class='quote-box'>Laptop đang được giảm giá 40%. Đặt hàng ngay hôm nay để được giao hàng miễn phí. Chúng tôi có đủ mọi cấu hình.</div>Với mỗi câu phát biểu trong tin nhắn này, em hãy chọn Có nếu phát biểu đó có bao gồm thiên kiến hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
             rows: [
-                {t: "Laptop đang được giảm giá 40%", a: "k"},
-                {t: "Đặt hàng ngay hôm nay để được giao hàng miễn phí", a: "k"},
-                {t: "Chúng tôi có đủ mọi cấu hình", a: "c"} 
+                {t: "Laptop đang được giảm giá 40%", a: "no"},
+                {t: "Đặt hàng ngay hôm nay để được giao hàng miễn phí", a: "no"},
+                {t: "Chúng tôi có đủ mọi cấu hình", a: "yes"}
             ],
-            explain: "Thông tin giá cả/giao hàng là sự thật (Facts). Tuyên bố 'đủ mọi cấu hình' có thể mang tính quảng cáo/thiên kiến (Bias) hoặc phóng đại."
+            explain: "Các thông tin về giá giảm và giao hàng là dữ kiện cụ thể (Không thiên kiến). Tuy nhiên, câu khẳng định 'đủ mọi cấu hình' (tất cả) mang tính phóng đại, quảng cáo phiến diện nên được xem là có thiên kiến (Bias)."
         },
         {
-            id: 23,
-            q: "Em đọc bài đăng trên mạng xã hội về biến đổi khí hậu... Em hãy chọn Có nếu phát biểu có bao gồm thiên kiến hoặc Không nếu không phải.",
-            type: "table",
+            id: 23, type: "table_tf",
+            q: "Em đọc được bài đăng sau trên mạng xã hội:<div class='quote-box'>Biến đổi khí hậu chắc chắn là không có thật vì Orson bỏ phiếu chống lại chuyện đó. Mùa hè năm nay mát hơn mùa hè năm ngoái. Hầu hết những người tin vào biến đổi khí hậu là những người đưa ra thuyết âm mưu.</div>Với mỗi câu phát biểu trong bài đăng trên mạng xã hội này, hãy chọn Có nếu phát biểu đó có bao gồm thiên kiến hoặc Không nếu không phải.",
+            headers: ["Có", "Không"],
             rows: [
-                {t: "Biến đổi khí hậu chắc chắn là không có thật vì Orson bỏ phiếu chống lại chuyện đó", a: "c"},
-                {t: "Mùa hè năm nay mát hơn mùa hè năm ngoái", a: "k"},
-                {t: "Hầu hết những người tin vào biến đổi khí hậu là những người đưa ra thuyết âm mưu", a: "c"}
+                {t: "Biến đổi khí hậu chắc chắn là không có thật vì Orson bỏ phiếu chống lại chuyện đó", a: "yes"},
+                {t: "Mùa hè năm nay mát hơn mùa hè năm ngoái", a: "no"},
+                {t: "Hầu hết những người tin vào biến đổi khí hậu là những người đưa ra thuyết âm mưu", a: "yes"}
             ],
-            explain: "Ý kiến dựa trên quan điểm chính trị hoặc quy chụp (Orson bỏ phiếu, thuyết âm mưu) là thiên kiến. Nhiệt độ là dữ liệu thực tế."
+            explain: "Khẳng định một vấn đề toàn cầu chỉ dựa vào việc 1 người bỏ phiếu chống, hoặc kết tội những người khác là 'thuyết âm mưu' là những phát biểu mang nặng ý kiến chủ quan, phán xét và thiên kiến."
         },
         {
-            id: 24,
-            q: "Với mỗi câu phát biểu về cộng tác kỹ thuật số, hãy chọn Mục đích học tập hoặc Mục đích giải trí.",
-            type: "match", // Using match logic for custom labels
+            id: 24, type: "match",
+            q: "Với mỗi câu phát biểu về cộng tác kỹ thuật số, hãy chọn Mục đích học tập hoặc Mục đích giải trí để xác định trường hợp sử dụng đúng.",
             rows: [
                 {t: "Thêm Emoji mặt cười vào tin nhắn của bạn", a: "ent"},
-                {t: "Tham gia hội thảo video với giáo viên và các bạn cùng lớp", a: "learn"},
-                {t: "Chia sẻ video hài hước cho bạn cùng lớp về một con gấu", a: "ent"}
+                {t: "Tham gia hội thảo video với giáo viên và các bạn cùng lớp", a: "edu"},
+                {t: "Chia sẻ video hài hước cho bạn cùng lớp về một con gấu đang nằm trên băng", a: "ent"}
             ],
-            options: {learn: "Mục đích học tập", ent: "Mục đích giải trí"},
-            explain: "Emoji và Video hài là giải trí. Hội thảo với giáo viên là học tập."
-        },
-        {
-            id: 25,
-            q: "Em viết email cho một công ty để yêu cầu họ giúp đỡ về dự án ở trường. Em hãy chọn các tùy chọn đúng trong hộp thoại cho email này.",
-            type: "match_inline",
-            txt: "Tới (To): [1]<br>Chủ đề (Subject): [2]",
-            ans: ["company", "subject_pro"], 
-            opts: {
-                group1: [{v:"company", t:"companypro.net@gmail.com (Ví dụ)"}, {v:"wrong", t:"myhealthyeats.com"}], // Simplified for logic, UI will utilize select box
-                group2: [{v:"subject_pro", t:"Cần hỗ trợ dự án của trường"}, {v:"subject_rude", t:"Hãy giúp ngay"}]
-            },
-            explain: "Địa chỉ email phải hợp lệ (có @gmail...). Chủ đề cần lịch sự và rõ ràng."
-        },
-        {
-            id: 26,
-            q: "Em nên gửi Emoji nào vào phần trò chuyện để thể hiện với diễn giả rằng bạn đồng ý với điều họ nói?",
-            type: "radio",
             opts: [
-                {v: "a", t: "Mặt cười khóc 😂"},
-                {v: "b", t: "Mặt giận dữ 😡"},
-                {v: "c", t: "Chắp tay 🙏"},
-                {v: "d", t: "Ra hiệu đồng ý (Thumbs up/Smile) 👍/🙂"}
+                {v: "edu", t: "Mục đích học tập"},
+                {v: "ent", t: "Mục đích giải trí"}
+            ],
+            explain: "Hội thảo với giáo viên phục vụ việc học. Sử dụng emoji mặt cười và chia sẻ video hài hước là các hoạt động tương tác mang tính giải trí."
+        },
+        {
+            id: 25, type: "match",
+            q: "Em viết email cho một công ty để yêu cầu họ giúp đỡ về dự án ở trường. Đây là dạng email có văn phong chuyên nghiệp. Em hãy chọn các tùy chọn đúng để điền vào phần Tới (To) và Chủ đề (Subject) của email này.",
+            rows: [
+                {t: "Tới (To):", a: "email"},
+                {t: "Chủ đề (Subject):", a: "subject"}
+            ],
+            opts: [
+                {v: "email", t: "Companypro.net@gmail.com"},
+                {v: "subject", t: "Cần hỗ trợ dự án của trường"},
+                {v: "wrong1", t: "myhealthyeats.com"},
+                {v: "wrong2", t: "Hãy giúp ngay"}
+            ],
+            explain: "Trường 'Tới (To)' cần một địa chỉ email hợp lệ (Companypro.net@gmail.com). Trường 'Chủ đề' cần một câu tóm tắt lịch sự, rõ ràng (Cần hỗ trợ dự án của trường)."
+        },
+        {
+            id: 26, type: "radio",
+            q: "Em nên gửi Emoji nào vào phần trò chuyện để thể hiện với diễn giả rằng bạn đồng ý với điều họ nói?",
+            opts: [
+                {v: "a", t: "<span class='emoji-icon'>😂</span> Mặt cười khóc"},
+                {v: "b", t: "<span class='emoji-icon'>😡</span> Mặt giận dữ"},
+                {v: "c", t: "<span class='emoji-icon'>🙏</span> Chắp tay"},
+                {v: "d", t: "<span class='emoji-icon'>👍</span> Ra hiệu đồng ý"}
             ],
             ans: "d",
-            explain: "Biểu tượng đồng ý (Like/Smile) thể hiện sự đồng thuận."
+            explain: "Biểu tượng ngón tay cái đưa lên (👍 Thumbs up) là ký hiệu quốc tế chuẩn mực nhất để thể hiện sự đồng ý, tán thành."
         },
         {
-            id: 27,
+            id: 27, type: "radio",
             q: "Em nên tìm thông tin người soạn email ở vị trí nào?",
-            type: "radio",
             opts: [
                 {v: "a", t: "Cc"},
-                {v: "b", t: "From (Từ)"},
+                {v: "b", t: "From"},
                 {v: "c", t: "Bcc"},
-                {v: "d", t: "To (Tới)"}
+                {v: "d", t: "To"}
             ],
             ans: "b",
-            explain: "Thông tin người gửi nằm ở trường 'From' (Từ)."
+            explain: "Trường 'From' (Từ) luôn hiển thị địa chỉ email và tên của người đã soạn và gửi bức thư đó."
         },
         {
-            id: 28,
-            q: "Em đang dự một hội thảo video trực tiếp. Diễn giả đang nói. Em nên làm gì?",
-            type: "radio",
+            id: 28, type: "radio",
+            q: "Em đang dự một hội thảo video trực tiếp. Hội thảo cho phép em gửi tin nhắn, bật camera và nói chuyện qua micro. Em không đồng ý với một ý kiến mà diễn giả đang nói. Em nên làm gì?",
             opts: [
                 {v: "a", t: "Gửi Emoji ra hiệu từ chối vào phần trò chuyện"},
-                {v: "b", t: "Đợi diễn giả trình bày đến một điểm dừng rồi mới nói lên ý kiến"},
+                {v: "b", t: "Đợi diễn giả trình bày đến một điểm dừng rồi mới nói lên ý kiến của mình"},
                 {v: "c", t: "Lập tức rời hội thảo"},
                 {v: "d", t: "Ngắt lời diễn giả trước khi bài giảng kết thúc"}
             ],
             ans: "b",
-            explain: "Lịch sự chờ diễn giả dừng lại hoặc dùng tính năng 'Giơ tay' trước khi phát biểu."
+            explain: "Để thể hiện sự chuyên nghiệp và tôn trọng, em nên chờ đến phần hỏi đáp (Q&A) hoặc khi diễn giả chủ động dừng lại để lắng nghe ý kiến."
         },
         {
-            id: 29,
-            q: "Hoạt động giao tiếp kỹ thuật số giữa các cá nhân (Interpersonal)? Chọn Có/Không.",
-            type: "table",
+            id: 29, type: "table_tf",
+            q: "Với mỗi câu phát biểu, em hãy chọn Có nếu đó là ví dụ về hoạt động giao tiếp kỹ thuật số giữa các cá nhân hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
             rows: [
-                {t: "Viết ghi chú trong một ứng dụng nhật ký trên máy tính bảng", a: "k"},
-                {t: "Sử dụng máy ghi âm để thu lại khi em đọc một bài phát biểu", a: "k"},
-                {t: "Quay video chính mình đọc thuộc lòng một kịch bản", a: "k"}
+                {t: "Viết ghi chú trong một ứng dụng nhật ký trên máy tính bảng của em", a: "no"},
+                {t: "Sử dụng máy ghi âm để thu lại khi em đọc một bài phát biểu", a: "no"},
+                {t: "Quay video chính mình đọc thuộc lòng một kịch bản", a: "no"}
             ],
-            explain: "Giao tiếp giữa các cá nhân cần ít nhất 2 người. Các hành động trên là cá nhân (tự làm một mình)."
+            explain: "Giao tiếp giữa các cá nhân (Interpersonal communication) đòi hỏi sự trao đổi thông tin giữa ít nhất 2 người. Cả 3 ví dụ trên đều là hoạt động cá nhân độc lập."
         },
         {
-            id: 30,
-            q: "Em đang viết email cho giáo viên để hỏi về điểm của mình. Dòng chủ đề thích hợp nhất?",
-            type: "radio",
+            id: 30, type: "radio",
+            q: "Em đang viết email cho giáo viên để hỏi về điểm của mình. Ví dụ nào sẽ là dòng chủ đề thích hợp nhất?",
             opts: [
                 {v: "a", t: "Vì sao?"},
                 {v: "b", t: "Chào thầy,"},
@@ -270,143 +308,141 @@
                 {v: "d", t: "Câu hỏi về điểm"}
             ],
             ans: "d",
-            explain: "Chủ đề cần ngắn gọn và đi thẳng vào nội dung chính."
+            explain: "Dòng chủ đề 'Câu hỏi về điểm' ngắn gọn, lịch sự và nêu bật được chính xác nội dung cốt lõi của email."
         },
         {
-            id: 31,
-            q: "Chuyển mỗi mục đích của cộng tác kỹ thuật số vào nhóm Học tập hoặc Giải trí.",
-            type: "match",
+            id: 31, type: "match",
+            q: "Em hãy di chuyển mỗi mục đích của cộng tác kỹ thuật số từ danh sách ở bên phải sang ví dụ tương ứng ở bên trái.",
             rows: [
-                {t: "Orson bảo rằng bạn ấy sẽ quay lại ngay sau khi nói chuyện với giáo viên", a: "ent"},
-                {t: "Cảm ơn cậu đã giúp tớ làm bài tập về nhà hôm nay", a: "learn"},
-                {t: "Rian đang tìm bạn của mình ở đâu tại trận bóng", a: "ent"},
-                {t: "Hey tớ thấy cậu ở trung tâm mua sắm ngày hôm nay đó", a: "ent"}
+                {t: "Orson bảo rằng bạn ấy sẽ quay lại ngay sau khi nói chuyện với giáo viên", a: "edu"},
+                {t: "Cảm ơn cậu đã giúp tớ làm bài tập về nhà hôm nay", a: "edu"},
+                {t: "Rian đang tìm bạn của mình ở đâu tại trận ⚽ nhưng rồi cậu ấy phải X", a: "ent"},
+                {t: "Hey tớ thấy cậu ở trung tâm mua sắm ngày hôm nay đó. Lol có BFF mới nha!", a: "ent"}
             ],
-            options: {learn: "Học tập", ent: "Giải trí"},
-            explain: "Trao đổi về bài tập là Học tập. Các chuyện phiếm khác là Giải trí."
-        },
-        {
-            id: 32,
-            q: "Chọn Có nếu điều đó là phù hợp trong giao tiếp kỹ thuật số hoặc Không nếu không phù hợp.",
-            type: "table",
-            rows: [
-                {t: "Trả lời email giáo viên bằng ngôn ngữ nhắn tin kiểu 'ko lien quan'", a: "k"},
-                {t: "Nhập 'LÀM ƠN GIÚP TỚ' (Viết hoa) trong dòng chủ đề", a: "k"},
-                {t: "Dùng Emoji kiểu đảo mắt khi trả lời câu hỏi của thầy Hiệu trưởng", a: "k"}
-            ],
-            explain: "Cần dùng ngôn ngữ trang trọng với giáo viên, không viết hoa toàn bộ (la hét), không dùng emoji thiếu tôn trọng."
-        },
-        {
-            id: 33,
-            q: "Chọn Có nếu đó là giao tiếp kỹ thuật số giữa các cá nhân (Interpersonal).",
-            type: "table",
-            rows: [
-                {t: "Một email em gửi cho giáo viên để đặt câu hỏi", a: "c"},
-                {t: "Một hội thảo video giữa các thành viên trong nhóm", a: "c"},
-                {t: "Một tin nhắn văn bản giữa em và bạn cùng lớp", a: "c"}
-            ],
-            explain: "Tất cả đều là giao tiếp giữa người với người thông qua công nghệ."
-        },
-        {
-            id: 34,
-            q: "Em nhận được email sau của Orson... Chọn Có nếu phát biểu bao gồm thiên kiến (Bias).",
-            type: "table",
-            rows: [
-                {t: "Orson D đang tranh cử cho chức chủ tịch CLB khoa học", a: "k"},
-                {t: "Tớ biết bạn ấy ghét khoa học vì bạn ấy chẳng bao giờ tham gia hội chợ", a: "c"},
-                {t: "Bạn ấy nhận được một điểm B ở bài kiểm tra tuần trước", a: "k"}
-            ],
-            explain: "Suy đoán về cảm xúc/sở thích của người khác dựa trên quan điểm cá nhân là Thiên kiến."
-        },
-        {
-            id: 35,
-            q: "Chọn Có nếu đó là ví dụ về giao tiếp kỹ thuật số giữa các cá nhân.",
-            type: "table",
-            rows: [
-                {t: "Một bình luận trên mạng xã hội trả lời câu hỏi từ một người bạn", a: "c"},
-                {t: "Một cuộc gọi điện thoại cho gia sư để nhờ giúp đỡ", a: "c"},
-                {t: "Một cuộc trò chuyện video giữa em và bạn cùng lớp", a: "c"}
-            ],
-            explain: "Tương tác 2 chiều giữa người với người là giao tiếp giữa các cá nhân."
-        },
-        {
-            id: 36,
-            q: "Những ảnh hưởng phổ biến của bắt nạt trực tuyến (Cyberbullying)? Chọn Đúng/Sai.",
-            type: "table",
-            rows: [
-                {t: "Giảm sự tự tin và lòng tự trọng", a: "d"},
-                {t: "Cảm giác buồn bã, lo lắng hoặc trầm cảm", a: "d"},
-                {t: "Cải thiện các mối quan hệ xã hội", a: "s"},
-                {t: "Thành công trong học tập và điểm số được cải thiện", a: "s"}
-            ],
-            explain: "Bắt nạt trực tuyến gây ra các hậu quả tiêu cực về tâm lý và học tập."
-        },
-        {
-            id: 37,
-            q: "Nguồn nào có thể thu thập dữ liệu của em? Chọn Có/Không.",
-            type: "table",
-            rows: [
-                {t: "Trò chơi", a: "c"},
-                {t: "Khảo sát", a: "c"},
-                {t: "Bộ câu hỏi", a: "c"},
-                {t: "Ứng dụng giáo dục", a: "c"}
-            ],
-            explain: "Hầu hết các ứng dụng và biểu mẫu trực tuyến đều thu thập dữ liệu người dùng."
-        },
-        {
-            id: 38,
-            q: "Bước đầu tiên để đảm bảo dấu chân kỹ thuật số của em được tích cực là gì?",
-            type: "radio",
             opts: [
-                {v: "a", t: "Thỉnh thoảng tìm kiếm bản thân trên internet (Google yourself)"},
-                {v: "b", t: "Yêu cầu báo cáo tín dụng"},
-                {v: "c", t: "Chặn bài đăng của những người bạn không biết"},
-                {v: "d", t: "Yêu cầu từng trang mạng xóa các bài đăng về mình"}
+                {v: "edu", t: "Mục đích Học tập"},
+                {v: "ent", t: "Mục đích Giải trí"}
+            ],
+            explain: "Trao đổi về giáo viên, bài tập là phục vụ học tập. Trò chuyện về đi xem đá bóng, đi mua sắm mang tính chất giải trí bạn bè."
+        },
+        {
+            id: 32, type: "table_tf",
+            q: "Với mỗi câu phát biểu, em hãy chọn Có nếu điều đó là phù hợp trong giao tiếp kỹ thuật số hoặc chọn Không nếu không phù hợp.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Em trả lời email của giáo viên bằng ngôn ngữ nhắn tin kiểu KLQ cho “không liên quan”", a: "no"},
+                {t: "Em nhập “LÀM ƠN GIÚP TỚ” trong dòng chủ đề khi yêu cầu sự giúp đỡ từ bạn cùng lớp", a: "no"},
+                {t: "Em dùng Emoji kiểu đảo mắt khi trả lời câu hỏi của thầy Hiệu trưởng về kế hoạch tập luyện của nhóm", a: "no"}
+            ],
+            explain: "Sử dụng từ viết tắt (teencode) với giáo viên, viết IN HOA toàn bộ (như đang la hét), hoặc dùng Emoji đảo mắt (thái độ thiếu tôn trọng) đều là những hành vi giao tiếp không chuẩn mực."
+        },
+        {
+            id: 33, type: "table_tf",
+            q: "Với mỗi câu phát biểu, em hãy chọn Có nếu đó là giao tiếp kỹ thuật số giữa các cá nhân hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Một email em gửi cho giáo viên để đặt câu hỏi về bài tập được giao", a: "yes"},
+                {t: "Một hội thảo video giữa các thành viên trong nhóm của em với một nhóm ở trường học khác", a: "yes"},
+                {t: "Một tin nhắn văn bản giữa em và bạn cùng lớp", a: "yes"}
+            ],
+            explain: "Cả 3 trường hợp đều có sự tham gia trao đổi thông tin qua lại giữa hai hay nhiều người thông qua công nghệ, do đó đều là giao tiếp số giữa các cá nhân."
+        },
+        {
+            id: 34, type: "table_tf",
+            q: "Em nhận được email sau:<div class='quote-box'>Orson D đang tranh cử cho chức chủ tịch của câu lạc bộ khoa học. Tớ biết bạn ấy ghét khoa học vì bạn ấy chẳng bao giờ tham gia hội chợ khoa học nào cả. Bạn ấy nhận được một điểm B ở bài kiểm tra tuần trước.</div>Với mỗi câu phát biểu trích từ email này, em hãy chọn Có nếu phát biểu đó có bao gồm thiên kiến hoặc Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Orson D đang tranh cử cho chức chủ tịch của câu lạc bộ khoa học", a: "no"},
+                {t: "Tớ biết bạn ấy ghét khoa học vì bạn ấy chẳng bao giờ tham gia hội chợ khoa học nào cả", a: "yes"},
+                {t: "Bạn ấy nhận được một điểm B ở bài kiểm tra tuần trước", a: "no"}
+            ],
+            explain: "Việc đánh giá Orson 'ghét khoa học' chỉ vì không tham gia hội chợ là một suy diễn mang tính chủ quan, định kiến (Bias). Hai câu còn lại chỉ là dữ kiện thực tế."
+        },
+        {
+            id: 35, type: "table_tf",
+            q: "Với mỗi câu phát biểu, em hãy chọn Có nếu đó là một ví dụ về giao tiếp kỹ thuật số giữa các cá nhân hoặc chọn Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Một bình luận trên mạng xã hội trả lời câu hỏi từ một người bạn", a: "yes"},
+                {t: "Một cuộc gọi điện thoại cho gia sư của em để nhờ trợ giúp về một bài tập", a: "yes"},
+                {t: "Một cuộc trò chuyện video giữa em và bạn cùng lớp", a: "yes"}
+            ],
+            explain: "Bình luận MXH, gọi điện thoại (viễn thông) và gọi video đều là các phương thức giao tiếp số hóa nhằm kết nối các cá nhân với nhau."
+        },
+        {
+            id: 36, type: "table_tf",
+            q: "Em hãy cho biết, những ảnh hưởng phổ biến của bắt nạt trực tuyến (Cyberbullying) là gì?",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Giảm sự tự tin và lòng tự trọng", a: "yes"},
+                {t: "Cảm giác buồn bã, lo lắng hoặc trầm cảm", a: "yes"},
+                {t: "Cải thiện các mối quan hệ xã hội và tình bạn bền chặt hơn", a: "no"},
+                {t: "Thành công trong học tập và điểm số được cải thiện", a: "no"}
+            ],
+            explain: "Bắt nạt mạng gây ra các hậu quả tâm lý tiêu cực nặng nề (mất tự tin, trầm cảm). Nó tuyệt đối không mang lại bất cứ sự cải thiện nào về mặt xã hội hay học tập."
+        },
+        {
+            id: 37, type: "table_tf",
+            q: "Với mỗi nguồn trên mạng, em hãy chọn Có nếu nguồn đó có thể thu thập dữ liệu của em hoặc chọn Không nếu không thể.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Trò chơi", a: "yes"},
+                {t: "Khảo sát", a: "yes"},
+                {t: "Bộ câu hỏi", a: "yes"},
+                {t: "Ứng dụng giáo dục", a: "yes"}
+            ],
+            explain: "Hầu như tất cả các dịch vụ trên internet (game, form khảo sát, ứng dụng học tập) đều có hệ thống thu thập dữ liệu người dùng (cookies, thông tin nhập vào) để quản lý."
+        },
+        {
+            id: 38, type: "radio",
+            q: "Em cần thực hiện bước đầu tiên để đảm bảo rằng dấu chân kỹ thuật số (Digital Footprint) của em được tích cực. Em nên làm gì?",
+            opts: [
+                {v: "a", t: "Thỉnh thoảng tìm kiếm bản thân trên internet"},
+                {v: "b", t: "Yêu cầu báo cáo tín dụng từ ba cơ quan tín dụng"},
+                {v: "c", t: "Chặn bài đăng của những người bạn không biết trên mạng xã hội"},
+                {v: "d", t: "Yêu cầu từng trang mạng xã hội xóa các bài đăng về mình"}
             ],
             ans: "a",
-            explain: "Tự tìm kiếm thông tin về mình giúp em biết được những gì đang hiển thị công khai để có hướng xử lý."
+            explain: "Bước đầu tiên để quản lý hình ảnh bản thân là em phải biết người khác đang thấy gì về em. Bằng cách tự tìm kiếm tên mình trên Google, em sẽ nắm bắt được 'dấu chân số' hiện tại của bản thân."
         },
         {
-            id: 39,
-            q: "Tại sao môi trường làm việc tiện dụng theo công thái học là quan trọng?",
-            type: "radio",
+            id: 39, type: "radio",
+            q: "Em hãy cho biết, tại sao một môi trường làm việc tiện dụng theo công thái học là quan trọng?",
             opts: [
-                {v: "a", t: "Cho phép em không cần nghỉ ngơi"},
+                {v: "a", t: "Cho phép em không cần nghỉ ngơi khi sử dụng máy tính"},
                 {v: "b", t: "Làm giảm nguy cơ chấn thương và ngăn ngừa sự khó chịu về thể chất"},
-                {v: "c", t: "Đảm bảo em trông thật phong cách"},
-                {v: "d", t: "Giúp thiết bị chạy nhanh hơn"}
+                {v: "c", t: "Đảm bảo em trông thật phong cách khi sử dụng công nghệ"},
+                {v: "d", t: "Giúp thiết bị chạy nhanh hơn và hiệu quả hơn"}
             ],
             ans: "b",
-            explain: "Công thái học (Ergonomics) giúp bảo vệ sức khỏe, xương khớp và mắt."
+            explain: "Công thái học (Ergonomics) thiết kế tư thế và không gian làm việc phù hợp với cơ thể con người, nhằm giảm đau mỏi vai gáy, cột sống và bảo vệ sức khỏe lâu dài."
         },
         {
-            id: 40,
-            q: "Việc chụp ảnh người khác: Có nếu em cần được họ cho phép, Không nếu không cần.",
-            type: "table",
+            id: 40, type: "table_tf",
+            q: "Với mỗi phát biểu về việc chụp ảnh người khác, em hãy chọn Có nếu em cần được họ cho phép hoặc chọn Không nếu không cần.",
+            headers: ["Có", "Không"],
             rows: [
-                {t: "Những hàng người đứng chờ thật dài tại công viên giải trí (Nơi công cộng)", a: "k"},
-                {t: "Những cầu thủ trên sân trong một trận bóng rổ (Sự kiện công cộng)", a: "k"},
-                {t: "Những người trong khu giữ đồ ở phòng Gym (Riêng tư)", a: "c"}
+                {t: "Những hàng người đứng chờ thật dài tại công viên giải trí", a: "no"},
+                {t: "Những cầu thủ trên sân trong một trận bóng rổ", a: "no"},
+                {t: "Những người trong khu giữ đồ ở phòng Gym", a: "yes"}
             ],
-            explain: "Nơi riêng tư như phòng thay đồ/gym bắt buộc phải xin phép. Nơi công cộng đám đông thường không bắt buộc (tùy ngữ cảnh)."
+            explain: "Những nơi công cộng chung (đám đông công viên, sân thi đấu) không yêu cầu xin phép từng cá nhân. Nhưng những khu vực nhạy cảm, riêng tư (như phòng thay đồ, phòng Gym) thì tuyệt đối phải có sự cho phép."
         },
         {
-            id: 41,
+            id: 41, type: "radio",
             q: "Em nên làm gì nếu nhận được tin nhắn không phù hợp hoặc không an toàn khi trực tuyến?",
-            type: "radio",
             opts: [
-                {v: "a", t: "Tắt máy tính ngay lập tức"},
+                {v: "a", t: "Tắt máy tính của em ngay lập tức"},
                 {v: "b", t: "Gửi một tin nhắn trả lời có ý nghĩa"},
                 {v: "c", t: "Chụp ảnh màn hình và cho người lớn đáng tin cậy xem càng sớm càng tốt"},
-                {v: "d", t: "Không làm gì cả"}
+                {v: "d", t: "Không làm gì cả, đó không phải là vấn đề"}
             ],
             ans: "c",
-            explain: "Lưu bằng chứng và báo cáo cho người lớn là cách xử lý an toàn nhất."
+            explain: "Việc chụp ảnh màn hình giúp em lưu lại bằng chứng để gửi cho cha mẹ, thầy cô hoặc cơ quan chức năng có cơ sở hỗ trợ em giải quyết rắc rối."
         },
         {
-            id: 42,
-            q: "Trong trường hợp nào em nên xin phép trước khi đăng ảnh của một ai đó lên mạng?",
-            type: "radio",
+            id: 42, type: "radio",
+            q: "Em hãy cho biết, trong trường hợp nào em nên xin phép trước khi đăng ảnh của một ai đó lên mạng?",
             opts: [
                 {v: "a", t: "Bạn nên xin phép trong mọi tình huống"},
                 {v: "b", t: "Khi người đó đang làm điều gì đáng xấu hổ"},
@@ -414,67 +450,54 @@
                 {v: "d", t: "Khi người đó có một công việc quan trọng"}
             ],
             ans: "a",
-            explain: "Để thể hiện sự tôn trọng và an toàn, luôn nên xin phép trước khi đăng ảnh người khác."
+            explain: "Quyền riêng tư về hình ảnh là quyền cơ bản của mỗi cá nhân. Do đó, bạn phải luôn xin phép trước khi đăng ảnh người khác lên mạng, bất kể tình huống nào."
         }
     ];
 
-    function renderQuestions() {
+    function renderQuiz() {
         const form = document.getElementById('quiz-form');
         let html = '';
-        questions.forEach(q => {
-            html += `<div class="question-card" id="c${q.id}">
-                <span class="topic-label">Chủ đề ${q.id}</span>
-                <div class="question-text">${q.q}</div>`;
+        questions.forEach((q, index) => {
+            let label = q.id; 
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
             
             if (q.type === 'radio') {
                 html += `<div class="options">`;
                 q.opts.forEach(opt => {
-                    html += `<label><input type="radio" name="q${q.id}" value="${opt.v}"> ${opt.t}</label>`;
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
                 });
                 html += `</div>`;
-            } else if (q.type === 'table') {
-                const isTrueFalse = q.rows[0].a === 'd' || q.rows[0].a === 's';
-                const col1 = isTrueFalse ? "Đúng" : "Có";
-                const col2 = isTrueFalse ? "Sai" : "Không";
-                
-                html += `<table class="grid-table">
-                    <tr><th>Nội dung</th><th>${col1} / ${col2}</th></tr>`;
-                q.rows.forEach((r, idx) => {
-                    const val1 = (r.a === 'c' || r.a === 'd') ? r.a : (isTrueFalse ? 's' : 'k'); // Value for Correct col
-                    const val2 = (r.a === 'k' || r.a === 's') ? r.a : (isTrueFalse ? 'd' : 'c'); // Value for Wrong col
-                    // Actually simplier: Input 1 value is always 'yes/true', Input 2 is 'no/false'. We check against r.a
-                    html += `<tr>
-                        <td>${r.t}</td>
-                        <td>
-                            <label style="display:inline-block; margin-right:10px;"><input type="radio" name="q${q.id}_${idx}" value="${isTrueFalse?'d':'c'}"> ${col1}</label>
-                            <label style="display:inline-block;"><input type="radio" name="q${q.id}_${idx}" value="${isTrueFalse?'s':'k'}"> ${col2}</label>
-                        </td>
-                    </tr>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
                 });
-                html += `</table>`;
+                html += `</div>`;
             } else if (q.type === 'match') {
-                html += `<table class="grid-table"><tr><th>Nội dung</th><th>Lựa chọn</th></tr>`;
-                q.rows.forEach((r, idx) => {
-                    html += `<tr><td>${r.t}</td><td>
-                        <select name="q${q.id}_${idx}">
-                            <option value="">-- Chọn --</option>`;
-                    for (const [key, val] of Object.entries(q.options)) {
-                        html += `<option value="${key}">${val}</option>`;
-                    }
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Định nghĩa / Mô tả / Ví dụ</th><th>Lựa chọn tương ứng</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn đáp án --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
                     html += `</select></td></tr>`;
                 });
-                html += `</table>`;
-            } else if (q.type === 'match_inline') {
-                // Specific manual construction for inline selects
-                let content = q.txt;
-                if(q.id === 25) {
-                    content = content.replace('[1]', `<select name="q${q.id}_1" style="display:inline-block; width:auto; margin:5px;"><option value="">...</option><option value="company">thebeautysalonnet@gmail.com</option><option value="wrong">companypro.net@gmail.com</option><option value="wrong">myhealthyeats.com</option></select>`);
-                    content = content.replace('[2]', `<select name="q${q.id}_2" style="display:inline-block; width:auto; margin:5px;"><option value="">...</option><option value="subject_pro">Cần hỗ trợ dự án của trường</option><option value="subject_rude">Hãy giúp ngay</option></select>`);
-                }
-                html += `<div style="background:#f9f9f9; padding:15px; line-height:2;">${content}</div>`;
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="yes"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="no"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
             }
-
-            html += `<div class="feedback-box"><span class="feedback-title">Đáp án & Giải thích:</span>${q.explain}</div>
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
             </div>`;
         });
         form.innerHTML = html;
@@ -483,118 +506,125 @@
     function gradeQuiz() {
         let score = 0;
         let allAnswered = true;
-        let firstMissing = null;
+        let firstUnanswered = null;
 
-        // Reset UI
         document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
-        document.querySelectorAll('.feedback-box').forEach(b => b.style.display = 'none');
-        document.querySelectorAll('.correct-answer, .wrong-answer').forEach(el => el.classList.remove('correct-answer', 'wrong-answer'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
 
-        // Validation
-        questions.forEach(q => {
+        questions.forEach((q, index) => {
             let answered = false;
             if (q.type === 'radio') {
-                if (document.querySelector(`input[name="q${q.id}"]:checked`)) answered = true;
-            } else if (q.type === 'table') {
-                let count = 0;
-                q.rows.forEach((r, idx) => {
-                    if (document.querySelector(`input[name="q${q.id}_${idx}"]:checked`)) count++;
-                });
-                if (count === q.rows.length) answered = true;
-            } else if (q.type === 'match') {
-                let count = 0;
-                q.rows.forEach((r, idx) => {
-                    if (document.querySelector(`select[name="q${q.id}_${idx}"]`).value !== "") count++;
-                });
-                if (count === q.rows.length) answered = true;
-            } else if (q.type === 'match_inline') {
-                if (q.id === 25) {
-                    if(document.querySelector(`select[name="q${q.id}_1"]`).value !== "" && document.querySelector(`select[name="q${q.id}_2"]`).value !== "") answered = true;
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'check') {
+                // Cho phép submit nếu đã chọn ít nhất 1 (để check lỗi sau)
+                if (document.querySelectorAll(`input[name="q${index}"]:checked`).length > 0) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
                 }
+                if (subCount === totalRows) answered = true;
             }
 
             if (!answered) {
                 allAnswered = false;
-                const card = document.getElementById(`c${q.id}`);
+                let card = document.getElementById(`card-${index}`);
                 card.classList.add('incomplete');
-                if (!firstMissing) firstMissing = card;
+                if (!firstUnanswered) firstUnanswered = card;
             }
         });
 
         if (!allAnswered) {
-            alert("Vui lòng trả lời tất cả các câu hỏi!");
-            firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
             return;
         }
 
-        // Grading
-        questions.forEach(q => {
+        questions.forEach((q, index) => {
             let isCorrect = false;
             if (q.type === 'radio') {
-                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-                if (selected.value === q.ans) {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
                     isCorrect = true;
-                    selected.parentElement.classList.add('correct-answer');
+                    checked.parentElement.classList.add('correct-opt');
                 } else {
-                    selected.parentElement.classList.add('wrong-answer');
-                    // Highlight correct
-                    document.querySelector(`input[name="q${q.id}"][value="${q.ans}"]`).parentElement.style.border = "2px dashed #28a745";
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
                 }
-            } else if (q.type === 'table') {
-                let subScore = 0;
-                q.rows.forEach((r, idx) => {
-                    const selected = document.querySelector(`input[name="q${q.id}_${idx}"]:checked`);
-                    if (selected.value === r.a) {
-                        subScore++;
-                        selected.parentElement.classList.add('correct-answer');
-                    } else {
-                        selected.parentElement.classList.add('wrong-answer');
-                        // Find correct label to highlight
-                        const inputs = document.getElementsByName(`q${q.id}_${idx}`);
-                        for(let i of inputs) { if(i.value === r.a) i.parentElement.style.border = "2px dashed #28a745"; }
-                    }
+            } else if (q.type === 'check') {
+                let checkedInputs = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checkedInputs.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
                 });
-                if (subScore === q.rows.length) isCorrect = true;
             } else if (q.type === 'match') {
-                let subScore = 0;
-                q.rows.forEach((r, idx) => {
-                    const el = document.querySelector(`select[name="q${q.id}_${idx}"]`);
-                    if (el.value === r.a) {
-                        subScore++;
-                        el.classList.add('correct-answer');
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
                     } else {
-                        el.classList.add('wrong-answer');
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let correctText = q.opts.find(o => o.v === r.a).t;
+                        // Strip html tags from text for cleaner display in correction if needed
+                        let tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = correctText;
+                        let cleanText = tempDiv.textContent || tempDiv.innerText || "";
+                        
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${cleanText}`;
+                        sel.parentElement.appendChild(div);
                     }
                 });
-                if (subScore === q.rows.length) isCorrect = true;
-            } else if (q.type === 'match_inline') {
-                if(q.id === 25) {
-                    const s1 = document.querySelector(`select[name="q${q.id}_1"]`);
-                    const s2 = document.querySelector(`select[name="q${q.id}_2"]`);
-                    if(s1.value === q.ans[0]) s1.classList.add('correct-answer'); else s1.classList.add('wrong-answer');
-                    if(s2.value === q.ans[1]) s2.classList.add('correct-answer'); else s2.classList.add('wrong-answer');
-                    if(s1.value === q.ans[0] && s2.value === q.ans[1]) isCorrect = true;
-                }
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
             }
 
             if (isCorrect) score++;
-            document.querySelector(`#c${q.id} .feedback-box`).style.display = 'block';
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
         });
 
-        // Result
-        const res = document.getElementById('result-area');
+        let res = document.getElementById('result-area');
         res.style.display = 'block';
-        res.innerHTML = `Kết quả: ${score}/${questions.length} câu đúng`;
-        res.style.backgroundColor = (score/questions.length >= 0.8) ? "#d4edda" : "#f8d7da";
-        
-        // Disable inputs
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CHỦ ĐỀ ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? 'var(--primary-dark)' : '#dc3545';
+
         document.querySelectorAll('input, select').forEach(el => el.disabled = true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    // Initialize
-    renderQuestions();
+    renderQuiz();
 </script>
-
 </body>
 </html>
