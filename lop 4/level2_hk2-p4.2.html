@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 4 - Level 2 | Kiến Thức Tổng Hợp - Phần 4.2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* TÔNG MÀU CAM LEVEL 2 */
+            --primary-color: #ef6c00; 
+            --primary-dark: #e65100;
+            --accent-color: #ff9800;
+            --bg-body: #fff8e1;
+            --text-color: #3e2723;
+            --border-color: #ffe0b2;
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #ffe0b2; } 
+        
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #5d4037; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(230, 81, 0, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #fff3e0; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4;
+        }
+        .options label:hover { background-color: #fff3e0; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #fff8e1; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; }
+
+        .match-table td:first-child { width: 65%; font-family: 'Times New Roman', serif; font-size: 1.05rem; }
+        .match-table td:last-child { width: 35%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #ffcc80; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(230, 81, 0, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(230, 81, 0, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #ffcc80; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 2</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>LỚP 4 - LEVEL 2</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 4.2 (CHỦ ĐỀ 19 - 36)</h2>
+    </div>
+
+    <form id="quiz-form">
+        </form>
+
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 19, type: "table_tf",
+            q: "Với mỗi câu phát biểu về nội dung kỹ thuật số không an toàn, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Xem video quay hành vi bạo lực là an toàn vì bạn không đích thân tham gia vào hành vi bạo lực đó", a: "no"},
+                {t: "Nói chuyện với người lạ trong phòng chat là an toàn vì đó là hoạt động trực tuyến, không phải gặp mặt trực tiếp", a: "no"},
+                {t: "Đọc các nội dung thúc đẩy thái độ thù địch có thể làm giảm khả năng chấp nhận sự khác biệt trong bạn", a: "yes"}
+            ],
+            explain: "Nội dung bạo lực và trò chuyện với người lạ đều tiềm ẩn rủi ro về tinh thần và bảo mật. Đọc nội dung thù địch sẽ ảnh hưởng tiêu cực đến nhận thức."
+        },
+        {
+            id: 20, type: "table_tf",
+            q: "Với mỗi câu phát biểu, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Bắt nạt trên mạng xảy ra trong tình huống gặp mặt trực tiếp", a: "no"},
+                {t: "Bắt nạt trên mạng là một điều bình thường diễn ra với trẻ nhỏ", a: "no"},
+                {t: "Bắt nạt trên mạng chỉ xảy ra trên mạng xã hội", a: "no"}
+            ],
+            explain: "Bắt nạt trên mạng xảy ra qua các thiết bị kỹ thuật số (không phải trực tiếp), không phải là điều bình thường, và có thể xảy ra ở bất cứ đâu (tin nhắn, email, game...) chứ không chỉ riêng mạng xã hội."
+        },
+        {
+            id: 21, type: "table_tf",
+            q: "Với mỗi câu phát biểu về nội dung kỹ thuật số, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Mọi thứ trên mạng đều là thật", a: "no"},
+                {t: "Mọi thứ trên mạng đều không an toàn", a: "no"},
+                {t: "Xem nội dung không an toàn có thể làm thay đổi suy nghĩ của bạn", a: "yes"}
+            ],
+            explain: "Internet có cả thông tin thật/giả, an toàn/không an toàn. Tuy nhiên, tiếp xúc với nội dung không an toàn chắc chắn sẽ ảnh hưởng đến tư duy."
+        },
+        {
+            id: 22, type: "table_tf",
+            q: "Với mỗi câu phát biểu về việc xem màn hình lâu, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Cải thiện dáng người", a: "no"},
+                {t: "Tăng cường thị lực", a: "no"},
+                {t: "Ảnh hưởng chất lượng giấc ngủ", a: "yes"}
+            ],
+            explain: "Xem màn hình quá lâu thường gây hại cho mắt, ảnh hưởng tư thế (cổ, lưng) và gây khó ngủ do ánh sáng xanh."
+        },
+        {
+            id: 23, type: "radio",
+            q: "Khi đang dùng mạng xã hội thì có người gửi cho bạn một vài dòng tin nhắn không phù hợp. Bạn nên phản ứng như thế nào cho phù hợp?",
+            opts: [
+                {v: "a", t: "Lờ tin nhắn và không nói cho ai biết"},
+                {v: "b", t: "Trả lời lại và yêu cầu người kia dừng hành vi của họ"},
+                {v: "c", t: "Trả lời theo cách công khai"},
+                {v: "d", t: "Dừng lại và nói chuyện này cho người lớn"}
+            ],
+            ans: "d",
+            explain: "Cách xử lý tốt nhất khi gặp rắc rối trên mạng là nhờ sự trợ giúp và hướng dẫn từ người lớn đáng tin cậy."
+        },
+        {
+            id: 24, type: "check",
+            q: "Em hãy cho biết, trong các tùy chọn sau, tùy chọn nào là cách để tạo mật khẩu mạnh? (Chọn 2)",
+            opts: [
+                {v: "a", t: "Sử dụng hỗn hợp các chữ cái và ký hiệu"},
+                {v: "b", t: "Không sử dụng mật khẩu duy nhất cho các tài khoản quan trọng"},
+                {v: "c", t: "Sử dụng một cụm từ dễ suy nghĩ ra"},
+                {v: "d", t: "Sử dụng thông tin cá nhân như địa chỉ hoặc số điện thoại"}
+            ],
+            ans: ["a", "b"],
+            explain: "Mật khẩu mạnh cần phức tạp (chữ, số, ký hiệu) và quan trọng là KHÔNG dùng chung 1 mật khẩu (duy nhất) cho nhiều tài khoản khác nhau."
+        },
+        {
+            id: 25, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào sau đây sẽ giúp người dùng tránh được các nội dung độc hại trực tuyến?",
+            opts: [
+                {v: "a", t: "Không mở các email đính kèm lạ"},
+                {v: "b", t: "Nhấp vào các banner quảng cáo"},
+                {v: "c", t: "Chia sẻ thông tin cá nhân"},
+                {v: "d", t: "Sử dụng mật khẩu yếu"}
+            ],
+            ans: "a",
+            explain: "Email đính kèm từ người lạ thường là nguồn phát tán virus và phần mềm độc hại phổ biến nhất."
+        },
+        {
+            id: 26, type: "match",
+            q: "Hãy di chuyển từng thuật ngữ từ danh sách ở bên phải sang định nghĩa tương ứng ở bên trái.",
+            rows: [
+                {t: "Dùng bàn tay quá nhiều gây tổn thương cổ tay và ngón tay của bạn", a: "rsi"},
+                {t: "Sử dụng thời gian trực tuyến và ngoại tuyến một cách lành mạnh", a: "balance"},
+                {t: "Tên của bạn, địa chỉ của bạn, mật khẩu của bạn", a: "data"}
+            ],
+            opts: [
+                {v: "rsi", t: "Chấn thương do áp lực lặp đi lặp lại"},
+                {v: "balance", t: "Sử dụng phương tiện truyền thông theo cách cân bằng"},
+                {v: "data", t: "Dữ liệu cá nhân"}
+            ],
+            explain: "Tổn thương tay = Chấn thương do lặp lại (RSI). Thời gian lành mạnh = Cân bằng. Tên/Địa chỉ = Dữ liệu cá nhân."
+        },
+        {
+            id: 27, type: "radio",
+            q: "Em hãy cho biết, https của trang web cho ta biết điều gì?",
+            opts: [
+                {v: "a", t: "Một trang web an toàn"},
+                {v: "b", t: "Một trang web không an toàn"},
+                {v: "c", t: "Một trang web do chính phủ giám sát"},
+                {v: "d", t: "Một trang web có các mối đe dọa tiềm ẩn"}
+            ],
+            ans: "a",
+            explain: "Chữ 's' trong 'https' viết tắt của 'Secure' (An toàn), cho biết dữ liệu truyền đi đã được mã hóa bảo mật."
+        },
+        {
+            id: 28, type: "table_tf",
+            q: "Với mỗi câu phát biểu, hãy chọn Có nếu đó là ví dụ về bắt nạt trên mạng hoặc Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Đăng video gây bẽ mặt về một người nào đó trên mạng xã hội", a: "yes"},
+                {t: "Gửi các hình ảnh gây tổn thương qua các tin nhắn/bình luận trên mạng", a: "yes"},
+                {t: "Đánh bại người chơi mới trong trò chơi điện tử", a: "no"}
+            ],
+            explain: "Cố ý làm nhục và gửi nội dung tổn thương là bắt nạt. Đánh bại người chơi trong game theo luật lệ bình thường thì không phải."
+        },
+        {
+            id: 29, type: "radio",
+            q: "Em hãy cho biết, trong các tùy chọn sau, tùy chọn nào nên được sử dụng với phương tiện truyền thông xã hội để giúp bảo vệ danh tính cá nhân?",
+            opts: [
+                {v: "a", t: "Nhóm công khai"},
+                {v: "b", t: "Cài đặt quyền riêng tư"},
+                {v: "c", t: "Nhóm riêng tư"},
+                {v: "d", t: "Danh tính bí mật"}
+            ],
+            ans: "b",
+            explain: "Việc sử dụng và thiết lập Cài đặt quyền riêng tư (Privacy Settings) giúp em kiểm soát ai có thể xem thông tin cá nhân của mình."
+        },
+        {
+            id: 30, type: "radio",
+            q: "Em hãy cho biết, phát biểu nào sau đây mô tả chính xác một trang web an toàn?",
+            opts: [
+                {v: "a", t: "Một trang web cho phép tải xuống dữ liệu nhanh hơn"},
+                {v: "b", t: "Một trang web ít có khả năng bị sập"},
+                {v: "c", t: "Một trang web xử lý và bảo vệ thông tin cá nhân của em"},
+                {v: "d", t: "Một trang web thường xuyên được giám sát bởi chính phủ"}
+            ],
+            ans: "c",
+            explain: "Trang web an toàn là trang web áp dụng các biện pháp mã hóa và chính sách để bảo vệ dữ liệu người dùng không bị rò rỉ."
+        },
+        {
+            id: 31, type: "table_tf",
+            q: "Với mỗi câu phát biểu về nội dung kỹ thuật số không an toàn, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Xem nội dung không thích hợp trên mạng luôn là một hành vi cố ý", a: "no"},
+                {t: "Quay lại trang không thích hợp là một cách hay để đảm bảo nội dung đó đúng là không an toàn", a: "no"},
+                {t: "Nếu nói cho cha mẹ hoặc giáo viên biết khi bạn nhìn thấy nội dung không thích hợp trên mạng, bạn sẽ gặp rắc rối", a: "no"}
+            ],
+            explain: "Đôi khi pop-up hiện ra ngoài ý muốn. Không nên quay lại trang web xấu. Nói với người lớn là hành động đúng đắn và an toàn, không gây rắc rối cho bạn."
+        },
+        {
+            id: 32, type: "radio",
+            q: "Hãy xác định nội dung kỹ thuật số không an toàn.",
+            opts: [
+                {v: "a", t: "Blog nơi giáo viên của bạn đề xuất các đầu sách"},
+                {v: "b", t: "Phòng chat bàn luận về bạo lực"},
+                {v: "c", t: "Video chỉ bạn cách làm bánh cupcake"},
+                {v: "d", t: "Trang web đố vui về địa lý"}
+            ],
+            ans: "b",
+            explain: "Nội dung liên quan đến bạo lực là nội dung độc hại, không an toàn và ảnh hưởng xấu đến tâm lý."
+        },
+        {
+            id: 33, type: "radio",
+            q: "Em hãy cho biết, trong các tùy chọn sau, tùy chọn nào là phát biểu đúng về phần mềm độc hại?",
+            opts: [
+                {v: "a", t: "Phần mềm độc hại chỉ các mối đe dọa máy tính không phải là Virus"},
+                {v: "b", t: "Phần mềm độc hại chỉ có Virus"},
+                {v: "c", t: "Phần mềm độc hại chỉ có Ransomware"},
+                {v: "d", t: "Phần mềm độc hại bao gồm Virus và tất cả các mối đe dọa máy tính khác"}
+            ],
+            ans: "d",
+            explain: "Phần mềm độc hại (Malware) là thuật ngữ chung bao gồm Virus, Worms, Trojan, Ransomware, Spyware..."
+        },
+        {
+            id: 34, type: "radio",
+            q: "Đâu là một thiết bị đầu vào (Input Device)?",
+            opts: [
+                {v: "a", t: "Máy in (Printer)"},
+                {v: "b", t: "Micro"},
+                {v: "c", t: "Loa (Speaker)"},
+                {v: "d", t: "Máy chiếu (Projector)"}
+            ],
+            ans: "b",
+            explain: "Micro thu âm thanh và đưa dữ liệu VÀO máy tính nên nó là thiết bị đầu vào (Input)."
+        },
+        {
+            id: 35, type: "check",
+            q: "Em hãy cho biết, những thiết bị nào sau đây phụ thuộc nhiều vào công nghệ lưu trữ điện toán đám mây? (Chọn 2)",
+            opts: [
+                {v: "a", t: "Smartphone"},
+                {v: "b", t: "Desktop"},
+                {v: "c", t: "Laptop"},
+                {v: "d", t: "Tablet"}
+            ],
+            ans: ["a", "d"],
+            explain: "Thiết bị di động như Smartphone và Tablet thường có dung lượng ổ cứng nhỏ nên phụ thuộc rất nhiều vào lưu trữ đám mây (iCloud, Google Drive) để đồng bộ dữ liệu."
+        },
+        {
+            id: 36, type: "radio",
+            q: "Em hãy cho biết, tùy chọn nào sau đây là một lợi thế lớn của máy tính bảng?",
+            opts: [
+                {v: "a", t: "Bộ nhớ"},
+                {v: "b", t: "Tính di động"},
+                {v: "c", t: "Khả năng lưu trữ"},
+                {v: "d", t: "Sức mạnh"}
+            ],
+            ans: "b",
+            explain: "Máy tính bảng được thiết kế mỏng nhẹ, pin lâu, rất thuận tiện để mang theo và sử dụng mọi lúc mọi nơi (Tính di động)."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.id;
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Câu ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Tình huống / Định nghĩa</th><th>Lựa chọn</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}" style="width:100%"><option value="">-- Chọn --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    let val1 = (q.headers[0] === 'Đúng' || q.headers[0] === 'Có' || q.headers[0] === 'Tích cực' || q.headers[0] === 'An toàn') ? 'yes' : 'no';
+                    let val2 = (q.headers[1] === 'Sai' || q.headers[1] === 'Không' || q.headers[1] === 'Tiêu cực' || q.headers[1] === 'Không an toàn') ? 'no' : 'yes';
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val1}"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val2}"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'check') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'check') {
+                let checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checked.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CÂU ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? '#ef6c00' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? '#ef6c00' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 4 - Level 2 | Kiến Thức Tổng Hợp - Phần 4.1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* TÔNG MÀU CAM LEVEL 2 */
+            --primary-color: #ef6c00; 
+            --primary-dark: #e65100;
+            --accent-color: #ff9800;
+            --bg-body: #fff8e1;
+            --text-color: #3e2723;
+            --border-color: #ffe0b2;
+            
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --wrong-bg: #f8d7da;
+            --wrong-border: #dc3545;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #ffe0b2; } 
+        
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2.2rem; text-transform: uppercase; font-weight: 800; }
+        .page-title h2 { color: #5d4037; margin: 10px 0 0; font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 4px 12px rgba(230, 81, 0, 0.08);
+        }
+        .question-card.incomplete { border: 2px solid var(--wrong-border); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-dark); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1.2rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: var(--primary-dark); line-height: 1.5; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #fff3e0; border-radius: 8px; transition: 0.2s; position: relative; line-height: 1.4;
+        }
+        .options label:hover { background-color: #fff3e0; border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; line-height: 1.4; }
+        .data-table tr:nth-child(even) { background-color: #fff8e1; }
+        
+        /* Cấu hình cột linh hoạt theo format yêu cầu */
+        .tf-table td:first-child { width: 70%; font-weight: 500; font-family: 'Times New Roman', serif; color: #000; }
+        .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 15%; text-align: center; }
+
+        .match-table td:first-child { width: 60%; font-family: 'Times New Roman', serif; font-size: 1.05rem; }
+        .match-table td:last-child { width: 40%; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #ffcc80; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer;
+        }
+        .data-table select:focus { outline: none; border-color: var(--primary-dark); }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; display: none; line-height: 1.5;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: var(--wrong-border); background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed var(--wrong-border);
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(230, 81, 0, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(230, 81, 0, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #ffcc80; }
+            .content-col { width: 100%; padding: 15px; }
+            .tf-table td:first-child { width: 60%; }
+            .tf-table td:nth-child(2), .tf-table td:nth-child(3) { width: 20%; }
+            .match-table td:first-child { width: 50%; }
+            .match-table td:last-child { width: 50%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 2</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>LỚP 4 - LEVEL 2</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 4.1 (CHỦ ĐỀ 01 - 18)</h2>
+    </div>
+
+    <form id="quiz-form">
+        </form>
+
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 1, type: "radio",
+            q: "Cộng tác là gì?",
+            opts: [
+                {v: "a", t: "Đạt được điểm số cao nhất"},
+                {v: "b", t: "Chia sẻ ý tưởng với người khác"},
+                {v: "c", t: "Làm việc độc lập"},
+                {v: "d", t: "Nhanh chóng làm xong bài tập được giao"}
+            ],
+            ans: "b",
+            explain: "Cộng tác (Collaboration) là quá trình hai hay nhiều người cùng làm việc chung, chia sẻ ý tưởng để đạt được mục tiêu chung."
+        },
+        {
+            id: 2, type: "check",
+            q: "Hai yếu tố để cộng tác thành công là gì? (Chọn 2)",
+            opts: [
+                {v: "a", t: "Giao tiếp rõ ràng"},
+                {v: "b", t: "Chỉnh sửa câu chữ"},
+                {v: "c", t: "Lắng nghe"},
+                {v: "d", t: "Điều chỉnh cấu trúc bài"}
+            ],
+            ans: ["a", "c"],
+            explain: "Giao tiếp rõ ràng và kỹ năng lắng nghe là nền tảng quan trọng nhất để các thành viên hiểu và hợp tác với nhau."
+        },
+        {
+            id: 3, type: "radio",
+            q: "Đâu là yếu tố cốt yếu để cộng tác thành công qua mạng?",
+            opts: [
+                {v: "a", t: "Mọi người đều có khả năng làm việc độc lập và ngoài thực tế (Offline)"},
+                {v: "b", t: "Mọi người đóng góp vai trò và trách nhiệm trong nhóm"},
+                {v: "c", t: "Mọi người có nguồn gốc xuất xứ giống nhau và sống trong cùng khu vực"},
+                {v: "d", t: "Mọi người phải cùng tuổi và luôn đồng thuận về chiến lược tối ưu"}
+            ],
+            ans: "b",
+            explain: "Sự phân chia và đóng góp vai trò, trách nhiệm rõ ràng của mỗi thành viên là yếu tố quyết định thành công khi làm việc nhóm."
+        },
+        {
+            id: 4, type: "radio",
+            q: "Phản hồi là gì?",
+            opts: [
+                {v: "a", t: "Chia sẻ bớt khối lượng công việc"},
+                {v: "b", t: "Cùng nhau làm bài tập theo nhóm"},
+                {v: "c", t: "Đưa ra các đề xuất để cải thiện kết quả"},
+                {v: "d", t: "Cạnh tranh thành tích cao nhất"}
+            ],
+            ans: "c",
+            explain: "Phản hồi (Feedback) là việc đưa ra ý kiến, nhận xét và đề xuất mang tính xây dựng để giúp cải thiện sản phẩm hoặc kết quả làm việc."
+        },
+        {
+            id: 5, type: "radio",
+            q: "Em đang làm việc trên một tập tin dự án với nhiều người. Em hãy cho biết, tính năng nào sau đây cho phép em chọn mức độ mỗi người có thể tương tác với tập tin?",
+            opts: [
+                {v: "a", t: "Quyền chia sẻ (Sharing permissions)"},
+                {v: "b", t: "Nhập tài liệu (Import)"},
+                {v: "c", t: "Bảo vệ tài liệu (Protect document)"},
+                {v: "d", t: "Xuất tài liệu (Export)"}
+            ],
+            ans: "a",
+            explain: "Tính năng Quyền chia sẻ (Sharing permissions) cho phép thiết lập các mức độ truy cập như: Chỉ xem, Có thể nhận xét, hoặc Có thể chỉnh sửa."
+        },
+        {
+            id: 6, type: "radio",
+            q: "Như thế nào gọi là Hack (tấn công xâm nhập)?",
+            opts: [
+                {v: "a", t: "Dùng máy tính công cộng, như ở thư viện"},
+                {v: "b", t: "Chơi game trực tuyến với những người khác"},
+                {v: "c", t: "Tải một ứng dụng đáng tin cậy"},
+                {v: "d", t: "Xâm nhập vào một hệ thống máy tính"}
+            ],
+            ans: "d",
+            explain: "Hack là hành vi lợi dụng các lỗ hổng bảo mật để xâm nhập trái phép vào hệ thống máy tính hoặc mạng."
+        },
+        {
+            id: 7, type: "table_tf",
+            q: "Khi thực hiện một dự án ở trường, bạn bắt gặp hành vi bắt nạt trên mạng (Cyberbullying). Là một người dám lên tiếng bênh vực, đâu sẽ là một số cách bạn có thể phản ứng? Với mỗi câu phát biểu về việc lên tiếng bênh vực, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Liên hệ và hỏi thăm người đang bị bắt nạt. Hỏi xem bạn có thể làm gì để giúp đỡ", a: "yes"},
+                {t: "Trả đũa người có hành vi bắt nạt", a: "no"},
+                {t: "Dừng lại và nói chuyện này cho người lớn", a: "yes"}
+            ],
+            explain: "Lên tiếng bênh vực (Upstander) bao gồm việc hỗ trợ nạn nhân và báo cáo với người lớn. Không nên trả đũa vì sẽ làm tình hình tồi tệ hơn."
+        },
+        {
+            id: 8, type: "match",
+            q: "Hoàn thành các câu dưới đây bằng cách lựa chọn đúng tùy chọn.",
+            rows: [
+                {t: "Địa chỉ bạn nhập vào khi mua hàng trên mạng là ví dụ về...", a: "form"},
+                {t: "Tên tài khoản và mật khẩu dùng để đăng nhập tài khoản email là ví dụ về...", a: "auth"},
+                {t: "Thông tin liên kết với hoạt động của bạn trên trực tuyến và được một máy chủ web thu thập là ví dụ về...", a: "cookie"}
+            ],
+            opts: [
+                {v: "form", t: "Nội dung điền vào biểu mẫu"},
+                {v: "auth", t: "Thông tin xác thực"},
+                {v: "cookie", t: "Cookie"}
+            ],
+            explain: "Nhập địa chỉ là điền biểu mẫu (Form). Tài khoản/Mật khẩu là thông tin xác thực (Authentication). Dữ liệu theo dõi hoạt động là Cookie."
+        },
+        {
+            id: 9, type: "table_tf",
+            q: "Với mỗi câu phát biểu về việc xem màn hình lâu, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Bạn có thể bị đau cổ và vai", a: "yes"},
+                {t: "Bạn có thể phát triển bệnh mù màu", a: "no"},
+                {t: "Bạn có thể bị đau đầu", a: "yes"}
+            ],
+            explain: "Ngồi lâu trước màn hình gây căng thẳng vật lý (đau cổ, vai, đầu, mắt) nhưng không gây ra bệnh di truyền/bẩm sinh như mù màu."
+        },
+        {
+            id: 10, type: "match",
+            q: "Hãy di chuyển từng thiết bị điện toán từ danh sách ở bên phải sang khả năng thu hình/tiếng tương ứng ở bên trái.",
+            rows: [
+                {t: "Có thể ghi âm những người ở gần xung quanh và thường không quay được video", a: "speaker"},
+                {t: "Có thể quay video những người ngồi trước bàn phím và thu âm vùng gần xung quanh", a: "webcam"},
+                {t: "Có thể quay video và thu âm những người ở trước nhà", a: "doorbell"}
+            ],
+            opts: [
+                {v: "speaker", t: "Loa thông minh"},
+                {v: "webcam", t: "Webcam"},
+                {v: "doorbell", t: "Chuông cửa thông minh"}
+            ],
+            explain: "Loa thông minh thu âm nhưng không có camera. Webcam gắn với máy tính/bàn phím. Chuông cửa thông minh giám sát khu vực trước nhà."
+        },
+        {
+            id: 11, type: "table_tf",
+            q: "Với mỗi câu phát biểu về tính an toàn của các hành vi kỹ thuật số, hãy chọn An toàn hoặc Không an toàn.",
+            headers: ["An toàn", "Không an toàn"],
+            rows: [
+                {t: "Tập tin đính kèm mà bạn nhận được từ người lạ", a: "no"},
+                {t: "Video cổ vũ những hành vi gây hại", a: "no"},
+                {t: "Nội dung hướng dẫn cách vẽ một con rồng", a: "yes"},
+                {t: "Trò chơi mang tính giáo dục", a: "yes"}
+            ],
+            explain: "File từ người lạ có thể chứa virus. Video độc hại gây nguy hiểm. Nội dung giáo dục và hướng dẫn vẽ tranh là an toàn."
+        },
+        {
+            id: 12, type: "table_tf",
+            q: "Với mỗi câu phát biểu về tính an toàn của nội dung kỹ thuật số, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Liên kết trong email luôn là những liên kết an toàn", a: "no"},
+                {t: "Mã hóa là một loại bảo mật", a: "yes"},
+                {t: "Biểu tượng ổ khóa trên thanh địa chỉ của trình duyệt web cho biết đó là một trang web bảo mật", a: "yes"}
+            ],
+            explain: "Liên kết trong email có thể là lừa đảo (phishing). Mã hóa và biểu tượng ổ khóa (HTTPS) là các dấu hiệu của sự bảo mật."
+        },
+        {
+            id: 13, type: "check",
+            q: "Đâu là hai ví dụ về hành vi hack (tấn công xâm nhập)? (Chọn 2)",
+            opts: [
+                {v: "a", t: "Dùng một chương trình để truy cập vào máy tính của người khác mà chưa được phép"},
+                {v: "b", t: "Dùng tài khoản chung để đăng nhập"},
+                {v: "c", t: "Hỏi xin mật khẩu của người khác"},
+                {v: "d", t: "Dùng email gửi đi một loại virus máy tính có khả năng làm hại máy tính của người khác"}
+            ],
+            ans: ["a", "d"],
+            explain: "Truy cập trái phép và phát tán mã độc (virus) là những hành vi tấn công mạng (hacking) điển hình."
+        },
+        {
+            id: 14, type: "table_tf",
+            q: "Hãy chọn Có nếu đó là dữ liệu an toàn mà bạn có thể chia sẻ trên mạng hoặc Không nếu không phải.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Mật khẩu của bạn", a: "no"},
+                {t: "Tên của bạn", a: "no"},
+                {t: "Trường học của bạn", a: "no"},
+                {t: "Ngày sinh của bạn", a: "no"}
+            ],
+            explain: "Tất cả các thông tin này đều thuộc Dữ liệu nhận dạng cá nhân (PII). Việc chia sẻ chúng công khai trên mạng là không an toàn."
+        },
+        {
+            id: 15, type: "table_tf",
+            q: "Với mỗi câu phát biểu về hành vi hack (tấn công xâm nhập) vào máy tính, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Xâm nhập vào một hệ thống máy tính được coi là hành vi hack", a: "yes"},
+                {t: "Lập trình để tạo ra một ứng dụng có thể tự động gửi tin nhắn cho bạn bè được coi là hành vi hack", a: "no"},
+                {t: "Tải trò chơi về máy tính của bạn được coi là hành vi hack", a: "no"}
+            ],
+            explain: "Xâm nhập trái phép là hack. Việc lập trình ứng dụng hoặc tải game hợp pháp không phải là hành vi tấn công mạng."
+        },
+        {
+            id: 16, type: "table_tf",
+            q: "Với mỗi câu phát biểu về việc xem màn hình lâu, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Có thể gây tự ti", a: "yes"},
+                {t: "Có thể ảnh hưởng các kỹ năng xã hội", a: "yes"},
+                {t: "Có thể giúp cải thiện kết quả học tập", a: "no"}
+            ],
+            explain: "Việc sử dụng màn hình quá nhiều (đặc biệt là MXH) có thể dẫn đến tự ti và làm suy giảm kỹ năng giao tiếp thực tế. Nó thường không giúp cải thiện việc học nếu lạm dụng."
+        },
+        {
+            id: 17, type: "radio",
+            q: "Đâu là triệu chứng của Chấn thương do áp lực lặp đi lặp lại (RSI)?",
+            opts: [
+                {v: "a", t: "Căng mỏi mắt"},
+                {v: "b", t: "Sốt"},
+                {v: "c", t: "Bàn tay bị tê"},
+                {v: "d", t: "Vấn đề tiêu hóa"}
+            ],
+            ans: "c",
+            explain: "RSI (Repetitive Strain Injury) thường xảy ra ở tay/cổ tay do gõ phím, sử dụng chuột liên tục, gây ra cảm giác tê, đau buốt."
+        },
+        {
+            id: 18, type: "table_tf",
+            q: "Với mỗi câu phát biểu về bắt nạt trên mạng, hãy chọn Đúng hoặc Sai.",
+            headers: ["Đúng", "Sai"],
+            rows: [
+                {t: "Hành vi cố ý gây bẽ mặt người khác bằng cách chia sẻ thông tin riêng tư", a: "yes"},
+                {t: "Đây là hành vi trái luật và bị cơ quan hành pháp xử lý nghiêm trọng", a: "yes"},
+                {t: "Hành vi gửi, đăng hoặc chia sẻ nội dung ác ý", a: "yes"}
+            ],
+            explain: "Bắt nạt trên mạng bao gồm việc đăng nội dung ác ý, chia sẻ thông tin cá nhân trái phép nhằm hạ nhục, và đây là những hành vi vi phạm pháp luật."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            let label = q.id < 10 ? '0' + q.id : q.id;
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Câu ${label}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q.replace(/\n/g, '<br>')}</div>`;
+            
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table match-table"><thead><tr><th>Nội dung / Mô tả</th><th>Lựa chọn</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table tf-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    // Xử lý động các nhãn tiêu đề (Đúng/Sai, Có/Không, An toàn/Không an toàn)
+                    let v1 = (q.headers[0] === 'Đúng' || q.headers[0] === 'Có' || q.headers[0] === 'Tích cực' || q.headers[0] === 'An toàn') ? 'yes' : 'no';
+                    let v2 = (q.headers[1] === 'Sai' || q.headers[1] === 'Không' || q.headers[1] === 'Tiêu cực' || q.headers[1] === 'Không an toàn') ? 'no' : 'yes';
+                    
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${v1}"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${v2}"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type === 'radio') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'check') {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'match' || q.type === 'table_tf') {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'check') {
+                let checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checked.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    if (sel.value === r.a) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type === 'table_tf') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    let rightVal = r.a; 
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CÂU ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? '#ef6c00' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? '#ef6c00' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
+</body>
+</html>
