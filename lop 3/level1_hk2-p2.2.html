@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lớp 3 - Level 1 | Kiến Thức Tổng Hợp - Phần 2</title>
+    <title>Lớp 3 - Level 1 | Kiến Thức Tổng Hợp - Phần 2.2</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -156,7 +156,7 @@
 <div class="container">
     <div class="page-title">
         <h1>LỚP 3 - LEVEL 1</h1>
-        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 2</h2>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 2.2 (CHỦ ĐỀ 16 - 30)</h2>
     </div>
 
     <form id="quiz-form">
@@ -177,195 +177,16 @@
 <script>
     const questions = [
         {
-            id: 1, type: "radio",
-            q: "Ai đó bạn gặp trực tuyến, yêu cầu bạn cung cấp tên và địa chỉ của bạn để họ gửi cho bạn lời mời dự tiệc sinh nhật. Bạn nên làm gì?",
-            opts: [
-                {v: "a", t: "Từ chối cung cấp tên hoặc địa chỉ của bạn"},
-                {v: "b", t: "Cung cấp tên và địa chỉ của bạn"},
-                {v: "c", t: "Cung cấp tên của bạn nhưng không cho biết địa chỉ của bạn"},
-                {v: "d", t: "Đề nghị gặp họ tại bữa tiệc"}
-            ],
-            ans: "a",
-            explain: "Bạn không bao giờ nên chia sẻ thông tin cá nhân hoặc gặp gỡ người lạ quen qua mạng."
-        },
-        {
-            id: 2, type: "radio",
-            q: "Thông tin cá nhân nào bạn KHÔNG nên chia sẻ trực tuyến?",
-            opts: [
-                {v: "a", t: "Địa chỉ (Address)"},
-                {v: "b", t: "Tên (Name)"},
-                {v: "c", t: "Tuổi (Age)"},
-                {v: "d", t: "Lớp (Class)"}
-            ],
-            ans: "a",
-            explain: "Địa chỉ nhà là thông tin nhạy cảm nhất, tuyệt đối không được chia sẻ công khai."
-        },
-        {
-            id: 3, type: "radio",
-            q: "Hãy xem xét những gì bạn biết về bản chất công khai và lâu dài của nội dung trực tuyến. Nội dung nào KHÔNG an toàn để chia sẻ trực tuyến?",
-            opts: [
-                {v: "a", t: "Vị trí GPS của công viên bên cạnh ngôi nhà của bạn"},
-                {v: "b", t: "Một bức ảnh về bữa tối ngon miệng của bạn"},
-                {v: "c", t: "Danh sách những cuốn sách yêu thích của bạn"},
-                {v: "d", t: "Một bức ảnh về dự án nghệ thuật hoàn toàn tuyệt vời của bạn"}
-            ],
-            ans: "a",
-            explain: "Vị trí GPS gần nhà có thể làm lộ nơi ở thực tế của bạn, gây nguy hiểm."
-        },
-        {
-            id: 4, type: "radio",
-            q: "Lưng mẹ bạn đau khi bà ngồi vào bàn làm việc để sử dụng máy tính. Mẹ yêu cầu bạn cho lời khuyên về cách có tư thế tốt. Bạn nên nói gì với mẹ?",
-            opts: [
-                {v: "a", t: "Ngồi thẳng lưng và chân phẳng trên sàn nhà"},
-                {v: "b", t: "Nghiêng về phía màn hình máy tính"},
-                {v: "c", t: "Bắt chéo chân và ngả người ra sau"},
-                {v: "d", t: "Nâng màn hình máy tính lên trên tầm mắt để phải ngước nhìn lên nó"}
-            ],
-            ans: "a",
-            explain: "Tư thế đúng là ngồi thẳng lưng, chân đặt phẳng trên sàn để bảo vệ cột sống."
-        },
-        {
-            id: 5, type: "radio",
-            q: "Khi nào thì có thể nói chuyện với người lạ trực tuyến?",
-            opts: [
-                {v: "a", t: "Không bao giờ"},
-                {v: "b", t: "Bất cứ lúc nào"},
-                {v: "c", t: "Ban ngày"},
-                {v: "d", t: "Cuối tuần"}
-            ],
-            ans: "a",
-            explain: "Để đảm bảo an toàn, bạn không bao giờ nên nói chuyện với người lạ trực tuyến."
-        },
-        {
-            id: 6, type: "table_tf",
-            q: "Bạn đang truy cập internet và cửa sổ hiển thị bên dưới bật lên. Đối với mỗi hành động, hãy chọn Có nếu bạn nên làm điều đó hoặc Không nếu bạn KHÔNG nên làm điều đó.",
-            img: "p2_cd6.jpg", /* Ảnh Popup Get Free Game */
-            headers: ["Có", "Không"],
-            rows: [
-                {t: "Nhập địa chỉ email và mật khẩu thông thường của bạn", a: "no"},
-                {t: "Đồng ý với các điều khoản và điều kiện", a: "no"},
-                {t: "Nhấp vào Get More Free Games!!! để nhận thêm game miễn phí", a: "no"}
-            ],
-            explain: "Đây là dấu hiệu của lừa đảo hoặc phần mềm độc hại, không nên nhập thông tin hay nhấp vào."
-        },
-        {
-            id: 7, type: "radio",
-            q: "Bạn có một máy tính, một màn hình và một bàn phím trong phòng của bạn. Tại sao bạn nên che bàn phím khi bạn không sử dụng nó?",
-            opts: [
-                {v: "a", t: "Để bảo vệ bàn phím khỏi bụi"},
-                {v: "b", t: "Để bảo vệ bàn phím khỏi nhiệt độ lạnh"},
-                {v: "c", t: "Để bảo vệ bàn phím khỏi ánh sáng mặt trời"},
-                {v: "d", t: "Để bảo vệ bàn phím khỏi nhiệt độ ấm áp"}
-            ],
-            ans: "a",
-            explain: "Bụi bẩn lọt vào khe phím có thể làm kẹt hoặc hỏng bàn phím."
-        },
-        {
-            id: 8, type: "table_tf",
-            q: "Các tư thế tốt khi sử dụng máy tính là gì? Chọn Có hoặc Không cho mỗi tư thế dưới đây.",
-            headers: ["Có", "Không"],
-            rows: [
-                {t: "Giữ chân trên sàn", a: "yes"},
-                {t: "Cúi người về phía trước để xem màn hình", a: "no"},
-                {t: "Bắt chéo chân dưới bàn làm việc", a: "no"},
-                {t: "Thư giãn vai của bạn", a: "yes"}
-            ],
-            explain: "Giữ chân trên sàn và vai thư giãn là tư thế đúng (ergonomics)."
-        },
-        {
-            id: 9, type: "radio",
-            q: "Ai trong số những người này là bạn an toàn nhất để có trên mạng?",
-            opts: [
-                {v: "a", t: "Một người lạ gửi tin nhắn trực tiếp trên mạng xã hội yêu cầu số điện thoại của bạn"},
-                {v: "b", t: "Một người mà bạn đi học với người đó và chơi trò chơi trực tuyến vào cuối tuần"},
-                {v: "c", t: "Ai đó gửi email cho bạn nói rằng bạn đã giành được giải thưởng và cần gửi lại thông tin cá nhân"}
-            ],
-            ans: "b",
-            explain: "Bạn bè cùng trường (người quen biết ngoài đời thực) là người an toàn nhất để kết bạn online."
-        },
-        {
-            id: 10, type: "radio",
-            q: "Cách an toàn nhất để sạc thiết bị di động là gì?",
-            opts: [
-                {v: "a", t: "Đặt ở nơi an toàn gần ổ cắm và cắm cáp sạc đi kèm với thiết bị"},
-                {v: "b", t: "Đặt thiết bị trên sàn và cắm cáp sạc của một thiết bị khác"},
-                {v: "c", t: "Đặt thiết bị di động bên ngoài trong ngày và sạc nó dưới ánh nắng trực tiếp"}
-            ],
-            ans: "a",
-            explain: "Sử dụng sạc chính hãng và đặt ở nơi an toàn, thoáng mát là cách sạc đúng."
-        },
-        {
-            id: 11, type: "check",
-            q: "Những yếu tố nào sau đây làm cho thiết bị có thể bị hỏng? (Chọn tất cả các đáp án đúng)",
-            opts: [
-                {v: "a", t: "Thực phẩm (Food)"},
-                {v: "b", t: "Mưa (Rain)"},
-                {v: "c", t: "Ngón tay (Fingers)"},
-                {v: "d", t: "Cọ vệ sinh"}
-            ],
-            ans: ["a", "b"],
-            explain: "Thức ăn và nước (mưa) là những tác nhân gây hại trực tiếp cho thiết bị điện tử."
-        },
-        {
-            id: 12, type: "radio",
-            q: "Bạn gặp một người trong phòng trò chuyện chơi game trực tuyến. Họ yêu cầu bạn cung cấp địa chỉ nhà của bạn. Bạn nên kết luận điều gì từ yêu cầu của họ?",
-            opts: [
-                {v: "a", t: "Họ không phải là một người bạn trực tuyến thích hợp"},
-                {v: "b", t: "Họ muốn gửi cho bạn một cái gì đó"},
-                {v: "c", t: "Họ muốn đến thăm bạn"},
-                {v: "d", t: "Họ tò mò về nơi bạn sống"}
-            ],
-            ans: "a",
-            explain: "Yêu cầu địa chỉ nhà là hành vi không an toàn và đáng ngờ."
-        },
-        {
-            id: 13, type: "check",
-            q: "Thông tin nào KHÔNG nên được chia sẻ trực tuyến? (chọn 3)",
-            opts: [
-                {v: "a", t: "Ngày sinh (Birthdate)"},
-                {v: "b", t: "Tuổi (Age)"},
-                {v: "c", t: "Địa chỉ nhà (Home address)"},
-                {v: "d", t: "Bài hát em yêu thích (Favourite song)"}
-            ],
-            ans: ["a", "b", "c"],
-            explain: "Ngày sinh, tuổi và địa chỉ là thông tin cá nhân (PII) cần được bảo mật."
-        },
-        {
-            id: 14, type: "radio",
-            q: "Bạn gửi ảnh của bạn và gia đình của bạn cho một người bạn cùng lớp. Bạn cùng lớp đăng ảnh lên mạng xã hội của họ. Bạn có thể làm gì để xóa ảnh vĩnh viễn khỏi internet?",
-            opts: [
-                {v: "a", t: "Bạn không thể xóa ảnh mãi mãi, vì internet là công khai và vĩnh viễn"},
-                {v: "b", t: "Đột nhập vào máy tính của bạn cùng lớp và cố gắng xóa các bức ảnh"},
-                {v: "c", t: "Gửi yêu cầu hỗ trợ đến dịch vụ khách hàng của ứng dụng truyền thông xã hội"},
-                {v: "d", t: "Bảo bạn cùng lớp của bạn gỡ ảnh xuống nếu không bạn sẽ không còn là bạn của họ nữa"}
-            ],
-            ans: "a",
-            explain: "Một khi thông tin đã lên internet, rất khó để xóa bỏ hoàn toàn (dấu chân số)."
-        },
-        {
-            id: 15, type: "radio",
-            q: "Trong cửa sổ trình duyệt được hiển thị, bạn nên nhấp hoặc nhấn vào đâu để truy cập các trang khác của trang Web Net PC? (Chọn vị trí chính xác trong khu vực trả lời)",
-            img: "p2_cd15.jpg", /* Ảnh trình duyệt Net PC */
-            opts: [
-                {v: "a", t: "Vị trí A"},
-                {v: "b", t: "Vị trí B"},
-                {v: "c", t: "Vị trí C"},
-                {v: "d", t: "Vị trí D"}
-            ],
-            ans: "d",
-            explain: "Các liên kết điều hướng (Home, About...) dùng để chuyển trang trong cùng một website."
-        },
-        {
             id: 16, type: "radio",
             q: "Bạn cần đóng (Close) cửa sổ trình duyệt hiển thị. Bạn nên nhấp hoặc nhấn vào biểu tượng nào?",
-            img: "p2_cd16.jpg", /* Ảnh trình duyệt có nút X */
+            img: "p2_cd16.jpg", 
             opts: [
-                {v: "a", t: "Vị trí A (Tab)"},
-                {v: "b", t: "Vị trí B (Thanh địa chỉ)"},
-                {v: "c", t: "Vị trí C (Nút Close)"},
-                {v: "d", t: "Vị trí D (Ô tìm kiếm)"}
+                {v: "a", t: "Biểu tượng X ở góc trên bên phải"},
+                {v: "b", t: "Thanh địa chỉ"},
+                {v: "c", t: "Thanh tìm kiếm (Search)"},
+                {v: "d", t: "Nút Home"}
             ],
-            ans: "c",
+            ans: "a",
             explain: "Biểu tượng X dùng để đóng ứng dụng hoặc cửa sổ."
         },
         {
@@ -407,11 +228,11 @@
         {
             id: 20, type: "radio",
             q: "Bạn cần truy cập một trang web khác. Trên trang web được hiển thị, bạn nên nhập URL mới vào đâu?",
-            img: "p2_cd20.jpg", /* Ảnh có nhãn A, B, C, D */
+            img: "p2_cd20.jpg", 
             opts: [
                 {v: "a", t: "Vị trí A (Tab)"},
                 {v: "b", t: "Vị trí B (Thanh địa chỉ)"},
-                {v: "c", t: "Vị trí C (Nút Close)"},
+                {v: "c", t: "Vị trí C (Menu)"},
                 {v: "d", t: "Vị trí D (Ô tìm kiếm)"}
             ],
             ans: "b",
@@ -420,7 +241,7 @@
         {
             id: 21, type: "radio",
             q: "Tên của khu vực ở đầu cửa sổ trình duyệt hiển thị URL trang web được gọi là?",
-            img: "p2_cd21.jpg", /* Ảnh mũi tên chỉ thanh địa chỉ */
+            img: "p2_cd21.jpg", 
             opts: [
                 {v: "a", t: "Thanh địa chỉ (Address bar)"},
                 {v: "b", t: "Bookmark/Favorite"},
@@ -531,7 +352,7 @@
         {
             id: 30, type: "radio",
             q: "Nhi đang viết một báo cáo. Nhi nên nhấn phím nào để thụt lề chính xác dòng đầu tiên? (Chọn khóa/phím thích hợp trong khu vực trả lời)",
-            img: "p2_cd30.jpg", /* Ảnh bàn phím */
+            img: "p2_cd30.jpg", 
             opts: [
                 {v: "a", t: "Phím Tab"},
                 {v: "b", t: "Phím Caps Lock"},
@@ -548,7 +369,7 @@
         let html = '';
         questions.forEach((q, index) => {
             html += `<div class="question-card" id="card-${index}">
-                <div class="topic-col">Chủ đề ${q.id < 10 ? '0' + q.id : q.id}</div>
+                <div class="topic-col">Chủ đề ${q.id}</div>
                 <div class="content-col">
                     <div class="question-text">${q.q}</div>`;
             
@@ -602,19 +423,15 @@
                     html += `<tr><td>${r.t}</td>
                         <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${r.a === 'yes' || r.a === 'dung' ? 'yes' : (r.a === 'no' || r.a === 'sai' ? 'no' : 'yes')}"></td>
                         <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${r.a === 'no' || r.a === 'sai' ? 'no' : (r.a === 'yes' || r.a === 'dung' ? 'yes' : 'no')}"></td></tr>`;
-                    /* Note: The logic above simplifies to accommodate various "yes/no" values. 
-                       Correct logic relies on checking user input against q.rows[rIdx].a */
                 });
                 html += `</tbody></table></div>`;
             } else if (q.type === 'table') {
-                // Determine values based on context. 
-                // For Topic 24 (Fact/Opinion), val1='thuc te', val2='y kien'
                 let header1 = q.headers[0];
                 let header2 = q.headers[1];
                 let val1, val2;
                 
                 if (q.id === 24) { val1 = 'thuc te'; val2 = 'y kien'; }
-                else { val1 = 'v1'; val2 = 'v2'; } // Fallback
+                else { val1 = 'v1'; val2 = 'v2'; } 
 
                 html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${header1}</th><th>${header2}</th></tr></thead><tbody>`;
                 q.rows.forEach((r, rIdx) => {
@@ -637,14 +454,16 @@
         let allAnswered = true;
         let firstUnanswered = null;
 
+        // Reset
         document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
         document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
-        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
-            el.classList.remove('correct-opt', 'wrong-opt');
+        document.querySelectorAll('.correct-opt, .wrong-opt, .correct-row, .wrong-row').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt', 'correct-row', 'wrong-row');
             el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
         });
         document.querySelectorAll('.correction').forEach(el => el.remove());
 
+        // Check Completion
         questions.forEach((q, index) => {
             let answered = false;
             if (q.type.includes('radio')) {
@@ -676,6 +495,7 @@
             return;
         }
 
+        // Grading Logic
         questions.forEach((q, index) => {
             let isCorrect = false;
             if (q.type === 'radio' || q.type === 'img_radio') {
@@ -685,12 +505,14 @@
                     checked.parentElement.classList.add('correct-opt');
                 } else {
                     checked.parentElement.classList.add('wrong-opt');
+                    // Highlight correct
                     let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
                     if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
                 }
             } else if (q.type === 'check' || q.type === 'img_check') {
                 let checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
                 if (JSON.stringify(checked.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                
                 document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
                     if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
                     if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
@@ -710,6 +532,8 @@
                     } else {
                         sel.style.borderColor = "#dc3545";
                         sel.style.backgroundColor = "#f8d7da";
+                        
+                        // Show correct answer below
                         let div = document.createElement("div");
                         div.className = "correction";
                         div.innerHTML = `Đúng: ${correctText}`;
@@ -721,8 +545,6 @@
                 let subCorrect = 0;
                 q.rows.forEach((r, rIdx) => {
                     let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
-                    // Logic to find correct value in table inputs
-                    // table_tf uses 'yes'/'no'. table uses specific values.
                     let rightVal = r.a;
                     
                     if (checked.value === rightVal) {
@@ -744,10 +566,11 @@
         let res = document.getElementById('result-area');
         res.style.display = 'block';
         let percent = Math.round((score / questions.length) * 100);
-        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CÂU ĐÚNG (${percent}%)`;
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CHỦ ĐỀ ĐÚNG (${percent}%)`;
         res.style.color = percent >= 80 ? '#28a745' : '#dc3545';
         res.style.borderColor = percent >= 80 ? '#28a745' : '#dc3545';
 
+        // Disable inputs
         document.querySelectorAll('input, select').forEach(el => el.disabled = true);
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
