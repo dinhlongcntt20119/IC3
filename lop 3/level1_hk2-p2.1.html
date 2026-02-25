@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 3 - Level 1 | Kiến Thức Tổng Hợp - Phần 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #28a745; /* Level 1 Green */
+            --primary-dark: #1e7e34;
+            --bg-light: #e8f5e9;
+            --text-color: #333;
+            --border-color: #dee2e6;
+            --correct-bg: #d4edda;
+            --wrong-bg: #f8d7da;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: #f4f6f9; color: var(--text-color); margin: 0; padding: 0; }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid #fff;
+        }
+        .header-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-ic3 { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 800; font-style: italic; line-height: 1; }
+        .logo-ic3 span:nth-child(1) { color: #fff; } 
+        .logo-ic3 span:nth-child(2) { color: #d1e7dd; }
+        .home-btn {
+            margin-top: 8px; color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.6);
+            padding: 5px 15px; border-radius: 20px; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .home-btn:hover { background: rgba(255,255,255,0.2); }
+        .header-right { text-align: right; }
+        .teacher-name { font-weight: 700; font-size: 1.1rem; display: block; }
+        .sub-title { font-size: 0.9rem; opacity: 0.9; }
+
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { color: var(--primary-dark); margin: 0; font-size: 2rem; text-transform: uppercase; }
+        .page-title h2 { color: #555; margin: 10px 0 0; font-size: 1.3rem; font-weight: normal; }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 10px; 
+            margin-bottom: 30px; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        }
+        .question-card.incomplete { border: 2px solid #dc3545; box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
+
+        .topic-col {
+            background-color: var(--primary-color); width: 140px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: white; flex-shrink: 0; font-size: 1rem; border-right: 1px solid #fff;
+        }
+        .content-col { flex-grow: 1; padding: 25px; width: calc(100% - 140px); background: #fff; }
+
+        .question-text { font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; color: #2c3e50; }
+
+        /* OPTIONS */
+        .options label {
+            display: block; margin-bottom: 10px; cursor: pointer; padding: 12px 15px;
+            border: 2px solid #f1f1f1; border-radius: 8px; transition: 0.2s; position: relative;
+        }
+        .options label:hover { background-color: var(--bg-light); border-color: var(--primary-color); }
+        .options input { margin-right: 12px; transform: scale(1.3); vertical-align: middle; accent-color: var(--primary-color); }
+
+        /* IMAGE GRID */
+        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .img-item { border: 2px solid #eee; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .img-item:hover { border-color: var(--primary-color); background: var(--bg-light); }
+        .img-item img { max-width: 100%; height: 120px; object-fit: contain; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+        
+        /* SINGLE IMAGE */
+        .single-img { display: block; max-width: 100%; max-height: 300px; margin: 0 auto 20px auto; border-radius: 8px; border: 1px solid #ddd; }
+
+        /* TABLES */
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); }
+        .data-table { width: 100%; border-collapse: collapse; margin: 0; }
+        .data-table th {
+            background-color: var(--primary-color); color: white; padding: 15px; 
+            text-align: center; font-weight: 700; border-bottom: 2px solid #fff;
+        }
+        .data-table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: middle; }
+        .data-table tr:nth-child(even) { background-color: #fcfcfc; }
+        .data-table tr:last-child td { border-bottom: none; }
+        
+        .data-table td:first-child { width: 60%; font-weight: 500; }
+        .data-table td:not(:first-child) { width: 20%; text-align: center; }
+
+        .data-table select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; 
+            background: white; font-size: 0.95rem; cursor: pointer;
+        }
+        .data-table input[type="radio"] { transform: scale(1.5); cursor: pointer; accent-color: var(--primary-color); }
+
+        /* FEEDBACK */
+        .feedback { 
+            margin-top: 20px; padding: 15px; background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; border-radius: 4px; 
+            font-size: 0.95rem; color: #856404; display: none; line-height: 1.5;
+        }
+        .correct-opt { background-color: var(--correct-bg) !important; border-color: #28a745 !important; }
+        .wrong-opt { background-color: var(--wrong-bg) !important; border-color: #dc3545 !important; }
+        
+        .correction { 
+            display: block; margin-top: 8px; font-size: 0.9rem; font-weight: bold; 
+            color: #dc3545; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; border: 1px dashed #dc3545;
+        }
+
+        .btn-submit {
+            display: block; width: 250px; margin: 40px auto; padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white; border: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(40, 167, 69, 0.6); }
+
+        #result-area {
+            text-align: center; font-size: 1.6rem; font-weight: bold; margin-top: 30px;
+            padding: 30px; display: none; background: white; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary-color);
+        }
+
+        footer { background: var(--primary-color); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        .footer-info { margin-top: 15px; font-size: 0.95rem; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .question-card { flex-direction: column; }
+            .topic-col { width: 100%; padding: 10px; justify-content: flex-start; border-right: none; border-bottom: 4px solid #1e7e34; }
+            .content-col { width: 100%; padding: 15px; }
+            .data-table td:first-child { width: 50%; }
+            .data-table td:not(:first-child) { width: 25%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="../index.html" class="home-btn"><i class="fas fa-home"></i> Trang chủ</a>
+        <div class="logo-ic3"><span>IC3</span><span>spark</span></div>
+    </div>
+    <div class="header-right">
+        <span class="teacher-name">GV. Nguyễn Đình Bạch Long</span>
+        <span class="sub-title">Hệ thống ôn luyện Level 1</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-title">
+        <h1>LỚP 3 - LEVEL 1</h1>
+        <h2>KIẾN THỨC TỔNG HỢP - PHẦN 2</h2>
+    </div>
+
+    <form id="quiz-form">
+        </form>
+
+    <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI</button>
+    <div id="result-area"></div>
+</div>
+
+<footer>
+    <h3>HỆ THỐNG HỖ TRỢ HỌC TẬP IC3 SPARK</h3>
+    <div class="footer-info">
+        <p>© 2026 Bản quyền thuộc về GV. Nguyễn Đình Bạch Long</p>
+        <p><i class="fas fa-envelope"></i> dinhlongcntt20119@gmail.com | <i class="fas fa-phone"></i> 0937.438.939</p>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 1, type: "radio",
+            q: "Ai đó bạn gặp trực tuyến, yêu cầu bạn cung cấp tên và địa chỉ của bạn để họ gửi cho bạn lời mời dự tiệc sinh nhật. Bạn nên làm gì?",
+            opts: [
+                {v: "a", t: "Từ chối cung cấp tên hoặc địa chỉ của bạn"},
+                {v: "b", t: "Cung cấp tên và địa chỉ của bạn"},
+                {v: "c", t: "Cung cấp tên của bạn nhưng không cho biết địa chỉ của bạn"},
+                {v: "d", t: "Đề nghị gặp họ tại bữa tiệc"}
+            ],
+            ans: "a",
+            explain: "Bạn không bao giờ nên chia sẻ thông tin cá nhân hoặc gặp gỡ người lạ quen qua mạng."
+        },
+        {
+            id: 2, type: "radio",
+            q: "Thông tin cá nhân nào bạn KHÔNG nên chia sẻ trực tuyến?",
+            opts: [
+                {v: "a", t: "Địa chỉ (Address)"},
+                {v: "b", t: "Tên (Name)"},
+                {v: "c", t: "Tuổi (Age)"},
+                {v: "d", t: "Lớp (Class)"}
+            ],
+            ans: "a",
+            explain: "Địa chỉ nhà là thông tin nhạy cảm nhất, tuyệt đối không được chia sẻ công khai."
+        },
+        {
+            id: 3, type: "radio",
+            q: "Hãy xem xét những gì bạn biết về bản chất công khai và lâu dài của nội dung trực tuyến. Nội dung nào KHÔNG an toàn để chia sẻ trực tuyến?",
+            opts: [
+                {v: "a", t: "Vị trí GPS của công viên bên cạnh ngôi nhà của bạn"},
+                {v: "b", t: "Một bức ảnh về bữa tối ngon miệng của bạn"},
+                {v: "c", t: "Danh sách những cuốn sách yêu thích của bạn"},
+                {v: "d", t: "Một bức ảnh về dự án nghệ thuật hoàn toàn tuyệt vời của bạn"}
+            ],
+            ans: "a",
+            explain: "Vị trí GPS gần nhà có thể làm lộ nơi ở thực tế của bạn, gây nguy hiểm."
+        },
+        {
+            id: 4, type: "radio",
+            q: "Lưng mẹ bạn đau khi bà ngồi vào bàn làm việc để sử dụng máy tính. Mẹ yêu cầu bạn cho lời khuyên về cách có tư thế tốt. Bạn nên nói gì với mẹ?",
+            opts: [
+                {v: "a", t: "Ngồi thẳng lưng và chân phẳng trên sàn nhà"},
+                {v: "b", t: "Nghiêng về phía màn hình máy tính"},
+                {v: "c", t: "Bắt chéo chân và ngả người ra sau"},
+                {v: "d", t: "Nâng màn hình máy tính lên trên tầm mắt để phải ngước nhìn lên nó"}
+            ],
+            ans: "a",
+            explain: "Tư thế đúng là ngồi thẳng lưng, chân đặt phẳng trên sàn để bảo vệ cột sống."
+        },
+        {
+            id: 5, type: "radio",
+            q: "Khi nào thì có thể nói chuyện với người lạ trực tuyến?",
+            opts: [
+                {v: "a", t: "Không bao giờ"},
+                {v: "b", t: "Bất cứ lúc nào"},
+                {v: "c", t: "Ban ngày"},
+                {v: "d", t: "Cuối tuần"}
+            ],
+            ans: "a",
+            explain: "Để đảm bảo an toàn, bạn không bao giờ nên nói chuyện với người lạ trực tuyến."
+        },
+        {
+            id: 6, type: "table_tf",
+            q: "Bạn đang truy cập internet và cửa sổ hiển thị bên dưới bật lên. Đối với mỗi hành động, hãy chọn Có nếu bạn nên làm điều đó hoặc Không nếu bạn KHÔNG nên làm điều đó.",
+            img: "p2_cd6.jpg", /* Ảnh Popup Get Free Game */
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Nhập địa chỉ email và mật khẩu thông thường của bạn", a: "no"},
+                {t: "Đồng ý với các điều khoản và điều kiện", a: "no"},
+                {t: "Nhấp vào Get More Free Games!!! để nhận thêm game miễn phí", a: "no"}
+            ],
+            explain: "Đây là dấu hiệu của lừa đảo hoặc phần mềm độc hại, không nên nhập thông tin hay nhấp vào."
+        },
+        {
+            id: 7, type: "radio",
+            q: "Bạn có một máy tính, một màn hình và một bàn phím trong phòng của bạn. Tại sao bạn nên che bàn phím khi bạn không sử dụng nó?",
+            opts: [
+                {v: "a", t: "Để bảo vệ bàn phím khỏi bụi"},
+                {v: "b", t: "Để bảo vệ bàn phím khỏi nhiệt độ lạnh"},
+                {v: "c", t: "Để bảo vệ bàn phím khỏi ánh sáng mặt trời"},
+                {v: "d", t: "Để bảo vệ bàn phím khỏi nhiệt độ ấm áp"}
+            ],
+            ans: "a",
+            explain: "Bụi bẩn lọt vào khe phím có thể làm kẹt hoặc hỏng bàn phím."
+        },
+        {
+            id: 8, type: "table_tf",
+            q: "Các tư thế tốt khi sử dụng máy tính là gì? Chọn Có hoặc Không cho mỗi tư thế dưới đây.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "Giữ chân trên sàn", a: "yes"},
+                {t: "Cúi người về phía trước để xem màn hình", a: "no"},
+                {t: "Bắt chéo chân dưới bàn làm việc", a: "no"},
+                {t: "Thư giãn vai của bạn", a: "yes"}
+            ],
+            explain: "Giữ chân trên sàn và vai thư giãn là tư thế đúng (ergonomics)."
+        },
+        {
+            id: 9, type: "radio",
+            q: "Ai trong số những người này là bạn an toàn nhất để có trên mạng?",
+            opts: [
+                {v: "a", t: "Một người lạ gửi tin nhắn trực tiếp trên mạng xã hội yêu cầu số điện thoại của bạn"},
+                {v: "b", t: "Một người mà bạn đi học với người đó và chơi trò chơi trực tuyến vào cuối tuần"},
+                {v: "c", t: "Ai đó gửi email cho bạn nói rằng bạn đã giành được giải thưởng và cần gửi lại thông tin cá nhân"}
+            ],
+            ans: "b",
+            explain: "Bạn bè cùng trường (người quen biết ngoài đời thực) là người an toàn nhất để kết bạn online."
+        },
+        {
+            id: 10, type: "radio",
+            q: "Cách an toàn nhất để sạc thiết bị di động là gì?",
+            opts: [
+                {v: "a", t: "Đặt ở nơi an toàn gần ổ cắm và cắm cáp sạc đi kèm với thiết bị"},
+                {v: "b", t: "Đặt thiết bị trên sàn và cắm cáp sạc của một thiết bị khác"},
+                {v: "c", t: "Đặt thiết bị di động bên ngoài trong ngày và sạc nó dưới ánh nắng trực tiếp"}
+            ],
+            ans: "a",
+            explain: "Sử dụng sạc chính hãng và đặt ở nơi an toàn, thoáng mát là cách sạc đúng."
+        },
+        {
+            id: 11, type: "check",
+            q: "Những yếu tố nào sau đây làm cho thiết bị có thể bị hỏng? (Chọn tất cả các đáp án đúng)",
+            opts: [
+                {v: "a", t: "Thực phẩm (Food)"},
+                {v: "b", t: "Mưa (Rain)"},
+                {v: "c", t: "Ngón tay (Fingers)"},
+                {v: "d", t: "Cọ vệ sinh"}
+            ],
+            ans: ["a", "b"],
+            explain: "Thức ăn và nước (mưa) là những tác nhân gây hại trực tiếp cho thiết bị điện tử."
+        },
+        {
+            id: 12, type: "radio",
+            q: "Bạn gặp một người trong phòng trò chuyện chơi game trực tuyến. Họ yêu cầu bạn cung cấp địa chỉ nhà của bạn. Bạn nên kết luận điều gì từ yêu cầu của họ?",
+            opts: [
+                {v: "a", t: "Họ không phải là một người bạn trực tuyến thích hợp"},
+                {v: "b", t: "Họ muốn gửi cho bạn một cái gì đó"},
+                {v: "c", t: "Họ muốn đến thăm bạn"},
+                {v: "d", t: "Họ tò mò về nơi bạn sống"}
+            ],
+            ans: "a",
+            explain: "Yêu cầu địa chỉ nhà là hành vi không an toàn và đáng ngờ."
+        },
+        {
+            id: 13, type: "check",
+            q: "Thông tin nào KHÔNG nên được chia sẻ trực tuyến? (chọn 3)",
+            opts: [
+                {v: "a", t: "Ngày sinh (Birthdate)"},
+                {v: "b", t: "Tuổi (Age)"},
+                {v: "c", t: "Địa chỉ nhà (Home address)"},
+                {v: "d", t: "Bài hát em yêu thích (Favourite song)"}
+            ],
+            ans: ["a", "b", "c"],
+            explain: "Ngày sinh, tuổi và địa chỉ là thông tin cá nhân (PII) cần được bảo mật."
+        },
+        {
+            id: 14, type: "radio",
+            q: "Bạn gửi ảnh của bạn và gia đình của bạn cho một người bạn cùng lớp. Bạn cùng lớp đăng ảnh lên mạng xã hội của họ. Bạn có thể làm gì để xóa ảnh vĩnh viễn khỏi internet?",
+            opts: [
+                {v: "a", t: "Bạn không thể xóa ảnh mãi mãi, vì internet là công khai và vĩnh viễn"},
+                {v: "b", t: "Đột nhập vào máy tính của bạn cùng lớp và cố gắng xóa các bức ảnh"},
+                {v: "c", t: "Gửi yêu cầu hỗ trợ đến dịch vụ khách hàng của ứng dụng truyền thông xã hội"},
+                {v: "d", t: "Bảo bạn cùng lớp của bạn gỡ ảnh xuống nếu không bạn sẽ không còn là bạn của họ nữa"}
+            ],
+            ans: "a",
+            explain: "Một khi thông tin đã lên internet, rất khó để xóa bỏ hoàn toàn (dấu chân số)."
+        },
+        {
+            id: 15, type: "radio",
+            q: "Trong cửa sổ trình duyệt được hiển thị, bạn nên nhấp hoặc nhấn vào đâu để truy cập các trang khác của trang Web Net PC? (Chọn vị trí chính xác trong khu vực trả lời)",
+            img: "p2_cd15.jpg", /* Ảnh trình duyệt Net PC */
+            opts: [
+                {v: "a", t: "Vị trí A"},
+                {v: "b", t: "Vị trí B"},
+                {v: "c", t: "Vị trí C"},
+                {v: "d", t: "Vị trí D"}
+            ],
+            ans: "d",
+            explain: "Các liên kết điều hướng (Home, About...) dùng để chuyển trang trong cùng một website."
+        },
+        {
+            id: 16, type: "radio",
+            q: "Bạn cần đóng (Close) cửa sổ trình duyệt hiển thị. Bạn nên nhấp hoặc nhấn vào biểu tượng nào?",
+            img: "p2_cd16.jpg", /* Ảnh trình duyệt có nút X */
+            opts: [
+                {v: "a", t: "Vị trí A (Tab)"},
+                {v: "b", t: "Vị trí B (Thanh địa chỉ)"},
+                {v: "c", t: "Vị trí C (Nút Close)"},
+                {v: "d", t: "Vị trí D (Ô tìm kiếm)"}
+            ],
+            ans: "c",
+            explain: "Biểu tượng X dùng để đóng ứng dụng hoặc cửa sổ."
+        },
+        {
+            id: 17, type: "radio",
+            q: "Bằng cách sử dụng tính năng Bookmarks/Favorites của trình duyệt web, bạn có thể lưu gì?",
+            opts: [
+                {v: "a", t: "Liên kết trang web (Webpage links)"},
+                {v: "b", t: "Cookie trang web (Webpage cookies)"},
+                {v: "c", t: "Hình ảnh trang web (Webpage images)"},
+                {v: "d", t: "Cài đặt trang web (Webpage settings)"}
+            ],
+            ans: "a",
+            explain: "Bookmark (Dấu trang) dùng để lưu lại địa chỉ (link) của các trang web yêu thích."
+        },
+        {
+            id: 18, type: "radio",
+            q: "Bạn thường tìm thấy điều gì trong ứng dụng máy tính để bàn và trên các trang web?",
+            opts: [
+                {v: "a", t: "Đoạn văn bản"},
+                {v: "b", t: "Giỏ hàng"},
+                {v: "c", t: "Thanh địa chỉ"},
+                {v: "d", t: "Nút đặt hàng"}
+            ],
+            ans: "a",
+            explain: "Văn bản (Text/Paragraph) là thành phần cơ bản có ở hầu hết các ứng dụng và trang web."
+        },
+        {
+            id: 19, type: "radio",
+            q: "Nhi thích đọc các bài báo trực tuyến. Cô ấy chỉ muốn đọc các bài báo dựa trên sự thật, không phải ý kiến. Câu hỏi nào có thể giúp Nhi xác định các bài báo dựa trên thực tế?",
+            opts: [
+                {v: "a", t: "Ai đã viết bài báo?"},
+                {v: "b", t: "Kiểu phông chữ nào đã được sử dụng?"},
+                {v: "c", t: "Bài viết dài bao nhiêu?"},
+                {v: "d", t: "Bài viết có hình ảnh không?"}
+            ],
+            ans: "a",
+            explain: "Biết tác giả là ai giúp xác định độ tin cậy và tính khách quan của bài viết."
+        },
+        {
+            id: 20, type: "radio",
+            q: "Bạn cần truy cập một trang web khác. Trên trang web được hiển thị, bạn nên nhập URL mới vào đâu?",
+            img: "p2_cd20.jpg", /* Ảnh có nhãn A, B, C, D */
+            opts: [
+                {v: "a", t: "Vị trí A (Tab)"},
+                {v: "b", t: "Vị trí B (Thanh địa chỉ)"},
+                {v: "c", t: "Vị trí C (Nút Close)"},
+                {v: "d", t: "Vị trí D (Ô tìm kiếm)"}
+            ],
+            ans: "b",
+            explain: "Thanh địa chỉ (Address bar) là nơi nhập URL để truy cập trang web cụ thể."
+        },
+        {
+            id: 21, type: "radio",
+            q: "Tên của khu vực ở đầu cửa sổ trình duyệt hiển thị URL trang web được gọi là?",
+            img: "p2_cd21.jpg", /* Ảnh mũi tên chỉ thanh địa chỉ */
+            opts: [
+                {v: "a", t: "Thanh địa chỉ (Address bar)"},
+                {v: "b", t: "Bookmark/Favorite"},
+                {v: "c", t: "Thẻ trình duyệt (Tab)"},
+                {v: "d", t: "Thanh tiêu đề (Title bar)"}
+            ],
+            ans: "a",
+            explain: "Khu vực hiển thị đường dẫn URL gọi là Thanh địa chỉ (Address bar)."
+        },
+        {
+            id: 22, type: "radio",
+            q: "Bạn hãy cho biết, công cụ nào của trình duyệt cho phép truy cập vào các trang web yêu thích?",
+            opts: [
+                {v: "a", t: "Bookmarks"},
+                {v: "b", t: "Back"},
+                {v: "c", t: "Settings"},
+                {v: "d", t: "Home"}
+            ],
+            ans: "a",
+            explain: "Bookmarks (Dấu trang) lưu trữ các trang web yêu thích để truy cập nhanh."
+        },
+        {
+            id: 23, type: "match",
+            q: "Di chuyển từng thuật ngữ từ danh sách bên trái sang định nghĩa của nó ở bên phải.",
+            rows: [
+                {t: "Phần mềm bạn sử dụng để xem mọi thứ trên internet", a: "browser"},
+                {t: "Một tài liệu với văn bản và hình ảnh mà bạn nhìn thấy và đọc trên internet", a: "webpage"},
+                {t: "Phần mềm bạn sử dụng để tìm mọi thứ trên internet", a: "engine"}
+            ],
+            opts: [
+                {v: "browser", t: "Trình duyệt web (Web browser)"},
+                {v: "webpage", t: "Trang web (Web page)"},
+                {v: "engine", t: "Công cụ tìm kiếm (Search engine)"}
+            ],
+            explain: "Browser: Xem web. Web page: Tài liệu nội dung. Search Engine: Tìm kiếm thông tin."
+        },
+        {
+            id: 24, type: "table",
+            q: "Bạn đang tìm kiếm một nơi để đi với các bạn cùng lớp. Hãy chọn Thực tế hoặc Ý kiến cho mỗi tuyên bố.",
+            headers: ["Thực tế (Fact)", "Ý kiến (Opinion)"],
+            rows: [
+                {t: "Nhà hàng có một khu trò chơi điện tử thực sự thú vị", a: "y kien"},
+                {t: "Nhà hàng có các món tráng miệng ngon nhất", a: "y kien"},
+                {t: "Nhà hàng chỉ cách trường học một dãy nhà", a: "thuc te"},
+                {t: "Nhà hàng có mười loại pizza khác nhau", a: "thuc te"}
+            ],
+            explain: "Thực tế có thể kiểm chứng được (khoảng cách, số lượng). Ý kiến là cảm nhận chủ quan (thú vị, ngon nhất)."
+        },
+        {
+            id: 25, type: "radio",
+            q: "Cách nhanh nhất để lưu trang web bạn đang xem để bạn có thể quay lại sau là gì?",
+            opts: [
+                {v: "a", t: "Tạo dấu trang (Bookmark)"},
+                {v: "b", t: "Viết địa chỉ trang web trên một tờ giấy"},
+                {v: "c", t: "Lưu địa chỉ trang web trong một tập tin"},
+                {v: "d", t: "Lưu trang web vào màn hình máy tính của bạn"}
+            ],
+            ans: "a",
+            explain: "Tạo dấu trang (Bookmark) là cách nhanh và tiện lợi nhất được tích hợp sẵn trong trình duyệt."
+        },
+        {
+            id: 26, type: "radio",
+            q: "Một giáo viên bảo học sinh nghiên cứu trên máy tính bảng trong 30 phút. Làm thế nào giáo viên có thể tìm ra liệu học sinh có nói sự thật hay không?",
+            opts: [
+                {v: "a", t: "Bằng cách kiểm tra lịch sử trình duyệt của học sinh"},
+                {v: "b", t: "Bằng cách kiểm tra thời lượng pin còn lại của máy tính bảng"},
+                {v: "c", t: "Bằng cách hỏi những học sinh khác ngồi gần"},
+                {v: "d", t: "Bằng cách kiểm tra xem có bất kỳ thẻ trình duyệt nào được mở"}
+            ],
+            ans: "a",
+            explain: "Lịch sử trình duyệt (History) lưu lại danh sách các trang web đã truy cập."
+        },
+        {
+            id: 27, type: "radio",
+            q: "Bạn hãy cho biết, tùy chọn nào dưới đây cho phép truy cập và duyệt thông tin trên internet?",
+            opts: [
+                {v: "a", t: "Internet Explorer"},
+                {v: "b", t: "Client (Máy khách)"},
+                {v: "c", t: "Server (Máy chủ)"},
+                {v: "d", t: "Cloud Storage (Lưu trữ đám mây)"}
+            ],
+            ans: "a",
+            explain: "Internet Explorer là một trình duyệt web (Web Browser) dùng để truy cập internet."
+        },
+        {
+            id: 28, type: "table_tf",
+            q: "Đối với mỗi hành động, hãy chọn Có nếu đó là ví dụ về định dạng văn bản hoặc Không nếu không.",
+            headers: ["Có", "Không"],
+            rows: [
+                {t: "In đậm văn bản", a: "yes"},
+                {t: "Xóa một phần của đoạn văn bản", a: "no"},
+                {t: "Thay đổi kích cỡ và màu sắc của văn bản", a: "yes"}
+            ],
+            explain: "Định dạng (Formatting) là thay đổi vẻ bề ngoài (đậm, màu, cỡ). Xóa văn bản là soạn thảo/chỉnh sửa nội dung."
+        },
+        {
+            id: 29, type: "radio",
+            q: "Em hãy cho biết, tài liệu điện tử có đặc điểm gì?",
+            opts: [
+                {v: "a", t: "Giúp bảo vệ môi trường bằng cách giảm lãng phí giấy"},
+                {v: "b", t: "Phải luôn luôn được in"},
+                {v: "c", t: "Là những tài liệu đã được in và phân phối"},
+                {v: "d", t: "Không có điều nào ở trên"}
+            ],
+            ans: "a",
+            explain: "Tài liệu điện tử không sử dụng giấy, giúp bảo vệ môi trường."
+        },
+        {
+            id: 30, type: "radio",
+            q: "Nhi đang viết một báo cáo. Nhi nên nhấn phím nào để thụt lề chính xác dòng đầu tiên? (Chọn khóa/phím thích hợp trong khu vực trả lời)",
+            img: "p2_cd30.jpg", /* Ảnh bàn phím */
+            opts: [
+                {v: "a", t: "Phím Tab"},
+                {v: "b", t: "Phím Caps Lock"},
+                {v: "c", t: "Phím Shift"},
+                {v: "d", t: "Phím Ctrl"}
+            ],
+            ans: "a",
+            explain: "Phím Tab dùng để thụt lề dòng đầu tiên của đoạn văn bản theo chuẩn."
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        let html = '';
+        questions.forEach((q, index) => {
+            html += `<div class="question-card" id="card-${index}">
+                <div class="topic-col">Chủ đề ${q.id < 10 ? '0' + q.id : q.id}</div>
+                <div class="content-col">
+                    <div class="question-text">${q.q}</div>`;
+            
+            if (q.img && q.type !== 'img_radio' && q.type !== 'img_check') {
+                html += `<img src="${q.img}" class="single-img" alt="Minh họa">`;
+            }
+
+            if (q.type === 'radio') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'check') {
+                html += `<div class="options">`;
+                q.opts.forEach(opt => {
+                    html += `<label><input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}</label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'img_radio') {
+                html += `<div class="img-grid">`;
+                q.opts.forEach(opt => {
+                    html += `<label class="img-item">
+                        <img src="${opt.img}" alt="${opt.t}">
+                        <input type="radio" name="q${index}" value="${opt.v}"> ${opt.t}
+                    </label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'img_check') {
+                html += `<div class="img-grid">`;
+                q.opts.forEach(opt => {
+                    html += `<label class="img-item">
+                        <img src="${opt.img}" alt="${opt.t}">
+                        <input type="checkbox" name="q${index}" value="${opt.v}"> ${opt.t}
+                    </label>`;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Định nghĩa/Mô tả</th><th>Thuật ngữ/Lựa chọn</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td><td><select name="q${index}_${rIdx}"><option value="">-- Chọn --</option>`;
+                    q.opts.forEach(opt => {
+                        html += `<option value="${opt.v}">${opt.t}</option>`;
+                    });
+                    html += `</select></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table_tf') {
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${q.headers[0]}</th><th>${q.headers[1]}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${r.a === 'yes' || r.a === 'dung' ? 'yes' : (r.a === 'no' || r.a === 'sai' ? 'no' : 'yes')}"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${r.a === 'no' || r.a === 'sai' ? 'no' : (r.a === 'yes' || r.a === 'dung' ? 'yes' : 'no')}"></td></tr>`;
+                    /* Note: The logic above simplifies to accommodate various "yes/no" values. 
+                       Correct logic relies on checking user input against q.rows[rIdx].a */
+                });
+                html += `</tbody></table></div>`;
+            } else if (q.type === 'table') {
+                // Determine values based on context. 
+                // For Topic 24 (Fact/Opinion), val1='thuc te', val2='y kien'
+                let header1 = q.headers[0];
+                let header2 = q.headers[1];
+                let val1, val2;
+                
+                if (q.id === 24) { val1 = 'thuc te'; val2 = 'y kien'; }
+                else { val1 = 'v1'; val2 = 'v2'; } // Fallback
+
+                html += `<div class="table-container"><table class="data-table"><thead><tr><th>Nội dung</th><th>${header1}</th><th>${header2}</th></tr></thead><tbody>`;
+                q.rows.forEach((r, rIdx) => {
+                    html += `<tr><td>${r.t}</td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val1}"></td>
+                        <td class="cell-center"><input type="radio" name="q${index}_${rIdx}" value="${val2}"></td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            }
+            
+            html += `<div class="feedback"><strong>Giải thích:</strong> ${q.explain}</div>
+                </div>
+            </div>`;
+        });
+        form.innerHTML = html;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let allAnswered = true;
+        let firstUnanswered = null;
+
+        document.querySelectorAll('.question-card').forEach(c => c.classList.remove('incomplete'));
+        document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+        document.querySelectorAll('.correct-opt, .wrong-opt').forEach(el => {
+            el.classList.remove('correct-opt', 'wrong-opt');
+            el.style.backgroundColor = ''; el.style.borderColor = ''; el.style.border = '';
+        });
+        document.querySelectorAll('.correction').forEach(el => el.remove());
+
+        questions.forEach((q, index) => {
+            let answered = false;
+            if (q.type.includes('radio')) {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type.includes('check')) {
+                if (document.querySelector(`input[name="q${index}"]:checked`)) answered = true;
+            } else if (q.type === 'match' || q.type.includes('table')) {
+                let subCount = 0;
+                let totalRows = q.rows.length;
+                if (q.type === 'match') {
+                    q.rows.forEach((r, rIdx) => { if (document.getElementsByName(`q${index}_${rIdx}`)[0].value !== "") subCount++; });
+                } else {
+                    q.rows.forEach((r, rIdx) => { if (document.querySelector(`input[name="q${index}_${rIdx}"]:checked`)) subCount++; });
+                }
+                if (subCount === totalRows) answered = true;
+            }
+
+            if (!answered) {
+                allAnswered = false;
+                let card = document.getElementById(`card-${index}`);
+                card.classList.add('incomplete');
+                if (!firstUnanswered) firstUnanswered = card;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        questions.forEach((q, index) => {
+            let isCorrect = false;
+            if (q.type === 'radio' || q.type === 'img_radio') {
+                let checked = document.querySelector(`input[name="q${index}"]:checked`);
+                if (checked.value === q.ans) {
+                    isCorrect = true;
+                    checked.parentElement.classList.add('correct-opt');
+                } else {
+                    checked.parentElement.classList.add('wrong-opt');
+                    let correctInput = document.querySelector(`input[name="q${index}"][value="${q.ans}"]`);
+                    if(correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                }
+            } else if (q.type === 'check' || q.type === 'img_check') {
+                let checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(e => e.value);
+                if (JSON.stringify(checked.sort()) === JSON.stringify(q.ans.sort())) isCorrect = true;
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    if (q.ans.includes(inp.value)) inp.parentElement.classList.add('correct-opt');
+                    if (inp.checked && !q.ans.includes(inp.value)) inp.parentElement.classList.add('wrong-opt');
+                });
+            } else if (q.type === 'match') {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let sel = document.getElementsByName(`q${index}_${rIdx}`)[0];
+                    let userVal = sel.value;
+                    let correctKey = r.a;
+                    let correctText = q.opts.find(o => o.v === correctKey).t;
+
+                    if (userVal === correctKey) {
+                        subCorrect++;
+                        sel.style.borderColor = "#28a745";
+                        sel.style.backgroundColor = "#d4edda";
+                    } else {
+                        sel.style.borderColor = "#dc3545";
+                        sel.style.backgroundColor = "#f8d7da";
+                        let div = document.createElement("div");
+                        div.className = "correction";
+                        div.innerHTML = `Đúng: ${correctText}`;
+                        sel.parentElement.appendChild(div);
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            } else if (q.type.includes('table')) {
+                let subCorrect = 0;
+                q.rows.forEach((r, rIdx) => {
+                    let checked = document.querySelector(`input[name="q${index}_${rIdx}"]:checked`);
+                    // Logic to find correct value in table inputs
+                    // table_tf uses 'yes'/'no'. table uses specific values.
+                    let rightVal = r.a;
+                    
+                    if (checked.value === rightVal) {
+                        subCorrect++;
+                        checked.parentElement.style.backgroundColor = "#d4edda";
+                    } else {
+                        checked.parentElement.style.backgroundColor = "#f8d7da";
+                        let correctInput = document.querySelector(`input[name="q${index}_${rIdx}"][value="${rightVal}"]`);
+                        if (correctInput) correctInput.parentElement.style.border = "2px dashed #28a745";
+                    }
+                });
+                if (subCorrect === q.rows.length) isCorrect = true;
+            }
+
+            if (isCorrect) score++;
+            document.querySelector(`#card-${index} .feedback`).style.display = 'block';
+        });
+
+        let res = document.getElementById('result-area');
+        res.style.display = 'block';
+        let percent = Math.round((score / questions.length) * 100);
+        res.innerHTML = `KẾT QUẢ: ${score} / ${questions.length} CÂU ĐÚNG (${percent}%)`;
+        res.style.color = percent >= 80 ? '#28a745' : '#dc3545';
+        res.style.borderColor = percent >= 80 ? '#28a745' : '#dc3545';
+
+        document.querySelectorAll('input, select').forEach(el => el.disabled = true);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    renderQuiz();
+</script>
+</body>
+</html>

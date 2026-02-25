@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lớp 3 - Level 1 | Kiến Thức Nền Tảng - Phần 1</title>
+    <title>Lớp 3 - Level 1 | Kiến Thức Nền Tảng - Phần 1.1</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -157,7 +157,7 @@
 <div class="container">
     <div class="page-title">
         <h1>LỚP 3 - LEVEL 1</h1>
-        <h2>KIẾN THỨC NỀN TẢNG - PHẦN 1</h2>
+        <h2>KIẾN THỨC NỀN TẢNG - PHẦN 1.1 (Chủ đề 01 - 15)</h2>
     </div>
 
     <form id="quiz-form">
@@ -176,7 +176,6 @@
 </footer>
 
 <script>
-    // Dữ liệu câu hỏi chính xác 100% từ ảnh (1-30)
     const questions = [
         {
             id: 1, type: "match", 
@@ -361,180 +360,6 @@
                 {v: "video", t: "Trò chuyện video (Video chat)"}
             ],
             explain: "Email: Thư điện tử. Video chat: Giao tiếp trực diện. In-app messaging: Tin nhắn nội bộ ứng dụng."
-        },
-        {
-            id: 16, type: "match", 
-            q: "Ghép từng phương pháp giao tiếp kỹ thuật số với tình huống thích hợp nhất.", 
-            rows: [
-                {t: "Liên hệ với bộ phận hỗ trợ trực tuyến cho một sản phẩm", a: "inapp"},
-                {t: "Gửi lịch đã sửa đổi cho tất cả mọi người trong đội điền kinh", a: "email"},
-                {t: "Thông báo cho bạn bè rằng bạn đang đến muộn", a: "sms"}
-            ],
-            opts: [
-                {v: "inapp", t: "Tin nhắn trong ứng dụng (In-app message)"},
-                {v: "sms", t: "Tin nhắn văn bản (Text message SMS)"},
-                {v: "email", t: "Thư điện tử (Email)"}
-            ],
-            explain: "Hỗ trợ trực tuyến: Chat trong ứng dụng. Gửi lịch chi tiết: Email. Thông báo nhanh: SMS."
-        },
-        {
-            id: 17, type: "table_tf", 
-            q: "Tùy chọn nào sau đây là những thành phần cơ bản của thư điện tử? (Chọn Yes nếu đáp án đúng và No nếu đáp án sai)", 
-            headers: ["Yes", "No"],
-            rows: [
-                {t: "Chủ đề (Subject)", a: "yes"},
-                {t: "Nội dung thư (Message Body)", a: "yes"},
-                {t: "Chữ ký (Signature)", a: "yes"},
-                {t: "Mật khẩu (Passwords)", a: "no"},
-                {t: "Mã QR (QR Codes)", a: "no"}
-            ],
-            explain: "Thành phần email gồm: Người nhận, Chủ đề, Nội dung, Chữ ký. Mật khẩu dùng để đăng nhập, không phải phần của thư."
-        },
-        {
-            id: 18, type: "table_tf", 
-            q: "Đâu là những ví dụ về sự thật (Facts)? (Chọn Yes nếu đáp án đúng và No nếu đáp án sai)", 
-            headers: ["Yes", "No"],
-            rows: [
-                {t: "Có 24 giờ trong một ngày", a: "yes"},
-                {t: "Nhảy dù rất nguy hiểm", a: "no"},
-                {t: "Thật là một ngày tuyệt vời", a: "no"}
-            ],
-            explain: "Sự thật (Fact): Có thể kiểm chứng (24h/ngày). Ý kiến (Opinion): Mang tính chủ quan (Nguy hiểm, Tuyệt vời)."
-        },
-        {
-            id: 19, type: "radio", 
-            q: "Cộng tác (Collaboration) là gì?", 
-            opts: [
-                {v: "a", t: "Cạnh tranh cho điểm tốt nhất trong lớp"},
-                {v: "b", t: "Làm việc trên máy tính hàng tuần"},
-                {v: "c", t: "Khi mọi người làm việc cùng nhau để hoàn thành một nhiệm vụ"}
-            ],
-            ans: "c",
-            explain: "Cộng tác là quá trình làm việc chung để đạt mục tiêu chung."
-        },
-        {
-            id: 20, type: "radio", 
-            q: "Mục tiêu của sự cộng tác (Collaboration) là gì? Hãy chọn đáp án đúng.", 
-            opts: [
-                {v: "a", t: "Làm việc cùng nhau để đạt được một kết quả chung"},
-                {v: "b", t: "Giữ kín ý tưởng và kiến thức của bạn"},
-                {v: "c", t: "Thuyết phục mọi người đồng ý với ý kiến của bạn"},
-                {v: "d", t: "Chia sẻ ý tưởng và kiến thức"}
-            ],
-            ans: "a",
-            explain: "Mục tiêu chính của cộng tác là đạt được kết quả chung tốt nhất."
-        },
-        {
-            id: 21, type: "radio", 
-            q: "Cân bằng phương tiện truyền thông (Media balance) là gì?", 
-            opts: [
-                {v: "a", t: "Dành tất cả thời gian rảnh trên điện thoại thông minh của bạn"},
-                {v: "b", t: "Bản trình chiếu sử dụng kết hợp hình ảnh, văn bản và âm thanh"},
-                {v: "c", t: "Sử dụng phương tiện để cảm thấy khỏe mạnh và cân bằng với các hoạt động sống khác"}
-            ],
-            ans: "c",
-            explain: "Media Balance là sử dụng công nghệ điều độ, cân bằng với các hoạt động cuộc sống khác."
-        },
-        {
-            id: 22, type: "radio", 
-            q: "Mật khẩu an toàn là gì?", 
-            opts: [
-                {v: "a", t: "Mật khẩu bao gồm tất cả các số và chữ cái"},
-                {v: "b", t: "Mật khẩu khó đoán bởi con người hoặc máy tính"},
-                {v: "c", t: "Mật khẩu mà một người bạn đã cung cấp cho bạn"}
-            ],
-            ans: "b",
-            explain: "Mật khẩu an toàn phải khó đoán và kết hợp nhiều loại ký tự."
-        },
-        {
-            id: 23, type: "check", 
-            q: "Những yếu tố nào sau đây làm cho thiết bị có thể bị hỏng?", 
-            opts: [
-                {v: "a", t: "Ngón tay (Fingers)"},
-                {v: "b", t: "Mưa (Rain)"},
-                {v: "c", t: "Thực phẩm (Food)"}
-            ],
-            ans: ["b", "c"],
-            explain: "Chất lỏng (mưa) và thức ăn là tác nhân gây hỏng thiết bị."
-        },
-        {
-            id: 24, type: "table_tf", 
-            q: "Tùy chọn nào sau đây là phù hợp với công thái học? (Chọn Yes nếu đáp án đúng và No nếu đáp án sai).", 
-            headers: ["Yes", "No"],
-            rows: [
-                {t: "Giữ chân trên sàn", a: "yes"},
-                {t: "Cúi người về phía trước để xem màn hình", a: "no"},
-                {t: "Bắt chéo chân dưới bàn làm việc", a: "no"},
-                {t: "Thư giãn vai của bạn", a: "yes"}
-            ],
-            explain: "Công thái học: Ngồi thẳng, chân chạm sàn, vai thư giãn để bảo vệ sức khỏe."
-        },
-        {
-            id: 25, type: "radio", 
-            q: "Bắt nạt trực tuyến (Cyberbullying) là gì?", 
-            opts: [
-                {v: "a", t: "Sử dụng công nghệ để quấy rối, đe dọa hoặc khiến người khác xấu hổ"},
-                {v: "b", t: "Gửi tin nhắn cho những người bạn vừa gặp"},
-                {v: "c", t: "Cung cấp thông tin cá nhân của bạn cho một người lạ trực tuyến"}
-            ],
-            ans: "a",
-            explain: "Cyberbullying là hành vi quấy rối, đe dọa người khác qua mạng."
-        },
-        {
-            id: 26, type: "check", 
-            q: "Thông tin nào KHÔNG nên được chia sẻ trực tuyến?", 
-            opts: [
-                {v: "a", t: "Ngày sinh (Birthdate)"},
-                {v: "b", t: "Địa chỉ nhà (Home address)"},
-                {v: "c", t: "Tuổi (Age)"}
-            ],
-            ans: ["a", "b"],
-            explain: "Ngày sinh đầy đủ và Địa chỉ nhà là thông tin cá nhân nhạy cảm, không nên chia sẻ công khai."
-        },
-        {
-            id: 27, type: "table_tf", 
-            q: "Một số cách để thoát khỏi ứng dụng trên máy tính để bàn đã được cài đặt là gì? (Chọn Yes nếu đáp án đúng và No nếu đáp án sai)", 
-            headers: ["Yes", "No"],
-            rows: [
-                {t: "Nhấp vào nút có dấu 'X' ở góc phải trên cùng của cửa sổ", a: "yes"},
-                {t: "Rút phích cắm màn hình", a: "no"},
-                {t: "Nhấp chuột phải vào biểu tượng của chương trình trên thanh tác vụ (Taskbar) và chọn Close, Exit hoặc Disable", a: "yes"}
-            ],
-            explain: "Thoát ứng dụng: Nhấn X hoặc chuột phải trên Taskbar chọn Close. Rút phích cắm là cách làm sai."
-        },
-        {
-            id: 28, type: "radio", 
-            q: "Cách nào sau đây là an toàn nhất để sạc thiết bị di động?", 
-            opts: [
-                {v: "a", t: "Đặt thiết bị di động ngoài trời và sạc nó dưới ánh nắng trực tiếp"},
-                {v: "b", t: "Đặt thiết bị trên sàn và cắm cáp sạc của một thiết bị khác"},
-                {v: "c", t: "Đặt ở nơi an toàn gần ổ cắm và cắm cáp sạc đi kèm với thiết bị"}
-            ],
-            ans: "c",
-            explain: "Sạc an toàn: Dùng cáp chính hãng, đặt nơi thoáng mát, tránh nguồn nhiệt."
-        },
-        {
-            id: 29, type: "radio", 
-            q: "Những người nào sau đây là an toàn nhất để kết bạn trực tuyến?", 
-            opts: [
-                {v: "a", t: "Một người lạ gửi tin nhắn trực tiếp nói họ yêu cầu số điện thoại của bạn"},
-                {v: "b", t: "Ai đó gửi email cho bạn nói rằng bạn đã giành được giải thưởng và cần gửi lại thông tin cá nhân"},
-                {v: "c", t: "Một người mà bạn đi học với người đó và chơi trò chơi trực tuyến vào cuối tuần"}
-            ],
-            ans: "c",
-            explain: "Bạn bè an toàn nhất là những người bạn đã biết và tin tưởng trong đời thực."
-        },
-        {
-            id: 30, type: "radio", 
-            q: "Bạn gửi ảnh của mình và gia đình cho một người bạn cùng lớp. Bạn đó đăng những hình ảnh này lên mạng xã hội. Bạn có thể làm gì để xóa những hình ảnh đó vĩnh viễn khỏi internet?", 
-            opts: [
-                {v: "a", t: "Truy cập trái phép vào tài khoản của bạn cùng lớp và cố gắng xóa những bức ảnh đó"},
-                {v: "b", t: "Gửi yêu cầu hỗ trợ đến dịch vụ khách hàng của ứng dụng truyền thông xã hội"},
-                {v: "c", t: "Bạn không thể xóa ảnh hoàn toàn khỏi internet, vì internet là mạng công cộng và trực tuyến là mãi mãi"},
-                {v: "d", t: "Bảo bạn cùng lớp của bạn gỡ ảnh xuống nếu không bạn sẽ không còn là bạn của họ nữa"}
-            ],
-            ans: "c",
-            explain: "Internet là mãi mãi: Một khi thông tin đã đăng tải, rất khó xóa bỏ hoàn toàn."
         }
     ];
 
@@ -542,9 +367,9 @@
         const form = document.getElementById('quiz-form');
         let html = '';
         questions.forEach((q, index) => {
-            // Cấu trúc Question Card: Topic bên trái, Nội dung bên phải
+            let label = q.id < 10 ? '0' + q.id : q.id;
             html += `<div class="question-card" id="card-${index}">
-                <div class="topic-col">Chủ đề ${q.id < 10 ? '0' + q.id : q.id}</div>
+                <div class="topic-col">Chủ đề ${label}</div>
                 <div class="content-col">
                     <div class="question-text">${q.q}</div>`;
             
@@ -630,7 +455,7 @@
         });
 
         if (!allAnswered) {
-            alert("Vui lòng hoàn thành tất cả các câu hỏi trước khi nộp bài!");
+            alert("Vui lòng hoàn thành tất cả các Chủ đề hỏi trước khi nộp bài!");
             firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
             return;
         }
