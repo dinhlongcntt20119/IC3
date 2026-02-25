@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lớp 5 - Level 3 | Kiến Thức Nền Tảng - Phần 1</title>
+    <title>Lớp 5 - Level 3 | Kiến Thức Nền Tảng - Phần 1.2</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            /* TÔNG MÀU TÍM LEVEL 3 (Theo ảnh cung cấp) */
-            --primary-color: #8e44ad; /* Tím đặc trưng */
-            --primary-dark: #6c3483;  /* Tím đậm */
-            --accent-color: #af7ac5;  /* Tím nhạt */
-            --bg-body: #f9f2fc;       /* Nền tím cực nhạt */
-            --text-color: #4a235a;    /* Chữ tím đen */
-            --border-color: #d2b4de;  /* Viền tím mềm mại */
+            /* TÔNG MÀU TÍM LEVEL 3 */
+            --primary-color: #8e44ad; 
+            --primary-dark: #6c3483;  
+            --accent-color: #af7ac5;  
+            --bg-body: #f9f2fc;       
+            --text-color: #4a235a;    
+            --border-color: #d2b4de;  
             
             --correct-bg: #d4edda;
             --correct-border: #28a745;
@@ -158,7 +158,7 @@
 <div class="container">
     <div class="page-title">
         <h1>LỚP 5 - LEVEL 3</h1>
-        <h2>KIẾN THỨC NỀN TẢNG - PHẦN 1</h2>
+        <h2>KIẾN THỨC NỀN TẢNG - PHẦN 1.2 (CHỦ ĐỀ 16 - 30)</h2>
     </div>
 
     <form id="quiz-form">
@@ -178,186 +178,6 @@
 
 <script>
     const questions = [
-        {
-            id: 1, type: "radio",
-            q: "Định nghĩa của khả năng tiếp cận trong công nghệ là gì?",
-            opts: [
-                {v: "a", t: "Quá trình lưu trữ dữ liệu trên đám mây"},
-                {v: "b", t: "Khả năng kết nối với mạng"},
-                {v: "c", t: "Cách dữ liệu được gửi qua internet"},
-                {v: "d", t: "Sự dễ dàng sử dụng và sẵn có của công nghệ dành cho người khuyết tật"}
-            ],
-            ans: "d",
-            explain: "Khả năng tiếp cận (Accessibility) đảm bảo công nghệ được thiết kế sao cho tất cả mọi người, kể cả người khuyết tật, người già, đều có thể sử dụng dễ dàng."
-        },
-        {
-            id: 2, type: "radio",
-            q: "Lợi ích của việc lưu trữ đám mây là gì?",
-            opts: [
-                {v: "a", t: "Thông tin chỉ có thể được truy cập bởi một thiết bị tại một thời điểm"},
-                {v: "b", t: "Bản sao vật lý của tài liệu được lưu trữ"},
-                {v: "c", t: "Dữ liệu được tự động đồng bộ hóa trên tất cả các thiết bị"},
-                {v: "d", t: "Bất kỳ ai cũng có thể truy cập tập tin mà không được phép"}
-            ],
-            ans: "c",
-            explain: "Lưu trữ đám mây cho phép truy cập mọi nơi, chia sẻ dễ dàng và tự động đồng bộ hóa dữ liệu trên các thiết bị có kết nối internet."
-        },
-        {
-            id: 3, type: "radio",
-            q: "Tùy chọn nào dưới đây KHÔNG phải là một phần của URL?",
-            opts: [
-                {v: "a", t: "Tên miền (Domain name)"},
-                {v: "b", t: "Địa chỉ IP (IP address)"},
-                {v: "c", t: "Giao thức (Protocol)"},
-                {v: "d", t: "Tên miền phụ (Subdomain)"}
-            ],
-            ans: "b",
-            explain: "URL (Uniform Resource Locator) là địa chỉ dạng văn bản. Địa chỉ IP là chuỗi số định danh máy tính, không phải là thành phần cấu tạo nên một chuỗi URL."
-        },
-        {
-            id: 4, type: "radio",
-            q: "Mục đích của địa chỉ IP là gì?",
-            opts: [
-                {v: "a", t: "Gửi và nhận email"},
-                {v: "b", t: "Chơi các tập tin âm nhạc"},
-                {v: "c", t: "Điều khiển các thiết bị ngoại vi của máy tính"},
-                {v: "d", t: "Xác định vị trí của một trang web"}
-            ],
-            ans: "d",
-            explain: "Địa chỉ IP (Internet Protocol address) là dãy số dùng để định danh và xác định vị trí của một thiết bị hoặc máy chủ web trên mạng internet."
-        },
-        {
-            id: 5, type: "radio",
-            q: "Bước khắc phục sự cố cơ bản cần thử khi âm thanh trên thiết bị không hoạt động là gì?",
-            opts: [
-                {v: "a", t: "Điều chỉnh độ sáng màn hình"},
-                {v: "b", t: "Thay thế thiết bị"},
-                {v: "c", t: "Cài đặt một card âm thanh mới"},
-                {v: "d", t: "Kiểm tra các điều khiển âm lượng"}
-            ],
-            ans: "d",
-            explain: "Bước khắc phục cơ bản và đầu tiên nhất cho lỗi âm thanh là kiểm tra xem âm lượng có bị tắt tiếng (mute) hoặc vặn quá nhỏ hay không."
-        },
-        {
-            id: 6, type: "radio",
-            q: "Một ví dụ về quyền công dân kỹ thuật số tích cực là gì?",
-            opts: [
-                {v: "a", t: "Sử dụng nền tảng trực tuyến để chia sẻ kiến thức và giúp đỡ người khác"},
-                {v: "b", t: "Không báo cáo nội dung không phù hợp được tìm thấy trực tuyến"},
-                {v: "c", t: "Chia sẻ thông tin cá nhân với người lạ trực tuyến"},
-                {v: "d", t: "Tạo tài khoản giả để lừa gạt người khác"}
-            ],
-            ans: "a",
-            explain: "Công dân kỹ thuật số tích cực là người sử dụng internet một cách an toàn, thông minh và có trách nhiệm, bao gồm việc chia sẻ kiến thức giúp đỡ cộng đồng."
-        },
-        {
-            id: 7, type: "radio",
-            q: "Ví dụ về nội dung kỹ thuật số có thể bị giới hạn độ tuổi là gì?",
-            opts: [
-                {v: "a", t: "Nội dung giáo dục được đăng trên trang web của trường"},
-                {v: "b", t: "Trò chơi điện tử bạo lực"},
-                {v: "c", t: "Công thức nấu ăn và hướng dẫn nấu ăn"},
-                {v: "d", t: "Phim hoạt hình trẻ em"}
-            ],
-            ans: "b",
-            explain: "Nội dung bạo lực, nhạy cảm (như game bạo lực, phim kinh dị) thường bị dán nhãn và giới hạn độ tuổi để bảo vệ trẻ em."
-        },
-        {
-            id: 8, type: "radio",
-            q: "Tầm quan trọng của cài đặt quyền riêng tư là gì?",
-            opts: [
-                {v: "a", t: "Để tăng khả năng hiển thị của bài viết hoặc tin nhắn trực tuyến"},
-                {v: "b", t: "Để chia sẻ thông tin cá nhân với công chúng"},
-                {v: "c", t: "Để bảo vệ thông tin cá nhân và kiểm soát những người nhìn thấy nó"},
-                {v: "d", t: "Để có được người theo dõi hoặc lượt thích"}
-            ],
-            ans: "c",
-            explain: "Cài đặt quyền riêng tư giúp bạn chủ động kiểm soát ai có thể xem thông tin, hình ảnh và hoạt động của bạn trên mạng xã hội."
-        },
-        {
-            id: 9, type: "radio",
-            q: "Làm cách nào bạn có thể bảo vệ quyền riêng tư của mình liên quan đến khả năng hiển thị bài đăng của bạn trực tuyến?",
-            opts: [
-                {v: "a", t: "Làm cho tất cả các bài viết của bạn có thể xem được công khai"},
-                {v: "b", t: "Xóa bài viết của bạn vài ngày một lần để đảm bảo sự riêng tư"},
-                {v: "c", t: "Điều chỉnh cài đặt quyền riêng tư để giới hạn người có thể xem bài đăng của bạn"},
-                {v: "d", t: "Sử dụng mật khẩu phức tạp cho tài khoản của bạn"}
-            ],
-            ans: "c",
-            explain: "Điều chỉnh cài đặt quyền riêng tư (chỉ bạn bè, bạn của bạn bè...) là cách hiệu quả nhất để giới hạn người xem bài đăng của bạn."
-        },
-        {
-            id: 10, type: "radio",
-            q: "Hacker mũ trắng là gì?",
-            opts: [
-                {v: "a", t: "Người mặc đồ trắng khi sử dụng máy tính"},
-                {v: "b", t: "Ai đó nhằm vào những người xấu trực tuyến"},
-                {v: "c", t: "Ai đó đội mũ trắng để che giấu danh tính"},
-                {v: "d", t: "Một người sử dụng các kỹ năng và kiến thức máy tính cho mục đích tốt"}
-            ],
-            ans: "d",
-            explain: "Hacker mũ trắng (White hat hacker) là những chuyên gia bảo mật sử dụng kỹ năng để tìm ra lỗ hổng hệ thống và giúp cải thiện an ninh mạng."
-        },
-        {
-            id: 11, type: "radio",
-            q: "Làm thế nào bạn có thể xác định xem thông tin trên một trang web có chính xác và đáng tin cậy hay không?",
-            opts: [
-                {v: "a", t: "Tìm kiếm các trích dẫn hoặc tài liệu tham khảo đến các nguồn đáng tin cậy khác"},
-                {v: "b", t: "Chia sẻ thông tin với bạn bè và hỏi họ nghĩ gì"},
-                {v: "c", t: "Mọi thứ trên internet đều là sự thật và có thể tin được"},
-                {v: "d", t: "Kiểm tra xem trang web có tên hấp dẫn và thiết kế đầy màu sắc hay không"}
-            ],
-            ans: "a",
-            explain: "Thông tin đáng tin cậy thường trích dẫn rõ nguồn gốc, có tác giả và có thể đối chiếu chéo (kiểm tra chéo) với các nguồn uy tín khác."
-        },
-        {
-            id: 12, type: "radio",
-            q: "Bạn tin tưởng tên miền nào nhất khi tìm kiếm thông tin cập nhật về du lịch nước ngoài?",
-            opts: [
-                {v: "a", t: ".gov"},
-                {v: "b", t: ".xyz"},
-                {v: "c", t: ".com"},
-                {v: "d", t: ".net"}
-            ],
-            ans: "a",
-            explain: "Tên miền .gov thuộc về các cơ quan chính phủ, cung cấp thông tin chính thức, quản lý nhà nước nên là nguồn đáng tin cậy nhất."
-        },
-        {
-            id: 13, type: "radio",
-            q: "Bạn có thể sử dụng phím tắt nào để hoàn tác nội dung cuối cùng bạn đã nhập trong tài liệu?",
-            opts: [
-                {v: "a", t: "Ctrl + C"},
-                {v: "b", t: "Ctrl + Z"},
-                {v: "c", t: "Ctrl + V"},
-                {v: "d", t: "Ctrl + X"}
-            ],
-            ans: "b",
-            explain: "Tổ hợp phím Ctrl + Z (Undo) được dùng để hoàn tác (lùi lại) thao tác vừa thực hiện."
-        },
-        {
-            id: 14, type: "radio",
-            q: "Mục đích của việc đưa các trích dẫn vào một bài nghiên cứu ở trường là gì?",
-            opts: [
-                {v: "a", t: "Để làm cho nhiệm vụ của bạn trông đẹp hơn"},
-                {v: "b", t: "Để ghi công cho các tác giả ban đầu và tránh đạo văn"},
-                {v: "c", t: "Để thể hiện kiến thức của bạn về nhiều nguồn"},
-                {v: "d", t: "Để thêm trang vào bài tập"}
-            ],
-            ans: "b",
-            explain: "Trích dẫn là cách ghi nhận công sức của người tạo ra thông tin gốc và đảm bảo bạn không vi phạm bản quyền (tránh đạo văn)."
-        },
-        {
-            id: 15, type: "radio",
-            q: "Bạn sẽ sử dụng ứng dụng nào để tạo và quản lý bảng tính (Spreadsheet)?",
-            opts: [
-                {v: "a", t: "Apple Pages"},
-                {v: "b", t: "Adobe Illustrator"},
-                {v: "c", t: "Google Sheets"},
-                {v: "d", t: "Microsoft PowerPoint"}
-            ],
-            ans: "c",
-            explain: "Google Sheets (tương tự Microsoft Excel) là phần mềm chuyên dụng để tạo, tính toán và quản lý dữ liệu bảng tính."
-        },
         {
             id: 16, type: "radio",
             q: "Định nghĩa của giao tiếp kỹ thuật số là gì?",
@@ -574,7 +394,7 @@
         const form = document.getElementById('quiz-form');
         let html = '';
         questions.forEach((q, index) => {
-            let label = q.id < 10 ? '0' + q.id : q.id;
+            let label = q.id;
             html += `<div class="question-card" id="card-${index}">
                 <div class="topic-col">Chủ đề ${label}</div>
                 <div class="content-col">
