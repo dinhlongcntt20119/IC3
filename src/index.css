@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kanit:ital,wght@1,800&display=swap');
+
+@theme {
+  --font-roboto: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-kanit: "Kanit", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-roboto);
+  background-color: #f0f4f8;
+  background-image: radial-gradient(#d1d9e6 1px, transparent 1px);
+  background-size: 30px 30px;
+}
