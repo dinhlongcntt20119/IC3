@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == "dinhlongcntt20119@gmail.com" ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidSubmission(data) {
+      return data.studentName is string && data.studentName.size() > 0 && data.studentName.size() <= 200 &&
+             data.studentClass is string && data.studentClass.size() > 0 && data.studentClass.size() <= 50 &&
+             data.grade is number && data.grade >= 3 && data.grade <= 5 &&
+             data.lessonTitle is string && data.lessonTitle.size() > 0 &&
+             data.score is number && data.totalQuestions is number &&
+             data.submittedAt == request.time;
+    }
+
+    // Submissions
+    match /submissions/{submissionId} {
+      // Students can create submissions
+      allow create: if isValidSubmission(request.resource.data);
+      
+      // Admins can read, update, delete
+      allow read, list, update, delete: if isAdmin();
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+  }
+}

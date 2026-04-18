@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "Submission": {
+      "title": "Student Submission",
+      "description": "Stores the results of a student's quiz session",
+      "type": "object",
+      "properties": {
+        "studentName": { "type": "string", "description": "Full name of the student" },
+        "studentClass": { "type": "string", "description": "Class identifier (e.g., 3A, 4B)" },
+        "grade": { "type": "number", "description": "Grade level (3, 4, or 5)" },
+        "lessonTitle": { "type": "string", "description": "Title of the lesson/quiz" },
+        "score": { "type": "number", "description": "Final score achieved" },
+        "totalQuestions": { "type": "number", "description": "Total number of questions in the quiz" },
+        "submittedAt": { "type": "string", "format": "date-time", "description": "Server timestamp of submission" },
+        "details": { "type": "object", "description": "Detailed answers for each question" }
+      },
+      "required": ["studentName", "studentClass", "grade", "lessonTitle", "score", "totalQuestions", "submittedAt"]
+    },
+    "Admin": {
+      "title": "Admin Configuration",
+      "description": "Stores information about authorized administrators",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "Email address of the admin" }
+      },
+      "required": ["email"]
+    }
+  },
+  "firestore": {
+    "/submissions/{submissionId}": {
+      "schema": "Submission",
+      "description": "Collection of all student quiz submissions"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Collection of authorized admin users"
+    }
+  }
+}
