@@ -275,59 +275,91 @@ export default function App() {
       </div>
 
       {/* MAIN CONTENT */}
-      <main className="flex-grow container mx-auto max-w-[1250px] my-6 px-5">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <main className="flex-grow container mx-auto max-w-[1400px] my-10 px-6">
+        <div className="flex flex-col gap-10">
           {filteredTopics.map((topic, idx) => (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              className="bg-white rounded-2xl shadow-md border border-[#e1e8ed] overflow-hidden flex flex-col"
+              transition={{ delay: idx * 0.15 }}
+              className="bg-white rounded-[2rem] shadow-xl border border-gray-200 overflow-hidden flex flex-col"
             >
-              <div className={`${topic.colorClass} p-5 text-white font-bold text-xl flex items-center gap-3`}>
-                {topic.icon}
-                {topic.title}
+              {/* TOPIC HEADER */}
+              <div className={`${topic.colorClass} p-8 text-white relative overflow-hidden`}>
+                <div className="relative z-10 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <div className="bg-white/20 p-4 rounded-2xl backdrop-blur-md">
+                      {topic.icon}
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-black tracking-tight">{topic.title}</h2>
+                      <p className="text-white/80 text-sm font-medium uppercase tracking-wider mt-1">Học phần tập trung lớp {studentInfo.grade}</p>
+                    </div>
+                  </div>
+                  <div className="hidden lg:block">
+                     <GraduationCap className="w-16 h-16 opacity-20 rotate-12" />
+                  </div>
+                </div>
+                {/* Visual decoration */}
+                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
               </div>
 
-              {/* HK1 */}
-              <div className="px-4 pt-4">
-                <div className="flex items-center gap-2 px-5 py-2 bg-[#f8f9fa] rounded-full font-bold text-sm text-[#444] border border-[#eee] w-fit">
-                  <Snowflake className="w-4 h-4 text-[#3498db]" /> HỌC KỲ I
-                </div>
-                <ul className="py-3 space-y-2">
-                  {topic.hk1.map((lesson, lIdx) => (
-                    <li key={lIdx}>
+              {/* SEMESTERS GRID */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-100 italic font-medium">
+                
+                {/* HK1 COLUMN */}
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3 px-6 py-2 bg-blue-50 rounded-full text-blue-700 border border-blue-100 shadow-sm not-italic font-bold">
+                      <Snowflake className="w-5 h-5" /> HỌC KỲ I
+                    </div>
+                    <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">{topic.hk1.length} Bài ôn</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {topic.hk1.map((lesson, lIdx) => (
                       <a 
+                        key={lIdx}
                         href={`${lesson.href}?name=${encodeURIComponent(studentInfo.name)}&class=${encodeURIComponent(studentInfo.class)}&grade=${studentInfo.grade}`} 
-                        className="flex items-center p-3 rounded-lg text-[#444] hover:bg-[#f0f7ff] hover:translate-x-2 transition-all border border-transparent hover:border-[#3498db] hover:text-[#0056b3] group"
+                        className="group flex flex-col p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg hover:shadow-blue-500/10 border border-transparent hover:border-blue-200 transition-all duration-300"
                       >
-                        <FileCode className="w-4 h-4 mr-3 opacity-70 group-hover:opacity-100" />
-                        <span className="text-sm font-medium">{lesson.title}</span>
+                        <div className="flex items-center justify-between mb-2">
+                          <FileCode className="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                          <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-blue-500 transition-all translate-x-0 group-hover:translate-x-1" />
+                        </div>
+                        <span className="text-[14px] leading-tight text-slate-700 font-bold group-hover:text-blue-700 transition-colors">{lesson.title}</span>
                       </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    ))}
+                  </div>
+                </div>
 
-              {/* HK2 */}
-              <div className="px-4 pb-4 flex-grow">
-                <div className="flex items-center gap-2 px-5 py-2 bg-[#f8f9fa] rounded-full font-bold text-sm text-[#444] border border-[#eee] w-fit">
-                  <Sun className="w-4 h-4 text-[#e74c3c]" /> HỌC KỲ II
-                </div>
-                <ul className="py-3 space-y-2">
-                  {topic.hk2.map((lesson, lIdx) => (
-                    <li key={lIdx}>
+                {/* HK2 COLUMN */}
+                <div className="p-8 bg-orange-50/20">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3 px-6 py-2 bg-orange-50 rounded-full text-orange-700 border border-orange-100 shadow-sm not-italic font-bold">
+                      <Sun className="w-5 h-5" /> HỌC KỲ II
+                    </div>
+                    <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">{topic.hk2.length} Bài ôn</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {topic.hk2.map((lesson, lIdx) => (
                       <a 
+                        key={lIdx}
                         href={`${lesson.href}?name=${encodeURIComponent(studentInfo.name)}&class=${encodeURIComponent(studentInfo.class)}&grade=${studentInfo.grade}`} 
-                        className="flex items-center p-3 rounded-lg text-[#444] hover:bg-[#f0f7ff] hover:translate-x-2 transition-all border border-transparent hover:border-[#3498db] hover:text-[#0056b3] group"
+                        className="group flex flex-col p-4 rounded-2xl bg-white border border-gray-100 hover:shadow-lg hover:shadow-orange-500/10 hover:border-orange-200 transition-all duration-300"
                       >
-                        <FlaskConical className="w-4 h-4 mr-3 opacity-70 group-hover:opacity-100" />
-                        <span className="text-sm font-medium">{lesson.title}</span>
+                        <div className="flex items-center justify-between mb-2">
+                          <FlaskConical className="w-5 h-5 text-gray-400 group-hover:text-orange-500 transition-colors" />
+                          <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-orange-500 transition-all translate-x-0 group-hover:translate-x-1" />
+                        </div>
+                        <span className="text-[14px] leading-tight text-slate-700 font-bold group-hover:text-orange-700 transition-colors">{lesson.title}</span>
                       </a>
-                    </li>
-                  ))}
-                </ul>
+                    ))}
+                  </div>
+                </div>
+
               </div>
             </motion.div>
           ))}

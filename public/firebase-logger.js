@@ -39,13 +39,34 @@ async function initLogger() {
                         const total = parseInt(scoreMatch[2]);
                         const lessonTitle = document.title || window.location.pathname;
 
-                        const details = {};
-                        document.querySelectorAll('#quiz-form input:checked').forEach(inp => {
-                            details[inp.name] = inp.value;
-                        });
-                        document.querySelectorAll('#quiz-form select').forEach(sel => {
-                            details[sel.name] = sel.value;
-                        });
+                        const details = [];
+                        if (window.questions && Array.isArray(window.questions)) {
+                            window.questions.forEach((q, i) => {
+                                const name = `q${i + 1}`;
+                                const selected = document.querySelector(`input[name="${name}"]:checked, select[name="${name}"]`);
+                                const val = selected ? selected.value : null;
+
+                                let studentAnswerText = "Chưa chọn";
+                                if (val) {
+                                    const option = q.opts.find(o => o.v === val);
+                                    studentAnswerText = option ? option.t : val;
+                                }
+
+                                details.push({
+                                    qText: q.q,
+                                    qNum: i + 1,
+                                    selected: val,
+                                    answerText: studentAnswerText,
+                                    correctAnswer: q.ans,
+                                    isCorrect: val === q.ans
+                                });
+                            });
+                        } else {
+                            // Fallback if questions array is not found
+                            document.querySelectorAll('#quiz-form input:checked').forEach(inp => {
+                                details.push({ qNum: inp.name, selected: inp.value });
+                            });
+                        }
 
                         try {
                             await addDoc(collection(db, "submissions"), {
@@ -55,7 +76,7 @@ async function initLogger() {
                                 lessonTitle,
                                 score,
                                 totalQuestions: total,
-                                details,
+                                quizDetails: details, // Renamed to avoid confusion with the old structure
                                 submittedAt: serverTimestamp()
                             });
                             console.log("Result saved to Firestore");

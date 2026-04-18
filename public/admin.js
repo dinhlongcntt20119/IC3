@@ -152,16 +152,56 @@ async function init() {
         modalStudentName.innerText = s.studentName;
         modalLessonTitle.innerText = `${s.lessonTitle.split('/').pop()} - Lớp ${s.studentClass} - Khối ${s.grade}`;
         
+        const scorePercent = Math.round(s.score / s.totalQuestions * 100);
+        const scoreColorClass = scorePercent >= 80 ? 'bg-green-50 border-green-100 text-green-800' : (scorePercent >= 50 ? 'bg-orange-50 border-orange-100 text-orange-800' : 'bg-red-50 border-red-100 text-red-800');
+
         let html = `
-            <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 mb-4">
-                <div class="text-sm font-bold text-blue-800 mb-1">Kết quả chung</div>
-                <div class="text-2xl font-black text-blue-900">${s.score} / ${s.totalQuestions} (${Math.round(s.score/s.totalQuestions*100)}%)</div>
+            <div class="${scoreColorClass} p-6 rounded-3xl border mb-6 flex justify-between items-center">
+                <div>
+                    <div class="text-xs font-bold uppercase tracking-widest opacity-60">Kết quả tổng quát</div>
+                    <div class="text-3xl font-black">${s.score} / ${s.totalQuestions} (${scorePercent}%)</div>
+                </div>
+                <div class="text-4xl">
+                    ${scorePercent >= 80 ? '🌟' : (scorePercent >= 50 ? '👍' : '📚')}
+                </div>
             </div>
-            <div class="space-y-2">
-                <div class="text-xs font-bold text-gray-400 uppercase tracking-widest">Câu trả lời đã chọn</div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-xs font-bold text-gray-400 uppercase tracking-widest">Chi tiết câu trả lời</div>
+                    <div class="text-[10px] text-gray-400 bg-gray-100 px-2 py-1 rounded">Sắp xếp theo thứ tự câu hỏi</div>
+                </div>
         `;
 
-        if (s.details && Object.keys(s.details).length > 0) {
+        if (s.quizDetails && Array.isArray(s.quizDetails)) {
+            s.quizDetails.forEach((item) => {
+                const isCorrect = item.isCorrect;
+                const statusColor = isCorrect ? 'border-green-200' : (item.selected ? 'border-red-200' : 'border-gray-200');
+                const statusIcon = isCorrect ? '✅' : (item.selected ? '❌' : '⚪');
+                
+                html += `
+                    <div class="bg-white p-4 rounded-2xl border ${statusColor} shadow-sm space-y-2">
+                        <div class="flex justify-between items-start gap-3">
+                            <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-lg shrink-0">CÂU ${item.qNum}</span>
+                            <p class="text-sm font-semibold text-slate-800 flex-grow">${item.qText || 'Đang cập nhật nội dung câu hỏi...'}</p>
+                            <span class="shrink-0">${statusIcon}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-50">
+                            <div>
+                                <div class="text-[10px] text-gray-400 uppercase font-bold">Học sinh chọn</div>
+                                <div class="text-sm font-bold ${isCorrect ? 'text-green-600' : 'text-slate-700'}">${item.answerText || item.selected || 'N/A'}</div>
+                            </div>
+                            ${!isCorrect ? `
+                            <div>
+                                <div class="text-[10px] text-gray-400 uppercase font-bold">Đáp án đúng</div>
+                                <div class="text-sm font-bold text-blue-600">${item.correctAnswer?.toUpperCase() || 'N/A'}</div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        } else if (s.details) {
+            // Legacy support
             html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">';
             Object.entries(s.details).forEach(([key, val]) => {
                 html += `
@@ -173,7 +213,7 @@ async function init() {
             });
             html += '</div>';
         } else {
-            html += '<p class="text-sm text-gray-400 italic">Không có dữ liệu chi tiết cho bài làm này.</p>';
+            html += '<p class="text-sm text-gray-400 italic text-center py-10">Không có dữ liệu chi tiết cho bài làm này.</p>';
         }
 
         html += '</div>';
