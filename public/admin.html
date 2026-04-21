@@ -150,15 +150,21 @@
 
         <!-- Detail Modal -->
         <div id="detail-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 md:p-4">
-            <div class="bg-white rounded-3xl md:rounded-[2.5rem] max-w-2xl w-full max-h-[95vh] md:max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border-t-8 border-yellow-400">
+            <div class="bg-white rounded-3xl md:rounded-[2.5rem] max-w-[794px] w-full max-h-[95vh] md:max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border-t-8 border-yellow-400">
                 <div class="p-5 md:p-7 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <div class="pr-8">
                         <h2 id="modal-student-name" class="text-lg md:text-2xl font-black text-slate-800 leading-tight">Chi tiết bài làm</h2>
                         <p id="modal-lesson-title" class="text-[10px] md:text-sm text-gray-500 font-medium mt-0.5 truncate max-w-[200px] md:max-w-md"></p>
                     </div>
-                    <button id="close-modal" class="absolute top-4 right-4 md:static text-gray-400 hover:text-slate-800 transition-all p-2 hover:bg-slate-100 rounded-full">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <button onclick="window.exportModalToPDF()" class="bg-blue-600 hover:bg-blue-700 text-white p-2 md:px-4 md:py-2 flex items-center gap-2 rounded-xl font-bold text-xs md:text-sm transition-colors">
+                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <span class="hidden md:inline">Xuất PDF</span>
+                        </button>
+                        <button id="close-modal" class="text-gray-400 hover:text-slate-800 transition-all p-2 hover:bg-slate-100 rounded-full ml-2">
+                            <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
                 </div>
                 <div id="modal-content" class="p-4 md:p-8 overflow-y-auto flex-grow space-y-4 md:space-y-6">
                     <!-- Details will be injected here -->
@@ -186,6 +192,7 @@
 
     <!-- Firebase SDKs & Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script type="module" src="/admin.js"></script>
 </body>
 </html>
