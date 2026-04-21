@@ -340,25 +340,174 @@ async function init() {
                 const statusIcon = item.isCorrect === true ? '✅' : (item.isCorrect === false && item.selected ? '❌' : '⚪');
                 const qText = item.qText || 'Nội dung câu hỏi (Dữ liệu cũ không lưu nội dung)';
                 
-                html += `
-                    <div class="bg-white p-4 rounded-2xl border ${statusColor} shadow-sm space-y-2">
-                        <div class="flex justify-between items-start gap-3">
-                            <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-lg shrink-0">CÂU ${String(item.qNum).replace('q','') }</span>
-                            <p class="text-sm font-semibold text-slate-800 flex-grow">${qText}</p>
-                            <span class="shrink-0">${statusIcon}</span>
+                if (item.questionData) {
+                    const q = item.questionData;
+                    const val = item.selected;
+
+                    let questionHtml = `
+                        <div class="mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-[11px] font-black px-2 py-1 rounded-md shrink-0 mr-2">CÂU ${String(item.qNum).replace('q','') }</span>
+                            <span class="text-sm font-semibold text-slate-800 break-words">${q.q}</span>
                         </div>
-                        <div class="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-50">
-                            <div>
-                                <div class="text-[10px] text-gray-400 uppercase font-bold">Học sinh chọn</div>
-                                <div class="text-sm font-bold ${isCorrect ? 'text-green-600' : 'text-slate-700'}">${item.answerText || item.selected || 'Chưa chọn/Dữ liệu rỗng'}</div>
+                    `;
+
+                    if (q.type === 'radio' || q.type === 'check') {
+                        questionHtml += `<div class="space-y-2">`;
+                        q.opts.forEach(opt => {
+                            let isStudentSelected = false;
+                            let isOptCorrect = false;
+
+                            if (q.type === 'radio') {
+                                isStudentSelected = (val === opt.v);
+                                isOptCorrect = (q.ans === opt.v);
+                            } else {
+                                isStudentSelected = Array.isArray(val) && val.includes(opt.v);
+                                isOptCorrect = Array.isArray(q.ans) && q.ans.includes(opt.v);
+                            }
+
+                            let optClass = "p-3 rounded-xl border-2 transition-all flex items-center gap-3 text-sm ";
+                            let icon = "<div class='w-5 h-5 rounded-full border-2 border-slate-300'></div>";
+
+                            if (q.type === 'check') {
+                                icon = "<div class='w-5 h-5 rounded border-2 border-slate-300'></div>";
+                            }
+
+                            if (isStudentSelected && isOptCorrect) {
+                                optClass += "bg-green-50 border-green-500 text-green-800 font-bold";
+                                icon = `<div class='w-5 h-5 rounded${q.type === 'check' ? '' : '-full'} bg-green-500 text-white flex items-center justify-center shrink-0'><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>`;
+                            } else if (isStudentSelected && !isOptCorrect) {
+                                optClass += "bg-red-50 border-red-500 text-red-800 font-bold";
+                                icon = `<div class='w-5 h-5 rounded${q.type === 'check' ? '' : '-full'} bg-red-500 text-white flex items-center justify-center shrink-0'><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg></div>`;
+                            } else if (!isStudentSelected && isOptCorrect) {
+                                optClass += "bg-white border-green-500 border-dashed text-green-700";
+                                icon = `<div class='w-5 h-5 rounded${q.type === 'check' ? '' : '-full'} border-2 border-green-500 shrink-0'></div>`;
+                            } else {
+                                optClass += "bg-white border-slate-200 text-slate-600";
+                            }
+
+                            questionHtml += `<div class="${optClass}">${icon} <span>${opt.t}</span></div>`;
+                        });
+                        questionHtml += `</div>`;
+                    } else if (q.type === 'match') {
+                        questionHtml += `
+                            <div class="overflow-x-auto rounded-xl border border-slate-200">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-slate-100 text-slate-600 border-b border-slate-200 text-[11px] uppercase font-bold">
+                                        <tr><th class="p-3 whitespace-nowrap">Định nghĩa / Mô tả</th><th class="p-3 whitespace-nowrap">Học sinh chọn</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 bg-white">
+                        `;
+                        q.rows.forEach((r, rIdx) => {
+                            let userVal = Array.isArray(val) ? val[rIdx] : null;
+                            let correctVal = r.a;
+                            let isRowCorrect = userVal === correctVal;
+
+                            let userText = userVal ? (q.opts.find(o => o.v === userVal)?.t || userVal) : "Chưa chọn";
+                            let correctText = q.opts.find(o => o.v === correctVal)?.t || correctVal;
+
+                            let bgClass = userVal ? (isRowCorrect ? 'bg-green-50' : 'bg-red-50') : '';
+                            let textClass = userVal ? (isRowCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold') : 'text-slate-400 italic';
+
+                            questionHtml += `
+                                <tr class="${bgClass}">
+                                    <td class="p-3 text-slate-700 w-1/2">${r.t}</td>
+                                    <td class="p-3 w-1/2 border-l border-slate-100">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="${textClass} flex items-start gap-2 text-xs">
+                                                <span class="shrink-0 mt-0.5">${userVal ? (isRowCorrect ? '✅' : '❌') : '⚪'}</span> <span>${userText}</span>
+                                            </div>
+                                            ${!isRowCorrect ? `<div class="text-[10px] text-blue-600 font-bold uppercase mt-1 pl-6">Đáp án: ${correctText}</div>` : ''}
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        questionHtml += `</tbody></table></div>`;
+                    } else if (q.type === 'table_tf') {
+                        questionHtml += `
+                            <div class="overflow-x-auto rounded-xl border border-slate-200">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-slate-100 text-slate-600 border-b border-slate-200 text-[11px] uppercase font-bold">
+                                        <tr>
+                                            <th class="p-3 whitespace-nowrap">Nội dung</th>
+                                            <th class="p-3 text-center whitespace-nowrap">${q.headers?.[0] || 'Có'}</th>
+                                            <th class="p-3 text-center whitespace-nowrap">${q.headers?.[1] || 'Không'}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 bg-white">
+                        `;
+                        q.rows.forEach((r, rIdx) => {
+                            let userVal = Array.isArray(val) ? val[rIdx] : null;
+                            let correctVal = r.a;
+
+                            let getIcon = (colVal) => {
+                                let isStudentSelected = userVal === colVal;
+                                let isOptCorrect = correctVal === colVal;
+                                
+                                if (isStudentSelected && isOptCorrect) {
+                                    return `<div class="mx-auto w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center shadow-sm"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>`;
+                                } else if (isStudentSelected && !isOptCorrect) {
+                                    return `<div class="mx-auto w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center shadow-sm"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg></div>`;
+                                } else if (!isStudentSelected && isOptCorrect) {
+                                    return `<div class="mx-auto w-4 h-4 rounded-full border-[3px] border-green-500 border-dotted opacity-60"></div>`;
+                                } else {
+                                    return `<div class="mx-auto w-4 h-4 rounded-full border-2 border-slate-300"></div>`;
+                                }
+                            };
+
+                            let isRowCorrect = userVal === correctVal;
+                            let bgClass = userVal ? (isRowCorrect ? 'bg-green-50/50' : 'bg-red-50/50') : '';
+
+                            questionHtml += `
+                                <tr class="${bgClass}">
+                                    <td class="p-3 text-slate-700 font-medium text-xs border-r border-slate-100">${r.t}</td>
+                                    <td class="p-2 align-middle border-r border-slate-100">${getIcon('yes')}</td>
+                                    <td class="p-2 align-middle">${getIcon('no')}</td>
+                                </tr>
+                            `;
+                        });
+                        questionHtml += `</tbody></table></div>`;
+                    }
+
+                    if (q.explain) {
+                        questionHtml += `
+                            <div class="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-900 flex gap-3">
+                                <span class="text-blue-500 mt-0.5 text-lg">💡</span>
+                                <div>
+                                    <div class="text-[10px] font-black text-blue-700 uppercase tracking-widest mb-1">Giải thích</div>
+                                    <div class="text-xs leading-relaxed opacity-90">${q.explain}</div>
+                                </div>
                             </div>
-                            <div class="${isCorrect ? 'hidden' : ''}">
-                                <div class="text-[10px] text-gray-400 uppercase font-bold">Đáp án đúng</div>
-                                <div class="text-sm font-bold text-blue-600">${item.correctAnswer?.toUpperCase() || '-'}</div>
+                        `;
+                    }
+
+                    html += `
+                        <div class="bg-white p-5 rounded-2xl border ${statusColor} shadow-sm">
+                            ${questionHtml}
+                            <div class="absolute right-4 top-4 opacity-50 text-xl">${statusIcon}</div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="bg-white p-4 rounded-2xl border ${statusColor} shadow-sm space-y-2 relative">
+                            <div class="flex justify-between items-start gap-3">
+                                <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-lg shrink-0">CÂU ${String(item.qNum).replace('q','') }</span>
+                                <p class="text-sm font-semibold text-slate-800 flex-grow">${qText}</p>
+                                <span class="shrink-0 absolute right-4 top-4">${statusIcon}</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-50">
+                                <div>
+                                    <div class="text-[10px] text-gray-400 uppercase font-bold">Học sinh chọn</div>
+                                    <div class="text-sm font-bold ${isCorrect ? 'text-green-600' : 'text-slate-700'}">${item.answerText || item.selected || 'Chưa chọn/Dữ liệu rỗng'}</div>
+                                </div>
+                                <div class="${isCorrect ? 'hidden' : ''}">
+                                    <div class="text-[10px] text-gray-400 uppercase font-bold">Đáp án đúng</div>
+                                    <div class="text-sm font-bold text-blue-600">${item.correctAnswer?.toUpperCase() || '-'}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             });
         } else if (s.details) {
             html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">';

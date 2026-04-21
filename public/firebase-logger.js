@@ -176,9 +176,11 @@ async function initLogger() {
                                     let subCorrects = 0;
                                     let ansTexts = [];
                                     let cAnsTexts = [];
+                                    let rawVals = [];
                                     q.rows.forEach((r, rIdx) => {
                                         const sel = document.querySelector(`select[name="q${i}_${rIdx}"]`);
                                         const userVal = sel ? sel.value : "";
+                                        rawVals.push(userVal);
                                         const correctVal = r.a;
                                         if (userVal === correctVal) subCorrects++;
                                         const uText = userVal ? (q.opts.find(o => o.v === userVal)?.t || userVal) : "Chưa chọn";
@@ -186,7 +188,7 @@ async function initLogger() {
                                         ansTexts.push(`[${r.t}]: ${uText}`);
                                         cAnsTexts.push(`[${r.t}]: ${cText}`);
                                     });
-                                    val = ansTexts;
+                                    val = rawVals;
                                     studentAnswerText = ansTexts.join(" | ");
                                     correctAnswerStr = cAnsTexts.join(" | ");
                                     isCorrect = subCorrects === q.rows.length;
@@ -194,15 +196,17 @@ async function initLogger() {
                                     let subCorrects = 0;
                                     let ansTexts = [];
                                     let cAnsTexts = [];
+                                    let rawVals = [];
                                     q.rows.forEach((r, rIdx) => {
                                         const checked = document.querySelector(`input[name="q${i}_${rIdx}"]:checked`);
                                         const userVal = checked ? checked.value : "";
+                                        rawVals.push(userVal);
                                         const correctVal = r.a;
                                         if (userVal === correctVal) subCorrects++;
                                         ansTexts.push(`[${r.t}]: ${userVal}`);
                                         cAnsTexts.push(`[${r.t}]: ${correctVal}`);
                                     });
-                                    val = ansTexts;
+                                    val = rawVals;
                                     studentAnswerText = ansTexts.join(" | ");
                                     correctAnswerStr = cAnsTexts.join(" | ");
                                     isCorrect = subCorrects === q.rows.length;
@@ -221,7 +225,8 @@ async function initLogger() {
                                     selected: val,
                                     answerText: studentAnswerText,
                                     correctAnswer: correctAnswerStr,
-                                    isCorrect: isCorrect
+                                    isCorrect: isCorrect,
+                                    questionData: q
                                 });
                             });
                         } else {
