@@ -621,47 +621,73 @@ async function init() {
         const lessonTitle = document.getElementById('modal-lesson-title').innerText;
         const contentInner = document.getElementById('modal-content').innerHTML;
 
-        const printContainer = document.createElement('div');
-        printContainer.style.position = 'absolute';
-        printContainer.style.left = '-9999px';
-        printContainer.style.top = '0';
-        printContainer.style.width = '794px'; // A4 width at 96 DPI
-        printContainer.style.backgroundColor = 'white';
-        printContainer.style.padding = '20px';
-        
-        printContainer.innerHTML = `
-            <div style="font-family: 'Inter', sans-serif;">
-                <h1 style="font-size: 28px; font-weight: 900; margin-bottom: 5px; color: #1e293b;">${studentName}</h1>
-                <p style="font-size: 14px; font-weight: 500; color: #64748b; margin-bottom: 30px;">${lessonTitle}</p>
-                ${contentInner}
-            </div>
-        `;
-        document.body.appendChild(printContainer);
-
         const btn = event.currentTarget;
         const oldText = btn.innerHTML;
         btn.innerHTML = `<span class="hidden md:inline">Đang tạo PDF...</span>`;
         btn.disabled = true;
 
-        const opt = {
-            margin:       [10, 10, 10, 10],
-            filename:     `${studentName} - ${lessonTitle.split(' - ')[0]}.pdf`.replace(/[/\\?%*:|"<>]/g, '-'),
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true, windowWidth: 794 },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'absolute';
+        iframe.style.width = '794px';
+        iframe.style.height = '1123px'; // A4
+        iframe.style.left = '-9999px';
+        document.body.appendChild(iframe);
 
-        html2pdf().set(opt).from(printContainer).save().then(() => {
-            document.body.removeChild(printContainer);
-            btn.innerHTML = oldText;
-            btn.disabled = false;
-        }).catch(err => {
-            console.error(err);
-            document.body.removeChild(printContainer);
-            btn.innerHTML = oldText;
-            btn.disabled = false;
-            alert("Lỗi khi xuất PDF");
-        });
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        
+        const safeStudentName = studentName.replace(/["\\/]/g, '').trim();
+        const safeLessonTitle = lessonTitle.split(' - ')[0].replace(/["\\/]/g, '').trim();
+
+        // Write content into standard iframe without Tailwind to avoid oklch stylesheet parsing errors
+        doc.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <script>
+                    function generatePDF() {
+                        var script = document.createElement('script');
+                        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                        script.onload = function() {
+                            const opt = {
+                                margin: [10, 10, 10, 10],
+                                filename: "${safeStudentName} - ${safeLessonTitle}.pdf",
+                                image: { type: 'jpeg', quality: 0.98 },
+                                html2canvas: { scale: 2, useCORS: true },
+                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                            };
+                            html2pdf().set(opt).from(document.body).save().then(() => {
+                                window.parent.postMessage('pdf-done', '*');
+                            }).catch(err => {
+                                console.error(err);
+                                window.parent.postMessage('pdf-error', '*');
+                            });
+                        };
+                        document.head.appendChild(script);
+                    }
+                </script>
+            </head>
+            <body onload="generatePDF()" style="background: white; padding: 20px; font-family: 'Inter', sans-serif; color: #000; margin: 0;">
+                <h1 style="font-size: 28px; font-weight: 900; margin-bottom: 5px; color: #1e293b;">${studentName}</h1>
+                <p style="font-size: 14px; font-weight: 500; color: #64748b; margin-bottom: 30px;">${lessonTitle}</p>
+        `);
+        doc.write(contentInner);
+        doc.write(`
+            </body>
+            </html>
+        `);
+        doc.close();
+
+        const messageHandler = function(e) {
+            if (e.data === 'pdf-done' || e.data === 'pdf-error') {
+                window.removeEventListener('message', messageHandler);
+                document.body.removeChild(iframe);
+                btn.innerHTML = oldText;
+                btn.disabled = false;
+                if(e.data === 'pdf-error') alert("Lỗi khi xuất PDF");
+            }
+        };
+        window.addEventListener('message', messageHandler);
     };
 
     let pendingDeleteMode = null; // 'single' | 'multiple'
