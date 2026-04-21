@@ -314,7 +314,10 @@ async function init() {
         modalLessonTitle.innerText = `${s.lessonTitle.split('/').pop()} - Lớp ${s.studentClass} - Khối ${s.grade}`;
         
         const scorePercent = Math.round(s.score / s.totalQuestions * 100);
-        const scoreColorClass = scorePercent >= 80 ? 'bg-green-50 border-green-100 text-green-800' : (scorePercent >= 50 ? 'bg-orange-50 border-orange-100 text-orange-800' : 'bg-red-50 border-red-100 text-red-800');
+        let scoreCardBg = '', scoreCardBorder = '', scoreCardText = '';
+        if (scorePercent >= 80) { scoreCardBg = '#d4edda'; scoreCardBorder = '#c3e6cb'; scoreCardText = '#155724'; }
+        else if (scorePercent >= 50) { scoreCardBg = '#fff3cd'; scoreCardBorder = '#ffeeba'; scoreCardText = '#856404'; }
+        else { scoreCardBg = '#f8d7da'; scoreCardBorder = '#f5c6cb'; scoreCardText = '#721c24'; }
 
         let html = `
             <style>
@@ -355,16 +358,16 @@ async function init() {
                     .admin-q-table td:not(:first-child) { width: 25%; }
                 }
             </style>
-            <div class="${scoreColorClass} p-6 rounded-3xl border mb-6 flex justify-between items-center">
+            <div style="background-color: ${scoreCardBg}; border: 1px solid ${scoreCardBorder}; color: ${scoreCardText}; padding: 24px; border-radius: 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <div class="text-xs font-bold uppercase tracking-widest opacity-60">Kết quả tổng quát</div>
-                    <div class="text-3xl font-black">${s.score} / ${s.totalQuestions} (${scorePercent}%)</div>
+                    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">Kết quả tổng quát</div>
+                    <div style="font-size: 1.875rem; font-weight: 900;">${s.score} / ${s.totalQuestions} (${scorePercent}%)</div>
                 </div>
-                <div class="text-4xl">
+                <div style="font-size: 2.25rem;">
                     ${scorePercent >= 80 ? '🌟' : (scorePercent >= 50 ? '👍' : '📚')}
                 </div>
             </div>
-            <div class="space-y-4">
+            <div style="display: flex; flex-direction: column; gap: 16px;">
         `;
 
         if (s.quizDetails && Array.isArray(s.quizDetails)) {
@@ -594,18 +597,18 @@ async function init() {
                 }
             });
         } else if (s.details) {
-            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">';
+            html += '<div style="display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 8px;">';
             Object.entries(s.details).forEach(([key, val]) => {
                 html += `
-                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 flex justify-between items-center">
-                        <span class="text-xs font-bold text-gray-500">${key.toUpperCase()}</span>
-                        <span class="text-sm font-bold text-slate-700">${val.toUpperCase()}</span>
+                    <div style="background-color: #f9fafb; padding: 12px; border-radius: 12px; border: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.75rem; font-weight: 700; color: #6b7280; text-transform: uppercase;">${key.toUpperCase()}</span>
+                        <span style="font-size: 0.875rem; font-weight: 700; color: #334155;">${val.toUpperCase()}</span>
                     </div>
                 `;
             });
             html += '</div>';
         } else {
-            html += '<p class="text-sm text-gray-400 italic text-center py-10">Không có dữ liệu chi tiết cho bài làm này.</p>';
+            html += '<p style="font-size: 0.875rem; color: #9ca3af; font-style: italic; text-align: center; padding: 40px 0;">Không có dữ liệu chi tiết cho bài làm này.</p>';
         }
 
         html += '</div>';
