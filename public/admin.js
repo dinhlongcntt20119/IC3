@@ -241,7 +241,9 @@ async function init() {
         document.getElementById('next-page').disabled = currentPage === totalPages || totalPages === 0;
 
         if (paginatedData.length === 0) {
-            resultsBody.innerHTML = '<tr><td colspan="7" class="p-10 text-center text-gray-400">Không tìm thấy kết quả nào.</td></tr>';
+            resultsBody.innerHTML = '<tr><td colspan="8" class="p-10 text-center text-gray-400">Không tìm thấy kết quả nào.</td></tr>';
+            document.getElementById('select-all-checkbox').checked = false;
+            window.updateDeleteBtnState();
             return;
         }
 
@@ -252,7 +254,10 @@ async function init() {
 
             return `
                 <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4 font-semibold text-slate-800">
+                    <td class="px-4 py-4 text-center">
+                        <input type="checkbox" value="${s.id}" class="student-checkbox w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer" onchange="window.updateDeleteBtnState()">
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-slate-800">
                         <button onclick="window.viewDetails('${s.id}')" class="hover:text-blue-600 hover:underline transition-all text-left">
                             ${s.studentName}
                         </button>
@@ -274,6 +279,10 @@ async function init() {
                 </tr>
             `;
         }).join('');
+
+        const selectAllCb = document.getElementById('select-all-checkbox');
+        if (selectAllCb) selectAllCb.checked = false;
+        if (window.updateDeleteBtnState) window.updateDeleteBtnState();
     }
 
     searchInput.oninput = () => {
@@ -326,28 +335,27 @@ async function init() {
 
         if (s.quizDetails && Array.isArray(s.quizDetails)) {
             s.quizDetails.forEach((item) => {
-                const isCorrect = item.isCorrect;
-                const statusColor = isCorrect ? 'border-green-200' : (item.selected ? 'border-red-200' : 'border-gray-200');
-                const statusIcon = isCorrect ? '✅' : (item.selected ? '❌' : '⚪');
+                const isCorrect = item.isCorrect !== undefined ? item.isCorrect : false;
+                const statusColor = item.isCorrect === true ? 'border-green-200' : (item.isCorrect === false && item.selected ? 'border-red-200' : 'border-gray-200');
+                const statusIcon = item.isCorrect === true ? '✅' : (item.isCorrect === false && item.selected ? '❌' : '⚪');
+                const qText = item.qText || 'Nội dung câu hỏi (Dữ liệu cũ không lưu nội dung)';
                 
                 html += `
                     <div class="bg-white p-4 rounded-2xl border ${statusColor} shadow-sm space-y-2">
                         <div class="flex justify-between items-start gap-3">
-                            <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-lg shrink-0">CÂU ${item.qNum}</span>
-                            <p class="text-sm font-semibold text-slate-800 flex-grow">${item.qText || 'Đang cập nhật nội dung câu hỏi...'}</p>
+                            <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-lg shrink-0">CÂU ${String(item.qNum).replace('q','') }</span>
+                            <p class="text-sm font-semibold text-slate-800 flex-grow">${qText}</p>
                             <span class="shrink-0">${statusIcon}</span>
                         </div>
                         <div class="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-50">
                             <div>
                                 <div class="text-[10px] text-gray-400 uppercase font-bold">Học sinh chọn</div>
-                                <div class="text-sm font-bold ${isCorrect ? 'text-green-600' : 'text-slate-700'}">${item.answerText || item.selected || 'N/A'}</div>
+                                <div class="text-sm font-bold ${isCorrect ? 'text-green-600' : 'text-slate-700'}">${item.answerText || item.selected || 'Chưa chọn/Dữ liệu rỗng'}</div>
                             </div>
-                            ${!isCorrect ? `
-                            <div>
+                            <div class="${isCorrect ? 'hidden' : ''}">
                                 <div class="text-[10px] text-gray-400 uppercase font-bold">Đáp án đúng</div>
-                                <div class="text-sm font-bold text-blue-600">${item.correctAnswer?.toUpperCase() || 'N/A'}</div>
+                                <div class="text-sm font-bold text-blue-600">${item.correctAnswer?.toUpperCase() || '-'}</div>
                             </div>
-                            ` : ''}
                         </div>
                     </div>
                 `;
@@ -372,19 +380,154 @@ async function init() {
         document.getElementById('detail-modal').classList.remove('hidden');
     };
 
+    let pendingDeleteMode = null; // 'single' | 'multiple'
+    let pendingDeleteId = null;
+    let pendingDeleteBtn = null;
+
     window.deleteSubmission = async (id) => {
-        if (confirm("Chắc chắn muốn xóa kết quả này?")) {
-            const btn = event?.currentTarget;
-            if (btn) btn.disabled = true;
+        pendingDeleteMode = 'single';
+        pendingDeleteId = id;
+        pendingDeleteBtn = event?.currentTarget;
+        
+        document.getElementById('confirm-message').innerText = "Bạn có chắc chắn muốn xóa bài làm này không?";
+        document.getElementById('confirm-delete-btn').innerHTML = "Đồng ý";
+        document.getElementById('confirm-delete-btn').disabled = false;
+        document.getElementById('confirm-modal').classList.remove('hidden');
+    };
+
+    window.toggleSelectAll = (source) => {
+        const checkboxes = document.querySelectorAll('.student-checkbox');
+        checkboxes.forEach(cb => cb.checked = source.checked);
+        window.updateDeleteBtnState();
+    };
+
+    window.updateDeleteBtnState = () => {
+        const checkboxes = document.querySelectorAll('.student-checkbox:checked');
+        const btn = document.getElementById('delete-selected-btn');
+        const countSpan = document.getElementById('selected-count');
+        const selectAllCb = document.getElementById('select-all-checkbox');
+        
+        const allCheckboxes = document.querySelectorAll('.student-checkbox');
+
+        if (checkboxes.length > 0) {
+            btn.classList.remove('hidden');
+            countSpan.innerText = checkboxes.length;
+        } else {
+            btn.classList.add('hidden');
+        }
+
+        if (allCheckboxes.length > 0 && checkboxes.length === allCheckboxes.length) {
+            selectAllCb.checked = true;
+        } else {
+            selectAllCb.checked = false;
+        }
+    };
+
+    window.deleteSelectedSubmissions = async () => {
+        const checkboxes = document.querySelectorAll('.student-checkbox:checked');
+        if (checkboxes.length === 0) return;
+
+        pendingDeleteMode = 'multiple';
+        
+        document.getElementById('confirm-message').innerText = `Bạn có chắc chắn muốn xóa ${checkboxes.length} kết quả đã chọn?`;
+        document.getElementById('confirm-delete-btn').innerHTML = "Đồng ý";
+        document.getElementById('confirm-delete-btn').disabled = false;
+        document.getElementById('confirm-modal').classList.remove('hidden');
+    };
+
+    window.cancelDelete = () => {
+        document.getElementById('confirm-modal').classList.add('hidden');
+        pendingDeleteMode = null;
+        pendingDeleteId = null;
+        pendingDeleteBtn = null;
+    };
+
+    window.confirmDelete = async () => {
+        const confirmBtn = document.getElementById('confirm-delete-btn');
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = "Đang xóa...";
+
+        if (pendingDeleteMode === 'single') {
+            if (pendingDeleteBtn) pendingDeleteBtn.disabled = true;
             try {
-                await deleteDoc(doc(db, "submissions", id));
-                // onSnapshot will handle the UI update automatically
+                await deleteDoc(doc(db, "submissions", pendingDeleteId));
             } catch (err) {
                 console.error("Delete failed:", err);
                 alert(`Xóa thất bại. Lỗi: ${err.message}`);
-                if (btn) btn.disabled = false;
+                if (pendingDeleteBtn) pendingDeleteBtn.disabled = false;
             }
+        } else if (pendingDeleteMode === 'multiple') {
+            const checkboxes = document.querySelectorAll('.student-checkbox:checked');
+            const mainBtn = document.getElementById('delete-selected-btn');
+            mainBtn.disabled = true;
+            
+            let successCount = 0;
+            let failCount = 0;
+
+            for (let i = 0; i < checkboxes.length; i++) {
+                const id = checkboxes[i].value;
+                try {
+                    await deleteDoc(doc(db, "submissions", id));
+                    successCount++;
+                } catch (err) {
+                    console.error("Delete failed for ID " + id, err);
+                    failCount++;
+                }
+            }
+
+            if (failCount > 0) {
+                alert(`Đã xóa thành công ${successCount} mục. Có ${failCount} mục bị lỗi.`);
+            }
+
+            // Reset UI
+            mainBtn.innerHTML = `Xóa mục đã chọn (<span id="selected-count">0</span>)`;
+            mainBtn.disabled = false;
+            document.getElementById('select-all-checkbox').checked = false;
+            window.updateDeleteBtnState();
         }
+
+        window.cancelDelete();
+    };
+
+    window.exportToExcel = () => {
+        let filtered = submissions.filter(s => 
+            s.grade == selectedGrade && 
+            s.studentClass === selectedClass
+        );
+
+        const searchVal = searchInput.value.toLowerCase();
+        if (searchVal) {
+            filtered = filtered.filter(s => 
+                s.studentName.toLowerCase().includes(searchVal) || 
+                s.lessonTitle.toLowerCase().includes(searchVal)
+            );
+        }
+
+        if (filtered.length === 0) {
+            alert("Không có dữ liệu để xuất.");
+            return;
+        }
+
+        const dataForExcel = filtered.map(s => {
+            const dateStr = s.submittedAt?.toDate ? s.submittedAt.toDate().toLocaleString('vi-VN') : 'N/A';
+            const percent = Math.round((s.score / s.totalQuestions) * 100);
+            return {
+                "Học sinh": s.studentName,
+                "Lớp": s.studentClass,
+                "Khối": s.grade,
+                "Bài thi": s.lessonTitle.split('/').pop(),
+                "Điểm số": `${s.score}/${s.totalQuestions}`,
+                "Phần trăm (%)": percent,
+                "Thời gian nộp": dateStr
+            };
+        });
+
+        const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "DanhSachHocSinh");
+        
+        const fileName = `KetQua_Khoi${selectedGrade}_Lop${selectedClass}_${new Date().getTime()}.xlsx`;
+        XLSX.writeFile(workbook, fileName);
     };
 }
 
