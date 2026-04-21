@@ -325,6 +325,8 @@ async function init() {
                     background: white; border: 1px solid #dee2e6; border-radius: 10px; 
                     margin-bottom: 20px; overflow: hidden; text-align: left;
                     box-shadow: 0 3px 6px rgba(0,0,0,0.05); padding: 25px;
+                    page-break-inside: avoid;
+                    break-inside: avoid;
                 }
                 .admin-q-topic-badge {
                     background-color: #28a745; color: white; padding: 4px 10px; border-radius: 4px; 
@@ -654,7 +656,8 @@ async function init() {
                                 filename: "${safeStudentName} - ${safeLessonTitle}.pdf",
                                 image: { type: 'jpeg', quality: 0.98 },
                                 html2canvas: { scale: 2, useCORS: true },
-                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                                pagebreak: { mode: ['css', 'avoid-all'], avoid: ['.admin-q-card', '.admin-q-explain', 'img'] }
                             };
                             html2pdf().set(opt).from(document.body).save().then(() => {
                                 window.parent.postMessage('pdf-done', '*');
