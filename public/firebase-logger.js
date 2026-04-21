@@ -1,6 +1,104 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { initializeFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+function showCustomAlert(message, isSuccess = true) {
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.zIndex = '999999';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s ease';
+    overlay.style.backdropFilter = 'blur(3px)';
+
+    const modal = document.createElement('div');
+    modal.style.backgroundColor = '#ffffff';
+    modal.style.padding = '30px 20px';
+    modal.style.borderRadius = '24px';
+    modal.style.boxShadow = '0 15px 40px rgba(0,0,0,0.2)';
+    modal.style.textAlign = 'center';
+    modal.style.maxWidth = '360px';
+    modal.style.width = '90%';
+    modal.style.transform = 'scale(0.8) translateY(20px)';
+    modal.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    modal.style.fontFamily = "'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+
+    const iconContainer = document.createElement('div');
+    iconContainer.style.marginBottom = '20px';
+    iconContainer.style.display = 'flex';
+    iconContainer.style.justifyContent = 'center';
+    
+    if (isSuccess) {
+        iconContainer.innerHTML = '<div style="width: 80px; height: 80px; background-color: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 10px rgba(40,167,69,0.1);"><svg style="width: 45px; height: 45px; color: #28a745;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M5 13l4 4L19 7"></path></svg></div>';
+    } else {
+        iconContainer.innerHTML = '<div style="width: 80px; height: 80px; background-color: #fce4e4; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 10px rgba(220,53,69,0.1);"><svg style="width: 45px; height: 45px; color: #dc3545;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M6 18L18 6M6 6l12 12"></path></svg></div>';
+    }
+
+    const title = document.createElement('h3');
+    title.innerText = isSuccess ? 'Nộp bài thành công!' : 'Có lỗi xảy ra!';
+    title.style.margin = '0 0 12px 0';
+    title.style.color = '#2c3e50';
+    title.style.fontSize = '24px';
+    title.style.fontWeight = '800';
+
+    const msg = document.createElement('p');
+    msg.innerText = message;
+    msg.style.margin = '0 0 28px 0';
+    msg.style.color = '#64748b';
+    msg.style.fontSize = '15px';
+    msg.style.lineHeight = '1.6';
+
+    const btn = document.createElement('button');
+    btn.innerText = isSuccess ? 'Đóng và Xem kết quả' : 'Đóng';
+    btn.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.padding = '14px 35px';
+    btn.style.borderRadius = '30px';
+    btn.style.fontSize = '16px';
+    btn.style.fontWeight = 'bold';
+    btn.style.cursor = 'pointer';
+    btn.style.boxShadow = isSuccess ? '0 4px 15px rgba(40,167,69,0.3)' : '0 4px 15px rgba(220,53,69,0.3)';
+    btn.style.transition = 'all 0.2s';
+    
+    btn.onmouseover = () => {
+        btn.style.transform = 'translateY(-2px)';
+        btn.style.boxShadow = isSuccess ? '0 6px 20px rgba(40,167,69,0.4)' : '0 6px 20px rgba(220,53,69,0.4)';
+    };
+    btn.onmouseout = () => {
+        btn.style.transform = 'none';
+        btn.style.boxShadow = isSuccess ? '0 4px 15px rgba(40,167,69,0.3)' : '0 4px 15px rgba(220,53,69,0.3)';
+    };
+
+    btn.onclick = () => {
+        overlay.style.opacity = '0';
+        modal.style.transform = 'scale(0.8) translateY(20px)';
+        setTimeout(() => {
+            if (document.body.contains(overlay)) {
+                document.body.removeChild(overlay);
+            }
+        }, 300);
+    };
+
+    modal.appendChild(iconContainer);
+    modal.appendChild(title);
+    modal.appendChild(msg);
+    modal.appendChild(btn);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+        modal.style.transform = 'scale(1) translateY(0)';
+    });
+}
+
 async function initLogger() {
     try {
         const configRes = await fetch('/firebase-applet-config.json');
@@ -145,10 +243,10 @@ async function initLogger() {
                                 submittedAt: serverTimestamp()
                             });
                             console.log("Result saved to Firestore");
-                            alert("Bài làm đã được lưu thành công!");
+                            showCustomAlert("Bài làm của bạn đã được ghi nhận trên hệ thống. Giỏi lắm!", true);
                         } catch (e) {
                             console.error("Error saving to Firestore:", e);
-                            alert("Có lỗi khi lưu bài làm. Vui lòng báo cho giáo viên.");
+                            showCustomAlert("Có lỗi khi lưu kết quả. Vui lòng thử lại hoặc báo cho giáo viên.", false);
                         }
                     }
                 }
