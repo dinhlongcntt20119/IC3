@@ -115,8 +115,19 @@ const topics: Topic[] = [
 export default function App() {
   const [studentInfo, setStudentInfo] = useState<{name: string, class: string, grade: number} | null>(null);
   const [nameInput, setNameInput] = useState('');
-  const [classInput, setClassInput] = useState('');
   const [gradeInput, setGradeInput] = useState<number>(3);
+  const [classInput, setClassInput] = useState('3D');
+
+  const classOptionsMap: Record<number, string[]> = {
+    3: ['3D'],
+    4: ['4A', '4B', '4C', '4D', '4E', '4F', '4G', '4H'],
+    5: ['5D']
+  };
+
+  const handleGradeChange = (g: number) => {
+    setGradeInput(g);
+    setClassInput(classOptionsMap[g][0]);
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem('ic3_student_info');
@@ -163,6 +174,53 @@ export default function App() {
           <p className="text-center text-gray-500 mb-8 text-sm italic">Vui lòng điền thông tin để bắt đầu ôn luyện</p>
           
           <form onSubmit={handleLogin} className="space-y-4">
+            
+            {/* 1. KHỐI LỚP (GRADE) */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
+                <ChevronRight className="w-4 h-4 text-[#1e3c72]" /> Khối lớp
+              </label>
+              <div className="grid grid-cols-3 gap-3">
+                {[3, 4, 5].map((g) => (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => handleGradeChange(g)}
+                    className={`py-3 rounded-xl font-bold transition-all border-2 ${
+                      gradeInput === g 
+                      ? "bg-[#3498db] border-[#3498db] text-white shadow-md scale-105" 
+                      : "bg-white border-[#eee] text-gray-500 hover:border-[#3498db]"
+                    }`}
+                  >
+                    Khối {g}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 2. LỚP (CLASS) - Menu Lựa Chọn */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
+                <GraduationCap className="w-4 h-4 text-[#1e3c72]" /> Lớp
+              </label>
+              <div className="relative">
+                <select 
+                  required
+                  value={classInput}
+                  onChange={(e) => setClassInput(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border-2 border-[#eee] focus:border-[#3498db] outline-none transition-all appearance-none bg-white cursor-pointer"
+                >
+                  {classOptionsMap[gradeInput].map(c => (
+                    <option key={c} value={c}>Lớp {c}</option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">
+                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. HỌ TÊN (NAME) */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
                 <Users className="w-4 h-4 text-[#1e3c72]" /> Họ tên học sinh
@@ -175,42 +233,6 @@ export default function App() {
                 className="w-full px-4 py-3 rounded-xl border-2 border-[#eee] focus:border-[#3498db] outline-none transition-all placeholder:text-gray-300"
                 placeholder="Ví dụ: Nguyễn Văn A"
               />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-[#1e3c72]" /> Lớp
-              </label>
-              <input 
-                type="text" 
-                required
-                value={classInput}
-                onChange={(e) => setClassInput(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-[#eee] focus:border-[#3498db] outline-none transition-all placeholder:text-gray-300"
-                placeholder="Ví dụ: 3A"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4 text-[#1e3c72]" /> Khối lớp
-              </label>
-              <div className="grid grid-cols-3 gap-3">
-                {[3, 4, 5].map((g) => (
-                  <button
-                    key={g}
-                    type="button"
-                    onClick={() => setGradeInput(g)}
-                    className={`py-3 rounded-xl font-bold transition-all border-2 ${
-                      gradeInput === g 
-                      ? "bg-[#3498db] border-[#3498db] text-white shadow-md scale-105" 
-                      : "bg-white border-[#eee] text-gray-500 hover:border-[#3498db]"
-                    }`}
-                  >
-                    Khối {g}
-                  </button>
-                ))}
-              </div>
             </div>
             
             <button 
@@ -235,12 +257,12 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-[#f0f2f5]">
       {/* HEADER */}
       <header className="bg-linear-to-br from-[#1e3c72] to-[#2a5298] text-white py-6 px-[5%] flex flex-col md:flex-row justify-between items-center shadow-lg border-b-6 border-[#ffcc00]">
-        <div className="flex items-center font-kanit italic font-extrabold tracking-tighter select-none">
+        <div className="flex items-center font-kanit italic font-extrabold tracking-tighter select-none scale-75 md:scale-100 origin-center md:origin-left">
           <h1 className="flex items-center">
-            <span className="text-[3rem] text-[#4CAF50] [text-shadow:1px_1px_0_#fff,-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff]">I</span>
-            <span className="text-[3rem] text-[#4CAF50] [text-shadow:1px_1px_0_#fff,-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff] mr-1">C</span>
-            <span className="text-[3.3rem] text-white mr-2">3</span>
-            <span className="text-[2.5rem] text-[#333] tracking-normal not-italic">spark</span>
+            <span className="text-[2.5rem] md:text-[3rem] text-[#4CAF50] [text-shadow:1px_1px_0_#fff,-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff]">I</span>
+            <span className="text-[2.5rem] md:text-[3rem] text-[#4CAF50] [text-shadow:1px_1px_0_#fff,-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff] mr-1">C</span>
+            <span className="text-[2.8rem] md:text-[3.3rem] text-white mr-2">3</span>
+            <span className="text-[2rem] md:text-[2.5rem] text-[#333] tracking-normal not-italic">spark</span>
           </h1>
         </div>
         
@@ -262,43 +284,43 @@ export default function App() {
       </header>
 
       {/* STUDENT WELCOME BANNER */}
-      <div className="bg-white border-b border-[#ddd] py-4 px-5">
-        <div className="container mx-auto max-w-[1250px] flex items-center gap-3">
-          <div className="bg-[#1e3c72] text-white p-2 rounded-lg">
-             <GraduationCap className="w-6 h-6" />
+      <div className="bg-white border-b border-[#ddd] py-4 px-4 md:px-5">
+        <div className="container mx-auto max-w-[1400px] flex items-center gap-3">
+          <div className="bg-[#1e3c72] text-white p-2 md:p-3 rounded-xl shadow-sm">
+             <GraduationCap className="w-5 h-5 md:w-6 md:h-6" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-[#1e3c72]">CHƯƠNG TRÌNH ÔN LUYỆN KHỐI {studentInfo.grade}</h2>
-            <p className="text-xs text-gray-500">Hệ thống tổng hợp bài thi IC3 Spark Level {studentInfo.grade - 2}</p>
+            <h2 className="text-lg md:text-xl font-black text-[#1e3c72] leading-tight">CHƯƠNG TRÌNH ÔN LUYỆN KHỐI {studentInfo.grade}</h2>
+            <p className="text-[10px] md:text-xs text-gray-500 font-medium">Hệ thống bài thi IC3 Spark Level {studentInfo.grade - 2}</p>
           </div>
         </div>
       </div>
 
       {/* MAIN CONTENT */}
-      <main className="flex-grow container mx-auto max-w-[1400px] my-10 px-6">
-        <div className="flex flex-col gap-10">
+      <main className="flex-grow container mx-auto max-w-[1400px] my-6 md:my-10 px-4 md:px-6">
+        <div className="flex flex-col gap-6 md:gap-10">
           {filteredTopics.map((topic, idx) => (
             <motion.div 
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.15 }}
-              className="bg-white rounded-[2rem] shadow-xl border border-gray-200 overflow-hidden flex flex-col"
+              className="bg-white rounded-3xl md:rounded-[2rem] shadow-xl border border-gray-200 overflow-hidden flex flex-col"
             >
               {/* TOPIC HEADER */}
-              <div className={`${topic.colorClass} p-8 text-white relative overflow-hidden`}>
+              <div className={`${topic.colorClass} p-6 md:p-8 text-white relative overflow-hidden`}>
                 <div className="relative z-10 flex items-center justify-between">
-                  <div className="flex items-center gap-5">
-                    <div className="bg-white/20 p-4 rounded-2xl backdrop-blur-md">
+                  <div className="flex items-center gap-4 md:gap-5">
+                    <div className="bg-white/20 p-3 md:p-4 rounded-xl md:rounded-2xl backdrop-blur-md">
                       {topic.icon}
                     </div>
                     <div>
-                      <h2 className="text-3xl font-black tracking-tight">{topic.title}</h2>
-                      <p className="text-white/80 text-sm font-medium uppercase tracking-wider mt-1">Học phần tập trung lớp {studentInfo.grade}</p>
+                      <h2 className="text-xl md:text-3xl font-black tracking-tight leading-tight">{topic.title}</h2>
+                      <p className="text-white/80 text-[10px] md:text-sm font-medium uppercase tracking-wider mt-1">Lớp {studentInfo.grade} - Trọng tâm ôn luyện</p>
                     </div>
                   </div>
-                  <div className="hidden lg:block">
-                     <GraduationCap className="w-16 h-16 opacity-20 rotate-12" />
+                  <div className="hidden sm:block">
+                     <GraduationCap className="w-12 h-12 md:w-16 md:h-16 opacity-20 rotate-12" />
                   </div>
                 </div>
                 {/* Visual decoration */}
@@ -306,15 +328,15 @@ export default function App() {
               </div>
 
               {/* SEMESTERS GRID */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-100 italic font-medium">
+              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100 italic font-medium">
                 
                 {/* HK1 COLUMN */}
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3 px-6 py-2 bg-blue-50 rounded-full text-blue-700 border border-blue-100 shadow-sm not-italic font-bold">
-                      <Snowflake className="w-5 h-5" /> HỌC KỲ I
+                <div className="p-6 md:p-8">
+                  <div className="flex items-center justify-between mb-4 md:mb-6">
+                    <div className="flex items-center gap-2 md:gap-3 px-4 md:px-6 py-1.5 md:py-2 bg-blue-50 rounded-full text-blue-700 border border-blue-100 shadow-sm not-italic font-bold text-xs md:text-sm">
+                      <Snowflake className="w-4 h-4 md:w-5 md:h-5" /> HỌC KỲ I
                     </div>
-                    <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">{topic.hk1.length} Bài ôn</span>
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{topic.hk1.length} Bài ôn</span>
                   </div>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -322,25 +344,25 @@ export default function App() {
                       <a 
                         key={lIdx}
                         href={`${lesson.href}?name=${encodeURIComponent(studentInfo.name)}&class=${encodeURIComponent(studentInfo.class)}&grade=${studentInfo.grade}`} 
-                        className="group flex flex-col p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg hover:shadow-blue-500/10 border border-transparent hover:border-blue-200 transition-all duration-300"
+                        className="group flex flex-col p-4 rounded-xl md:rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg hover:shadow-blue-500/10 border border-transparent hover:border-blue-200 transition-all duration-300"
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <FileCode className="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                          <FileCode className="w-4 h-4 md:w-5 md:h-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
                           <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-blue-500 transition-all translate-x-0 group-hover:translate-x-1" />
                         </div>
-                        <span className="text-[14px] leading-tight text-slate-700 font-bold group-hover:text-blue-700 transition-colors">{lesson.title}</span>
+                        <span className="text-[13px] md:text-[14px] leading-tight text-slate-700 font-bold group-hover:text-blue-700 transition-colors">{lesson.title}</span>
                       </a>
                     ))}
                   </div>
                 </div>
 
                 {/* HK2 COLUMN */}
-                <div className="p-8 bg-orange-50/20">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3 px-6 py-2 bg-orange-50 rounded-full text-orange-700 border border-orange-100 shadow-sm not-italic font-bold">
-                      <Sun className="w-5 h-5" /> HỌC KỲ II
+                <div className="p-6 md:p-8 bg-orange-50/10 md:bg-orange-50/20">
+                  <div className="flex items-center justify-between mb-4 md:mb-6">
+                    <div className="flex items-center gap-2 md:gap-3 px-4 md:px-6 py-1.5 md:py-2 bg-orange-50 rounded-full text-orange-700 border border-orange-100 shadow-sm not-italic font-bold text-xs md:text-sm">
+                      <Sun className="w-4 h-4 md:w-5 md:h-5" /> HỌC KỲ II
                     </div>
-                    <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">{topic.hk2.length} Bài ôn</span>
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{topic.hk2.length} Bài ôn</span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -348,13 +370,13 @@ export default function App() {
                       <a 
                         key={lIdx}
                         href={`${lesson.href}?name=${encodeURIComponent(studentInfo.name)}&class=${encodeURIComponent(studentInfo.class)}&grade=${studentInfo.grade}`} 
-                        className="group flex flex-col p-4 rounded-2xl bg-white border border-gray-100 hover:shadow-lg hover:shadow-orange-500/10 hover:border-orange-200 transition-all duration-300"
+                        className="group flex flex-col p-4 rounded-xl md:rounded-2xl bg-white border border-gray-100 hover:shadow-lg hover:shadow-orange-500/10 hover:border-orange-200 transition-all duration-300"
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <FlaskConical className="w-5 h-5 text-gray-400 group-hover:text-orange-500 transition-colors" />
+                          <FlaskConical className="w-4 h-4 md:w-5 md:h-5 text-gray-400 group-hover:text-orange-500 transition-colors" />
                           <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-orange-500 transition-all translate-x-0 group-hover:translate-x-1" />
                         </div>
-                        <span className="text-[14px] leading-tight text-slate-700 font-bold group-hover:text-orange-700 transition-colors">{lesson.title}</span>
+                        <span className="text-[13px] md:text-[14px] leading-tight text-slate-700 font-bold group-hover:text-orange-700 transition-colors">{lesson.title}</span>
                       </a>
                     ))}
                   </div>

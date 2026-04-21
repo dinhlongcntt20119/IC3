@@ -1,11 +1,18 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { initializeFirestore, collection, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const ADMIN_EMAIL = "dinhlongcntt20119@gmail.com";
 
 let db, auth;
 let submissions = [];
+
+// Navigation State
+let currentView = 'grade'; // 'grade' | 'class' | 'student'
+let selectedGrade = null;
+let selectedClass = null;
+let currentPage = 1;
+const itemsPerPage = 20;
 
 async function init() {
     const configRes = await fetch('/firebase-applet-config.json');
@@ -13,7 +20,9 @@ async function init() {
     
     const app = initializeApp(firebaseConfig);
     auth = getAuth(app);
-    db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+    db = initializeFirestore(app, {
+        experimentalForceLongPolling: true
+    }, firebaseConfig.firestoreDatabaseId);
 
     const provider = new GoogleAuthProvider();
 
@@ -23,28 +32,15 @@ async function init() {
     const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const adminEmailEl = document.getElementById('admin-email');
-    const resultsBody = document.getElementById('results-body');
     
-    const totalSubEl = document.getElementById('total-submissions');
-    const uniqueStudentsEl = document.getElementById('unique-students');
-    const totalClassesEl = document.getElementById('total-classes');
-    const avgScoreEl = document.getElementById('avg-score');
-
-    const gradeFilter = document.getElementById('grade-filter');
-    const classFilter = document.getElementById('class-filter');
     const searchInput = document.getElementById('search-input');
-
     const detailModal = document.getElementById('detail-modal');
     const closeModal = document.getElementById('close-modal');
-    const modalStudentName = document.getElementById('modal-student-name');
-    const modalLessonTitle = document.getElementById('modal-lesson-title');
-    const modalContent = document.getElementById('modal-content');
 
     loginBtn.onclick = () => signInWithPopup(auth, provider);
     logoutBtn.onclick = () => signOut(auth);
     closeModal.onclick = () => detailModal.classList.add('hidden');
     
-    // Close on background click
     detailModal.onclick = (e) => {
         if (e.target === detailModal) detailModal.classList.add('hidden');
     };
@@ -70,52 +66,186 @@ async function init() {
         const q = query(collection(db, "submissions"), orderBy("submittedAt", "desc"));
         onSnapshot(q, (snapshot) => {
             submissions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            updateClassFilter();
-            render();
+            updateStats();
+            renderCurrentView();
         });
     }
 
-    function updateClassFilter() {
-        const classes = [...new Set(submissions.map(s => s.studentClass))].sort();
-        const currentSelection = classFilter.value;
-        classFilter.innerHTML = '<option value="all">Tất cả Lớp</option>';
-        classes.forEach(c => {
-            const opt = document.createElement('option');
-            opt.value = c;
-            opt.innerText = `Lớp ${c}`;
-            classFilter.appendChild(opt);
-        });
-        classFilter.value = currentSelection;
-    }
-
-    function render() {
-        const gradeVal = gradeFilter.value;
-        const classVal = classFilter.value;
-        const searchVal = searchInput.value.toLowerCase();
-
-        const filtered = submissions.filter(s => {
-            const matchGrade = gradeVal === 'all' || s.grade.toString() === gradeVal;
-            const matchClass = classVal === 'all' || s.studentClass === classVal;
-            const matchSearch = s.studentName.toLowerCase().includes(searchVal);
-            return matchGrade && matchClass && matchSearch;
-        });
-
-        // Update Stats
-        totalSubEl.innerText = submissions.length;
-        uniqueStudentsEl.innerText = new Set(submissions.map(s => s.studentName)).size;
-        totalClassesEl.innerText = new Set(submissions.map(s => s.studentClass)).size;
+    function updateStats() {
+        document.getElementById('total-submissions').innerText = submissions.length;
+        document.getElementById('unique-students').innerText = new Set(submissions.map(s => s.studentName)).size;
+        document.getElementById('total-classes').innerText = new Set(submissions.map(s => s.studentClass)).size;
         
         const avg = submissions.length > 0 
             ? Math.round(submissions.reduce((a, b) => a + (b.score / b.totalQuestions), 0) / submissions.length * 100) 
             : 0;
-        avgScoreEl.innerText = `${avg}%`;
+        document.getElementById('avg-score').innerText = `${avg}%`;
+    }
 
-        if (filtered.length === 0) {
-            resultsBody.innerHTML = '<tr><td colspan="6" class="p-10 text-center text-gray-400">Không tìm thấy kết quả nào.</td></tr>';
+    // Breadcrumb and View Switching logic
+    document.getElementById('bc-home').onclick = () => {
+        if(currentView !== 'grade') {
+            currentView = 'grade';
+            selectedGrade = null;
+            selectedClass = null;
+            renderCurrentView();
+        }
+    };
+
+    document.getElementById('bc-grade').onclick = () => {
+        if(currentView === 'student') {
+            currentView = 'class';
+            selectedClass = null;
+            renderCurrentView();
+        }
+    };
+
+    window.selectGrade = (grade) => {
+        selectedGrade = grade;
+        currentView = 'class';
+        renderCurrentView();
+    };
+
+    window.selectClass = (cls) => {
+        selectedClass = cls;
+        currentView = 'student';
+        currentPage = 1;
+        renderCurrentView();
+    };
+
+    function updateBreadcrumbs() {
+        const breadcrumbs = document.getElementById('breadcrumbs');
+        const bcSep1 = document.getElementById('bc-sep-1');
+        const bcGrade = document.getElementById('bc-grade');
+        const bcSep2 = document.getElementById('bc-sep-2');
+        const bcClass = document.getElementById('bc-class');
+
+        if (currentView === 'grade') {
+            breadcrumbs.classList.add('hidden');
+        } else if (currentView === 'class') {
+            breadcrumbs.classList.remove('hidden');
+            bcSep1.classList.remove('hidden');
+            bcGrade.classList.remove('hidden');
+            bcGrade.innerText = `Khối ${selectedGrade}`;
+            bcGrade.classList.add('text-slate-800');
+            bcGrade.disabled = true;
+            bcSep2.classList.add('hidden');
+            bcClass.classList.add('hidden');
+        } else if (currentView === 'student') {
+            breadcrumbs.classList.remove('hidden');
+            bcSep1.classList.remove('hidden');
+            bcGrade.classList.remove('hidden');
+            bcGrade.innerText = `Khối ${selectedGrade}`;
+            bcGrade.classList.remove('text-slate-800');
+            bcGrade.disabled = false;
+            bcSep2.classList.remove('hidden');
+            bcClass.classList.remove('hidden');
+            bcClass.innerText = `Lớp ${selectedClass}`;
+        }
+    }
+
+    function renderCurrentView() {
+        updateBreadcrumbs();
+        
+        document.getElementById('grade-view').classList.add('hidden');
+        document.getElementById('class-view').classList.add('hidden');
+        document.getElementById('student-view').classList.add('hidden');
+
+        if (currentView === 'grade') {
+            document.getElementById('grade-view').classList.remove('hidden');
+            renderGradeView();
+        } else if (currentView === 'class') {
+            document.getElementById('class-view').classList.remove('hidden');
+            renderClassView();
+        } else if (currentView === 'student') {
+            document.getElementById('student-view').classList.remove('hidden');
+            renderStudentView();
+        }
+    }
+
+    function renderGradeView() {
+        const gradeView = document.getElementById('grade-view');
+        const grades = [3, 4, 5];
+        
+        gradeView.innerHTML = grades.map(g => {
+            const count = new Set(submissions.filter(s => s.grade == g).map(s => s.studentName)).size;
+            const subCount = submissions.filter(s => s.grade == g).length;
+            
+            return `
+                <button onclick="window.selectGrade(${g})" 
+                    class="bg-[#0388e5] text-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:bg-[#0277cc] transition-all transform hover:-translate-y-1 flex flex-col items-center justify-center group border border-[#026cbb]">
+                    <svg class="w-12 h-12 mb-4 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <h3 class="text-2xl font-black mb-1">Khối ${g}</h3>
+                    <p class="text-sm font-medium opacity-80">${count} học sinh (${subCount} bài)</p>
+                </button>
+            `;
+        }).join('');
+    }
+
+    function renderClassView() {
+        const classGrid = document.getElementById('class-grid');
+        // Get unique classes for this grade that have submissions
+        // Wait, what if there are no submissions yet for some classes? We might want to construct the list manually based on standard classes (4A->4H) or based on existing facts.
+        // Let's rely on data that actually exists, but sort it logically.
+        let classes = [...new Set(submissions.filter(s => s.grade == selectedGrade).map(s => s.studentClass))].sort();
+        
+        if (classes.length === 0) {
+            classGrid.innerHTML = '<div class="w-full text-center py-10 text-gray-400 italic">Chưa có dữ liệu lớp học cho khối này.</div>';
             return;
         }
 
-        resultsBody.innerHTML = filtered.map(s => {
+        classGrid.innerHTML = classes.map(c => {
+            const count = new Set(submissions.filter(s => s.grade == selectedGrade && s.studentClass === c).map(s => s.studentName)).size;
+            
+            return `
+                <button onclick="window.selectClass('${c}')" 
+                    class="bg-white border-2 border-[#1565C0] text-[#1565C0] rounded-2xl py-6 px-10 flex flex-col items-center justify-center hover:bg-[#1565C0] hover:text-white transition-all shadow-sm hover:shadow-md md:w-auto w-[calc(50%-0.5rem)]">
+                    <span class="text-2xl font-black mb-1">${c}</span>
+                    <span class="text-sm font-medium text-inherit opacity-80">${count} học sinh</span>
+                </button>
+            `;
+        }).join('');
+    }
+
+    function renderStudentView() {
+        const resultsBody = document.getElementById('results-body');
+        const searchVal = searchInput.value.toLowerCase();
+        document.getElementById('table-title').innerText = `Danh sách học sinh - Lớp ${selectedClass}`;
+
+        let filtered = submissions.filter(s => 
+            s.grade == selectedGrade && 
+            s.studentClass === selectedClass
+        );
+
+        if (searchVal) {
+            filtered = filtered.filter(s => 
+                s.studentName.toLowerCase().includes(searchVal) || 
+                s.lessonTitle.toLowerCase().includes(searchVal)
+            );
+        }
+
+        // Pagination
+        const totalItems = filtered.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        
+        const startIdx = (currentPage - 1) * itemsPerPage;
+        const endIdx = startIdx + itemsPerPage;
+        const paginatedData = filtered.slice(startIdx, endIdx);
+
+        // Update Pagination UI
+        document.getElementById('page-info').innerText = `Hiển thị ${totalItems > 0 ? startIdx + 1 : 0}-${Math.min(endIdx, totalItems)} trên ${totalItems}`;
+        document.getElementById('prev-page').disabled = currentPage === 1;
+        document.getElementById('next-page').disabled = currentPage === totalPages || totalPages === 0;
+
+        if (paginatedData.length === 0) {
+            resultsBody.innerHTML = '<tr><td colspan="7" class="p-10 text-center text-gray-400">Không tìm thấy kết quả nào.</td></tr>';
+            return;
+        }
+
+        resultsBody.innerHTML = paginatedData.map(s => {
             const date = s.submittedAt?.toDate ? s.submittedAt.toDate().toLocaleString('vi-VN') : 'Đang xử lý...';
             const percent = Math.round((s.score / s.totalQuestions) * 100);
             const scoreColor = percent >= 80 ? 'text-green-600' : (percent >= 50 ? 'text-orange-500' : 'text-red-500');
@@ -127,11 +257,12 @@ async function init() {
                             ${s.studentName}
                         </button>
                     </td>
-                    <td class="px-6 py-4 text-sm text-gray-500">Lớp ${s.studentClass} (Khối ${s.grade})</td>
+                    <td class="px-6 py-4 text-sm text-gray-500 font-bold">${s.studentClass}</td>
                     <td class="px-6 py-4 text-sm font-medium text-slate-600">${s.lessonTitle.split('/').pop()}</td>
+                    <td class="px-6 py-4 text-center text-sm">${s.grade}</td>
                     <td class="px-6 py-4 text-center">
                         <span class="px-3 py-1 rounded-full bg-gray-100 font-bold text-sm ${scoreColor}">
-                            ${s.score}/${s.totalQuestions} (${percent}%)
+                            ${s.score}/${s.totalQuestions}
                         </span>
                     </td>
                     <td class="px-6 py-4 text-xs text-gray-400 font-mono">${date}</td>
@@ -145,10 +276,31 @@ async function init() {
         }).join('');
     }
 
+    searchInput.oninput = () => {
+        currentPage = 1;
+        renderStudentView();
+    };
+
+    document.getElementById('prev-page').onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderStudentView();
+        }
+    };
+
+    document.getElementById('next-page').onclick = () => {
+        currentPage++;
+        renderStudentView();
+    };
+
+    // Keep existing modal and delete logic
     window.viewDetails = (id) => {
         const s = submissions.find(x => x.id === id);
         if (!s) return;
-
+        const modalStudentName = document.getElementById('modal-student-name');
+        const modalLessonTitle = document.getElementById('modal-lesson-title');
+        const modalContent = document.getElementById('modal-content');
+        
         modalStudentName.innerText = s.studentName;
         modalLessonTitle.innerText = `${s.lessonTitle.split('/').pop()} - Lớp ${s.studentClass} - Khối ${s.grade}`;
         
@@ -201,7 +353,6 @@ async function init() {
                 `;
             });
         } else if (s.details) {
-            // Legacy support
             html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">';
             Object.entries(s.details).forEach(([key, val]) => {
                 html += `
@@ -217,24 +368,25 @@ async function init() {
         }
 
         html += '</div>';
-        modalContent.innerHTML = html;
-        detailModal.classList.remove('hidden');
+        document.getElementById('modal-content').innerHTML = html;
+        document.getElementById('detail-modal').classList.remove('hidden');
     };
 
     window.deleteSubmission = async (id) => {
         if (confirm("Chắc chắn muốn xóa kết quả này?")) {
+            const btn = event?.currentTarget;
+            if (btn) btn.disabled = true;
             try {
                 await deleteDoc(doc(db, "submissions", id));
+                // onSnapshot will handle the UI update automatically
             } catch (err) {
                 console.error("Delete failed:", err);
-                alert("Xóa thất bại. Kiểm tra quyền truy cập.");
+                alert(`Xóa thất bại. Lỗi: ${err.message}`);
+                if (btn) btn.disabled = false;
             }
         }
     };
-
-    gradeFilter.onchange = render;
-    classFilter.onchange = render;
-    searchInput.oninput = render;
 }
 
 init();
+

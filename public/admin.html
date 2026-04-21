@@ -47,86 +47,110 @@
                 </div>
             </header>
 
-            <main class="p-6 max-w-7xl mx-auto">
-                <div class="mb-8">
-                    <h1 class="text-2xl font-bold text-slate-800">Bảng điều khiển học tập</h1>
-                    <p class="text-sm text-gray-500">Quản lý kết quả thi của học sinh lớp 3, 4, 5</p>
+            <main class="p-4 md:p-6 max-w-7xl mx-auto">
+                <div class="mb-6 md:mb-8 text-center md:text-left">
+                    <h1 class="text-xl md:text-2xl font-black text-slate-800 uppercase tracking-tight">Bảng điều khiểu học tập</h1>
+                    <p class="text-[10px] md:text-sm text-gray-500 font-medium">Quản lý và xem kết quả ôn tập IC3 Spark</p>
                 </div>
 
                 <!-- Stats Summary -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest mb-1">Tổng bài thi</p>
-                        <h3 id="total-submissions" class="text-3xl font-bold text-slate-800">0</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
+                    <div class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <p class="text-[9px] md:text-xs text-gray-400 uppercase font-black tracking-widest mb-1">Tổng bài thi</p>
+                        <h3 id="total-submissions" class="text-xl md:text-3xl font-black text-slate-800">0</h3>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest mb-1">Học sinh</p>
-                        <h3 id="unique-students" class="text-3xl font-bold text-green-600">0</h3>
+                    <div class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <p class="text-[9px] md:text-xs text-gray-400 uppercase font-black tracking-widest mb-1">Học sinh</p>
+                        <h3 id="unique-students" class="text-xl md:text-3xl font-black text-green-600">0</h3>
                     </div>
-                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest mb-1">Lớp học</p>
-                        <h3 id="total-classes" class="text-3xl font-bold text-blue-600">0</h3>
+                     <div class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <p class="text-[9px] md:text-xs text-gray-400 uppercase font-black tracking-widest mb-1">Lớp học</p>
+                        <h3 id="total-classes" class="text-xl md:text-3xl font-black text-blue-600">0</h3>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest mb-1">Điểm TB</p>
-                        <h3 id="avg-score" class="text-3xl font-bold text-purple-600">0%</h3>
+                    <div class="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <p class="text-[9px] md:text-xs text-gray-400 uppercase font-black tracking-widest mb-1">Điểm TB</p>
+                        <h3 id="avg-score" class="text-xl md:text-3xl font-black text-purple-600">0%</h3>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="p-6 border-b border-gray-100 bg-gray-50 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div class="flex gap-2">
-                             <select id="grade-filter" class="px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-                                 <option value="all">Tất cả Khối</option>
-                                 <option value="3">Khối 3</option>
-                                 <option value="4">Khối 4</option>
-                                 <option value="5">Khối 5</option>
-                             </select>
-                             <select id="class-filter" class="px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-                                 <option value="all">Tất cả Lớp</option>
-                             </select>
+                <!-- Navigation Breadcrumbs -->
+                <div id="breadcrumbs" class="hidden mb-4 text-sm font-bold text-slate-500 flex items-center gap-2">
+                    <button id="bc-home" class="hover:text-blue-600 transition-colors">Tất cả</button>
+                    <span id="bc-sep-1" class="hidden">/</span>
+                    <button id="bc-grade" class="hidden hover:text-blue-600 transition-colors">Khối</button>
+                    <span id="bc-sep-2" class="hidden">/</span>
+                    <span id="bc-class" class="hidden text-slate-800">Lớp</span>
+                </div>
+
+                <!-- View 1: Grade Selection -->
+                <div id="grade-view" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <!-- Cards will be populated by JS -->
+                </div>
+
+                <!-- View 2: Class Selection -->
+                <div id="class-view" class="hidden mb-8">
+                    <div id="class-grid" class="flex flex-wrap gap-4">
+                        <!-- Cards will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- View 3: Student Table -->
+                <div id="student-view" class="hidden bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 md:p-6 border-b border-gray-100 bg-gray-50 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div class="text-sm font-bold text-slate-700" id="table-title">
+                            Danh sách học sinh
                         </div>
-                        <div class="relative w-full md:w-auto">
-                            <input type="text" id="search-input" placeholder="Tìm tên học sinh..." class="w-full md:w-80 pl-10 pr-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-                            <span class="absolute left-3 top-2.5 opacity-30">🔍</span>
+                        <div class="relative w-full xl:w-96">
+                            <input type="text" id="search-input" placeholder="Tìm tên học sinh, tên bài thi..." class="w-full pl-10 pr-4 py-2 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-blue-500 text-xs md:text-sm font-medium">
+                            <span class="absolute left-3 top-2.5 opacity-30 text-xs md:text-sm">🔍</span>
                         </div>
                     </div>
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
+                    <div class="overflow-x-auto scrollbar-hide">
+                        <table class="w-full text-left border-collapse min-w-[800px]">
                             <thead>
-                                <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase font-bold">
+                                <tr class="border-b border-gray-100 text-[10px] md:text-xs text-gray-400 uppercase font-black tracking-widest bg-gray-50/50">
                                     <th class="px-6 py-4">Học sinh</th>
                                     <th class="px-6 py-4">Lớp</th>
                                     <th class="px-6 py-4">Bài thi</th>
+                                    <th class="px-6 py-4 text-center">Khối</th>
                                     <th class="px-6 py-4 text-center">Điểm số</th>
                                     <th class="px-6 py-4">Thời gian nộp</th>
                                     <th class="px-6 py-4 text-right">Thao tác</th>
                                 </tr>
                             </thead>
-                            <tbody id="results-body">
+                            <tbody id="results-body" class="divide-y divide-gray-50">
                                 <!-- Results will be injected here -->
-                                <tr><td colspan="6" class="p-10 text-center text-gray-400">Đang tải dữ liệu...</td></tr>
+                                <tr><td colspan="7" class="p-10 text-center text-gray-400">Đang tải dữ liệu...</td></tr>
                             </tbody>
                         </table>
+                    </div>
+                    
+                    <!-- Pagination Controls -->
+                    <div class="p-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center text-sm text-gray-500">
+                        <span id="page-info">Hiển thị 0-0 trên 0</span>
+                        <div class="flex gap-2">
+                            <button id="prev-page" class="px-3 py-1 bg-white border border-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-50">Trang trước</button>
+                            <button id="next-page" class="px-3 py-1 bg-white border border-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-50">Trang sau</button>
+                        </div>
                     </div>
                 </div>
             </main>
         </div>
 
         <!-- Detail Modal -->
-        <div id="detail-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
-                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                    <div>
-                        <h2 id="modal-student-name" class="text-xl font-bold text-slate-800">Chi tiết bài làm</h2>
-                        <p id="modal-lesson-title" class="text-sm text-gray-500"></p>
+        <div id="detail-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 md:p-4">
+            <div class="bg-white rounded-3xl md:rounded-[2.5rem] max-w-2xl w-full max-h-[95vh] md:max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border-t-8 border-yellow-400">
+                <div class="p-5 md:p-7 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                    <div class="pr-8">
+                        <h2 id="modal-student-name" class="text-lg md:text-2xl font-black text-slate-800 leading-tight">Chi tiết bài làm</h2>
+                        <p id="modal-lesson-title" class="text-[10px] md:text-sm text-gray-500 font-medium mt-0.5 truncate max-w-[200px] md:max-w-md"></p>
                     </div>
-                    <button id="close-modal" class="text-gray-400 hover:text-gray-600 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <button id="close-modal" class="absolute top-4 right-4 md:static text-gray-400 hover:text-slate-800 transition-all p-2 hover:bg-slate-100 rounded-full">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
-                <div id="modal-content" class="p-6 overflow-y-auto flex-grow space-y-4">
+                <div id="modal-content" class="p-4 md:p-8 overflow-y-auto flex-grow space-y-4 md:space-y-6">
                     <!-- Details will be injected here -->
                 </div>
             </div>

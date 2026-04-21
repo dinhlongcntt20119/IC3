@@ -1,12 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { initializeFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 async function initLogger() {
     try {
         const configRes = await fetch('/firebase-applet-config.json');
         const firebaseConfig = await configRes.json();
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+        const db = initializeFirestore(app, {
+            experimentalForceLongPolling: true
+        }, firebaseConfig.firestoreDatabaseId);
 
         console.log("Firebase Logger Initialized");
 
